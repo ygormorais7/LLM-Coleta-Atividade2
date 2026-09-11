@@ -1,0 +1,202 @@
+{
+  "base": "https://repositorio.unifesp.br",
+  "verificado_em": "2026-09-10T19:36:46.498505+00:00",
+  "robots_txt": "https://repositorio.unifesp.br/robots.txt",
+  "robots_conteudo": "# The URL to the DSpace sitemaps\n# XML sitemap is listed first as it is preferred by most search engines\nSitemap: https://localhost:4000/sitemap_index.xml\nSitemap: https://localhost:4000/sitemap_index.html\n\n##########################\n# Default Access Group\n# (NOTE: blank lines are not allowable in a group record)\n##########################\nUser-agent: *\nCrawl-delay: 15 \n\nUser-agent: *\n# Disable access to Discovery search and filters; admin pages; processes; submission; workspace; workflow & profile page\nDisallow: /search\nDisallow: /admin/*\nDisallow: /processes\nDisallow: /submit\nDisallow: /workspaceitems\nDisallow: /profile\nDisallow: /workflowitems\n# Crawlers should be able to access entity pages, but not the facet search links present on entity pages\nDisallow: /entities/*?f\n\n# Optionally uncomment the following line ONLY if sitemaps are working\n# and you have verified that your site is being indexed correctly.\n# Disallow: /browse/*\n#\n# If you have configured DSpace (Solr-based) Statistics to be publicly\n# accessible, then you may not want this content to be indexed\n# Disallow: /statistics\n#\n# You also may wish to disallow access to the following paths, in order\n# to stop web spiders from accessing user-based content\n# Disallow: /contact\n# Disallow: /feedback\n# Disallow: /forgot\n# Disallow: /login\n# Disallow: /register\n\n\n##############################\n# Section for misbehaving bots\n# The following directives to block specific robots were borrowed from Wikipedia's robots.txt\n##############################\n\n# advertising-related bots:\nUser-agent: Mediapartners-Google*\nDisallow: /\n\n# Crawlers that are kind enough to obey, but which we'd rather not have\n# unless they're feeding search engines.\nUser-agent: UbiCrawler\nDisallow: /\n\nUser-agent: DOC\nDisallow: /\n\nUser-agent: Zao\nDisallow: /\n\n# Some bots are known to be trouble, particularly those designed to copy\n# entire sites. Please obey robots.txt.\nUser-agent: sitecheck.internetseer.com\nDisallow: /\n\nUser-agent: Zealbot\nDisallow: /\n\nUser-agent: MSIECrawler\nDisallow: /\n\nUser-agent: SiteSnagger\nDisallow: /\n\nUser-agent: WebStripper\nDisallow: /\n\nUser-agent: WebCopier\nDisallow: /\n\nUser-agent: Fetch\nDisallow: /\n\nUser-agent: Offline Explorer\nDisallow: /\n\nUser-agent: Teleport\nDisallow: /\n\nUser-agent: TeleportPro\nDisallow: /\n\nUser-agent: WebZIP\nDisallow: /\n\nUser-agent: linko\nDisallow: /\n\nUser-agent: HTTrack\nDisallow: /\n\nUser-agent: Microsoft.URL.Control\nDisallow: /\n\nUser-agent: Xenu\nDisallow: /\n\nUser-agent: larbin\nDisallow: /\n\nUser-agent: libwww\nDisallow: /\n\nUser-agent: ZyBORG\nDisallow: /\n\nUser-agent: Download Ninja\nDisallow: /\n\n# Misbehaving: requests much too fast:\nUser-agent: fast\nDisallow: /\n\n#\n# If your DSpace is going down because of someone using recursive wget,\n# you can activate the following rule.\n#\n# If your own faculty is bringing down your dspace with recursive wget,\n# you can advise them to use the --wait option to set the delay between hits.\n#\n#User-agent: wget\n#Disallow: /\n\n#\n# The 'grub' distributed client has been *very* poorly behaved.\n#\nUser-agent: grub-client\nDisallow: /\n\n#\n# Doesn't follow robots.txt anyway, but...\n#\nUser-agent: k2spider\nDisallow: /\n\n#\n# Hits many times per second, not acceptable\n# http://www.nameprotect.com/botinfo.html\nUser-agent: NPBot\nDisallow: /\n\n# A capture bot, downloads gazillions of pages with no public benefit\n# http://www.webreaper.net/\nUser-agent: WebReaper\nDisallow: /\n",
+  "endpoint": "https://repositorio.unifesp.br/oai/request",
+  "repositorio": "Repositório Institucional Unifesp",
+  "formatos": [
+    "didl",
+    "mods",
+    "ore",
+    "mets",
+    "xoai",
+    "dim",
+    "rioxx",
+    "uketd_dc",
+    "qdc",
+    "oai_dc",
+    "rdf",
+    "marc",
+    "etdms"
+  ],
+  "tem_ore": true,
+  "conjuntos_amostra": [
+    [
+      "com_11600_61074",
+      "Escola de Filosofia, Letras e Ciências Humanas (EFLCH)"
+    ],
+    [
+      "com_11600_61073",
+      "Escola Paulista de Enfermagem (EPE)"
+    ],
+    [
+      "com_11600_61130",
+      "Escola Paulista de Medicina (EPM)"
+    ],
+    [
+      "com_11600_61088",
+      "Escola Paulista de Política, Economia e Negócios (EPPEN)"
+    ],
+    [
+      "com_11600_61093",
+      "Instituto das Cidades (IC)"
+    ],
+    [
+      "com_11600_61094",
+      "Instituto de Ciência e Tecnologia (ICT)"
+    ],
+    [
+      "com_11600_61092",
+      "Instituto de Ciências Ambientais, Químicas e Farmacêuticas (ICAQF)"
+    ],
+    [
+      "com_11600_61113",
+      "Instituto de Saúde e Sociedade (ISS)"
+    ],
+    [
+      "com_11600_61123",
+      "Instituto do Mar (IMar)"
+    ],
+    [
+      "com_11600_61417",
+      "Observatórios Institucionais e Temáticos"
+    ],
+    [
+      "com_11600_71538",
+      "Pesquisadores"
+    ],
+    [
+      "com_11600_61124",
+      "Reitoria"
+    ],
+    [
+      "com_11600_61131",
+      "Teses e Dissertações"
+    ],
+    [
+      "com_11600_61202",
+      "Teses e Dissertações"
+    ],
+    [
+      "com_11600_61095",
+      "Teses e Dissertações"
+    ],
+    [
+      "com_11600_61085",
+      "Teses e Dissertações"
+    ],
+    [
+      "com_11600_61089",
+      "Teses e Dissertações"
+    ],
+    [
+      "com_11600_61075",
+      "Teses e Dissertações"
+    ],
+    [
+      "com_11600_61104",
+      "Teses e Dissertações"
+    ],
+    [
+      "com_11600_61125",
+      "Teses e Dissertações"
+    ],
+    [
+      "com_11600_61168",
+      "Trabalhos de conclusão de curso"
+    ],
+    [
+      "com_11600_61181",
+      "Trabalhos de conclusão de curso"
+    ],
+    [
+      "com_11600_61187",
+      "Trabalhos de conclusão de curso"
+    ],
+    [
+      "com_11600_61216",
+      "Trabalhos de conclusão de curso"
+    ],
+    [
+      "com_11600_69285",
+      "Trabalhos de conclusão de curso de aperfeiçoamento e de especialização"
+    ],
+    [
+      "com_11600_71648",
+      "Trabalhos de conclusão de curso de especialização"
+    ],
+    [
+      "com_11600_69291",
+      "Trabalhos de conclusão de curso de especialização"
+    ],
+    [
+      "com_11600_69293",
+      "Trabalhos de conclusão de curso de especialização"
+    ],
+    [
+      "com_11600_69297",
+      "Trabalhos de conclusão de curso de especialização"
+    ],
+    [
+      "com_11600_69367",
+      "Trabalhos de conclusão de curso de especialização"
+    ],
+    [
+      "com_11600_61209",
+      "Trabalhos de conclusão de curso de graduação"
+    ],
+    [
+      "com_11600_61194",
+      "Trabalhos de conclusão de curso de graduação"
+    ],
+    [
+      "com_11600_61173",
+      "Trabalhos de conclusão de curso de graduação"
+    ],
+    [
+      "com_11600_61175",
+      "Trabalhos de conclusão de curso de graduação"
+    ],
+    [
+      "com_11600_61343",
+      "Trabalhos de conclusão de curso de graduação"
+    ],
+    [
+      "com_11600_61340",
+      "Trabalhos de conclusão de curso de graduação"
+    ],
+    [
+      "com_11600_1",
+      "UNIFESP"
+    ],
+    [
+      "com_11600_100",
+      "Unifesp - Em verificação"
+    ],
+    [
+      "col_11600_61182",
+      "Administração"
+    ],
+    [
+      "col_11600_61345",
+      "Agência de Inovação Tecnológica e Social (AGITS)"
+    ]
+  ],
+  "tentativas": [
+    {
+      "url": "https://repositorio.unifesp.br/oai/request",
+      "ok": true
+    }
+  ],
+  "identify": {
+    "repositoryName": "Repositório Institucional Unifesp",
+    "baseURL": "https://repositorio.unifesp.br/server/oai/request",
+    "protocolVersion": "2.0",
+    "adminEmail": "repositorio@unifesp.br",
+    "earliestDatestamp": "2026-08-07T08:33:58Z",
+    "deletedRecord": "transient",
+    "granularity": "YYYY-MM-DDThh:mm:ssZ",
+    "description": ""
+  }
+}

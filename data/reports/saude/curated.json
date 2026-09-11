@@ -1,0 +1,44 @@
+{
+  "camada": "curated",
+  "area": "Saúde",
+  "inicio": "2026-09-11T13:46:06.211618+00:00",
+  "fim": "2026-09-11T13:47:54.637628+00:00",
+  "duracao_s": 108.43,
+  "entradas": {
+    "documentos_processed": 386
+  },
+  "saidas": {
+    "pretreino": {
+      "treino": 345,
+      "validacao": 21,
+      "teste": 20
+    },
+    "sft": {
+      "treino": 426,
+      "validacao": 28,
+      "teste": 25
+    },
+    "rag": {
+      "chunks": 19439,
+      "documentos": 386,
+      "arquivo": "/home/lmssa/.vcoleta/bdtd-corpus/data/curated/saude/rag/corpus_rag.parquet"
+    },
+    "benchmark": {
+      "recuperacao": 40,
+      "multipla_escolha": 40,
+      "perplexidade": 41
+    },
+    "datacard": "/home/lmssa/.vcoleta/bdtd-corpus/data/curated/saude/DATACARD.md"
+  },
+  "metricas": {
+    "split": {
+      "treino": 345,
+      "validacao": 21,
+      "teste": 20
+    },
+    "falhas_por_tipo": {},
+    "total_falhas": 0
+  },
+  "falhas": [],
+  "parametros": {}
+}

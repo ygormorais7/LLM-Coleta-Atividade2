@@ -1,0 +1,12 @@
+data/*
+!data/reports/
+!data/curated/
+data/curated/*
+!data/curated/*/
+data/curated/*/*
+!data/curated/*/DATACARD.md
+logs/
+.venv/
+__pycache__/
+*.pyc
+.env

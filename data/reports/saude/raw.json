@@ -1,0 +1,116 @@
+{
+  "camada": "raw",
+  "area": "Saúde",
+  "inicio": "2026-09-11T10:52:19.815332+00:00",
+  "fim": "2026-09-11T11:45:22.972982+00:00",
+  "duracao_s": 3183.16,
+  "entradas": {
+    "fonte_inventario": "inventario",
+    "candidatos": 2000
+  },
+  "saidas": {
+    "metadata_jsonl": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/metadata/registros.jsonl",
+    "registros_coletados": 2000,
+    "manifesto": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/manifesto.jsonl",
+    "pdfs_baixados": 508
+  },
+  "metricas": {
+    "bytes_baixados_humano": "1.8 GB",
+    "taxa_resolucao_global": 0.9769,
+    "estratos_com_cota_fechada": "3/3",
+    "resolucao_por_estrato": {
+      "ufmg|2015-2019": {
+        "cota": 280,
+        "obtidos": 280,
+        "tentados": 280,
+        "fila_disponivel": 1120,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": true
+      },
+      "ufmg|2020-2024": {
+        "cota": 175,
+        "obtidos": 181,
+        "tentados": 184,
+        "fila_disponivel": 700,
+        "taxa_resolucao": 0.9837,
+        "cota_fechada": true
+      },
+      "ufmg|2025-2029": {
+        "cota": 45,
+        "obtidos": 47,
+        "tentados": 56,
+        "fila_disponivel": 180,
+        "taxa_resolucao": 0.8393,
+        "cota_fechada": true
+      }
+    },
+    "falhas_por_tipo": {
+      "conteudo_nao_e_pdf": 9,
+      "pdf_nao_localizado": 3
+    },
+    "total_falhas": 12
+  },
+  "falhas": [
+    {
+      "id": "f753a113e79cf516",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/61872"
+    },
+    {
+      "id": "081164189f95989d",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/61431"
+    },
+    {
+      "id": "3376abbd3c6d24d0",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/77562"
+    },
+    {
+      "id": "27fab732bdad33fa",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/81118"
+    },
+    {
+      "id": "118dc4b78961d75b",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/79462"
+    },
+    {
+      "id": "55b5fee0482e2270",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/1455"
+    },
+    {
+      "id": "d983b9248527f6b8",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/630"
+    },
+    {
+      "id": "b98e250fa52b57ed",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/534"
+    },
+    {
+      "id": "9ae234c16638064c",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/79233"
+    },
+    {
+      "id": "37c61f2eb4474d0f",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/79645"
+    },
+    {
+      "id": "a1b85b66dd21ee32",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/83451"
+    },
+    {
+      "id": "1d73cecf7e67aab5",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/79525"
+    }
+  ],
+  "parametros": {}
+}

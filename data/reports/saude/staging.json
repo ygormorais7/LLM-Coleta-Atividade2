@@ -1,0 +1,51 @@
+{
+  "camada": "staging",
+  "area": "Saúde",
+  "inicio": "2026-09-11T11:47:01.121011+00:00",
+  "fim": "2026-09-11T11:47:04.821931+00:00",
+  "duracao_s": 3.7,
+  "entradas": {
+    "registros_raw": 2000,
+    "itens_manifesto": 520
+  },
+  "saidas": {
+    "documentos": {
+      "arquivo": "/home/lmssa/.vcoleta/bdtd-corpus/data/staging/saude/documentos.parquet",
+      "linhas": 2000
+    },
+    "autores": {
+      "arquivo": "/home/lmssa/.vcoleta/bdtd-corpus/data/staging/saude/autores.parquet",
+      "linhas": 2000
+    },
+    "assuntos": {
+      "arquivo": "/home/lmssa/.vcoleta/bdtd-corpus/data/staging/saude/assuntos.parquet",
+      "linhas": 11367
+    },
+    "arquivos": {
+      "arquivo": "/home/lmssa/.vcoleta/bdtd-corpus/data/staging/saude/arquivos.parquet",
+      "linhas": 508
+    }
+  },
+  "metricas": {
+    "validacao": {
+      "arquivos_orfaos": 0,
+      "arquivos_ausentes": 0,
+      "fk_quebrada_autores": 0,
+      "fk_quebrada_assuntos": 0,
+      "tipo_divergente": 0,
+      "sem_titulo": 0,
+      "titulos_repetidos": 0
+    },
+    "com_arquivo": 508,
+    "sem_arquivo": 1492,
+    "anos": {
+      "min": 2019,
+      "max": 2026
+    },
+    "instituicoes_distintas": 1,
+    "falhas_por_tipo": {},
+    "total_falhas": 0
+  },
+  "falhas": [],
+  "parametros": {}
+}

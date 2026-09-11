@@ -1,0 +1,318 @@
+{
+  "camada": "inventario",
+  "area": "Saúde",
+  "inicio": "2026-09-11T02:27:50.482182+00:00",
+  "fim": "2026-09-11T05:56:20.721768+00:00",
+  "duracao_s": 12510.24,
+  "entradas": {
+    "registros_brutos": 3755,
+    "por_fonte": {
+      "oai:repositorio.ufmg.br": 3755
+    }
+  },
+  "saidas": {
+    "inventario": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/inventario.jsonl",
+    "candidatos": 3719
+  },
+  "metricas": {
+    "reconciliacao": {
+      "registros_entrada": 3755,
+      "registros_apos_reconciliacao": 3719,
+      "grupos_multifonte": 0,
+      "pares_comparados": 89,
+      "limiar": 0.9,
+      "amostra_pares_aceitos": [
+        {
+          "score": 1.0,
+          "a": "Descentralização das ações de controle da hanseníase nos clusters de risco do Brasil",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Descentralização das ações de controle da hanseníase nos clusters de risco do Brasil",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Estudo das micropartículas derivadas de células na endocardite infecciosa",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Estudo das micropartículas derivadas de células na endocardite infecciosa.",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Fatores individuais e contextuais associados à incapacidade em idosos brasileiros",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Fatores individuais e contextuais associados à incapacidade em idosos brasileiros",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Associação entre lócus de controle de saúde e benefício mínimo válido para tratamento em pacientes com dor lom",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Associação entre lócus de controle da saúde e benefício mínimo válido para tratamento em pacientes com dor lom",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Transferência de cuidado realizada pelos profissionais de saúde em um serviço de urgência e emergência",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Transferência de cuidado realizada pelos profissionais de saúde em um serviço de urgência e emergência",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Prevalência de depressão maior e fatores associados à morbidade depressiva em idosos com 75+ anos residentes n",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Prevalência de depressão maior e fatores associados à morbidade depressiva em idosos com 75+ anos residentes n",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Efeito do polimorfismo -174 G/C da região promotora do gene IL-6, índices plasmáticos de IL-6 e força muscular",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Efeito do polimorfismo -174 G/C da região promotora do gene IL-6, índices plasmáticos de IL-6 e força muscular",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Uso do checklist de cirurgia segura da Organização Mundial da Saúde como estratégia de redução de complicações",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Uso do checklist de cirurgia segura da organização mundial da saúde como estratégia de redução de complicações",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Mucosite oral e qualidade de vida: compreendendo os impactos na perspectiva de pacientes em tratamento oncológ",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Mucosite oral e qualidade de vida: compreendendo os impactos na perspectiva de pacientes em tratamento oncológ",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 0.963,
+          "a": "Satisfação e sobrecarga de trabalho entre profissionais de equipes da Atenção Primária à Saúde",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Satisfação e sobrecarga de trabalho entre profissionais de equipes da atenção primária à saúde",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 0.988,
+          "a": "Desenvolvimento e validação do protocolo de autocuidado em doença falciforme (PAUT@-DF) para apoio educacional",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Desenvolvimento e validação do protocolo de autocuidado em doença falciforme (Paut@-DF) para apoio educacional",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Análise dos atendimentos a vítimas de acidente de transporte terrestre realizados em um hospital público de gr",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Análise dos atendimentos a vítimas de acidente de transporte terrestre realizados em um hospital público de gr",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Biomarcadores salivares de remodelação óssea e reparo tecidual em pacientes irradiados em região de cabeça e p",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Biomarcadores salivares de remodelação óssea e reparo tecidual em pacientes irradiados em região de cabeça e p",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Discursos de consultores sobre acreditação hospitalar",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Discursos de consultores sobre acreditação hospitalar",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Características do trabalho e sua associação com desfechos de peso e adiposidade: estudo transversal de base p",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Características do trabalho e sua associação com desfechos de peso e adiposidade: estudo transversal de base p",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Eventos adversos em pacientes portadores de cateter venoso central",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Eventos adversos em pacientes portadores de cateter venoso central",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Análise Psicométrica do Índice de Vulnerabilidade Clínico Funcional 20",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Análise psicométrica do índice de vulnerabilidade clínico funcional  20",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Prevalência e fatores associados à ocorrência e coocorrência dos fatores de risco comportamentais em mulheres ",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Prevalência e fatores associados à ocorrência e coocorrência dos fatores de risco comportamentais em mulheres ",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Relação entre baixo peso ao nascimento, fatores ambientais e o desenvolvimento motor e cognitivo na idade pré-",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Relação entre baixo peso ao nascimento, fatores ambientais e o desenvolvimento motor e cognitivo na idade pré-",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "O sentido dos atos de ensinar e aprender: a experiência do Canal Minas Saúde",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "O sentido dos atos de ensinar e aprender: a experiência do Canal Minas Saúde",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 0.985,
+          "a": "Efetividade do programa educativo no conhecimento de profissionais de Enfermagem sobre a hiegiene bucal em pac",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Efetividade do programa educativo no conhecimento de profissionais de enfermagem sobre a higiene bucal em paci",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Limpeza periuretral na realização do cateterismo urinário de demora: ensaio clínico randomizado",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Limpeza periuretral na realização do cateterismo urinário de demora: ensaio clínico randomizado",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Projeto Ajude  Brasil II: incidência de Aids e mortalidade em usuários de drogas injetáveis",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Projeto Ajude - Brasil II: incidência de Aids e mortalidade em usuários de drogas injetáveis",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Profilaxia pós-exposição sexual para hiv:  uma análise retrospectiva sobre a adesão e o seguimento das pessoas",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Profilaxia pós-exposição sexual para HIV: uma análise retrospectiva sobre a adesão e o seguimento das pessoas ",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Avaliação nutricional de pacientes submetidos à hemodiálise em Centros de Diálise de Belo Horizonte.",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Avaliação nutricional de pacientes submetidos à hemodiálise em centros de diálise de Belo Horizonte",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 0.916,
+          "a": "Estudo de prevalência, gravidade e impacto da dor de dente na vida diária de crianças de 8 e 9 anos",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Estudo de prevalência, gravidade e impacto da dor de dente na vida diária de crianças da cidade de Belo Horizo",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Competências para o cuidado de mulheres no parto e nascimento mobilizadas em egressos de um Curso Nacional de ",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Competências para o cuidado de mulheres no parto e nascimento mobilizadas em egressos de um curso nacional de ",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Capacidade dos índices antropométricos e de obesidade central para identificação de participantes com alto ris",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Capacidade dos índices antropométricos e de obesidade central para identificação de participantes com alto ris",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Avaliação hemostática e molecular em mulheres com câncer de mama receptor hormonal negativo",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Avaliação hemostática e molecular em mulheres com câncer de mama receptor hormonal negativo",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Câncer de boca em pacientes com tratamento oncológico no Sistema Único de Saúde (SUS), Brasil: análise de sobr",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Câncer de boca em pacientes com tratamento oncológico no Sistema Único de Saúde (SUS), Brasil: análise de sobr",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Análise do metabolismo do ferro na cardiopatia chagásica crônica",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Análise do metabolismo do ferro na cardiopatia chagásica crônica",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Medo do parto: possibilidades para avaliar e intervir",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Medo do parto: possibilidades para avaliar e intervir",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Fatores associados a desfechos nutricionais em mães e crianças brasileiras",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Fatores associados a desfechos nutricionais em mães e crianças brasileiras",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 1.0,
+          "a": "Medidas regulatórias do ambiente alimentar escolar: análise comparativa entre cantinas de escolas particulares",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Medidas regulatórias do ambiente alimentar escolar: análise comparativa entre cantinas de escolas particulares",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 0.979,
+          "a": "Epidemiologia da esquistossomose mansoni em Minas Gerais: padrões  espaço-temporais da ocorrência e mortalidad",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Epidemiologia da esquistossomose mansoni em Minas Gerais: padrões espaço-temporais da ocorrência e mortalidade",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        },
+        {
+          "score": 0.997,
+          "a": "Medicação intracanal  à base de biocerâmico e hidróxido de cálcio: efeito sobre a atividade de macrófagos",
+          "fonte_a": "oai:repositorio.ufmg.br",
+          "b": "Medicação intracanal à base de biocerâmico e hidróxido de cálcio: efeitos sobre a atividade de macrófagos",
+          "fonte_b": "oai:repositorio.ufmg.br"
+        }
+      ],
+      "amostra_pares_limitrofes": []
+    },
+    "amostragem": {
+      "n_alvo": 100000,
+      "estratos": [
+        "ies",
+        "ano_faixa"
+      ],
+      "n_estratos": 3,
+      "candidatos_na_fila": 3719,
+      "na_cota_inicial": 3719,
+      "fator_reserva": 4.0,
+      "detalhe_estratos": {
+        "ufmg|2015-2019": {
+          "populacao": 2079,
+          "cota": 55902,
+          "fila": 2079
+        },
+        "ufmg|2020-2024": {
+          "populacao": 1305,
+          "cota": 35090,
+          "fila": 1305
+        },
+        "ufmg|2025-2029": {
+          "populacao": 335,
+          "cota": 9008,
+          "fila": 335
+        }
+      }
+    },
+    "bitstreams_via_ore": 3718,
+    "candidatos_sem_link": 0,
+    "prop_candidatos_sem_link": 0.0,
+    "falhas_por_tipo": {},
+    "total_falhas": 0
+  },
+  "falhas": [],
+  "parametros": {
+    "taxonomia_declarada": "capes.area_avaliacao"
+  }
+}

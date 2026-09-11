@@ -1,0 +1,494 @@
+{
+  "camada": "processed",
+  "area": "Saúde",
+  "inicio": "2026-09-11T11:47:04.835579+00:00",
+  "fim": "2026-09-11T11:51:34.696250+00:00",
+  "duracao_s": 269.86,
+  "entradas": {
+    "documentos_staging": 2000,
+    "com_arquivo": 508
+  },
+  "saidas": {
+    "documentos_parquet": "/home/lmssa/.vcoleta/bdtd-corpus/data/processed/saude/documentos.parquet",
+    "dir_texto": "/home/lmssa/.vcoleta/bdtd-corpus/data/processed/saude/texto",
+    "documentos_no_corpus": 416
+  },
+  "metricas": {
+    "extraidos_nesta_execucao": 508,
+    "pii_ocorrencias_removidas": 1469,
+    "reprovados_qualidade": 91,
+    "duplicatas_removidas": 0,
+    "palavras_totais": 9625370,
+    "palavras_media": 23137.9,
+    "paginas_totais": 46454,
+    "docs_com_ocr": 0,
+    "falhas_por_tipo": {
+      "reprovado_qualidade": 91,
+      "texto_insuficiente": 1
+    },
+    "total_falhas": 92
+  },
+  "falhas": [
+    {
+      "id": "9358512c71a1c932",
+      "tipo": "texto_insuficiente",
+      "detalhe": ""
+    },
+    {
+      "id": "0113cd8cf30b992c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "05d1d0ef9b7cc000",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "06d04c91f101ac82",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "079815e192593b82",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0d3dec7bfcb4defc",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0d697c20bf24db77",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0d8a5f9278c82e5a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.90"
+    },
+    {
+      "id": "0d8ccc63106ba6a8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0fe00ec2b93408cc",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "1200131f5db9f875",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "157e51eee1ecdd22",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "17c457d23d9c19de",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1922ce76193e1ab4",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1fc201d6f1f5a21b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "22e7c415be606288",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "2736b3bf1104fe76",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "31f1091a729e89f8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "3393765a7c39d772",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "342799f328e9d830",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,linhas_curtas_demais"
+    },
+    {
+      "id": "34a4aea8c4c33fc0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "377e8fd2d6ce213d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "curto_demais,pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,sem_stopwords_pt,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_un_0.00"
+    },
+    {
+      "id": "398aead389551c6d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "3c9a4b045a466760",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "40812a196024223b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "426965545fe2fe60",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "464e21cf1bfcc184",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "4a8cee1740a36db0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "4aac79a6f444433d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "4bfcfe31ba7ffb12",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "4e4e3af811821849",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "5906e4b07a4c051c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "59e5a02244a50674",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "5ef79b164622f22a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "616deee3b6bec0af",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.90"
+    },
+    {
+      "id": "6b884ed3efd0b2b8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "6bbe0c8f19fc939b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
+    },
+    {
+      "id": "6cc0121ece4310a2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "6ce6a7885ac6e4b0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "702176674fc3d62e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "70a89ef255863738",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "71010d2b03058730",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "74bf276e4f25ccc7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "75bbce3a37793d81",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "790706999de67dac",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
+    },
+    {
+      "id": "79f7692ec82049be",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "curto_demais,pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,sem_stopwords_pt,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_un_0.00"
+    },
+    {
+      "id": "7ad574adf779f0da",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "curto_demais,pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,sem_stopwords_pt,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_un_0.00"
+    },
+    {
+      "id": "7f868d54cb2b0b90",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "81982cde725803c9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "84b1a345faad20a8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "89526d7d80eab30b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "896deecd4010db0f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
+    },
+    {
+      "id": "91152ba2b73988f3",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "93ab148b4ff53166",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "9dfc258b0d140dad",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico"
+    },
+    {
+      "id": "9eccc7e0ff5dcf32",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "9f7d62a80b709004",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_fr_1.00"
+    },
+    {
+      "id": "a0008e1959a078b6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "a17055af49c739c2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a4d7b0d5f7c08019",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a7ff7bcd3a6dae1c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "af2641446fd78377",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "af28bc5bd20d5c58",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b1b825d52bcb34e7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b565660ffd9d32b1",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "b9e24cb5ae40b95b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ba1fcdc2de53d57a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c06d23fce60b1971",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c43eb598632df23d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c45aaa4bb5675c99",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c58b4215b79cb619",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c879994cf3442ed1",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "curto_demais,pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,sem_stopwords_pt,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_un_0.00"
+    },
+    {
+      "id": "c88015f59b3ff25e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
+    },
+    {
+      "id": "ca11fbb46aaa2d50",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ccd62004a959b5f6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "ccdb22f944a96734",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "d94c6c9d73b20f16",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "da0ae6439395dd11",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "da573c0615d981d6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "db6116b3ee84fbc5",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "dd1da58b26dc1b2e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "curto_demais,pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,sem_stopwords_pt,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_un_0.00"
+    },
+    {
+      "id": "e25dede5fa746b95",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "e49293258761280f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ef4a8eb55918c5e7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "efad6fcc8a81b7e2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "f49895e5a1a7a91b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "f52718a73c3a2a56",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "f54639555292ba26",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "f571c3f7701faa8a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "f822cb7c8313e7e0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "f87cdec6d0f0c7ee",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "fbed74816c7d5efe",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    }
+  ],
+  "parametros": {}
+}

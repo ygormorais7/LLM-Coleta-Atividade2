@@ -1,0 +1,48 @@
+{
+  "base": "https://lume.ufrgs.br",
+  "verificado_em": "2026-09-10T19:36:05.996654+00:00",
+  "robots_txt": "https://lume.ufrgs.br/robots.txt",
+  "robots_conteudo": "(inacessível: HTTPSConnectionPool(host='lume.ufrgs.br', port=443): Max retries exceeded with url: /robots.txt (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)'))))",
+  "endpoint": null,
+  "repositorio": "",
+  "formatos": [],
+  "tem_ore": false,
+  "conjuntos_amostra": [],
+  "tentativas": [
+    {
+      "url": "https://lume.ufrgs.br/oai/request",
+      "ok": false,
+      "erro": "HTTPSConnectionPool(host='lume.ufrgs.br', port=443): Max retries exceeded with url: /oai/request?verb=Identify (Caused by SSLError(SSLCertVerificationError(1, '"
+    },
+    {
+      "url": "https://lume.ufrgs.br/server/oai/request",
+      "ok": false,
+      "erro": "HTTPSConnectionPool(host='lume.ufrgs.br', port=443): Max retries exceeded with url: /server/oai/request?verb=Identify (Caused by SSLError(SSLCertVerificationErr"
+    },
+    {
+      "url": "https://lume.ufrgs.br/oai",
+      "ok": false,
+      "erro": "HTTPSConnectionPool(host='lume.ufrgs.br', port=443): Max retries exceeded with url: /oai?verb=Identify (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CE"
+    },
+    {
+      "url": "https://lume.ufrgs.br/oai/driver",
+      "ok": false,
+      "erro": "HTTPSConnectionPool(host='lume.ufrgs.br', port=443): Max retries exceeded with url: /oai/driver?verb=Identify (Caused by SSLError(SSLCertVerificationError(1, '["
+    },
+    {
+      "url": "https://lume.ufrgs.br/jspui/oai/request",
+      "ok": false,
+      "erro": "HTTPSConnectionPool(host='lume.ufrgs.br', port=443): Max retries exceeded with url: /jspui/oai/request?verb=Identify (Caused by SSLError(SSLCertVerificationErro"
+    },
+    {
+      "url": "https://lume.ufrgs.br/dspace-oai/request",
+      "ok": false,
+      "erro": "HTTPSConnectionPool(host='lume.ufrgs.br', port=443): Max retries exceeded with url: /dspace-oai/request?verb=Identify (Caused by SSLError(SSLCertVerificationErr"
+    },
+    {
+      "url": "https://lume.ufrgs.br/oai/openaire",
+      "ok": false,
+      "erro": "HTTPSConnectionPool(host='lume.ufrgs.br', port=443): Max retries exceeded with url: /oai/openaire?verb=Identify (Caused by SSLError(SSLCertVerificationError(1, "
+    }
+  ]
+}

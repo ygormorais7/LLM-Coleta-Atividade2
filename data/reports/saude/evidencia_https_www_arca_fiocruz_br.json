@@ -1,0 +1,48 @@
+{
+  "base": "https://www.arca.fiocruz.br",
+  "verificado_em": "2026-09-08T04:32:47.073651+00:00",
+  "robots_txt": "https://www.arca.fiocruz.br/robots.txt",
+  "robots_conteudo": "# The URL to the DSpace sitemaps\n# XML sitemap is listed first as it is preferred by most search engines\nSitemap: http://localhost:4000/sitemap_index.xml\nSitemap: http://localhost:4000/sitemap_index.html\n\n##########################\n# Default Access Group\n# (NOTE: blank lines are not allowable in a group record)\n##########################\nUser-agent: *\n# Disable access to Discovery search and filters; admin pages; processes; submission; workspace; workflow & profile page\nDisallow: /search\nDisallow: /admin/*\nDisallow: /processes\nDisallow: /submit\nDisallow: /workspaceitems\nDisallow: /profile\nDisallow: /workflowitems\n# Crawlers should be able to access entity pages, but not the facet search links present on entity pages\nDisallow: /entities/*?f\n\n# Heavy Discovery facet queries on browse pages\nDisallow: /collections/*?f\nDisallow: /communities/*?spc.page\n\n# Optionally uncomment the following line ONLY if sitemaps are working\n# and you have verified that your site is being indexed correctly.\n# Disallow: /browse/*\n#\n# If you have configured DSpace (Solr-based) Statistics to be publicly\n# accessible, then you may not want this content to be indexed\n# Disallow: /statistics\n#\n# You also may wish to disallow access to the following paths, in order\n# to stop web spiders from accessing user-based content\n# Disallow: /contact\n# Disallow: /feedback\n# Disallow: /forgot\n# Disallow: /login\n# Disallow: /register\n\n\n##############################\n# Section for misbehaving bots\n# The following directives to block specific robots were borrowed from Wikipedia's robots.txt\n##############################\n\n# advertising-related bots:\nUser-agent: Mediapartners-Google*\nDisallow: /\n\n# Crawlers that are kind enough to obey, but which we'd rather not have\n# unless they're feeding search engines.\nUser-agent: UbiCrawler\nDisallow: /\n\nUser-agent: DOC\nDisallow: /\n\nUser-agent: Zao\nDisallow: /\n\n# Some bots are known to be trouble, particularly those designed to copy\n# entire sites. Please obey robots.txt.\nUser-agent: sitecheck.internetseer.com\nDisallow: /\n\nUser-agent: Zealbot\nDisallow: /\n\nUser-agent: MSIECrawler\nDisallow: /\n\nUser-agent: SiteSnagger\nDisallow: /\n\nUser-agent: WebStripper\nDisallow: /\n\nUser-agent: WebCopier\nDisallow: /\n\nUser-agent: Fetch\nDisallow: /\n\nUser-agent: Offline Explorer\nDisallow: /\n\nUser-agent: Teleport\nDisallow: /\n\nUser-agent: TeleportPro\nDisallow: /\n\nUser-agent: WebZIP\nDisallow: /\n\nUser-agent: linko\nDisallow: /\n\nUser-agent: HTTrack\nDisallow: /\n\nUser-agent: Microsoft.URL.Control\nDisallow: /\n\nUser-agent: Xenu\nDisallow: /\n\nUser-agent: larbin\nDisallow: /\n\nUser-agent: libwww\nDisallow: /\n\nUser-agent: ZyBORG\nDisallow: /\n\nUser-agent: Download Ninja\nDisallow: /\n\n# Misbehaving: requests much too fast:\nUser-agent: fast\nDisallow: /\n\n#\n# If your DSpace is going down because of someone using recursive wget,\n# you can activate the following rule.\n#\n# If your own faculty is bringing down your dspace with recursive wget,\n# you can advise them to use the --wait option to set the delay between hits.\n#\n#User-agent: wget\n#Disallow: /\n\n#\n# The 'grub' distributed client has been *very* poorly behaved.\n#\nUser-agent: grub-client\nDisallow: /\n\n#\n# Doesn't follow robots.txt anyway, but...\n#\nUser-agent: k2spider\nDisallow: /\n\n#\n# Hits many times per second, not acceptable\n# http://www.nameprotect.com/botinfo.html\nUser-agent: NPBot\nDisallow: /\n\n# A capture bot, downloads gazillions of pages with no public benefit\n# http://www.webreaper.net/\nUser-agent: WebReaper\nDisallow: /\n",
+  "endpoint": null,
+  "repositorio": "",
+  "formatos": [],
+  "tem_ore": false,
+  "conjuntos_amostra": [],
+  "tentativas": [
+    {
+      "url": "https://www.arca.fiocruz.br/oai/request",
+      "ok": false,
+      "erro": "404 Client Error: Not found for url: https://arca.fiocruz.br/oai/request?verb=Identify"
+    },
+    {
+      "url": "https://www.arca.fiocruz.br/server/oai/request",
+      "ok": false,
+      "erro": "404 Client Error: Not found for url: https://arca.fiocruz.br/server/oai/request?verb=Identify"
+    },
+    {
+      "url": "https://www.arca.fiocruz.br/oai",
+      "ok": false,
+      "erro": "404 Client Error: Not found for url: https://arca.fiocruz.br/oai?verb=Identify"
+    },
+    {
+      "url": "https://www.arca.fiocruz.br/oai/driver",
+      "ok": false,
+      "erro": "404 Client Error: Not found for url: https://arca.fiocruz.br/oai/driver?verb=Identify"
+    },
+    {
+      "url": "https://www.arca.fiocruz.br/jspui/oai/request",
+      "ok": false,
+      "erro": "404 Client Error: Not found for url: https://arca.fiocruz.br/jspui/oai/request?verb=Identify"
+    },
+    {
+      "url": "https://www.arca.fiocruz.br/dspace-oai/request",
+      "ok": false,
+      "erro": "404 Client Error: Not found for url: https://arca.fiocruz.br/dspace-oai/request?verb=Identify"
+    },
+    {
+      "url": "https://www.arca.fiocruz.br/oai/openaire",
+      "ok": false,
+      "erro": "404 Client Error: Not found for url: https://arca.fiocruz.br/oai/openaire?verb=Identify"
+    }
+  ]
+}

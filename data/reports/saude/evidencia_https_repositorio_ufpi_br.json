@@ -1,0 +1,201 @@
+{
+  "base": "https://repositorio.ufpi.br",
+  "verificado_em": "2026-09-08T04:33:02.287629+00:00",
+  "robots_txt": "https://repositorio.ufpi.br/robots.txt",
+  "robots_conteudo": "User-agent: *\nDisallow: /discover \nDisallow: /search-filter\n\n# Uncomment the following line ONLY if sitemaps.org or HTML sitemaps are used\n# and you have verified that your site is being indexed correctly.\n# Disallow: /browse\n\n# You also may wish to disallow access to the following paths, in order\n# to stop web spiders from accessing user-based content:\n# Disallow: /advanced-search\n# Disallow: /contact\n# Disallow: /feedback\n# Disallow: /forgot\n# Disallow: /login\n# Disallow: /register\n# Disallow: /search\n",
+  "endpoint": "https://repositorio.ufpi.br/oai/request",
+  "repositorio": "Repositorio UFPI",
+  "formatos": [
+    "uketd_dc",
+    "dim",
+    "oai_dc",
+    "marc",
+    "etdms",
+    "xoai",
+    "qdc",
+    "rdf",
+    "ore",
+    "mods",
+    "mets",
+    "didl"
+  ],
+  "tem_ore": true,
+  "conjuntos_amostra": [
+    [
+      "com_123456789_81",
+      "Revistas Eletr??nicas da UFPI"
+    ],
+    [
+      "com_123456789_84",
+      "-> DOCUMENTA????O DO RI UFPI"
+    ],
+    [
+      "com_123456789_188",
+      "CAMPUS MINISTRO REIS VELOSO - PARNA??BA"
+    ],
+    [
+      "com_123456789_190",
+      "CAMPUS PROFESSORA CINOBELINA ELVAS - BOM JESUS"
+    ],
+    [
+      "com_123456789_249",
+      "CAMPUS MINISTRO PETR??NIO PORTELA"
+    ],
+    [
+      "com_123456789_250",
+      "Centro de Ci??ncias Agr??rias - CCA"
+    ],
+    [
+      "com_123456789_251",
+      "Centro de Ci??ncias Humanas e Letras - CCHL"
+    ],
+    [
+      "com_123456789_252",
+      "Centro de Ci??ncias da Educa????o - CCE"
+    ],
+    [
+      "com_123456789_253",
+      "Centro de Ci??ncias da Sa??de - CCS"
+    ],
+    [
+      "com_123456789_254",
+      "Centro de Tecnologia - CT"
+    ],
+    [
+      "com_123456789_255",
+      "Programa de P??s-Gradua????o em Desenvolvimento e Meio Ambiente - PRODEMA"
+    ],
+    [
+      "com_123456789_256",
+      "Rede Nordeste de Biotecnologia - RENORBIO"
+    ],
+    [
+      "com_123456789_257",
+      "Biblioteca Comunit??ria"
+    ],
+    [
+      "com_123456789_269",
+      "Centro de Ci??ncias da Natureza - CCN"
+    ],
+    [
+      "col_123456789_87",
+      "Documentos do RI UFPI"
+    ],
+    [
+      "col_123456789_189",
+      "Mestrado em Ci??ncias Biom??dicas"
+    ],
+    [
+      "col_123456789_191",
+      "Mestrado em Agronomia - Fitotecnia"
+    ],
+    [
+      "col_123456789_200",
+      "Mestrado em Biotecnologia"
+    ],
+    [
+      "col_123456789_216",
+      "Mestrado em Zootecnia"
+    ],
+    [
+      "col_123456789_258",
+      "Mestrado em Ci??ncia do Materiais"
+    ],
+    [
+      "col_123456789_259",
+      "Disserta????es Externas"
+    ],
+    [
+      "col_123456789_260",
+      "Teses Externas"
+    ],
+    [
+      "col_123456789_261",
+      "Doutorado em Biotecnologia"
+    ],
+    [
+      "col_123456789_262",
+      "Mestrado em Desenvolvimento e Meio Ambiente"
+    ],
+    [
+      "col_123456789_263",
+      "Doutorado em Desenvolvimento e Meio Ambiente"
+    ],
+    [
+      "col_123456789_264",
+      "Mestrado em Enfermagem"
+    ],
+    [
+      "col_123456789_265",
+      "Mestrado em Ci??ncias e Sa??de"
+    ],
+    [
+      "col_123456789_266",
+      "Mestrado em Ci??ncias Farmac??uticas"
+    ],
+    [
+      "col_123456789_267",
+      "Mestrado em Alimento e Nutri????o"
+    ],
+    [
+      "col_123456789_268",
+      "Mestrado em Odontologia"
+    ],
+    [
+      "col_123456789_270",
+      "Mestrado Profissional em Matem??tica"
+    ],
+    [
+      "col_123456789_271",
+      "Mestrado em Arqueologia"
+    ],
+    [
+      "col_123456789_272",
+      "Mestrado em Ci??ncia da Computa????o"
+    ],
+    [
+      "col_123456789_273",
+      "Mestrado em F??sica"
+    ],
+    [
+      "col_123456789_274",
+      "Mestrado em Qu??mica"
+    ],
+    [
+      "col_123456789_275",
+      "Doutorado em Ci??ncia Animal"
+    ],
+    [
+      "col_123456789_276",
+      "Mestrado em Agronomia"
+    ],
+    [
+      "col_123456789_277",
+      "Mestrado em Ci??ncia Animal"
+    ],
+    [
+      "col_123456789_278",
+      "Mestrado em Gen??tica e Melhoramento"
+    ],
+    [
+      "col_123456789_279",
+      "Mestrado em Geografia"
+    ]
+  ],
+  "tentativas": [
+    {
+      "url": "https://repositorio.ufpi.br/oai/request",
+      "ok": true
+    }
+  ],
+  "identify": {
+    "repositoryName": "Repositorio UFPI",
+    "baseURL": "http://repositorio.ufpi.br/oai/request",
+    "protocolVersion": "2.0",
+    "adminEmail": "italberto@gmail.com",
+    "earliestDatestamp": "2014-11-25T13:58:44Z",
+    "deletedRecord": "persistent",
+    "granularity": "YYYY-MM-DDThh:mm:ssZ",
+    "description": ""
+  }
+}

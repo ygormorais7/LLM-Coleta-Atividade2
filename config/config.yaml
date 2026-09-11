@@ -1,0 +1,339 @@
+# ==========================================================================
+# bdtd-corpus — configuração única do pipeline (Raw -> Staging -> Processed -> Curated)
+# Tudo que é "decisão de projeto" mora aqui. Nenhum número mágico no código.
+# ==========================================================================
+
+projeto:
+  nome: "bdtd-corpus"
+  # Área escolhida no fórum da turma (uma por grupo, sem repetição).
+  # Este rótulo é só documentação/nome de pasta; quem filtra de verdade
+  # é `coleta.filtros` logo abaixo.
+  area_rotulo: "Saúde"
+  area_slug: "saude"
+  # Vai no User-Agent das requisições. Crawler educado se identifica.
+  contato: "ygor.morais@ufpi.edu.br"
+  instituicao: "UFPI"
+
+caminhos:
+  raw: "data/raw"
+  staging: "data/staging"
+  processed: "data/processed"
+  curated: "data/curated"
+  relatorios: "data/reports"
+
+# --------------------------------------------------------------------------
+# CAMADA RAW — coleta
+# --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# ESTÁGIO 1 — inventário (CAPES + OAI-PMH de agregador)
+# Fonte da lista. Trocar isto NÃO afeta os Estágios 2 e 3.
+# --------------------------------------------------------------------------
+inventario:
+  # OBRIGATÓRIO declarar. As três taxonomias abaixo NÃO são equivalentes e
+  # nenhuma reproduz a faceta de navegação da BDTD. Documente no DATACARD
+  # qual você usou e a tabela de correspondência entre elas.
+  #   capes.area_avaliacao    -> Medicina I-III, Saúde Coletiva, Enfermagem...
+  #   capes.area_conhecimento -> tabela CNPq
+  #   capes.grande_area       -> Ciências da Saúde, Ciências Exatas...
+  taxonomia: "capes.area_avaliacao"
+
+  fontes:
+    # A CAPES resolve inventário + classificação, mas NÃO linka texto
+    # completo. Deixe desligada no piloto e ligue depois, quando a fonte OAI
+    # já estiver dando PDFs — aí ela serve para enriquecer a classificação.
+    capes:
+      habilitada: false
+      # Baixe em https://dadosabertos.capes.gov.br (1987-2012, 2013-2016,
+      # 2017-2020, 2021-2024) e coloque em data/externo/capes/
+      arquivos:
+        - "data/externo/capes/*.csv"
+        - "data/externo/capes/*.xlsx"
+      campo_area: "area_avaliacao"
+      valores_area:
+        - "MEDICINA I"
+        - "MEDICINA II"
+        - "MEDICINA III"
+        - "SAÚDE COLETIVA"
+        - "ENFERMAGEM"
+        - "FARMÁCIA"
+        - "ODONTOLOGIA"
+        - "NUTRIÇÃO"
+        - "EDUCAÇÃO FÍSICA"
+
+    # PILOTO: 2 a 5 repositórios institucionais. OAI-PMH é o protocolo feito
+    # para colheita por máquina — é a porta da frente, não um contorno.
+    #
+    # Descubra o endpoint e o robots.txt de cada um ANTES de ligar:
+    #   python -m src.raw.inventario descobrir --base https://repositorio.exemplo.br
+    # Se `tem ORE: SIM`, ponha prefix_binarios: "ore" e você recebe o PDF
+    # direto, sem raspar uma única página HTML.
+    oai:
+      - habilitada: true
+        endpoint: "https://repositorio.ufmg.br/server/oai/request"
+        # trocado de oai_dc: dc.publisher (instituição) e dc.publisher.program
+        # (programa) colapsam no mesmo <dc:publisher> sem qualifier em oai_dc,
+        # por isso `programa` vinha vazio. dim preserva o qualifier.
+        # Confirmado disponível em evidencia_https_repositorio_ufmg_br.json
+        # ("formatos": [..., "dim", ..., "etdms"]).
+        metadata_prefix: "dim"
+        prefix_binarios: "ore"
+        set: "com_1843_6"
+        limite: 0    # sem teto: colher o set inteiro pra medir o pool real de Saúde
+        janela_dias: 120
+        # earliestDatestamp real é 2019-08-09 (evidencia_https_repositorio_ufmg_br.json).
+        # Sem isto, janela_dias fatia desde 2000 e desperdiça ~19 anos de janelas vazias.
+        from: "2019-08-01"
+        filtro_assunto:
+          - "enfermagem"
+          - "medicina"
+          - "odontologia"
+          - "farmacia"
+          - "nutricao"
+          - "epidemiologia"
+          - "obstetric"
+          - "saude coletiva"
+          - "saude publica"
+          - "fisioterapia"
+          - "terapia ocupacional"
+          - "ciencias da saude"
+        excluir_assunto:
+          - "veterinaria"
+          - "veterinária"
+          - "zootecnia"
+          - "ciencia animal"
+          - "ciencias agrarias"
+          - "producao animal"
+          - "saneamento"
+          - "recursos hidricos"
+          # achados lendo o corpus real (14 docs de zootecnia/produção animal
+          # que "nutricao" deixou passar — não tinham "zootecnia" no
+          # área/título/programa, só no corpo do resumo):
+          - "bovinos"
+          - "ovinos"
+          - "caprinos"
+          - "suinos"
+          - "suídeos"
+          - "equinos"
+          - "bezerros"
+          - "aquicultura"
+          - "piscicultura"
+          - "avicultura"
+          - "rebanho"
+        filtro_tipo: ["Dissertação de mestrado", "Tese de doutorado"]
+
+      # UNIFESP — as unidades já delimitam saúde, então o recorte é por TIPO.
+      # `from: null` de propósito: earliestDatestamp é 2026-08-07, sinal de
+      # reindexação recente. O campo filtra data de indexação, não ano de defesa.
+      - habilitada: false          # suspensa: robots.txt pede Crawl-delay 15s
+        endpoint: "https://repositorio.unifesp.br/oai/request"
+        metadata_prefix: "oai_dc"
+        prefix_binarios: "ore"
+        set: "com_11600_61073"        # Escola Paulista de Enfermagem
+        limite: 0
+        from: null
+        filtro_assunto: []
+        filtro_tipo: ["masterThesis", "doctoralThesis"]
+        excluir_assunto: ["veterinaria", "zootecnia"]
+
+      - habilitada: false          # suspensa: robots.txt pede Crawl-delay 15s
+        endpoint: "https://repositorio.unifesp.br/oai/request"
+        metadata_prefix: "oai_dc"
+        prefix_binarios: "ore"
+        set: "com_11600_61130"        # Escola Paulista de Medicina
+        limite: 0
+        from: null
+        filtro_assunto: []
+        filtro_tipo: ["masterThesis", "doctoralThesis"]
+        excluir_assunto: ["veterinaria", "zootecnia"]
+
+      - habilitada: false          # suspensa: robots.txt pede Crawl-delay 15s
+        endpoint: "https://repositorio.unifesp.br/oai/request"
+        metadata_prefix: "oai_dc"
+        prefix_binarios: "ore"
+        set: "com_11600_61113"        # Instituto de Saúde e Sociedade
+        limite: 0
+        from: null
+        filtro_assunto: []
+        filtro_tipo: ["masterThesis", "doctoralThesis"]
+        excluir_assunto: ["veterinaria", "zootecnia"]
+
+  reconciliacao:
+    limiar: 0.90             # acima disso, funde
+    limiar_revisao: 0.82     # entre os dois, vai para a amostra de revisão manual
+
+  amostragem:
+    n_alvo: 500          # pool real medido: 3.719 candidatos de Saúde na UFMG — folga confortável
+    estratos: ["ies", "ano_faixa"]
+    semente: 42
+    # Fila de reserva por estrato. A moldura CAPES tem não-resposta alta e
+    # desigual: sem reserva, os estratos com repositório fraco encolhem
+    # sozinhos e o corpus fica enviesado em silêncio.
+    fator_reserva: 4.0
+
+coleta:
+  # "inventario" = CAPES/OAI (recomendado) | "bdtd_api" = API VuFind da BDTD
+  fonte_inventario: "inventario"
+  base_url: "https://bdtd.ibict.br/vufind"
+
+  # Consulta na API VuFind. Deixe lookfor vazio e use filtros para navegar
+  # por área; ou combine os dois.
+  lookfor: ""
+  type: "AllFields"
+
+  # Filtros Solr, exatamente como aparecem no parâmetro filter[] da URL da BDTD.
+  # COMO DESCOBRIR O FILTRO DA SUA ÁREA:
+  #   1) abra https://bdtd.ibict.br/vufind, clique na sua área,
+  #      e copie os parâmetros `filter[]=...` da URL do navegador; ou
+  #   2) rode: python -m src.raw.bdtd_client facets --field <campo>
+  #      (campos usuais no índice da BDTD/Oasisbr:
+  #       format, language, institution, publishDate,
+  #       dc.subject.cnpq.fl_str_mv, dc.subject.por.fl_str_mv,
+  #       dc.publisher.program.fl_str_mv, eu_rights_str_mv)
+  filtros:
+    - 'language:"por"'
+    # - 'dc.subject.cnpq.fl_str_mv:"CNPQ::CIENCIAS EXATAS E DA TERRA::CIENCIA DA COMPUTACAO"'
+    # - 'format:"doctoralThesis"'
+
+  # Só coletar o que é realmente acesso aberto. Registros fechados entram
+  # apenas como metadado (sem PDF) e são marcados no relatório.
+  somente_acesso_aberto: true
+
+  # Solr não pagina indefinidamente (janela ~10k). O crawler fatia a consulta
+  # por ano de defesa para nunca bater nesse teto.
+  particionar_por_ano: true
+  ano_inicio: 1990
+  ano_fim: 2026
+
+  # Teto de registros por execução (0 = sem teto). Útil para testar o pipeline
+  # antes de rodar a coleta completa.
+  max_registros: 500
+  max_pdfs: 500
+
+  # Educação do crawler (não mexa para cima sem pensar)
+  http:
+    requisicoes_por_segundo: 0.5      # 1 request a cada 2s na BDTD
+    rps_repositorios: 0.33            # 1 request a cada 3s por domínio de repositório
+    timeout_s: 60
+    tentativas: 4
+    backoff_base_s: 2.0
+    respeitar_robots: true
+    tamanho_max_pdf_mb: 120
+
+  # Alguns repositórios institucionais carregam o link do PDF via JavaScript.
+  # Se True, tenta Selenium como último recurso (exige chromedriver).
+  fallback_selenium: false
+
+# --------------------------------------------------------------------------
+# CAMADA PROCESSED — extração e tratamento
+# --------------------------------------------------------------------------
+processed:
+  extracao:
+    # "pymupdf" (rápido) | "docling" (mais preciso, mais lento)
+    motor: "pymupdf"
+    workers: 4                        # ProcessPool: tarefa é CPU-bound
+    # Abaixo disso a página é considerada "sem camada de texto" -> OCR
+    min_chars_por_pagina: 60
+    ocr_habilitado: true
+    ocr_idioma: "por"
+    ocr_dpi: 200
+    # Não gastar OCR em tese de 400 páginas inteira: limite de páginas OCR
+    ocr_max_paginas: 60
+
+  limpeza:
+    # Remove cabeçalho/rodapé que se repete em >= X% das páginas
+    limiar_repeticao_linha: 0.6
+    # Corta pré-textuais (folha de rosto, ficha catalográfica, folha de
+    # aprovação, dedicatória, agradecimentos) até o RESUMO, quando detectável
+    cortar_pretextuais: true
+    # Corta referências/anexos do fim (opcional: ruim para RAG, bom para pré-treino)
+    cortar_pos_referencias: true
+
+  qualidade:
+    min_palavras: 300
+    max_palavras: 400000
+    idioma_esperado: "pt"
+    idioma_confianca_min: 0.65
+    max_prop_simbolos: 0.10           # (# + ... ) / palavras
+    min_prop_palavras_alfabeticas: 0.75
+    min_stopwords_pt: 8               # doc sem stopword de pt é lixo de OCR
+    max_prop_linhas_duplicadas: 0.30
+    faixa_tamanho_medio_palavra: [3.0, 10.0]
+    max_prop_tokens_curtos: 0.55
+    min_palavras_por_linha: 3.0
+
+  anonimizacao:
+    habilitada: true
+    # Autor/orientador vêm dos METADADOS bibliográficos e são informação
+    # pública de citação — não são anonimizados (isso quebraria a proveniência
+    # e não é exigido pela LGPD, art. 4º/art. 7º para dado público acadêmico).
+    # O alvo aqui é PII de TERCEIROS dentro do texto: participantes de
+    # pesquisa, pacientes, entrevistados, e-mails, documentos.
+    preservar_autoria_bibliografica: true
+    detectores:
+      cpf: true                       # com validação de dígito verificador
+      cnpj: true
+      email: true
+      telefone: true
+      cep: true
+      rg: true
+      cartao_sus: true
+      titulo_eleitor: true
+      pis_pasep: true
+      placa_veiculo: true
+      url_perfil_social: true
+      iban_conta: false
+    # "mascara" -> [CPF], "hash" -> [CPF:9f2a...], "remove" -> ""
+    estrategia: "mascara"
+    # NER de nomes de pessoa (exige `pip install spacy` + modelo pt).
+    # Custoso; desligado por padrão. Quando ligado, só atua nas seções
+    # de metodologia/resultados (heurística), nunca em referências.
+    ner_nomes: false
+    ner_modelo: "pt_core_news_lg"
+
+  deduplicacao:
+    exata: true                       # sha256 do texto normalizado
+    fuzzy: true                       # MinHash + LSH
+    minhash_permutacoes: 128
+    minhash_limiar_jaccard: 0.80
+    shingle_n: 5                      # n-gramas de palavras
+    # Remoção de repetição interna (regras estilo Gopher/MassiveText)
+    remover_linhas_repetidas: true
+    max_prop_paragrafos_duplicados: 0.30
+
+# --------------------------------------------------------------------------
+# CAMADA CURATED — produtos finais
+# --------------------------------------------------------------------------
+curated:
+  splits:
+    treino: 0.90
+    validacao: 0.05
+    teste: 0.05
+    semente: 42
+    # Agrupa por autor+programa antes de dividir, para não vazar
+    # o mesmo trabalho/estilo entre treino e teste.
+    agrupar_por: "autor_programa"
+
+  pretreino:
+    formato: "jsonl"
+    comprimir: true                   # .jsonl.zst
+    max_docs_por_shard: 5000
+
+  finetuning:
+    # Pares instrução->resposta derivados da própria estrutura do documento
+    # (resumo, palavras-chave, título). Determinístico, sem alucinação.
+    templates_por_doc: 4
+    min_caracteres_resposta: 200
+
+  rag:
+    tamanho_chunk_palavras: 500
+    sobreposicao_palavras: 50
+    # Cada chunk carrega os metadados (desnormalização intencional)
+    campos_contexto: ["titulo", "autor", "instituicao", "programa", "ano", "area", "url"]
+
+  benchmark:
+    # 1) recuperação: resumo como query, documento como gold
+    recuperacao_n: 300
+    # 2) múltipla escolha gerada a partir de metadados verificáveis
+    multipla_escolha_n: 300
+    # 3) holdout de perplexidade, descontaminado contra o treino
+    perplexidade_n: 200
