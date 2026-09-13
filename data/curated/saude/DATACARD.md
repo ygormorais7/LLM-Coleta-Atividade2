@@ -1,6 +1,6 @@
 # DATACARD — Corpus BDTD: Saúde
 
-**Versão:** 2026-09-11
+**Versão:** 2026-09-12
 **Fonte:** Biblioteca Digital Brasileira de Teses e Dissertações (BDTD/IBICT)
 **Coletado por:** UFPI — contato: ygor.morais@ufpi.edu.br
 
@@ -8,9 +8,9 @@
 
 | Métrica | Valor |
 |---|---|
-| Documentos no corpus final | 386 |
-| Palavras totais | 9,027,969 |
-| Palavras por documento (mediana) | 19376 |
+| Documentos no corpus final | 2840 |
+| Palavras totais | 69,154,508 |
+| Palavras por documento (mediana) | 20513 |
 | Período coberto | 2019–2026 |
 | Instituições distintas | 1 |
 | Idioma | português (filtro com limiar de confiança) |
@@ -19,37 +19,37 @@
 
 | Split | Documentos |
 |---|---|
-| treino | 345 |
-| validacao | 21 |
-| teste | 20 |
+| treino | 2562 |
+| teste | 140 |
+| validacao | 138 |
 
 ### Principais instituições
 
 | Instituição | Documentos |
 |---|---|
-| Universidade Federal de Minas Gerais | 386 |
+| Universidade Federal de Minas Gerais | 2840 |
 
 ### Direitos declarados na fonte
 
 | Direitos | Documentos |
 |---|---|
-| Acesso Aberto | 308 |
-| Acesso Aberto; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/ | 34 |
-| Acesso aberto | 16 |
-| Acesso Aberto; http://creativecommons.org/licenses/by-nd/3.0/pt/ | 12 |
-| Acesso aberto; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/ | 4 |
-| Acesso aberto; Attribution-NonCommercial-NoDerivs 3.0 Brazil; http://creativecommons.org/licenses/by-nc-nd/3.0/br/ | 3 |
-| Acesso Aberto; Atribuição-NãoComercial-SemDerivados 3.0 Portugal; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/ | 1 |
-| Acesso Aberto; http://creativecommons.org/licenses/by/3.0/pt/ | 1 |
+| Acesso Aberto | 2299 |
+| Acesso Aberto; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/ | 271 |
+| Acesso aberto | 87 |
+| Acesso Aberto; http://creativecommons.org/licenses/by-nd/3.0/pt/ | 61 |
+| Acesso Aberto; http://creativecommons.org/licenses/by/3.0/pt/ | 21 |
+| Acesso aberto; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/ | 19 |
+| Acesso Aberto; http://creativecommons.org/licenses/by-nc-sa/3.0/pt/ | 15 |
+| Acesso aberto; Attribution-NonCommercial-NoDerivs 3.0 Brazil; http://creativecommons.org/licenses/by-nc-nd/3.0/br/ | 9 |
 
 ## 2. Produtos gerados
 
 | Produto | Conteúdo |
 |---|---|
-| `pretreino/*.jsonl` | {'treino': 345, 'validacao': 21, 'teste': 20} — documento inteiro, campo `text` |
-| `sft/*.jsonl` | {'treino': 426, 'validacao': 28, 'teste': 25} — pares instrução/resposta no formato `messages` |
-| `rag/corpus_rag.parquet` | 19439 chunks de 500 palavras (sobreposição 50) |
-| `benchmark/` | {'recuperacao': 40, 'multipla_escolha': 40, 'perplexidade': 41} |
+| `pretreino/*.jsonl` | {'treino': 2562, 'validacao': 138, 'teste': 140} — documento inteiro, campo `text` |
+| `sft/*.jsonl` | {'treino': 3215, 'validacao': 183, 'teste': 179} — pares instrução/resposta no formato `messages` |
+| `rag/corpus_rag.parquet` | 149071 chunks de 500 palavras (sobreposição 50) |
+| `benchmark/` | {'recuperacao': 276, 'multipla_escolha': 276, 'perplexidade': 200} |
 
 ## 3. Como foi construído
 

@@ -1,0 +1,249 @@
+01:44:50 | INFO    | raw.fontes             | ORE https://repositorio.ufmg.br/server/oai/request: 3050/3632, 3049 casados                                                      07:14 [244/390]
+01:47:22 | INFO    | raw.fontes             | ORE https://repositorio.ufmg.br/server/oai/request: 3100/3632, 3099 casados                                                                     
+01:49:53 | INFO    | raw.fontes             | ORE https://repositorio.ufmg.br/server/oai/request: 3150/3632, 3149 casados                                                                     
+01:52:25 | INFO    | raw.fontes             | ORE https://repositorio.ufmg.br/server/oai/request: 3200/3632, 3199 casados                                                                     
+01:54:56 | INFO    | raw.fontes             | ORE https://repositorio.ufmg.br/server/oai/request: 3250/3632, 3249 casados                                                                     
+01:57:28 | INFO    | raw.fontes             | ORE https://repositorio.ufmg.br/server/oai/request: 3300/3632, 3299 casados                                                                     
+01:59:59 | INFO    | raw.fontes             | ORE https://repositorio.ufmg.br/server/oai/request: 3350/3632, 3349 casados                                                                     
+02:02:31 | INFO    | raw.fontes             | ORE https://repositorio.ufmg.br/server/oai/request: 3400/3632, 3399 casados                                                                     
+02:05:02 | INFO    | raw.fontes             | ORE https://repositorio.ufmg.br/server/oai/request: 3450/3632, 3449 casados                                                                     
+02:07:34 | INFO    | raw.fontes             | ORE https://repositorio.ufmg.br/server/oai/request: 3500/3632, 3499 casados                                                                     
+02:10:05 | INFO    | raw.fontes             | ORE https://repositorio.ufmg.br/server/oai/request: 3550/3632, 3549 casados                                                                     
+02:12:37 | INFO    | raw.fontes             | ORE https://repositorio.ufmg.br/server/oai/request: 3600/3632, 3599 casados                                                                     
+02:14:14 | INFO    | raw.fontes             | ORE https://repositorio.ufmg.br/server/oai/request: 3631 bitstreams em 3632 selecionados                                                        
+02:14:14 | INFO    | raw.inventario         | inventário gravado em /home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/inventario.jsonl (3632 candidatos)                                        
+                                                                                                                                                                                              
+=== ETAPA 2/2: pipeline completo (raw -> staging -> processed -> curated) ===                                                                                                                 
+02:14:15 | INFO    | raw.harvest            | acesso aberto: 3632 -> 3447 candidatos (185 bloqueados por direitos)                                                                            
+03:05:07 | INFO    | raw.fulltext           | hdl.handle.net pede Crawl-delay de 1s — adotado                                                                                                 
+05:10:33 | INFO    | raw.harvest            | estrato ufmg|2015-2019: 2012/2774 obtidos em 1743 tentativas                                                                                    
+06:51:31 | INFO    | raw.harvest            | estrato ufmg|2020-2024: 1163/1772 obtidos em 1003 tentativas                                                                                    
+07:14:05 | INFO    | raw.harvest            | estrato ufmg|2025-2029: 267/454 obtidos em 225 tentativas                                                                                       
+07:14:05 | INFO    | raw.harvest            | downloads: 3474 ok, 11.5 GB, 0/3 estratos com cota fechada                                                                                      
+07:14:05 | INFO    | raw.harvest            | relatório da camada Raw: /home/lmssa/.vcoleta/bdtd-corpus/data/reports/saude/raw.json                                                           
+07:14:12 | INFO    | staging.organize       | documentos: 3632 linhas -> documentos.parquet                                                                                                   
+07:14:12 | INFO    | staging.organize       | autores: 3631 linhas -> autores.parquet                                                                                                         
+07:14:12 | INFO    | staging.organize       | assuntos: 20697 linhas -> assuntos.parquet                                                                                                      
+07:14:12 | INFO    | staging.organize       | arquivos: 3474 linhas -> arquivos.parquet                                                                                                       
+07:14:13 | INFO    | processed.extract      | extraindo 2967 arquivos com 4 workers (motor=pymupdf)                                                                                           
+==========================================================================                                                                                                                    
+  bdtd-corpus  |  área: Saúde                                                                                                                                                                 
+  config: /home/lmssa/.vcoleta/bdtd-corpus/config/config.yaml                                                                                                                                 
+==========================================================================                                                                                                                    
+                                                                                                                                                                                              
+--- camada RAW ---------------------------------------------------------                                                                                                                      
+    concluída em 17991.1s | falhas: 190                                                                                                                                                       
+                                                                                                                                                                                              
+--- camada STAGING -----------------------------------------------------                                                                                                                      
+    concluída em 7.1s | falhas: 14                                                                                                                                                            
+                                                                                                                                                                                              
+--- camada PROCESSED ---------------------------------------------------                                                                                                                      
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.                                                                                            
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.                                                                             07:31 [202/390]
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.                                                                                            
+07:14:16 | INFO    | processed.extract      | 50/2967 extraídos                                                                                                                               
+MuPDF error: format error: No default Layer config                                                                                                                                            
+                                                                                                                                                                                              
+07:15:50 | INFO    | processed.extract      | 100/2967 extraídos                                                                                                                              
+07:16:25 | INFO    | processed.extract      | 150/2967 extraídos                                                                                                                              
+07:17:31 | INFO    | processed.extract      | 200/2967 extraídos                                                                                                                              
+MuPDF error: format error: No default Layer config                                                                                                                                            
+                                                                                                                                                                                              
+07:18:28 | INFO    | processed.extract      | 250/2967 extraídos                                                                                                                              
+07:19:05 | INFO    | processed.extract      | 300/2967 extraídos                                                                                                                              
+07:19:13 | INFO    | processed.extract      | 350/2967 extraídos                                                                                                                              
+MuPDF error: format error: No default Layer config                                                                                                                                            
+                                                                                                                                                                                              
+07:19:19 | INFO    | processed.extract      | 400/2967 extraídos                                                                                                                              
+07:19:28 | INFO    | processed.extract      | 450/2967 extraídos                                                                                                                              
+07:20:50 | INFO    | processed.extract      | 500/2967 extraídos                                                                                                                              
+07:21:16 | INFO    | processed.extract      | 550/2967 extraídos                                                                                                                              
+07:22:30 | INFO    | processed.extract      | 600/2967 extraídos                                                                                                                              
+07:22:40 | INFO    | processed.extract      | 650/2967 extraídos                                                                                                                              
+07:23:30 | INFO    | processed.extract      | 700/2967 extraídos                                                                                                                              
+07:24:01 | INFO    | processed.extract      | 750/2967 extraídos                                                                                                                              
+07:24:13 | INFO    | processed.extract      | 800/2967 extraídos                                                                                                                              
+07:24:59 | INFO    | processed.extract      | 850/2967 extraídos                                                                                                                              
+MuPDF error: format error: No default Layer config                                                                                                                                            
+                                                                                                                                                                                              
+07:25:10 | INFO    | processed.extract      | 900/2967 extraídos                                                                                                                              
+MuPDF error: format error: No default Layer config                                                                                                                                            
+                                                                                                                                                                                              
+07:25:35 | INFO    | processed.extract      | 950/2967 extraídos                                                                                                                              
+07:26:45 | INFO    | processed.extract      | 1000/2967 extraídos                                                                                                                             
+MuPDF error: format error: No default Layer config                                                                                                                                            
+                                                                                                                                                                                              
+07:26:58 | INFO    | processed.extract      | 1050/2967 extraídos                                                                                                                             
+07:28:25 | INFO    | processed.extract      | 1100/2967 extraídos                                                                                                                             
+07:28:33 | INFO    | processed.extract      | 1150/2967 extraídos                                                                                                                             
+07:29:44 | INFO    | processed.extract      | 1200/2967 extraídos                                                                                                                             
+07:30:34 | INFO    | processed.extract      | 1250/2967 extraídos                                                                                                                             
+07:30:46 | INFO    | processed.extract      | 1300/2967 extraídos                                                                                                                             
+07:31:48 | INFO    | processed.extract      | 1350/2967 extraídos                                                                                                                             
+MuPDF error: format error: No default Layer config
+07:34:10 | INFO    | processed.extract      | 1400/2967 extraídos                                                                                                                             
+07:34:32 | INFO    | processed.extract      | 1450/2967 extraídos                                                                                                                             
+07:35:35 | INFO    | processed.extract      | 1500/2967 extraídos                                                                                                                             
+07:35:50 | INFO    | processed.extract      | 1550/2967 extraídos                                                                                                                             
+MuPDF error: format error: No default Layer config                                                                                                                                            
+                                                                                                                                                                                              
+07:36:27 | INFO    | processed.extract      | 1600/2967 extraídos                                                                                                                             
+MuPDF error: format error: No default Layer config                                                                                                                                            
+                                                                                                                                                                                              
+07:36:38 | INFO    | processed.extract      | 1650/2967 extraídos                                                                                                                             
+07:38:04 | INFO    | processed.extract      | 1700/2967 extraídos                                                                                                                             
+MuPDF error: format error: No default Layer config                                                                                                                                            
+                                                                                                                                                                                              
+07:38:59 | INFO    | processed.extract      | 1750/2967 extraídos                                                                                                                             
+07:39:11 | INFO    | processed.extract      | 1800/2967 extraídos                                                                                                                             
+07:39:22 | INFO    | processed.extract      | 1850/2967 extraídos                                                                                                                             
+07:39:33 | INFO    | processed.extract      | 1900/2967 extraídos                                                                                                                             
+07:39:43 | INFO    | processed.extract      | 1950/2967 extraídos                                                                                                                             
+MuPDF error: syntax error: unknown keyword: '-nan'                                                                                                                                            
+                                                                                                                                                                                              
+MuPDF error: syntax error: unknown keyword: '-nan'                                                                                                                                            
+                                                                                                                                                                                              
+MuPDF error: syntax error: unknown keyword: '-nan'                                                                                                                                            
+                                                                                                                                                                                              
+07:39:55 | INFO    | processed.extract      | 2000/2967 extraídos                                                                                                                             
+07:40:01 | INFO    | processed.extract      | 2050/2967 extraídos                                                                                                                             
+07:40:06 | INFO    | processed.extract      | 2100/2967 extraídos                                                                                                                             
+07:40:11 | INFO    | processed.extract      | 2150/2967 extraídos                                                                                                                             
+07:40:49 | INFO    | processed.extract      | 2200/2967 extraídos                                                                                                                             
+07:40:59 | INFO    | processed.extract      | 2250/2967 extraídos                                                                                                                             
+07:41:07 | INFO    | processed.extract      | 2300/2967 extraídos                                                                                                                             
+07:41:12 | INFO    | processed.extract      | 2350/2967 extraídos                                                                                                                             
+07:41:24 | INFO    | processed.extract      | 2400/2967 extraídos                                                                                                                             
+07:42:14 | INFO    | processed.extract      | 2450/2967 extraídos                                                                                                                             
+07:42:24 | INFO    | processed.extract      | 2500/2967 extraídos                                                                                                                             
+07:42:33 | INFO    | processed.extract      | 2550/2967 extraídos                                                                                                                             
+07:42:38 | INFO    | processed.extract      | 2600/2967 extraídos                                                                                                                             
+07:42:50 | INFO    | processed.extract      | 2650/2967 extraídos                                                                                                                             
+07:43:01 | INFO    | processed.extract      | 2700/2967 extraídos                                                                                                                             
+07:43:07 | INFO    | processed.extract      | 2750/2967 extraídos                                                                                                                             
+07:43:12 | INFO    | processed.extract      | 2800/2967 extraídos
+
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                        07:43 [118/390]
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+
+MuPDF error: syntax error: too many sub-functions in stitching function
+
+MuPDF error: syntax error: too many sub-functions in stitching function
+
+MuPDF error: syntax error: too many sub-functions in stitching function
+
+MuPDF error: syntax error: too many sub-functions in stitching function
+
+MuPDF error: syntax error: too many sub-functions in stitching function
+
+MuPDF error: syntax error: too many sub-functions in stitching function
+
+MuPDF error: syntax error: too many sub-functions in stitching function
+                                                                                                                                                                                07:50 [73/390]
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+MuPDF error: syntax error: too many sub-functions in stitching function                                                                                                                       
+                                                                                                                                                                                              
+07:43:18 | INFO    | processed.extract      | 2850/2967 extraídos                                                                                                                             
+07:43:23 | INFO    | processed.extract      | 2900/2967 extraídos                                                                                                                             
+07:43:29 | INFO    | processed.extract      | 2950/2967 extraídos                                                                                                                             
+07:44:00 | INFO    | processed.extract      | extração: 2967 ok / 2967 (100.0%)                                                                                                               
+07:44:00 | INFO    | processed.run          | tratando 3474 textos extraídos                                                                                                                  
+07:44:24 | INFO    | processed.run          | 100/3474 tratados                                                                                                                               
+07:44:49 | INFO    | processed.run          | 200/3474 tratados                                                                                                                               
+07:45:17 | INFO    | processed.run          | 300/3474 tratados                                                                                                                               
+07:45:42 | INFO    | processed.run          | 400/3474 tratados                                                                                                                               
+07:46:07 | INFO    | processed.run          | 500/3474 tratados                                                                                                                               
+07:46:31 | INFO    | processed.run          | 600/3474 tratados                                                                                                                               
+07:46:57 | INFO    | processed.run          | 700/3474 tratados                                                                                                                               
+07:47:23 | INFO    | processed.run          | 800/3474 tratados                                                                                                                               
+07:47:48 | INFO    | processed.run          | 900/3474 tratados                                                                                                                               
+07:48:15 | INFO    | processed.run          | 1000/3474 tratados                                                                                                                              
+07:48:43 | INFO    | processed.run          | 1100/3474 tratados                                                                                                                              
+07:49:09 | INFO    | processed.run          | 1200/3474 tratados                                                                                                                              
+07:49:34 | INFO    | processed.run          | 1300/3474 tratados                                                                                                                              
+07:49:59 | INFO    | processed.run          | 1400/3474 tratados                                                                                                                              
+07:50:25 | INFO    | processed.run          | 1500/3474 tratados                                                                                                                              
+07:50:48 | INFO    | processed.run          | 1600/3474 tratados
+07:51:12 | INFO    | processed.run          | 1700/3474 tratados                                                                                                                08:26 [31/390]
+07:51:38 | INFO    | processed.run          | 1800/3474 tratados                                                                                                                              
+07:52:05 | INFO    | processed.run          | 1900/3474 tratados                                                                                                                              
+07:52:32 | INFO    | processed.run          | 2000/3474 tratados                                                                                                                              
+07:52:59 | INFO    | processed.run          | 2100/3474 tratados                                                                                                                              
+07:53:26 | INFO    | processed.run          | 2200/3474 tratados                                                                                                                              
+07:53:50 | INFO    | processed.run          | 2300/3474 tratados                                                                                                                              
+07:54:16 | INFO    | processed.run          | 2400/3474 tratados                                                                                                                              
+07:54:41 | INFO    | processed.run          | 2500/3474 tratados                                                                                                                              
+07:55:08 | INFO    | processed.run          | 2600/3474 tratados                                                                                                                              
+07:55:35 | INFO    | processed.run          | 2700/3474 tratados                                                                                                                              
+07:56:02 | INFO    | processed.run          | 2800/3474 tratados                                                                                                                              
+07:56:28 | INFO    | processed.run          | 2900/3474 tratados                                                                                                                              
+07:56:54 | INFO    | processed.run          | 3000/3474 tratados                                                                                                                              
+07:57:23 | INFO    | processed.run          | 3100/3474 tratados                                                                                                                              
+07:57:47 | INFO    | processed.run          | 3200/3474 tratados                                                                                                                              
+07:58:14 | INFO    | processed.run          | 3300/3474 tratados                                                                                                                              
+07:58:41 | INFO    | processed.run          | 3400/3474 tratados                                                                                                                              
+07:59:24 | INFO    | processed.dedup        | dedup exata: 2 duplicatas em 2885 grupos                                                                                                        
+08:12:35 | INFO    | processed.dedup        | dedup fuzzy (jaccard>=0.80): 0 duplicatas                                                                                                       
+08:12:37 | INFO    | processed.run          | corpus processado: 2885 documentos, 70.197.395 palavras                                                                                         
+08:25:50 | INFO    | processed.dedup        | descontaminação: 0 documentos de treino colidem com avaliação                                                                                   
+08:25:54 | INFO    | curated.build          | pré-treino: {'treino': 2586, 'validacao': 141, 'teste': 146}                                                                                    
+08:25:59 | INFO    | curated.build          | SFT: {'treino': 3267, 'validacao': 178, 'teste': 173}                                                                                           
+08:26:16 | INFO    | curated.build          | RAG: 150819 chunks de 2873 documentos                                                                                                           
+08:26:17 | INFO    | curated.build          | benchmarks: {'recuperacao': 285, 'multipla_escolha': 285, 'perplexidade': 200}                                                                  
+08:26:17 | INFO    | curated.build          | camada Curated concluída em /home/lmssa/.vcoleta/bdtd-corpus/data/curated/saude                                                                 
+    concluída em 3504.4s | falhas: 589                                                                                                                                                        
+                                                                                                                                                                                              
+--- camada CURATED -----------------------------------------------------                                                                                                                      
+    concluída em 820.1s | falhas: 0                                                                                                                                                           
+                                                                                                                                                                                              
+==========================================================================
+camada           tempo    falhas   principais saídas
+--------------------------------------------------------------------------
+raw           17991.1s       190   registros_coletados=3632
+staging           7.1s        14   
+processed      3504.4s       589   
+curated         820.1s         0   
+--------------------------------------------------------------------------
+total: 22322.6s
+relatórios: /home/lmssa/.vcoleta/bdtd-corpus/data/reports/saude

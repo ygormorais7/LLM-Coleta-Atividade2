@@ -27,7 +27,7 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from ..common import Config, Relatorio, configurar_log
+from ..common import Config, Relatorio, configurar_log, escrever_jsonl
 
 log = configurar_log("processed.extract")
 
@@ -181,4 +181,15 @@ def extrair_lote(cfg: Config, tarefas: list[tuple[str, str]], destino: Path, rel
 
     ok = sum(1 for r in resultados if r["ok"])
     log.info("extração: %d ok / %d (%.1f%%)", ok, len(resultados), 100 * ok / max(len(resultados), 1))
+
+    # Métricas de extração (páginas, páginas_ocr, motor) só existem em
+    # memória em `resultados` — nunca eram gravadas em disco. Numa execução
+    # seguinte que pula a extração (arquivo já em texto_bruto, o caso comum),
+    # `processed/run.py` não tinha de onde recuperá-las e `paginas`/
+    # `paginas_ocr` zeravam pra TODO MUNDO, não só pra quem não foi
+    # reextraído. Persistido aqui, igual ao `manifesto.jsonl` da Raw.
+    if resultados:
+        caminho_stats = destino.parent / "extracao_stats.jsonl"
+        escrever_jsonl(caminho_stats, resultados, modo="a")
+
     return resultados

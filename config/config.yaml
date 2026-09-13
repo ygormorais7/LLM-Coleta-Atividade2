@@ -119,6 +119,52 @@ inventario:
           - "piscicultura"
           - "avicultura"
           - "rebanho"
+          # rodada seguinte (3ª): a lista acima só cobre o plural masculino.
+          # Em português, nome de doença concorda no feminino singular
+          # ("raiva bovina", "brucelose bovina", "tripanossomose bovina") —
+          # não contém a substring "bovinos" e passava direto. Achado lendo
+          # títulos reais no corpus de 2.873 docs: pelo menos 17 teses de
+          # zootecnia/agropecuária pura (ex.: "Suplementação de novilhos
+          # nelore...", "Partição da energia... para mantença de novilhas
+          # Gir...") coladas no corpus de Saúde.
+          - "bovino"
+          - "bovina"
+          - "bovinas"
+          - "bovinocultura"
+          - "ovino"
+          - "ovina"
+          - "ovinas"
+          - "ovinocultura"
+          - "ovinocaprinocultura"
+          - "caprino"
+          - "caprina"
+          - "caprinas"
+          - "caprinocultura"
+          - "suino"
+          - "suína"
+          - "suíno"
+          - "suinas"
+          - "suínas"
+          - "suinocultura"
+          - "equino"
+          - "equina"
+          - "equinas"
+          - "equinocultura"
+          # NÃO usar o radical solto "equin" — casa com "catequina" /
+          # "epigalocatequina" (flavonoide comum em teses de nutrição), que
+          # são conteúdo de Saúde legítimo. Erro que quase cometi revisando
+          # isto: sempre testar radical curto contra o corpus antes de usar.
+          - "bezerro"
+          - "bezerra"
+          - "bezerras"
+          - "novilho"
+          - "novilha"
+          - "novilhos"
+          - "novilhas"
+          - "nelore"
+          - "pastagem"
+          - "pastagens"
+          - "silagem"
         filtro_tipo: ["Dissertação de mestrado", "Tese de doutorado"]
 
       # UNIFESP — as unidades já delimitam saúde, então o recorte é por TIPO.
@@ -162,7 +208,7 @@ inventario:
     limiar_revisao: 0.82     # entre os dois, vai para a amostra de revisão manual
 
   amostragem:
-    n_alvo: 500          # pool real medido: 3.719 candidatos de Saúde na UFMG — folga confortável
+    n_alvo: 5000         # acima do pool medido (3.719): sem corte por cota, tenta baixar tudo
     estratos: ["ies", "ano_faixa"]
     semente: 42
     # Fila de reserva por estrato. A moldura CAPES tem não-resposta alta e

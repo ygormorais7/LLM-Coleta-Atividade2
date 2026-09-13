@@ -1,41 +1,86 @@
 {
   "camada": "processed",
   "area": "Saúde",
-  "inicio": "2026-09-11T11:47:04.835579+00:00",
-  "fim": "2026-09-11T11:51:34.696250+00:00",
-  "duracao_s": 269.86,
+  "inicio": "2026-09-12T22:11:13.883916+00:00",
+  "fim": "2026-09-12T23:11:18.884964+00:00",
+  "duracao_s": 3605.0,
   "entradas": {
-    "documentos_staging": 2000,
-    "com_arquivo": 508
+    "documentos_staging": 3632,
+    "com_arquivo": 3460
   },
   "saidas": {
     "documentos_parquet": "/home/lmssa/.vcoleta/bdtd-corpus/data/processed/saude/documentos.parquet",
     "dir_texto": "/home/lmssa/.vcoleta/bdtd-corpus/data/processed/saude/texto",
-    "documentos_no_corpus": 416
+    "documentos_no_corpus": 2840
   },
   "metricas": {
-    "extraidos_nesta_execucao": 508,
-    "pii_ocorrencias_removidas": 1469,
-    "reprovados_qualidade": 91,
-    "duplicatas_removidas": 0,
-    "palavras_totais": 9625370,
-    "palavras_media": 23137.9,
-    "paginas_totais": 46454,
-    "docs_com_ocr": 0,
+    "extraidos_nesta_execucao": 3460,
+    "pii_ocorrencias_removidas": 7961,
+    "reprovados_qualidade": 618,
+    "duplicatas_removidas": 2,
+    "palavras_totais": 69154508,
+    "palavras_media": 24350.2,
+    "paginas_totais": 327257,
+    "docs_com_ocr": 57,
     "falhas_por_tipo": {
-      "reprovado_qualidade": 91,
-      "texto_insuficiente": 1
+      "reprovado_qualidade": 618,
+      "duplicata": 2
     },
-    "total_falhas": 92
+    "total_falhas": 620
   },
   "falhas": [
     {
-      "id": "9358512c71a1c932",
-      "tipo": "texto_insuficiente",
-      "detalhe": ""
+      "id": "000cfe3b64d2be98",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0010adb9c9c4de06",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "0010bbd109da1348",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "00285ed20d757fd4",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "003412cfd8433436",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
     },
     {
       "id": "0113cd8cf30b992c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "021f9721fdf93662",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "02e8ea27d1cd69e6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "03e0ea2b448c0e5f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.64"
+    },
+    {
+      "id": "03f91443579f6db3",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "04f9105585bc1977",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
@@ -45,7 +90,32 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "0629d274818ea95a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "06434fb1f1a11942",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "06607dff660eef50",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "06d04c91f101ac82",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "06fc9ce508a354c9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "07629cfc7c40d03a",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
@@ -55,7 +125,97 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "07b3cb1761b3fb2e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "081766f1576f1951",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0848532cac3adca7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "086b55fa3d150735",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "088d7ab430280e67",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "08c3c8369ed21148",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0a6c91a12ae32f05",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0b59e0b5a83cf619",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "0b849a5a9a130108",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0bac4f6cd0f921d6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "0bbfa0596a14d06e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0c03e0f6da0dde93",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0c6f03def4d2146d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0c8ef4dbcbd9f31c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0d1bc84285f7e6d8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "0d200160fcf3cb27",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "0d3dec7bfcb4defc",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0d4d47548c2e2c46",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0d54dc70fc9bd13d",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
@@ -65,9 +225,19 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "0d7516a0f98cf0b6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0d7a15e918fbbb9d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
       "id": "0d8a5f9278c82e5a",
       "tipo": "reprovado_qualidade",
-      "detalhe": "idioma_en_0.90"
+      "detalhe": "idioma_en_1.00"
     },
     {
       "id": "0d8ccc63106ba6a8",
@@ -75,12 +245,112 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "0e188fcdbd314457",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "0e26b2546ab74731",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0ecf863a0764afa8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "0ed18ff709551971",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0f07a4a8e68caffc",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0f39aed530b131e9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "0f5306bf62920ea8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00,fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "0f6e5f7fff5a9fa9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "0fe00ec2b93408cc",
       "tipo": "reprovado_qualidade",
-      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+      "detalhe": "linhas_repetitivas,idioma_en_0.93"
+    },
+    {
+      "id": "100bc1e1f02a57dc",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "100e52da33bb3b89",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "1015f47e4c2ab877",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "112884aba55a0a05",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "11a81d4d2b9dcb7e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "11c7c5f2f1155513",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
     },
     {
       "id": "1200131f5db9f875",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "122e74004a98baa1",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "12a1eb666afde709",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1326b49d4cf5cdef",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "13282a8fe93d83ef",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1447961e24a7dfc8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1457323cdd3df71a",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
@@ -90,12 +360,137 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "15ef4d7d0158f865",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "16583b41dc0b2943",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "16a1007604fd763a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "16a34bac08ac4213",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "175293b57a9bcac1",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "17adc91e9663c7a7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
       "id": "17c457d23d9c19de",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "182f40c78b67dd45",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "18d9ca9595dac8b5",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "18f042ff32432b07",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
       "id": "1922ce76193e1ab4",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "19f0d6507f7bd4ad",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "19fc578b55ed7a77",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1a34878f5078e927",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1b02fdc3cf669331",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1b28df0addb08159",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1b49ba6b83d4070d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1c4c672201e1120b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "1c5f4b91f2ae0ce7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1c6f3bf5af7bb6cb",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1cf7825f9bd98532",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1d0ebaf6e5b7d211",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1ec68ef5ad121acf",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "sem_stopwords_pt,idioma_de_1.00"
+    },
+    {
+      "id": "1ef30ad97424ab9a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "1f3234496c9a67cf",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1f46d532110cbefd",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "1f5240902c82ca15",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
@@ -105,9 +500,64 @@
       "detalhe": "linhas_repetitivas"
     },
     {
+      "id": "218e326761ffbf23",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "2238b0edd631a09b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "22dc7d9910b5edd0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.79"
+    },
+    {
       "id": "22e7c415be606288",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "22fe1503016c994d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "237e91badf7cd68d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "2388d33cca244a99",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "23b511b013aee0b3",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "250449bbb84dc4a7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "25d8fbb43adb45c6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "25dbe5fcae07dca6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "26d948b53697b864",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
     },
     {
       "id": "2736b3bf1104fe76",
@@ -115,9 +565,144 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "2795fb6594750cca",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "2860e88ecc166b4a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "28d9904a67c59721",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "28dc81d22e4bd30d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "29180369339f4727",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "29d774a66ac9144f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico"
+    },
+    {
+      "id": "2b6dc884c989ffd7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "2c8d976e23a7ae8f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "2d3c8a777357f552",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "2d3debc64c8a783d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.93"
+    },
+    {
+      "id": "2d72077a80522d2a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "2d910a065674481a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "2f4403265aad4f3d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "2f59abd280390557",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "2f8e028f34703ec4",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.95"
+    },
+    {
+      "id": "306715433bc2f6de",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.90"
+    },
+    {
+      "id": "306a6c702f8cf1d8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "30cbfd74f2fa2658",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "317894468fcc9f40",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "318b3b2a5d3e829a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "31f1091a729e89f8",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "328c98c818dd0101",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "32afb695bd931af4",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "32b261e4d996e825",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
+    },
+    {
+      "id": "32b6fcdbfc0be3a9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "32c3fd70fe640a6c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "32fee080e328643d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "3329f6d8e2f4522e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
     },
     {
       "id": "3393765a7c39d772",
@@ -130,14 +715,109 @@
       "detalhe": "linhas_repetitivas,linhas_curtas_demais"
     },
     {
+      "id": "342fd2daf7898b14",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "3452be95fa4d50f7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "34a4aea8c4c33fc0",
       "tipo": "reprovado_qualidade",
       "detalhe": "linhas_repetitivas,idioma_en_1.00"
     },
     {
-      "id": "377e8fd2d6ce213d",
+      "id": "34d32f5f570a94be",
       "tipo": "reprovado_qualidade",
-      "detalhe": "curto_demais,pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,sem_stopwords_pt,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_un_0.00"
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "34e1dfc9c52d6098",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "34f1bff3932f0661",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "3549bf71c66fcbea",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "35851128313cb681",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "35eedc6a00b76c6b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "35ef09a5af15bc95",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.95"
+    },
+    {
+      "id": "362afbc6dd5811e2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "364cdce3b8098d02",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "366fdda74eebe605",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.93"
+    },
+    {
+      "id": "36724bd60d14e33f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "36d9357ef0d0eb23",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "36ffd85e3806ac5d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "3791f813b7a1b1b8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.93"
+    },
+    {
+      "id": "37afa9e9f621c573",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "37f0b363fe853114",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "38e36347f692d324",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.93"
+    },
+    {
+      "id": "397eb0158d862891",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
     },
     {
       "id": "398aead389551c6d",
@@ -145,9 +825,69 @@
       "detalhe": "linhas_repetitivas"
     },
     {
+      "id": "3a4d59c1ecf97cc1",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "3ad5868c8c603838",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,tamanho_medio_palavra_anomalo,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_it_1.00"
+    },
+    {
+      "id": "3ae6369d99dd61d8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "3b35f8ef5c17f6a0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "3be72e5fc51d7892",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "3bfd803663a1f8c5",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "3c337a4578c79a2d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "3c9a4b045a466760",
       "tipo": "reprovado_qualidade",
       "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "3cb66e4ff41bd40c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "3cddffa4e95a29c8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "3dc0e9da2f4e18cc",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "3f32db422aeaadc0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "3f3fe49218bad425",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
     },
     {
       "id": "40812a196024223b",
@@ -155,9 +895,79 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "40cab4f273452e37",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "410558cb5f3224d6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "4179c967479c6445",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "41b1d5b5e5473329",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "423a8442f1bde196",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "42540219852aa567",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
       "id": "426965545fe2fe60",
       "tipo": "reprovado_qualidade",
       "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "4269c4be85f85e99",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "426ea1bfb102f665",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "429e4b6f85110779",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "430eb2566e8381de",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "43a2f43f6f32960d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "43fc61e0a53b3d6c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "44cc7136aad9f1b3",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_en_0.93"
+    },
+    {
+      "id": "450820b0a85c5797",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
     },
     {
       "id": "464e21cf1bfcc184",
@@ -165,7 +975,62 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "47793b7d978befaa",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "47959a5607c49239",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "47f13da13ef8a706",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "4854d17b214cc9a5",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.57"
+    },
+    {
+      "id": "487f21343fb7bd8c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "48970debc96a8bec",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "493b244055650240",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "495001c79883ec63",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
+    },
+    {
+      "id": "49529e3afd138410",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "4a81a36f843049a1",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
+    },
+    {
       "id": "4a8cee1740a36db0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "4a994446e0337175",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
@@ -175,14 +1040,199 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "4b34fce524c3fd64",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "4b8877e0d1a85103",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "4b96572f45cc128a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "4bb87d25f7921d3f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "4bfcfe31ba7ffb12",
       "tipo": "reprovado_qualidade",
       "detalhe": "linhas_repetitivas"
     },
     {
+      "id": "4ce6cbafd5e54552",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "4d0dfb512e151585",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico"
+    },
+    {
+      "id": "4d8fcfbd272825e7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "4e2f5aeada472769",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "4e4e3af811821849",
       "tipo": "reprovado_qualidade",
       "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "4e53439402ba0206",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "4e6d30279f78711a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "4e9153e570722025",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "4eb77e6cbd29f48d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "4ebfde3c19556614",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "4ec6cc3f25e24186",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "4fae72f4efc5605f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "516f7e4365cb74cb",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "curto_demais"
+    },
+    {
+      "id": "518f07ca94181fe3",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "528856ea7958af95",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "excesso_simbolos"
+    },
+    {
+      "id": "52af39bfbf4b07ff",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "52b547ca8e5086fb",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "52b98a4f78db2800",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "53214f07e6e84b66",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "537ee5240816265e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "538687f94c85163c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "53b7523839f962af",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "54398b0e3f203367",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "5496332f1de6edf1",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "curto_demais"
+    },
+    {
+      "id": "54f0f9a82ecb1f8b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "5553a436378ba22e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "55794657a2aa8d4a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "55c0e1525273f823",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "569a43d14605a0ed",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "56bb228036e715cd",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico"
+    },
+    {
+      "id": "57021d4111ca73e9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "5872ccef96f5dbba",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "58e6200eb86fadab",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "58f9c83c97f98b20",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
     },
     {
       "id": "5906e4b07a4c051c",
@@ -195,14 +1245,194 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "5a383d8b908ac13a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "5a5db6c6d7d1ccc1",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "5a9de24aef5985ac",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "5ba8bbd37695e21e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "5be3288da57ae603",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "5c77302ecaa42489",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "5c8cec6674ef9e5b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "5d7fb8a145380fb0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "5d90ed9ee59462ef",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "5e1aa2c0cf1b1d4d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.90"
+    },
+    {
+      "id": "5ea4c6fbd5704135",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_en_0.86"
+    },
+    {
+      "id": "5ed288176c4415bd",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
+    },
+    {
       "id": "5ef79b164622f22a",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "5f43cd7295aee1cf",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "5fb7b35757576c97",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "6156c5cd393779bb",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.95"
+    },
+    {
       "id": "616deee3b6bec0af",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_0.90"
+    },
+    {
+      "id": "61f10f75aae302c5",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "62ab408ed47aba3b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "62b5e94109c50a58",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "636452fa8ae5ea52",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.86"
+    },
+    {
+      "id": "63afe4ae5435d1b7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "6456f2e5bbaf22fa",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "6483a0113580e343",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "6502c46a8fba5edd",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
+    },
+    {
+      "id": "65c696f960a87b78",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "6705426cf06d000b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico"
+    },
+    {
+      "id": "676652df935b588d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "67bfe558e81a584d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,idioma_en_1.00"
+    },
+    {
+      "id": "68300d1b0dd3e2e6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "690b9d8647ab8ca7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "69903dda2d2160b2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "69d8a5e2759ff1ff",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "69ec21653bd0833d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "6a3a17e9956cffc6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "6a6432a6d05a077b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "6ae2158277314519",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "6b2e035312e2cc6d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.79"
     },
     {
       "id": "6b884ed3efd0b2b8",
@@ -211,6 +1441,11 @@
     },
     {
       "id": "6bbe0c8f19fc939b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
+    },
+    {
+      "id": "6cb31355fe93014f",
       "tipo": "reprovado_qualidade",
       "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
     },
@@ -225,9 +1460,54 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "6d59e4d4266fa422",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "6d67bcf8f14a466e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "6e3f7ad29410be0c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "6e4dfa04bb13795f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "6e641e96dc0ce30e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "6efb728e5600cdce",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,tamanho_medio_palavra_anomalo,linhas_repetitivas,ocr_fragmentado"
+    },
+    {
+      "id": "7019866068f0693f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "702176674fc3d62e",
       "tipo": "reprovado_qualidade",
       "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "702ba6bda93932f3",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "70a49f61b6dbebb7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
     },
     {
       "id": "70a89ef255863738",
@@ -240,12 +1520,82 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "7140b10298af02bb",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "72802c3043addc54",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "73e3785dc171e036",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "74bf276e4f25ccc7",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "75947d58906e98d3",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "75bbce3a37793d81",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "75e8686a14214ed5",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "75f291122c3e662e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "76053faaaf983c7e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico"
+    },
+    {
+      "id": "7629591ca6f0515b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "76e2a1877b1ed4d3",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "7724122e7b31820d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "773f8192e4195cd0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "782e50d2acef3db8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "786b5a916e9b07dd",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "78b9e9fd53caa58d",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
@@ -257,12 +1607,77 @@
     {
       "id": "79f7692ec82049be",
       "tipo": "reprovado_qualidade",
-      "detalhe": "curto_demais,pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,sem_stopwords_pt,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_un_0.00"
+      "detalhe": "fora_de_escopo_zootecnia"
     },
     {
-      "id": "7ad574adf779f0da",
+      "id": "7a4b46f83edea51b",
       "tipo": "reprovado_qualidade",
-      "detalhe": "curto_demais,pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,sem_stopwords_pt,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_un_0.00"
+      "detalhe": "idioma_en_1.00,fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "7a731df0c334633f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "7a9be99b70f1cb87",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "7aaeafd9d9dcf4e2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico"
+    },
+    {
+      "id": "7ada57c9f3ffee75",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "7bf1f175f70ea92b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "7c85c48dd8e97772",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "7cd63c0dd0a8fd2d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "7dc34b82a93fdcff",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "7dcdbb71cd8a4dee",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "7e8a28b410e8c276",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "7ee91e5f2cdf056f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "7f360afda0460689",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "7f572d5158cb8495",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
     },
     {
       "id": "7f868d54cb2b0b90",
@@ -270,12 +1685,77 @@
       "detalhe": "linhas_repetitivas"
     },
     {
+      "id": "800252d559d468e2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "80e5de7919f194f1",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "81982cde725803c9",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "81c1bfa74384f264",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "81e146a64768290c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_en_0.95"
+    },
+    {
+      "id": "8268b80d3f31295a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "83a219af29f9bebc",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.79"
+    },
+    {
+      "id": "84291ee19dc5f77c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "84b1a345faad20a8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "8572d11e46257201",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "85ce84598a5a75b7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "85e5a5df890cd521",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "8628aeaaed404bb7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "8674b6c47d306d8c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.95"
+    },
+    {
+      "id": "890b65e4bbe379d3",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
@@ -290,7 +1770,92 @@
       "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
     },
     {
-      "id": "91152ba2b73988f3",
+      "id": "8982150a15d69c56",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "89aa3e278af72be6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "89d52021914e041a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "89f09547807a6605",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "8b39a349ca0ac63f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.93"
+    },
+    {
+      "id": "8c3e14d924d9a7fc",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "8c5719a7d3e1321d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "8c9e564733666f18",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "8cde5c8bb86fa0d2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "8d8824adbf9408cf",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "8e13f37aaa239d68",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "8e27274c337bacb7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "916ba615f2005500",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "91887a5c47aeaee6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "91a1fbad09b566c4",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "923c40527b80db4c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "936e7988ab46cea6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "937aad68e3623210",
       "tipo": "reprovado_qualidade",
       "detalhe": "linhas_repetitivas"
     },
@@ -300,14 +1865,134 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "94bd8aa2a56ada43",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "9550f68156606033",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "9598a466db6b3bf1",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "95cfbe0307804121",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "95d3d7ca26a6b9bf",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "95f4275d4a706f7d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "961f4de71e64ae36",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "97145340e4fcace9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "991424af3de97005",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.90"
+    },
+    {
+      "id": "9923701a952ab8f0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "992ca4bebae15050",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.95"
+    },
+    {
+      "id": "99a1524ed33131b3",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais"
+    },
+    {
+      "id": "9b03cfa5bbc69698",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "9b2fe093136d9640",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "9b48c47853dee472",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.90"
+    },
+    {
+      "id": "9befed3b7e8960d7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "9cd6059d99a3ac9e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "9cf5b7b9e94ed6db",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "9df45c69b41d953a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "9dfc258b0d140dad",
       "tipo": "reprovado_qualidade",
       "detalhe": "pouco_texto_alfabetico"
     },
     {
+      "id": "9e0994f83509df66",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "9e244fcb75841d98",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas,ocr_fragmentado"
+    },
+    {
       "id": "9eccc7e0ff5dcf32",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "9ecf3a2b81fdc992",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "9f6b3ff8087c223f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "9f791d26fcbf5555",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_fr_1.00"
     },
     {
       "id": "9f7d62a80b709004",
@@ -320,9 +2005,104 @@
       "detalhe": "linhas_repetitivas,idioma_en_1.00"
     },
     {
+      "id": "a0476b5f0b86d12f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a07fddeb43080050",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "a102a7663101cb95",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a10827cd516a3851",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a1331ca5c9aff148",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a135fb2067688bb2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a1693d8d70456143",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "a17055af49c739c2",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a20a0d6b919f84c9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "a2137bc0068f2162",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a258493712f63e72",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a2bed01f0c2ec224",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
+    },
+    {
+      "id": "a30cdc162e21257c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a355698ad0a40db1",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "a3826583c4b6d62d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a39e3e85828e7337",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a3f45fb654c220ec",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a4457ade126b61b6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "a449b342b2a1d3f2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "a4d752cf28ee9bb6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.95"
     },
     {
       "id": "a4d7b0d5f7c08019",
@@ -330,9 +2110,89 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "a51ccb60361245c8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "a5a71425cbf85196",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "a62f8c9f7a619a2d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a7814cf109967947",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.95"
+    },
+    {
+      "id": "a7a8ec3afce5a63f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "a7ff7bcd3a6dae1c",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "a86c0e63aed64119",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "a97d4c67445f7cde",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "aa09a46a4a1f02ea",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "aa582db3c7c6cf79",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "aa93b6dec701e31b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "abccc0fb1d2d580c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ac5293eae47e2d8d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ac9e153a5e963ee8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "aeb0556478510b5b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "aed2b3a979a2f254",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_de_1.00"
+    },
+    {
+      "id": "aefb4dc430d3c40c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
     },
     {
       "id": "af2641446fd78377",
@@ -345,7 +2205,62 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "af5d5d69d9bd7707",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "b012723aa417769b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b021295e3a28a651",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "b16a3a04479aed6a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b18e82375a72c245",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "b1b825d52bcb34e7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b24d9fa7e42ef3cd",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b3a7fb91146683b9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b3aecaf5446413b7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b4d049122af79e5b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "b501c821e14d01d1",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b5234a7b9713f072",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
@@ -355,9 +2270,69 @@
       "detalhe": "linhas_repetitivas"
     },
     {
+      "id": "b6213ca3266321f2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b63f01808cda5c0d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b64803d1ca3216f9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b6592665a94a4f41",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b6fe06afb09418c2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b6ff3d7b68d62f31",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00,fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "b8287177bce5f6ce",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "b832f646cdcaa42f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b88d50f84bb0c9f1",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "b8b58d8d588311c9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b9ce2d9d6fb1de19",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico"
+    },
+    {
       "id": "b9e24cb5ae40b95b",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "b9f06d48f544430d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
     },
     {
       "id": "ba1fcdc2de53d57a",
@@ -365,7 +2340,122 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "ba98d31ce8eda01b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.86"
+    },
+    {
+      "id": "badc5e6f1bc9af38",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "bb0e8aff3d5b456e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico"
+    },
+    {
+      "id": "bb5e6d55ef945158",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00,fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "bbac9054d5a6fda4",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "bcb488b1936c60ee",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas,ocr_fragmentado"
+    },
+    {
+      "id": "bd9f25e46755f8c4",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "bdd78d789d7a96d9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.79"
+    },
+    {
+      "id": "bde845214b03c20a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,linhas_repetitivas,ocr_fragmentado,idioma_hu_1.00"
+    },
+    {
+      "id": "bf2b4868e31c2186",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c02b2a643020da25",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+    },
+    {
       "id": "c06d23fce60b1971",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c0b4e57a696f5339",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c10b6ef2a614d4e6",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c118887e49778c64",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "c19e107216f08ee8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,idioma_en_1.00"
+    },
+    {
+      "id": "c1ad8a6a4da27f42",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c1be8e48bec7c8e5",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "c24738b341326fe0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas,linhas_curtas_demais"
+    },
+    {
+      "id": "c280cba9e143af3f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c2cea8092ac3fe3b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "c31210b3c00a2689",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c3a61b8b52feb88c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "c41e1be619ae96ef",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
@@ -380,14 +2470,54 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "c5226d8c57c7c23d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c54e94fd85481e2e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "excesso_simbolos"
+    },
+    {
       "id": "c58b4215b79cb619",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
     {
-      "id": "c879994cf3442ed1",
+      "id": "c591098e49cda34b",
       "tipo": "reprovado_qualidade",
-      "detalhe": "curto_demais,pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,sem_stopwords_pt,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_un_0.00"
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c5ea40a4119d801b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c64c6dcde824983b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "c68bd8ae5c38e12d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
+    },
+    {
+      "id": "c71947b792bfb4ed",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c7735f5dcc53410b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c7ce2d7806711189",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
     },
     {
       "id": "c88015f59b3ff25e",
@@ -395,7 +2525,62 @@
       "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
     },
     {
+      "id": "c92645041fb0f309",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas"
+    },
+    {
+      "id": "c92ad0d8333e870c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "c966624432c3d709",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
       "id": "ca11fbb46aaa2d50",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ca210b840b1c1ec9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ca246f23fed128ce",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "ca44e55d62831a8a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ca6d11c9e6d38e69",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "ca923316328316cf",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "cba7bbe19140189c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "cc864b3bb12a94ca",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "cccc55be0dbfbac1",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
@@ -410,9 +2595,109 @@
       "detalhe": "linhas_repetitivas"
     },
     {
+      "id": "ccf41bc944b67769",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ce8163c9f090e183",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "cf607e862098452a",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.86"
+    },
+    {
+      "id": "d06bdd10eeee1cb2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "d0abb181babb9586",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "d1fd3213f173db21",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.79"
+    },
+    {
+      "id": "d2b47ec0baa8fe69",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "d2c549e0edb83599",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "d3fb2a82a5b2d9e2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "d40b3e6e8b704242",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "d41c96c4774f5196",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "d45d2a3c06f94911",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "d4aaaec7e535926b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "d5a91b761813faaf",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "d63032faf9993457",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "d692a29f9d059628",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "d7643596714188ce",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "d7800798ec580bd7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "d8d39bd7c26259a4",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
       "id": "d94c6c9d73b20f16",
       "tipo": "reprovado_qualidade",
       "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "d9c1307fc08af093",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
     },
     {
       "id": "da0ae6439395dd11",
@@ -425,17 +2710,142 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "da9b5e7dfe12f01b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00,fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "db47fb63f88bb780",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "db487e82c7b59dfe",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "db5b35b38726053d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "db6116b3ee84fbc5",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "db695f8aa8fb8e01",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico"
+    },
+    {
+      "id": "db8da2b693708e99",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "dcbb11bb9cd92621",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
     {
       "id": "dd1da58b26dc1b2e",
       "tipo": "reprovado_qualidade",
-      "detalhe": "curto_demais,pouco_texto_alfabetico,excesso_simbolos,tamanho_medio_palavra_anomalo,sem_stopwords_pt,linhas_repetitivas,ocr_fragmentado,linhas_curtas_demais,idioma_un_0.00"
+      "detalhe": "pouco_texto_alfabetico"
+    },
+    {
+      "id": "dd91e8d02b0aaaae",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "curto_demais"
+    },
+    {
+      "id": "dd92385bd42dd593",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas,idioma_en_1.00"
+    },
+    {
+      "id": "de6a7896e01475a7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "de9c5c99251cfb7b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "deccd7a1494e8508",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "dece59201d0044f5",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico,linhas_repetitivas,ocr_fragmentado"
+    },
+    {
+      "id": "df49400a6b1b61d4",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "e1cfe1d1b2a63bbb",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "e2506fff31686f58",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
     },
     {
       "id": "e25dede5fa746b95",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "e26d3aa9e7a278ca",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "e299d0bf5d3c436e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "e31920609d0a1105",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "e31ffe156aa2200e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "e371914ef5cad9da",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "e3ec9a7d579d200f",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "e427cef64f29eb1d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "e476d3ab407d12b8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico"
+    },
+    {
+      "id": "e480fcd1b424d802",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
     },
@@ -445,9 +2855,109 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "e51247a6ccbd0e2c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "e5249296cc5b2e3d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "e55ca0f42d5754be",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "e69dcb6d40e7b045",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "e745f2b89f38b4a9",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "e754fd191937a953",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "e811ad3288de5579",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "e864d7956838f2a8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "e8b331cc48002160",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ea4366a4c0d0a21d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ea4cf49729f9a5f3",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ea7e3843cd162621",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "eb341486f4a6cb2b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ebcc726f59ec07ff",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "ebf86e7b24794ebe",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "eca47b5ef096e741",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "ecba088f4593d5a2",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "ed08a5d242dde6f8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "ef4a8eb55918c5e7",
       "tipo": "reprovado_qualidade",
       "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "ef5aa77b1ce17660",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "efaced41924ff0dc",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
     },
     {
       "id": "efad6fcc8a81b7e2",
@@ -455,9 +2965,39 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "efeeaa96c457b7b0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_0.93"
+    },
+    {
+      "id": "f05555d12ea621cb",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "f0aad9ffc69eff56",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "f44512b4950c4df8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "f456cb11f36186c8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "f49895e5a1a7a91b",
       "tipo": "reprovado_qualidade",
       "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "f4f15d914602af9c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
     },
     {
       "id": "f52718a73c3a2a56",
@@ -475,6 +3015,16 @@
       "detalhe": "linhas_repetitivas"
     },
     {
+      "id": "f5a5583eea682a6e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "f754de6dae3a53ef",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "f822cb7c8313e7e0",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
@@ -485,9 +3035,99 @@
       "detalhe": "idioma_en_1.00"
     },
     {
+      "id": "f9393e1020dccad7",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "f96019b09bae213b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "pouco_texto_alfabetico"
+    },
+    {
+      "id": "fa4b1a1be5e9b058",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "fa5710fbbb79fc24",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
       "id": "fbed74816c7d5efe",
       "tipo": "reprovado_qualidade",
       "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "fc58dcaf1a981fd8",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "fc8477331a6bc50c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "fccb02fc8e1d496d",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "fd328b470644cb8c",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "fd600f01152f6aeb",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "fd74b570b70128bc",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "fe1dbb048428de9e",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "fora_de_escopo_zootecnia"
+    },
+    {
+      "id": "fed30a7c35fc4b18",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "fed863a5fad2ae9b",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "ff317d31e4de95bc",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "ff65eea16646c160",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "linhas_repetitivas"
+    },
+    {
+      "id": "ffdbefadfbd5a7a0",
+      "tipo": "reprovado_qualidade",
+      "detalhe": "idioma_en_1.00"
+    },
+    {
+      "id": "d6a8c90a88d72591",
+      "tipo": "duplicata",
+      "detalhe": "representante=3b9e600da0e843db"
+    },
+    {
+      "id": "958e68fe3e8d728f",
+      "tipo": "duplicata",
+      "detalhe": "representante=083c2156920d06ae"
     }
   ],
   "parametros": {}

@@ -279,36 +279,70 @@ def gerar_rag(df: pd.DataFrame, textos: dict, dir_out: Path, cfg: Config) -> dic
     Chunks com metadados embutidos (desnormalização intencional): o resultado
     da busca vetorial precisa ser autocontido, sem JOIN com outra tabela para
     saber de que tese veio o trecho.
+
+    Grava em LOTES direto no Parquet (`pyarrow.ParquetWriter`) em vez de
+    acumular todos os ~150 mil chunks (~2.840 documentos inteiros
+    reformatados com sobreposição) numa lista Python e só then montar um
+    DataFrame gigante — foi isso que estourou memória e matou o processo
+    duas vezes seguidas no meio deste passo, bem depois de pré-treino e SFT
+    já terem passado sem problema.
     """
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
     cfg_r = cfg.get_path("curated.rag", {}) or {}
     tamanho = int(cfg_r.get("tamanho_chunk_palavras", 500))
     sobrep = int(cfg_r.get("sobreposicao_palavras", 50))
     destino = dir_out / "rag"
     destino.mkdir(parents=True, exist_ok=True)
-
-    linhas = []
-    for linha in df[df["split"] != "descartado_contaminado"].itertuples():
-        meta = _meta(linha)
-        for i, pedaco in enumerate(_chunkar(textos[linha.doc_id], tamanho, sobrep)):
-            linhas.append(
-                {
-                    "chunk_id": f"{linha.doc_id}#{i:05d}",
-                    "doc_id": linha.doc_id,
-                    "indice_chunk": i,
-                    "texto": pedaco,
-                    "palavras": len(pedaco.split()),
-                    "split": linha.split,
-                    **{f"meta_{k}": v for k, v in meta.items() if k != "doc_id"},
-                }
-            )
-
-    df_chunks = pd.DataFrame(linhas)
     arq = destino / "corpus_rag.parquet"
-    df_chunks.to_parquet(arq, index=False)
-    log.info("RAG: %d chunks de %d documentos", len(df_chunks), df_chunks["doc_id"].nunique() if len(df_chunks) else 0)
+
+    TAMANHO_LOTE = 200  # documentos por lote; mantém o pico de memória baixo
+    escritor: pq.ParquetWriter | None = None
+    total_chunks = 0
+    docs_vistos: set[str] = set()
+    lote: list[dict] = []
+
+    def _despejar(lote: list[dict]) -> None:
+        nonlocal escritor, total_chunks
+        if not lote:
+            return
+        if escritor is None:
+            tabela = pa.Table.from_pylist(lote)
+            escritor = pq.ParquetWriter(arq, tabela.schema)
+        else:
+            tabela = pa.Table.from_pylist(lote, schema=escritor.schema)
+        escritor.write_table(tabela)
+        total_chunks += len(lote)
+
+    try:
+        for n, linha in enumerate(df[df["split"] != "descartado_contaminado"].itertuples(), 1):
+            meta = _meta(linha)
+            for i, pedaco in enumerate(_chunkar(textos[linha.doc_id], tamanho, sobrep)):
+                lote.append(
+                    {
+                        "chunk_id": f"{linha.doc_id}#{i:05d}",
+                        "doc_id": linha.doc_id,
+                        "indice_chunk": i,
+                        "texto": pedaco,
+                        "palavras": len(pedaco.split()),
+                        "split": linha.split,
+                        **{f"meta_{k}": v for k, v in meta.items() if k != "doc_id"},
+                    }
+                )
+            docs_vistos.add(linha.doc_id)
+            if n % TAMANHO_LOTE == 0:
+                _despejar(lote)
+                lote = []
+        _despejar(lote)
+    finally:
+        if escritor is not None:
+            escritor.close()
+
+    log.info("RAG: %d chunks de %d documentos", total_chunks, len(docs_vistos))
     return {
-        "chunks": int(len(df_chunks)),
-        "documentos": int(df_chunks["doc_id"].nunique()) if len(df_chunks) else 0,
+        "chunks": total_chunks,
+        "documentos": len(docs_vistos),
         "arquivo": str(arq),
     }
 

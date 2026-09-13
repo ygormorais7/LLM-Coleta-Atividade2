@@ -24,12 +24,30 @@ from pathlib import Path
 
 import pandas as pd
 
-from ..common import Config, Relatorio, configurar_log, sha256_texto
+from ..common import Config, Relatorio, configurar_log, ler_jsonl, sha256_texto
+from ..raw.fontes import _normalizar_nome_coluna
 from . import dedup as dedup_mod
 from .clean import anonimizar, avaliar, normalizar
 from .extract import extrair_lote
 
 log = configurar_log("processed.run")
+
+
+def _termos_exclusao_escopo(cfg: Config) -> list[str]:
+    """
+    Reúne `excluir_assunto` de todas as fontes OAI do config (habilitadas ou
+    não) num único vocabulário normalizado.
+
+    Existe aqui, e não só na colheita (`raw.fontes.colher_oai`), porque um
+    documento baixado numa rodada com um `excluir_assunto` mais frouxo fica
+    para sempre em `data/raw/pdf` e `data/processed/texto_bruto` — a
+    arquitetura não modifica camada anterior. Reprocessar Processed com a
+    lista corrigida é o jeito de aplicar o filtro sem recoletar.
+    """
+    termos: set[str] = set()
+    for fonte in cfg.get_path("inventario.fontes.oai", []) or []:
+        termos.update(fonte.get("excluir_assunto", []) or [])
+    return [_normalizar_nome_coluna(t) for t in termos]
 
 
 def executar(cfg: Config) -> Relatorio:
@@ -51,6 +69,41 @@ def executar(cfg: Config) -> Relatorio:
     rel.entradas["documentos_staging"] = int(len(df))
     rel.entradas["com_arquivo"] = int(len(com_arquivo))
 
+    # Contexto de escopo por doc (título + programa + resumo + assunto), para
+    # reaplicar `excluir_assunto` aqui sem precisar recolher. `area` mora em
+    # assuntos.parquet (1 linha por assunto), não em documentos.parquet.
+    caminho_assuntos = dir_stg / "assuntos.parquet"
+    if caminho_assuntos.exists():
+        df_assuntos = pd.read_parquet(caminho_assuntos)
+        area_por_doc = (
+            df_assuntos.groupby("doc_id")["assunto"].apply(lambda s: " ".join(s)).to_dict()
+        )
+    else:
+        area_por_doc = {}
+
+    termos_exclusao = _termos_exclusao_escopo(cfg)
+
+    def _fora_de_escopo(doc_id: str, titulo: str, programa: str, resumo: str) -> bool:
+        if not termos_exclusao:
+            return False
+        texto = _normalizar_nome_coluna(
+            f"{area_por_doc.get(doc_id, '')} {titulo} {programa} {resumo}"
+        )
+        return any(termo in texto for termo in termos_exclusao)
+
+    metadados_staging = com_arquivo.set_index("doc_id")[["titulo", "programa", "resumo"]]
+
+    # -------------------------------------------------------- ids ATUAIS
+    # Só o que está no Staging desta rodada. Sem isto, um PDF/texto_bruto de
+    # uma rodada anterior — cujo candidato não voltou na amostra atual porque
+    # foi excluído por um `excluir_assunto` mais novo, ou simplesmente não
+    # sorteado de novo — fica esquecido em disco e é reprocessado e aprovado
+    # de novo aqui, silenciosamente: ele nunca aparece em nenhuma falha, só
+    # some depois se por acaso outra camada fizer um inner join que o pegue.
+    # Achado real: 12 documentos da 2ª rodada vazaram assim para dentro do
+    # `documentos.parquet` da Processed na 3ª rodada.
+    ids_atuais = set(com_arquivo["doc_id"])
+
     # ---------------------------------------------------------- 1. extração
     ja_extraidos = {p.stem for p in dir_bruto.glob("*.txt")} if dir_bruto.exists() else set()
     tarefas = [
@@ -59,8 +112,16 @@ def executar(cfg: Config) -> Relatorio:
         if r.doc_id not in ja_extraidos
     ]
     resultados = extrair_lote(cfg, tarefas, dir_bruto, rel) if tarefas else []
-    stats_extracao = {r["doc_id"]: r for r in resultados}
     rel.metricas["extraidos_nesta_execucao"] = len(resultados)
+
+    # `resultados` só cobre quem foi extraído NESTA execução. Para quem veio
+    # do cache de `texto_bruto` (o caso comum numa rodada de reprocessamento),
+    # as métricas de extração vêm do histórico persistido por `extrair_lote`
+    # — sem isto, `paginas`/`paginas_ocr` zeram pra todo mundo sempre que a
+    # extração não precisa rodar de novo.
+    caminho_stats = dir_proc / "extracao_stats.jsonl"
+    stats_extracao = {r["doc_id"]: r for r in ler_jsonl(caminho_stats)}
+    stats_extracao.update({r["doc_id"]: r for r in resultados})
 
     # -------------------------------------- 2-5. limpeza / anonimização / QA
     cfg_limpeza = cfg.get_path("processed.limpeza", {}) or {}
@@ -72,7 +133,13 @@ def executar(cfg: Config) -> Relatorio:
     textos_aprovados: dict[str, str] = {}
     total_pii = 0
 
-    arquivos_brutos = sorted(dir_bruto.glob("*.txt")) if dir_bruto.exists() else []
+    todos_brutos = sorted(dir_bruto.glob("*.txt")) if dir_bruto.exists() else []
+    arquivos_brutos = [p for p in todos_brutos if p.stem in ids_atuais]
+    orfaos = len(todos_brutos) - len(arquivos_brutos)
+    if orfaos:
+        log.info("%d arquivo(s) em texto_bruto ignorado(s): fora do staging "
+                  "desta rodada (sobra de rodada anterior)", orfaos)
+        rel.metricas["arquivos_brutos_orfaos_ignorados"] = orfaos
     log.info("tratando %d textos extraídos", len(arquivos_brutos))
 
     for i, caminho in enumerate(arquivos_brutos, 1):
@@ -97,6 +164,17 @@ def executar(cfg: Config) -> Relatorio:
         aprovado = metricas["aprovado"] and not m_rep["excedeu_limite"]
         if m_rep["excedeu_limite"]:
             metricas["motivos_reprovacao"].append("repeticao_interna_excessiva")
+
+        if did in metadados_staging.index:
+            meta = metadados_staging.loc[did]
+            fora_de_escopo = _fora_de_escopo(
+                did, meta.get("titulo", ""), meta.get("programa", ""), meta.get("resumo", "")
+            )
+        else:
+            fora_de_escopo = False
+        if fora_de_escopo:
+            aprovado = False
+            metricas["motivos_reprovacao"].append("fora_de_escopo_zootecnia")
 
         ex = stats_extracao.get(did, {})
         linhas.append(

@@ -217,12 +217,34 @@ _PADROES = [
     ("CNPJ", re.compile(r"\b\d{2}[.\s]?\d{3}[.\s]?\d{3}[/\s]?\d{4}[-\s]?\d{2}\b"), _valida_cnpj),
     ("CPF", re.compile(r"\b\d{3}[.\s]?\d{3}[.\s]?\d{3}[-\s]?\d{2}\b"), _valida_cpf),
     ("CARTAO_SUS", re.compile(r"\b\d{3}[\s.]?\d{4}[\s.]?\d{4}[\s.]?\d{4}\b"), None),
-    ("TITULO_ELEITOR", re.compile(r"\b\d{4}[\s.]?\d{4}[\s.]?\d{4}\b"), None),
+    # Exige separador de fato ("." ou "-"), não espaço solto: uma sequência de
+    # três números de 4 dígitos separados por espaço é o formato mais comum
+    # de eixo/tabela num PDF científico (anos, contagens) — achado real: 75
+    # falsos positivos num único documento, casando com um eixo "Anos" de
+    # gráfico. Um título de eleitor de verdade quase nunca aparece em prosa
+    # de tese de Saúde; a troca aceita perder recall nesse caso raro para
+    # não mascarar dado de tabela como se fosse PII.
+    ("TITULO_ELEITOR", re.compile(r"\b\d{4}[.-]\d{4}[.-]\d{4}\b"), None),
     ("PIS_PASEP", re.compile(r"\b\d{3}[.\s]?\d{5}[.\s]?\d{2}[-\s]?\d\b"), None),
-    ("TELEFONE", re.compile(r"(?<!\d)(?:\+55[\s-]?)?\(?\d{2}\)?[\s-]?9?\d{4}[-\s]?\d{4}(?!\d)"), None),
+    # Separador agora OBRIGATÓRIO entre os dois blocos de 4 dígitos (e depois
+    # do DDD, parênteses OU separador). Antes, os dois eram opcionais e um
+    # código sequencial puro de 10 dígitos sem separador nenhum (ex.: código
+    # de procedimento odontológico "0101020058", achado real: 219 falsos
+    # positivos num único documento) batia perfeitamente no padrão de
+    # telefone. Um telefone de verdade em prosa quase sempre tem alguma
+    # pontuação; código de tabela/lista, quase nunca.
+    ("TELEFONE", re.compile(
+        r"(?<!\d)(?:\+55[\s-]?)?(?:\(\d{2}\)|\d{2}[\s-])[\s-]?9?\d{4}[-\s]\d{4}(?!\d)"
+    ), None),
     ("CEP", re.compile(r"\b\d{5}-\d{3}\b"), None),
     ("RG", re.compile(r"\bRG[\s:nº.]{0,6}[\d.\s-]{7,14}\b", re.IGNORECASE), None),
-    ("PLACA", re.compile(r"\b[A-Z]{3}-?\d[A-Z0-9]\d{2}\b"), None),
+    # Formato antigo (LLL-NNNN, hífen obrigatório) OU Mercosul (LLLNLNN, 5º
+    # caractere tem que ser LETRA). O padrão antigo aceitava [A-Z0-9] na 5ª
+    # posição, o que também casa com código de composto químico/material
+    # (achado real: "PEG6000" — polietilenoglicol — mascarado como placa 136
+    # vezes numa tese sobre formulação de estatinas, apagando o nome do
+    # composto do texto).
+    ("PLACA", re.compile(r"\b[A-Z]{3}-\d{4}\b|\b[A-Z]{3}\d[A-Z]\d{2}\b"), None),
 ]
 
 # Chaves de config -> nome do detector

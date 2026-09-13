@@ -1,25 +1,25 @@
 {
   "camada": "inventario",
   "area": "Saúde",
-  "inicio": "2026-09-11T02:27:50.482182+00:00",
-  "fim": "2026-09-11T05:56:20.721768+00:00",
-  "duracao_s": 12510.24,
+  "inicio": "2026-09-12T01:49:58.648786+00:00",
+  "fim": "2026-09-12T05:14:14.599726+00:00",
+  "duracao_s": 12255.95,
   "entradas": {
-    "registros_brutos": 3755,
+    "registros_brutos": 3668,
     "por_fonte": {
-      "oai:repositorio.ufmg.br": 3755
+      "oai:repositorio.ufmg.br": 3668
     }
   },
   "saidas": {
     "inventario": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/inventario.jsonl",
-    "candidatos": 3719
+    "candidatos": 3632
   },
   "metricas": {
     "reconciliacao": {
-      "registros_entrada": 3755,
-      "registros_apos_reconciliacao": 3719,
+      "registros_entrada": 3668,
+      "registros_apos_reconciliacao": 3632,
       "grupos_multifonte": 0,
-      "pares_comparados": 89,
+      "pares_comparados": 87,
       "limiar": 0.9,
       "amostra_pares_aceitos": [
         {
@@ -278,34 +278,34 @@
       "amostra_pares_limitrofes": []
     },
     "amostragem": {
-      "n_alvo": 100000,
+      "n_alvo": 5000,
       "estratos": [
         "ies",
         "ano_faixa"
       ],
       "n_estratos": 3,
-      "candidatos_na_fila": 3719,
-      "na_cota_inicial": 3719,
+      "candidatos_na_fila": 3632,
+      "na_cota_inicial": 3632,
       "fator_reserva": 4.0,
       "detalhe_estratos": {
         "ufmg|2015-2019": {
-          "populacao": 2079,
-          "cota": 55902,
-          "fila": 2079
+          "populacao": 2015,
+          "cota": 2774,
+          "fila": 2015
         },
         "ufmg|2020-2024": {
-          "populacao": 1305,
-          "cota": 35090,
-          "fila": 1305
+          "populacao": 1287,
+          "cota": 1772,
+          "fila": 1287
         },
         "ufmg|2025-2029": {
-          "populacao": 335,
-          "cota": 9008,
-          "fila": 335
+          "populacao": 330,
+          "cota": 454,
+          "fila": 330
         }
       }
     },
-    "bitstreams_via_ore": 3718,
+    "bitstreams_via_ore": 3631,
     "candidatos_sem_link": 0,
     "prop_candidatos_sem_link": 0.0,
     "falhas_por_tipo": {},
