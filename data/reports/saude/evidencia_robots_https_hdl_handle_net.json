@@ -1,0 +1,7 @@
+{
+  "dominio": "https://hdl.handle.net",
+  "robots_txt": "https://hdl.handle.net/robots.txt",
+  "status_http": 200,
+  "conteudo": "User-agent: *\nCrawl-delay: 1\nRequest-rate: 1/1\n",
+  "verificado_em": "2026-09-13T07:23:07.086451+00:00"
+}

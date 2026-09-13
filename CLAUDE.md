@@ -134,9 +134,108 @@ persistente durante a colheita de metadado e foi pulada sem retry — número de
 registros de Saúde perdidos nessa janela é desconhecido. Ainda acontece
 (reproduzido de novo em 2026-09-11/12, mesmo endpoint, mesmo erro).
 
-`config/config.yaml` ainda tem `inventario.amostragem.n_alvo=5000` não
-commitado (era 500 no commit inicial) — é o que produziu a terceira rodada
-acima. Se for commitar, revisar junto com o resto do estado do piloto.
+`config/config.yaml` com `inventario.amostragem.n_alvo=5000` (era 500 no
+commit inicial) — é o que produziu a terceira rodada acima. Commitado pelo
+usuário em `1f2c355` ("primeira rodada"), junto com os consertos 3–7.
+
+## Versão final (em andamento desde 2026-09-13)
+
+Plano completo, com fases e checkboxes: `docs/PLANO_VERSAO_FINAL.md` —
+**ler antes de continuar qualquer trabalho**. Decisões do usuário: crescer
+até 20 mil PDFs usando o inventário da BDTD exportado pelo colega de grupo
+(`../G7-Atividade02-BDTD/inventario_saude.csv.gz`, 183.718 fichas),
+aplicando os filtros de escopo deste projeto; verificação final de PII no
+Curated que para o pipeline com erro. Entrega da disciplina: código +
+relatório de como o pipeline funciona (com o protocolo de coleta); os dados
+NÃO são entregues — prioridade é código correto, testado e reprodutível. O
+colega é do mesmo grupo: código e informação compartilhados, uso liberado
+com crédito. Backup antes das mudanças:
+`~/.vcoleta/backups/{processed,curated}_saude_2026-09-13.tar.gz` (os
+`.zip` na raiz do projeto estão vazios — não são backup).
+
+8. **Anonimização ainda destrói conteúdo científico** (achado 2026-09-13,
+   ainda não corrigido). Recuperando o valor original atrás das máscaras
+   no `texto_bruto`: `TITULO_ELEITOR` (863) são ORCID e DOI; `PLACA` (478)
+   são nome de gene (`CYP2C19`) e sigla+ano de estudo (`OMS-2008`,
+   `GBD-2017`, `HEI-2010`); `CARTAO_SUS` (266) e `PIS_PASEP` (270) são DOI
+   (`1413-81232018236`) e código de setor censitário; `TELEFONE` (580) é
+   quase todo real (comitê de ética, contato de pesquisador), com falso
+   positivo em intervalo de anos quebrado em linha. Título e resumo que vão
+   para SFT/benchmark não passam pelo anonimizador. Por isso a correção da
+   anonimização vem ANTES da expansão para 20 mil (senão o erro se
+   multiplica por ~7) e antes de ligar a verificação que para com erro
+   (senão ela para por alarme falso).
+9. **Exclusão de escopo por trecho de palavra** (achado 2026-09-13 pelos
+   testes da Fase 1, corrigido): o conserto 3 comparava substring, e o
+   termo `"equina"` casava dentro de "catequina" — 2 dos 39 documentos
+   excluídos como zootecnia caíram só por isso. Agora a exclusão exige
+   palavra inteira (`bate_algum_termo` em `src/raw/fontes.py`, usado na
+   colheita e na Processed) e cada flexão precisa estar listada no
+   `excluir_assunto`; a inclusão continua por trecho, para aceitar radical.
+10. **Par de SFT com a resposta dentro da pergunta** (achado 2026-09-13
+    lendo pares, corrigido): o template "resuma o trecho" usava as 600
+    primeiras palavras do texto tratado como trecho e o resumo como
+    resposta — mas o texto tratado COMEÇA no RESUMO (o corte de
+    pré-textuais para ali). 186 de 243 pares do treino eram cópia.
+    `_trecho_depois_do_resumo` em `curated/build.py`.
+11. **Coletor cego para DSpace 7** (achado no piloto 2, 0 de 180 PDFs,
+    corrigido): UFRN serve só a casca do Angular (sem link) → fallback pela
+    API REST `/server/api` (`fulltext._descobrir_dspace7`); Fiocruz publica
+    `citation_pdf_url` com `http://localhost:4000` → `_no_mesmo_site` troca
+    pelo domínio da página. UFPR: servidor de handles fora do ar (HTTP 500),
+    retirada do piloto.
+12. **Telefone real escapando + RAG criando PII falsa** (achado pela
+    verificação final do Curated, que PAROU a Fase 6 com 35 ocorrências,
+    todas no RAG; corrigido): telefone quebrado em linha depois do DDD
+    (`(31)↵3xxx-xxxx`) não era detectado — vazamento que existia no
+    pré-treino também, só visível no RAG porque `_chunkar` juntava linhas
+    com espaço; e essa junção criava telefone/CPF falso a partir de tabela.
+    Agora a quebra de linha vale como separador só depois de `(DD)` ou
+    `+55 DD`, e o RAG recorta o texto original preservando as quebras.
+    Auditoria da regra nova sobre os textos já tratados: 17 telefones a
+    mais, todos reais, nenhum falso.
+13. **SFT: trecho depois do resumo é o ABSTRACT** (achado lendo pares
+    depois do reprocessamento final, corrigido): 109 de 178 pares "leia o
+    início" eram tradução disfarçada; `_e_portugues` aceitava inglês porque
+    "a", "as", "do", "no" também são palavras inglesas. Agora o trecho
+    começa no título INTRODUÇÃO do corpo (`_trecho_da_introducao`, último
+    título nos primeiros 40% do texto, pula o sumário), a trava compara
+    stopwords pt × en e `_limpar_palavras_chave` tira `CNPQ::...`.
+14. **10 teses de Saúde excluídas como zootecnia** (8 voltaram ao corpus; 2
+    de odontologia seguem fora por idioma inglês) (achado revisando à mão
+    os 42 excluídos, com o termo que derrubou cada um; corrigido). A
+    auditoria da 3ª rodada tinha dado os 39 como "todos zootecnia" só pelos
+    títulos — estava errado. Causas: "saneamento" (saúde pública; saiu da
+    lista), "pé equino"/"tratamento do equino" (ortopedia infantil), dentina
+    bovina (odontologia in vitro), soro fetal bovino, albumina sérica
+    bovina, tripsina bovina (reagentes). Nova seção `escopo.expressoes_permitidas`
+    no config, apagada do texto antes da checagem (`fontes.bate_exclusao`,
+    usado na colheita OAI, no inventário BDTD e na Processed). Fronteira
+    declarada, continuam fora: vaccinia bovina (2) e doenças vesiculares.
+
+Estado em 2026-09-13 ~05h: Fase 6 reprocessou (2.841 docs, 69,24 M
+palavras, PII 4.719) e a verificação parou com erro (defeito 12, já
+corrigido). Piloto 3 (UFRN + Fiocruz, mesmos 120 candidatos, 04:47–05:09):
+119 de 120 PDFs (UFRN 60/60, Fiocruz 59/60). Documentos do inventário BDTD
+chegam sem resumo e sem programa (o CSV não tem) e com instituição em sigla.
+
+**Estado final (2026-09-13 07:05), depois dos defeitos 10–14:** reprocessamento
+local (staging, processed, curated) com **verificação de PII no Curated: 0
+ocorrências em 11 arquivos**. Corpus: 2.951 documentos (UFMG 2.845, Fiocruz
+54, UFRN 52), 72,03 M palavras, mediana 20.546; 631 reprovados (445 inglês,
+150 linhas repetitivas, 32 fora de escopo — todos UFMG, zootecnia de fato),
+3 duplicatas exatas, 0 fuzzy, 0 contaminação; PII mascarada 4.937. Curated:
+pré-treino 2.652/150/149; SFT 882/55/41 (978; 220 pares de introdução, 0
+cópias); RAG 155.312 chunks; benchmark 292/292/200. Coleta: 3.596 PDFs
+(UFMG 3.477, UFRN 60, Fiocruz 59). 128 testes. Relatório
+`docs/RELATORIO_ATIVIDADE_02.md` + `.pdf`. Patches e mensagens de commit em
+`~/.vcoleta/backups/patches/`. Coleta até 20 mil **não autorizada** ainda.
+Backups do piloto 2: `data/reports/saude/raw_piloto2.json`,
+`data/raw/saude/{manifesto,inventario}.piloto2.jsonl`.
+
+Testes: `python -m pytest` (pasta `tests/`, tudo em diretório temporário —
+nenhum teste escreve em `data/`). NUNCA rodar `tests/gerar_dados_sinteticos.py`
+sem ler antes: ele APAGA as quatro camadas de `data/` para gerar dados falsos.
 
 ## Regras invioláveis de coleta
 

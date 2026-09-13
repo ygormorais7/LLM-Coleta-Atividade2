@@ -1,0 +1,63 @@
+{
+  "camada": "inventario_bdtd",
+  "area": "Saúde",
+  "inicio": "2026-09-13T07:27:40.576721+00:00",
+  "fim": "2026-09-13T07:27:43.318902+00:00",
+  "duracao_s": 2.74,
+  "entradas": {
+    "candidatos_no_inventario": 3636
+  },
+  "saidas": {
+    "candidatos_depois_dos_filtros": 180,
+    "novos_candidatos": 180,
+    "por_instituicao": {
+      "UFRN": 60,
+      "FIOCRUZ": 60,
+      "UFPR": 60
+    },
+    "por_dominio": {
+      "repositorio.ufrn.br": 60,
+      "arca.fiocruz.br": 60,
+      "hdl.handle.net": 60
+    },
+    "inventario": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/inventario.jsonl"
+  },
+  "metricas": {
+    "falhas_por_tipo": {},
+    "total_falhas": 0
+  },
+  "falhas": [],
+  "parametros": {
+    "arquivo": "data/externo/inventario_saude.csv.gz",
+    "instituicoes": [
+      "UFRN",
+      "UFPR",
+      "FIOCRUZ"
+    ],
+    "excluir_instituicoes": [
+      "UFMG",
+      "UNIFESP",
+      "PUC_RS",
+      "UFSC"
+    ],
+    "limite_por_instituicao": 60,
+    "filtro_assunto": [
+      "enfermag",
+      "medicina",
+      "medico",
+      "medicas",
+      "medicament",
+      "medicacao",
+      "odontolog",
+      "farmac",
+      "nutric",
+      "epidemiolog",
+      "obstetr",
+      "saude coletiva",
+      "saude publica",
+      "fisioterap",
+      "terapia ocupacional",
+      "ciencias da saude"
+    ]
+  }
+}

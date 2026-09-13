@@ -349,15 +349,20 @@ def construir(cfg: Config) -> Relatorio:
         ):
             brutos.append(reg.para_dict())
 
+    janelas_perdidas: list[dict] = []
     for cfg_oai in cfg_inv.get("fontes", {}).get("oai", []) or []:
         if not cfg_oai.get("habilitada", True):
             continue
         try:
-            for reg in fontes_mod.colher_oai(cfg, cfg_oai):
+            for reg in fontes_mod.colher_oai(cfg, cfg_oai, janelas_perdidas=janelas_perdidas):
                 brutos.append(reg.para_dict())
         except Exception as exc:
             rel.falha(cfg_oai.get("endpoint", "?"), "oai_falhou", str(exc))
             log.error("OAI %s falhou: %s", cfg_oai.get("endpoint"), exc)
+    for janela in janelas_perdidas:
+        rel.falha(janela["endpoint"], "janela_oai_perdida",
+                  f"{janela['de']}..{janela['ate']}: {janela['erro']}")
+    rel.metricas["janelas_oai_perdidas"] = janelas_perdidas
 
     rel.entradas["registros_brutos"] = len(brutos)
     rel.entradas["por_fonte"] = dict(
@@ -415,16 +420,219 @@ def construir(cfg: Config) -> Relatorio:
     return rel
 
 
+# ==========================================================================
+# Recuperação de uma janela de colheita que falhou
+# ==========================================================================
+def _chave_estrato(reg: dict, estratos: list[str]) -> str:
+    partes = []
+    for e in estratos:
+        if e == "ies":
+            partes.append(norm_ies(reg.get("ies", "")))
+        elif e in ("ano_faixa", "ano"):
+            partes.append(_faixa_ano(reg.get("ano")))
+        else:
+            partes.append(_ascii(str(reg.get(e, "")))[:40] or "?")
+    return "|".join(partes)
+
+
+def mesclar_candidatos(existentes: list[dict], novos: list[dict],
+                       estratos: list[str]) -> tuple[list[dict], list[dict]]:
+    """
+    Junta ao inventário candidatos colhidos numa janela recuperada, sem
+    reamostrar: quem já estava fica onde estava; quem é novo entra no fim da
+    fila do seu estrato, e a cota do estrato cresce na mesma medida — senão o
+    harvest para ao fechar a cota antiga e nunca chega neles.
+    Devolve (inventário mesclado, candidatos adicionados).
+    """
+    mesclado = [dict(c) for c in existentes]
+    chaves = {c.get("chave_origem") for c in mesclado}
+    ultima_ordem: dict[str, int] = defaultdict(lambda: -1)
+    for c in mesclado:
+        nome = c.get("estrato", "?")
+        ultima_ordem[nome] = max(ultima_ordem[nome], int(c.get("ordem_na_fila") or 0))
+
+    adicionados: list[dict] = []
+    for reg in novos:
+        if not reg.get("chave_origem") or reg["chave_origem"] in chaves:
+            continue
+        chaves.add(reg["chave_origem"])
+        nome = _chave_estrato(reg, estratos)
+        ultima_ordem[nome] += 1
+        item = {**reg, "estrato": nome, "ordem_na_fila": ultima_ordem[nome], "na_cota_inicial": False}
+        mesclado.append(item)
+        adicionados.append(item)
+
+    cota_antiga: dict[str, int] = defaultdict(int)
+    for c in existentes:
+        nome = c.get("estrato", "?")
+        cota_antiga[nome] = max(cota_antiga[nome], int(c.get("cota_estrato") or 0))
+    novos_por_estrato: dict[str, int] = defaultdict(int)
+    for item in adicionados:
+        novos_por_estrato[item["estrato"]] += 1
+    for c in mesclado:
+        nome = c.get("estrato")
+        if nome in novos_por_estrato:
+            c["cota_estrato"] = cota_antiga.get(nome, 0) + novos_por_estrato[nome]
+    return mesclado, adicionados
+
+
+def recolher_janela(cfg: Config, de: str, ate: str) -> Relatorio:
+    """
+    Recolhe só um intervalo de datestamp das fontes OAI habilitadas e junta ao
+    inventário atual os candidatos que faltavam, sem refazer a colheita inteira.
+    O inventário anterior é copiado antes de ser regravado.
+    """
+    import shutil
+
+    rel = Relatorio(camada="inventario_janela", area=cfg.get_path("projeto.area_rotulo", ""))
+    destino = cfg.dir_camada("raw") / "inventario.jsonl"
+    existentes = list(ler_jsonl(destino))
+    cfg_inv = cfg.get_path("inventario", {}) or {}
+    estratos = (cfg_inv.get("amostragem", {}) or {}).get("estratos", ["ies", "ano_faixa"])
+    rel.parametros.update({"de": de, "ate": ate})
+    rel.entradas["candidatos_no_inventario"] = len(existentes)
+
+    colhidos: list[dict] = []
+    perdidas: list[dict] = []
+    fontes_oai = [f for f in (cfg_inv.get("fontes", {}).get("oai", []) or []) if f.get("habilitada", True)]
+    rel.parametros["metadata_prefix"] = sorted({f.get("metadata_prefix", "oai_dc") for f in fontes_oai})
+    for cfg_oai in fontes_oai:
+        janela = {**cfg_oai, "from": de, "until": ate, "adiar_ore": True}
+        colhidos.extend(r.para_dict() for r in
+                        fontes_mod.colher_oai(cfg, janela, janelas_perdidas=perdidas))
+
+    mesclado, adicionados = mesclar_candidatos(existentes, colhidos, estratos)
+    prefixos = {f.get("prefix_binarios") for f in fontes_oai if f.get("prefix_binarios")}
+    if adicionados and prefixos:
+        rel.metricas["bitstreams_via_ore"] = fontes_mod.enriquecer_ore(cfg, adicionados, sorted(prefixos)[0])
+    if adicionados:
+        shutil.copy2(destino, destino.with_name(f"inventario.antes_janela_{de}_{ate}.jsonl"))
+        escrever_jsonl(destino, mesclado)
+
+    rel.saidas.update({
+        "saude_colhidos_na_janela": len(colhidos),
+        "ja_estavam_no_inventario": len(colhidos) - len(adicionados),
+        "novos_candidatos": len(adicionados),
+        "inventario": str(destino),
+    })
+    for janela in perdidas:
+        rel.falha(janela["endpoint"], "janela_oai_perdida",
+                  f"{janela['de']}..{janela['ate']}: {janela['erro']}")
+    rel.metricas["janelas_oai_perdidas"] = perdidas
+    log.info("janela %s..%s: %d de Saúde colhidos, %d novos, %d subjanelas perdidas",
+             de, ate, len(colhidos), len(adicionados), len(perdidas))
+    rel.salvar(cfg.dir_relatorios())
+    return rel
+
+
+# ==========================================================================
+# Inventário da BDTD exportado pelo grupo
+# ==========================================================================
+def _termos_exclusao_oai(cfg_inv: dict) -> list[str]:
+    termos: list[str] = []
+    for fonte in cfg_inv.get("fontes", {}).get("oai", []) or []:
+        termos.extend(fonte.get("excluir_assunto", []) or [])
+    return termos
+
+
+def candidatos_bdtd(cfg: Config) -> list[dict]:
+    from ..common import RAIZ
+
+    cfg_inv = cfg.get_path("inventario", {}) or {}
+    cfg_fonte = cfg_inv.get("fontes", {}).get("bdtd_csv", {}) or {}
+    return [r.para_dict() for r in fontes_mod.ler_inventario_bdtd(
+        RAIZ / cfg_fonte["arquivo"], cfg_fonte, excluir_extra=_termos_exclusao_oai(cfg_inv),
+        permitidas=cfg.get_path("escopo.expressoes_permitidas", []))]
+
+
+def adicionar_inventario_bdtd(cfg: Config) -> Relatorio:
+    """
+    Junta ao inventário atual os candidatos do inventário da BDTD exportado pelo
+    grupo, filtrados pelo escopo deste projeto, sem recolher as fontes OAI. O
+    inventário anterior é copiado antes de ser regravado.
+    """
+    import shutil
+
+    rel = Relatorio(camada="inventario_bdtd", area=cfg.get_path("projeto.area_rotulo", ""))
+    cfg_fonte = cfg.get_path("inventario.fontes.bdtd_csv", {}) or {}
+    if not cfg_fonte.get("habilitada"):
+        rel.falha("bdtd_csv", "fonte_desabilitada", "habilite inventario.fontes.bdtd_csv no config")
+        rel.salvar(cfg.dir_relatorios())
+        return rel
+
+    destino = cfg.dir_camada("raw") / "inventario.jsonl"
+    existentes = list(ler_jsonl(destino))
+    estratos = (cfg.get_path("inventario.amostragem.estratos") or ["ies", "ano_faixa"])
+    novos = candidatos_bdtd(cfg)
+    mesclado, adicionados = mesclar_candidatos(existentes, novos, estratos)
+    if adicionados:
+        if destino.exists():
+            shutil.copy2(destino, destino.with_name("inventario.antes_bdtd_csv.jsonl"))
+        escrever_jsonl(destino, mesclado)
+
+    dominios = pd.Series([re.sub(r"^https?://", "", a["url_landing"]).split("/")[0]
+                          for a in adicionados], dtype=str)
+    rel.parametros.update({k: cfg_fonte.get(k) for k in (
+        "arquivo", "instituicoes", "excluir_instituicoes", "limite_por_instituicao", "filtro_assunto")})
+    rel.entradas["candidatos_no_inventario"] = len(existentes)
+    rel.saidas.update({
+        "candidatos_depois_dos_filtros": len(novos),
+        "novos_candidatos": len(adicionados),
+        "por_instituicao": pd.Series([a["ies"] for a in adicionados], dtype=str).value_counts().to_dict(),
+        "por_dominio": dominios.value_counts().to_dict(),
+        "inventario": str(destino),
+    })
+    log.info("inventário BDTD: %d candidatos filtrados, %d novos no inventário", len(novos), len(adicionados))
+    rel.salvar(cfg.dir_relatorios())
+    return rel
+
+
+def registrar_robots(cfg: Config, urls: list[str]) -> list[Path]:
+    """
+    Guarda o robots.txt de cada domínio como evidência para o protocolo: uma
+    requisição por domínio. Link hdl.handle.net só registra o próprio
+    hdl.handle.net — o domínio final é checado ao vivo pelo resolvedor.
+    """
+    import json
+    import urllib.parse
+    from datetime import datetime, timezone
+
+    import requests
+
+    dominios = sorted({f"{p.scheme}://{p.netloc}" for p in map(urllib.parse.urlsplit, urls) if p.netloc})
+    salvos: list[Path] = []
+    for dominio in dominios:
+        try:
+            resp = requests.get(f"{dominio}/robots.txt", timeout=30,
+                                headers={"User-Agent": cfg.user_agent()})
+            status, conteudo = resp.status_code, resp.text[:4000]
+        except requests.RequestException as exc:
+            status, conteudo = None, f"(inacessível: {exc})"
+        destino = cfg.dir_relatorios() / f"evidencia_robots_{re.sub(r'[^a-z0-9]+', '_', dominio.lower())}.json"
+        destino.write_text(json.dumps({
+            "dominio": dominio, "robots_txt": f"{dominio}/robots.txt", "status_http": status,
+            "conteudo": conteudo, "verificado_em": datetime.now(timezone.utc).isoformat(),
+        }, ensure_ascii=False, indent=2), encoding="utf-8")
+        log.info("robots.txt de %s: HTTP %s", dominio, status)
+        salvos.append(destino)
+    return salvos
+
+
 # ------------------------------------------------------------------- CLI
 def _cli() -> None:
     import argparse
     import json
 
     ap = argparse.ArgumentParser(description="Inventário (Estágio 1)")
-    ap.add_argument("comando", choices=["construir", "identify", "sets", "formatos", "descobrir"])
+    ap.add_argument("comando", choices=["construir", "janela", "bdtd_csv", "robots",
+                                        "identify", "sets", "formatos", "descobrir"])
     ap.add_argument("--endpoint", default="https://api.openaire.eu/oai_pmh")
     ap.add_argument("--base", default=None, help="URL base do repositório, para `descobrir`")
     ap.add_argument("--salvar", default=None, help="grava a evidência em JSON")
+    ap.add_argument("--de", default=None, help="início (AAAA-MM-DD) da janela, para `janela`")
+    ap.add_argument("--ate", default=None, help="fim (AAAA-MM-DD) da janela, para `janela`")
+    ap.add_argument("--prefixo", default=None,
+                    help="metadataPrefix só para `janela` (ex.: oai_dc quando o dim falha no servidor)")
     ap.add_argument("--config", default=None)
     args = ap.parse_args()
 
@@ -432,6 +640,25 @@ def _cli() -> None:
 
     if args.comando == "construir":
         construir(cfg)
+        return
+
+    if args.comando == "janela":
+        if not (args.de and args.ate):
+            ap.error("--de e --ate são obrigatórios para `janela`")
+        if args.prefixo:
+            # Na UFMG, 2026-02-25..2026-06-25 dá HTTP 500 só com dim; oai_dc responde
+            # (sem o campo programa). Diagnóstico em data/reports/saude/diagnostico_janela_ufmg.json.
+            for fonte in cfg.get_path("inventario.fontes.oai", []) or []:
+                fonte["metadata_prefix"] = args.prefixo
+        recolher_janela(cfg, args.de, args.ate)
+        return
+
+    if args.comando == "bdtd_csv":
+        adicionar_inventario_bdtd(cfg)
+        return
+
+    if args.comando == "robots":
+        registrar_robots(cfg, [c["url_landing"] for c in candidatos_bdtd(cfg)])
         return
 
     if args.comando == "descobrir":

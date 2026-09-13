@@ -111,6 +111,37 @@ def _normalizar_nome_coluna(nome: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", nome.lower()).strip("_")
 
 
+def bate_algum_termo(texto: str, termos: list[str], palavra_inteira: bool = False) -> bool:
+    """
+    `termos` já normalizados. Inclusão usa trecho (aceita radical como
+    "obstetric"); exclusão usa palavra inteira, porque trecho solto faz
+    "equina" casar dentro de "catequina" e excluir tese de nutrição.
+    """
+    alvo = _normalizar_nome_coluna(texto)
+    if palavra_inteira:
+        alvo = f"_{alvo}_"
+        return any(f"_{t}_" in alvo for t in termos if t)
+    return any(t in alvo for t in termos if t)
+
+
+def bate_exclusao(texto: str, termos: list[str], permitidas: list[str] | None = None) -> bool:
+    """
+    Exclusão de escopo por palavra inteira, depois de apagar do texto as
+    expressões permitidas (`escopo.expressoes_permitidas` no config).
+
+    Achados reais, lendo os 42 excluídos como zootecnia em 2026-09-13: "pé
+    equino" (ortopedia infantil), "dentina radicular bovina" (odontologia in
+    vitro), "soro fetal bovino" e "albumina sérica bovina" (reagentes de
+    laboratório) tiravam tese de Saúde do corpus.
+    """
+    alvo = f"_{_normalizar_nome_coluna(texto)}_"
+    for expressao in permitidas or []:
+        expressao = _normalizar_nome_coluna(expressao)
+        if expressao:
+            alvo = re.sub(rf"(?<=_){re.escape(expressao)}(?=_)", "", alvo)
+    return any(f"_{t}_" in alvo for t in termos if t)
+
+
 def _mapear_colunas(colunas) -> dict[str, str]:
     normalizadas = {_normalizar_nome_coluna(c): c for c in colunas}
     mapa: dict[str, str] = {}
@@ -233,6 +264,77 @@ def ler_capes(
 
 
 # ==========================================================================
+# Inventário da BDTD exportado pelo grupo
+# ==========================================================================
+def _texto_ou_vazio(valor) -> str:
+    if valor is None or (isinstance(valor, float) and pd.isna(valor)):
+        return ""
+    return str(valor)
+
+
+def ler_inventario_bdtd(caminho: Path, cfg_fonte: dict,
+                        excluir_extra: list[str] | None = None,
+                        permitidas: list[str] | None = None) -> list[RegistroInventario]:
+    """
+    Lê o inventário da BDTD (CSV ou Parquet com id, titulo, autor, ano, tipo,
+    instituicao, repositorio, url, direitos, idioma, assuntos) e aplica os
+    filtros deste projeto: acesso aberto com URL, instituições excluídas,
+    escopo em título + assuntos (inclusão por radical, exclusão por palavra
+    inteira) e, no piloto, lista de instituições e limite por instituição.
+    """
+    caminho = Path(caminho)
+    df = pd.read_parquet(caminho) if caminho.suffix == ".parquet" else pd.read_csv(caminho, low_memory=False)
+    df = df[df["url"].notna()]
+    if cfg_fonte.get("somente_acesso_aberto", True):
+        df = df[df["direitos"].fillna("").str.lower() == "openaccess"]
+    excluidas = {str(i).upper() for i in cfg_fonte.get("excluir_instituicoes", []) or []}
+    if excluidas:
+        df = df[~df["instituicao"].fillna("").str.upper().isin(excluidas)]
+    escolhidas = {str(i).upper() for i in cfg_fonte.get("instituicoes", []) or []}
+    if escolhidas:
+        df = df[df["instituicao"].fillna("").str.upper().isin(escolhidas)]
+
+    incluir = [_normalizar_nome_coluna(t) for t in cfg_fonte.get("filtro_assunto", []) or []]
+    excluir = [_normalizar_nome_coluna(t)
+               for t in [*(cfg_fonte.get("excluir_assunto") or []), *(excluir_extra or [])]]
+    contexto = df["titulo"].fillna("").astype(str) + " " + df["assuntos"].fillna("").astype(str)
+    if incluir:
+        mascara = contexto.map(lambda t: bate_algum_termo(t, incluir))
+        df, contexto = df[mascara], contexto[mascara]
+    if excluir:
+        df = df[~contexto.map(lambda t: bate_exclusao(t, excluir, permitidas))]
+
+    limite = int(cfg_fonte.get("limite_por_instituicao", 0) or 0)
+    if limite:
+        df = (df.sample(frac=1.0, random_state=int(cfg_fonte.get("semente", 42)))
+              .groupby("instituicao", group_keys=False).head(limite))
+
+    registros = []
+    for linha in df.to_dict("records"):
+        ano = pd.to_numeric(linha.get("ano"), errors="coerce")
+        assuntos = _texto_ou_vazio(linha.get("assuntos"))
+        registros.append(RegistroInventario(
+            fonte="bdtd_inventario",
+            chave_origem=_texto_ou_vazio(linha.get("id")),
+            titulo=_texto_ou_vazio(linha.get("titulo")),
+            autor=_texto_ou_vazio(linha.get("autor")),
+            ano=None if pd.isna(ano) else int(ano),
+            ies=_texto_ou_vazio(linha.get("instituicao")),
+            area=assuntos,
+            taxonomia="busca 'saúde' na BDTD + filtro de escopo do projeto",
+            tipo=_texto_ou_vazio(linha.get("tipo")),
+            idioma=_texto_ou_vazio(linha.get("idioma")),
+            identificador=_texto_ou_vazio(linha.get("url")),
+            url_landing=_texto_ou_vazio(linha.get("url")),
+            palavras_chave=assuntos,
+            extra={"direitos": _texto_ou_vazio(linha.get("direitos")),
+                   "repositorio": _texto_ou_vazio(linha.get("repositorio"))},
+        ))
+    log.info("inventário BDTD: %d candidatos depois dos filtros", len(registros))
+    return registros
+
+
+# ==========================================================================
 # OAI-PMH
 # ==========================================================================
 class ClienteOAI:
@@ -251,6 +353,9 @@ class ClienteOAI:
         metadados. Ignore em vez de estourar.
       - `noRecordsMatch` é resposta válida para uma janela vazia.
     """
+
+    # Falhas seguidas, sem nenhum registro novo, que interrompem a colheita.
+    FALHAS_SEGUIDAS_MAX = 5
 
     def __init__(self, endpoint: str, cfg: Config):
         self.endpoint = endpoint.rstrip("?")
@@ -368,6 +473,64 @@ class ClienteOAI:
         )
         return raiz.find("oai:GetRecord/oai:record", NS)
 
+    def _listar_intervalo(self, metadata_prefix, conjunto, desde, ate) -> Iterator[ET.Element]:
+        """Um intervalo de datestamp, paginado por resumptionToken, sem fatiar."""
+        yield from self.list_records(metadata_prefix, conjunto, desde, ate, limite=0)
+
+    def _colher_janela(self, metadata_prefix, conjunto, inicio, fim, vistos: set,
+                       minimo_dias: int) -> Iterator[ET.Element]:
+        """
+        Colhe [inicio, fim]. Se o servidor falhar no meio da paginação, divide a
+        janela ao meio e tenta cada metade, até `minimo_dias`. O que falhar mesmo
+        assim vai para `janelas_perdidas` — perda declarada, não silenciosa. Antes,
+        2026-02-25..2026-06-25 dava HTTP 500 na UFMG e era pulada inteira.
+        """
+        from datetime import timedelta
+        perdidas = self.__dict__.setdefault("janelas_perdidas", [])
+        if self.__dict__.get("_colheita_interrompida"):
+            perdidas.append({"de": inicio.date().isoformat(), "ate": fim.date().isoformat(),
+                             "erro": "não tentada: colheita interrompida por falhas seguidas"})
+            return
+        emitiu = False
+        try:
+            for registro in self._listar_intervalo(metadata_prefix, conjunto,
+                                                   inicio.strftime("%Y-%m-%d"),
+                                                   fim.strftime("%Y-%m-%d")):
+                ident = (registro.findtext("oai:header/oai:identifier", "", NS) or "").strip()
+                if ident and ident in vistos:
+                    continue  # janela reaberta devolve de novo o que já tinha saído
+                vistos.add(ident)
+                emitiu = True
+                yield registro
+            self._falhas_seguidas = 0
+        except Exception as exc:
+            # Critério de parada do protocolo (erro persistente no mesmo domínio):
+            # em 2026-09-13 a UFMG devolveu HTTP 500 até para janela de 1 dia, e
+            # dividir ao meio sem limite viraria centenas de requisições falhando.
+            self._falhas_seguidas = 1 if emitiu else self.__dict__.get("_falhas_seguidas", 0) + 1
+            if self._falhas_seguidas >= self.FALHAS_SEGUIDAS_MAX:
+                self._colheita_interrompida = True
+                log.error("%d falhas seguidas sem registro novo: colheita interrompida; "
+                          "janela %s..%s declarada perdida (%s)",
+                          self._falhas_seguidas, inicio.date(), fim.date(), exc)
+                perdidas.append({"de": inicio.date().isoformat(), "ate": fim.date().isoformat(),
+                                 "erro": f"interrompida após {self._falhas_seguidas} falhas seguidas: "
+                                         f"{str(exc)[:250]}"})
+                return
+            dias = (fim - inicio).days
+            if dias > minimo_dias:
+                meio = inicio + timedelta(days=dias // 2)
+                log.warning("janela %s..%s falhou (%s); dividindo ao meio",
+                            inicio.date(), fim.date(), exc)
+                yield from self._colher_janela(metadata_prefix, conjunto, inicio, meio,
+                                               vistos, minimo_dias)
+                yield from self._colher_janela(metadata_prefix, conjunto, meio, fim,
+                                               vistos, minimo_dias)
+            else:
+                log.error("janela %s..%s perdida (%s)", inicio.date(), fim.date(), exc)
+                perdidas.append({"de": inicio.date().isoformat(), "ate": fim.date().isoformat(),
+                                 "erro": str(exc)[:300]})
+
     def list_records(
         self,
         metadata_prefix: str = "oai_dc",
@@ -376,6 +539,7 @@ class ClienteOAI:
         ate: str | None = None,
         limite: int = 0,
         janela_dias: int = 0,
+        janela_minima_dias: int = 1,
     ) -> Iterator[ET.Element]:
         """
         Percorre os registros. Com `janela_dias`, fatia a consulta por
@@ -392,22 +556,16 @@ class ClienteOAI:
             inicio = datetime.fromisoformat((desde or "2000-01-01")[:10])
             fim = (datetime.fromisoformat(ate[:10]) if ate
                    else datetime.now(timezone.utc).replace(tzinfo=None))
+            vistos: set[str] = set()
             emitidos = 0
             while inicio < fim:
                 janela_fim = min(inicio + timedelta(days=janela_dias), fim)
-                try:
-                    for registro in self.list_records(
-                        metadata_prefix, conjunto,
-                        inicio.strftime("%Y-%m-%d"), janela_fim.strftime("%Y-%m-%d"),
-                        limite=0,
-                    ):
-                        yield registro
-                        emitidos += 1
-                        if limite and emitidos >= limite:
-                            return
-                except Exception as exc:
-                    log.warning("janela %s..%s falhou (%s); seguindo para a próxima",
-                                inicio.date(), janela_fim.date(), exc)
+                for registro in self._colher_janela(metadata_prefix, conjunto, inicio,
+                                                    janela_fim, vistos, janela_minima_dias):
+                    yield registro
+                    emitidos += 1
+                    if limite and emitidos >= limite:
+                        return
                 inicio = janela_fim
             return
 
@@ -810,7 +968,8 @@ def descobrir_endpoint(base: str, cfg: Config) -> dict:
     return resultado
 
 
-def colher_oai(cfg: Config, cfg_fonte: dict) -> list[RegistroInventario]:
+def colher_oai(cfg: Config, cfg_fonte: dict,
+               janelas_perdidas: list | None = None) -> list[RegistroInventario]:
     endpoint = cfg_fonte["endpoint"]
     cliente = ClienteOAI(endpoint, cfg)
     fonte = f"oai:{re.sub(r'^https?://', '', endpoint).split('/')[0]}"
@@ -838,6 +997,7 @@ def colher_oai(cfg: Config, cfg_fonte: dict) -> list[RegistroInventario]:
             ate=cfg_fonte.get("until"),
             limite=int(cfg_fonte.get("limite", 0)),
             janela_dias=int(cfg_fonte.get("janela_dias", 0)),
+            janela_minima_dias=int(cfg_fonte.get("janela_minima_dias", 1)),
         ):
             item = parser(registro, fonte, endpoint)
             if item:
@@ -850,6 +1010,10 @@ def colher_oai(cfg: Config, cfg_fonte: dict) -> list[RegistroInventario]:
                     fonte, len(registros), exc)
         if not registros:
             raise
+    if janelas_perdidas is not None:
+        janelas_perdidas.extend(
+            {"endpoint": endpoint, **j} for j in getattr(cliente, "janelas_perdidas", [])
+        )
 
     # Filtro por assunto/tipo. Um repositório institucional inteiro tem de
     # tudo; você quer teses e dissertações de saúde.
@@ -877,8 +1041,8 @@ def colher_oai(cfg: Config, cfg_fonte: dict) -> list[RegistroInventario]:
         antes = len(registros)
         registros = [
             r for r in registros
-            if not any(e in _normalizar_nome_coluna(f"{r.area} {r.titulo} {r.programa} {r.resumo}")
-                       for e in excluir)
+            if not bate_exclusao(f"{r.area} {r.titulo} {r.programa} {r.resumo}", excluir,
+                                 cfg.get_path("escopo.expressoes_permitidas", []))
         ]
         log.info("exclusão de assunto: %d -> %d registros", antes, len(registros))
 

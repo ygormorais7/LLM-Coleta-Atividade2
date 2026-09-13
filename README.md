@@ -1,14 +1,22 @@
 # bdtd-corpus
 
-Pipeline em camadas que vai da coleta de teses e dissertações na **BDTD/IBICT**
-até datasets prontos para pré-treino continuado, fine-tuning, RAG e avaliação.
+Pipeline em camadas que vai da coleta de teses e dissertações de **Saúde**
+(BDTD/IBICT e repositórios institucionais de origem) até datasets prontos para
+pré-treino continuado, fine-tuning, RAG e avaliação de modelos de linguagem em
+português.
+
+**Grupo 7** — Otávio da Conceição França, Ygor Morais, Eduardo Melo ·
+Tópicos em Inteligência Artificial (DC/CCN072) · UFPI · Prof. Raimundo Moura
 
 | Item do enunciado | Onde está |
 |---|---|
-| 1. Crawler da BDTD | `src/raw/bdtd_client.py`, `src/raw/fulltext.py`, `src/raw/harvest.py` |
-| 2. Arquitetura Raw → Staging → Processed → Curated | `src/raw/`, `src/staging/`, `src/processed/`, `src/curated/` |
-| 3. Tratamento na Processed | `src/processed/clean.py` (padronização, normalização, anonimização) e `src/processed/dedup.py` |
-| 4. Produtos na Curated | `src/curated/build.py` → `pretreino/`, `sft/`, `rag/`, `benchmark/` |
+| 1. Crawler da BDTD | `src/raw/fontes.py` e `src/raw/inventario.py` (inventário: OAI-PMH e inventário da BDTD), `src/raw/fulltext.py` (página do item → PDF), `src/raw/harvest.py` (download por cota) |
+| 2. Arquitetura Raw → Staging → Processed → Curated | `src/raw/`, `src/staging/`, `src/processed/`, `src/curated/`, orquestradas por `run_pipeline.py` |
+| 3. Tratamento na Processed | `src/processed/padroniza.py`, `clean.py` (normalização, anonimização, qualidade), `dedup.py`, `run.py` |
+| 4. Produtos na Curated | `src/curated/build.py` → `pretreino/`, `sft/`, `rag/`, `benchmark/`; `src/curated/verificar_pii.py` |
+
+Protocolo de coleta: `docs/PROTOCOLO_DE_COLETA.md`. Relatório da atividade:
+`docs/RELATORIO_ATIVIDADE_02.md` (e `.pdf`).
 
 ---
 
@@ -18,243 +26,230 @@ até datasets prontos para pré-treino continuado, fine-tuning, RAG e avaliaçã
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# OCR (opcional, mas quase obrigatório para teses antigas)
-sudo apt install tesseract-ocr tesseract-ocr-por
+# OCR (quase obrigatório para teses antigas)
+sudo dnf install tesseract tesseract-langpack-por   # ou: apt install tesseract-ocr tesseract-ocr-por
 pip install pytesseract Pillow
+
+python -m pytest          # 128 testes, todos em diretório temporário: nenhum toca em data/
 ```
 
-Teste o pipeline **sem tocar na BDTD** primeiro:
+> **Cuidado:** `tests/gerar_dados_sinteticos.py` **apaga as quatro camadas de
+> `data/`** para gerar uma camada Raw falsa. Só rode num clone sem dados reais.
+
+Tudo que é decisão de projeto está em `config/config.yaml`.
+
+---
+
+## Como fazer uma coleta, na ordem
 
 ```bash
-python tests/gerar_dados_sinteticos.py     # cria uma camada Raw falsa
-# baixe processed.qualidade.min_palavras para ~120 no config (os PDFs de teste são curtos)
+# 1. evidência do robots.txt de cada fonte (vai para data/reports/<area>/)
+python -m src.raw.inventario descobrir --base https://repositorio.exemplo.br   # fonte OAI
+python -m src.raw.inventario robots                                          # domínios do inventário BDTD
+
+# 2. verificação pré-voo: para se houver bloqueio
+python preflight.py
+
+# 3. inventário (escolha o que se aplica)
+python -m src.raw.inventario construir                     # colhe as fontes OAI e amostra
+python -m src.raw.inventario janela --de 2026-02-25 --ate 2026-06-25 [--prefixo oai_dc]
+python -m src.raw.inventario bdtd_csv                      # candidatos do inventário da BDTD
+
+# 4. download, dentro do tmux (sobrevive à queda da sessão)
+tmux new -s coleta
+python run_pipeline.py --camadas raw
+
+# 5. tratamento e produtos (local, sem rede)
 python run_pipeline.py --camadas staging processed curated
 ```
 
-Depois, para valer:
-
-```bash
-python run_pipeline.py --camadas raw          # coleta
-python run_pipeline.py                        # as 4 camadas
-```
-
-Tudo que é decisão de projeto está em `config/config.yaml`. Não há número
-mágico no código.
+O passo 5 termina com a **verificação de dados pessoais no Curated**: se sobrar
+qualquer ocorrência, o `run_pipeline.py` sai com código 1. Rode também à mão:
+`python -m src.curated.verificar_pii`.
 
 ---
 
-## 1. Escolhendo e configurando sua área
+## 1. De onde vem a lista (inventário)
 
-Cada grupo pega uma área no fórum. Depois, ache o **filtro Solr** que
-corresponde a ela — o rótulo bonito da interface não serve para consultar a API:
+`coleta.fonte_inventario: "inventario"` usa as fontes de `inventario.fontes`. O
+resto do pipeline não muda quando a fonte muda.
 
-```bash
-# lista os valores possíveis de um campo e quantos registros cada um tem
-python -m src.raw.bdtd_client facets --field format
-python -m src.raw.bdtd_client facets --field dc.subject.cnpq.fl_str_mv --limit 60
-python -m src.raw.bdtd_client facets --field institution --limit 40
+**OAI-PMH do repositório de origem** (fonte principal: UFMG, set `com_1843_6`).
+OAI-PMH é o protocolo feito para colheita por máquina. `metadata_prefix: dim`
+preserva o qualificador do campo programa, que `oai_dc` perde; `ore` entrega a
+URL do PDF e dispensa raspar a página do item.
 
-# confere quantos registros a sua consulta devolve antes de coletar
-python -m src.raw.bdtd_client total --filtro 'language:"por"'
-```
+- **Paginação profunda:** o DSpace devolve HTTP 500 em `resumptionToken` profundo
+  (na UFMG, perto de 7.900 registros). `janela_dias` fatia a colheita por
+  datestamp.
+- **Janela que falha** é dividida ao meio até 1 dia. O que não se recupera é
+  **declarado** no relatório.
+- **Disjuntor:** 5 falhas seguidas sem registro novo interrompem a colheita.
+- `inventario janela` recolhe só um intervalo e junta ao inventário os candidatos
+  que faltavam, sem reamostrar.
 
-Atalho: abra a BDTD no navegador, clique na sua área e **copie os parâmetros
-`filter[]` da URL**. Cole em `coleta.filtros` no config.
+**Inventário da BDTD exportado pelo grupo** (`inventario.fontes.bdtd_csv`).
+Eduardo Melo montou o inventário da área pela API da BDTD: 183.718 fichas com a
+URL do item no repositório de origem. `inventario bdtd_csv` aplica os filtros
+deste projeto:
 
-> Comece com `max_registros: 500`. Rode o pipeline inteiro. Só depois zere o
-> limite e deixe a coleta completa rodando.
+- **Direitos:** só acesso aberto com URL.
+- **Escopo:**
+  - inclusão por radical (`odontolog` pega "odontológico"); `medic` e `hospital`
+    não são usados, porque casam com "medição" e "hospitalidade";
+  - exclusão por **palavra inteira**.
+- **Instituições excluídas:**
+  - UFMG, que já vem pelo OAI;
+  - UNIFESP, suspensa;
+  - PUC-RS, cujo robots.txt veta robôs de IA;
+  - UFSC, que tem desafio anti-robô.
+- **Piloto:** lista de instituições e limite por instituição.
 
----
+O arquivo não tem resumo; o escopo é checado de novo na Processed com o começo
+do texto.
 
-## 1b. Estágio 1: de onde vem a lista
+**Amostragem com cota e fila de reserva por estrato** (`ies` + faixa de ano): o
+download consome a fila até fechar a cota daquele estrato, e a taxa de
+resolução por estrato entra no relatório. Sem isso, estratos com repositório
+fraco encolhem sozinhos e o viés fica invisível.
 
-`coleta.fonte_inventario` escolhe a origem do inventário. O resto do pipeline
-não muda quando você troca.
+## 2. O que saber sobre a BDTD
 
-```bash
-# 1. baixe os CSV em dadosabertos.capes.gov.br -> data/externo/capes/
-# 2. descubra os conjuntos de um provedor OAI antes de fixar `set`
-python -m src.raw.inventario identify --endpoint https://api.openaire.eu/oai_pmh
-python -m src.raw.inventario sets     --endpoint https://api.openaire.eu/oai_pmh
-# 3. construa o inventário (CAPES ⋈ OAI, reconciliado e amostrado)
-python -m src.raw.inventario construir
-python run_pipeline.py --camadas raw
-```
+**A BDTD tem metadado, não tem PDF.** O IBICT é agregador: o arquivo continua no
+repositório da instituição. Toda coleta de texto tem dois saltos — inventário,
+depois página do item no repositório de origem.
 
-**A moldura da CAPES não é a moldura da BDTD.** A CAPES lista tudo que foi
-declarado à Sucupira, tenha ou não texto digital em algum lugar; o OAI de
-agregador lista o que foi depositado e colhido. O segundo é subconjunto
-próprio do primeiro. Por isso a taxa de resolução contra uma moldura CAPES é
-pior e, principalmente, **desigual entre estratos**: IES grandes com
-repositório maduro resolvem bem, IES pequenas e anos antigos resolvem mal.
+**O salto para o repositório resolve por metatag.** DSpace e TEDE emitem
+`<meta name="citation_pdf_url">`. `fulltext.py` tenta essa metatag primeiro,
+depois âncoras `/bitstream/` e `.pdf`, e por último a **API REST do DSpace 7**
+(`/server/api`). O último passo existe porque há DSpace 7 que entrega só a
+"casca" da página, sem link nenhum (UFRN). Outra armadilha real: metatag com
+endereço interno do servidor (`http://localhost:4000/...`, na Fiocruz), que o
+coletor troca pelo domínio da página.
 
-A amostragem responde a isso com **cota + fila de reserva por estrato**: o
-harvest consome a fila até fechar a cota daquele estrato, e a taxa de
-resolução por estrato entra no relatório como característica do corpus. Sem
-isso, os estratos fracos encolhem sozinhos e o viés fica invisível.
+**Armadilhas da API da BDTD** (documentadas por Eduardo Melo no projeto
+G7-Atividade02-BDTD):
+- a paginação trava na página 10 (teto de 1.000 registros por consulta);
+- as facetas devolvem no máximo 30 valores;
+- booleano dentro de `filter[]` devolve 0 em silêncio.
 
-**Reconciliação é record linkage, não join.** Registros da CAPES praticamente
-nunca têm handle ou DOI, então a chave é título + autor + ano + IES, com
-blocking e limiar. O relatório guarda uma amostra de pares aceitos e de pares
-no limite — **revise à mão** antes de confiar nas contagens por fonte.
+A saída dele é particionar a consulta por prefixo do identificador.
 
-**Declare a taxonomia.** `capes.area_avaliacao`, `capes.area_conhecimento` e
-a faceta de navegação da BDTD são três classificações diferentes e nenhuma
-reproduz o número da outra. O inventário registra qual você usou e falha o
-relatório se você não declarar.
-
-## 2. As três coisas que você precisa saber sobre a BDTD
-
-**A BDTD tem metadado, não tem PDF.** O IBICT é agregador: coleta título,
-autor, resumo e assunto via OAI-PMH dos repositórios das universidades, mas o
-arquivo continua na instituição de defesa. Por isso a coleta tem **dois
-saltos** — API da BDTD para o metadado, depois repositório institucional para
-o texto completo. É aí que mora a maior parte da complexidade e das falhas.
-
-**O salto para o repositório resolve por metatag, não por scraping frágil.**
-DSpace e TEDE emitem `<meta name="citation_pdf_url">` (padrão Highwire Press,
-usado pelo Google Scholar). É o caminho mais estável: sobrevive a mudança de
-tema do repositório, ao contrário de seletor CSS. `fulltext.py` tenta essa
-metatag primeiro e só depois cai para âncoras `/bitstream/` e `.pdf`.
-
-**Solr não pagina infinitamente.** A janela é de ~10 mil resultados. Uma área
-com 115 mil teses não sai de uma consulta só. `iterar()` fatia por ano de
-defesa e, se algum ano ainda estourar, subdivide por instituição.
+**A busca da interface é proibida a robôs** (`Disallow: /vufind/Search/`).
+Este pipeline não usa a interface: usa OAI-PMH e o inventário pronto do grupo.
 
 ### Sobre ser um crawler decente
 
-- rate limit **por domínio**: 1 req/2s na BDTD, 1 req/3s em cada repositório;
-- `robots.txt` consultado e respeitado;
-- User-Agent identifica projeto, instituição e e-mail de contato;
-- retry com backoff exponencial, respeitando `Retry-After` em HTTP 429;
-- download idempotente — reexecutar não rebaixa o que já está no disco.
-
-Se as respostas vierem em HTML com *"Aguarde um momento enquanto validamos sua
-conexão"*, você bateu na proteção anti-bot. Baixe
-`requisicoes_por_segundo`, rode fora do horário de pico, e só então considere
-`fallback_selenium: true`. Selenium é ~20x mais lento e come memória — use
-como último recurso, não como padrão.
+- **Ritmo por domínio:** 1 requisição a cada 2 s na fonte de metadados, 1 a cada
+  3 s em cada repositório. Domínios diferentes andam em paralelo; dentro de um
+  domínio o intervalo é sempre o do config.
+- **`robots.txt` em todos os caminhos de rede:** respeitado, com `Crawl-delay`,
+  na colheita OAI e no download, **a cada salto de redirecionamento**
+  (`hdl.handle.net` → repositório final).
+- **Letra e espírito:** quando divergem, vale o espírito. Repositório que veta
+  robôs de IA não entra.
+- **Proteção anti-robô:** página de desafio (Cloudflare etc.) é motivo de parar
+  a coleta naquele domínio, não de contornar.
+- **Identificação:** o User-Agent traz projeto, instituição e e-mail de contato.
+- **Retomada:** o download é idempotente; reexecutar não rebaixa o que já está
+  no disco.
+- **Verificação antes de coletar:** `preflight.py` exige evidência de robots.txt
+  para cada domínio e recusa ritmo acima do protocolo.
 
 ---
 
 ## 3. As camadas
 
 ```
-FONTE (BDTD + repositórios)
+FONTE (OAI-PMH dos repositórios + inventário da BDTD do grupo)
   │
-  ├─ RAW ......... preservação. A resposta da API vai crua para o disco, o PDF
-  │                vai byte a byte. Nada é limpo, convertido ou renomeado.
-  │                Saída: metadata/registros.jsonl, pdf/*.pdf, manifesto.jsonl
+  ├─ RAW ......... preservação: metadado cru e PDF byte a byte.
+  │                Saída: inventario.jsonl, metadata/registros.jsonl, pdf/*.pdf, manifesto.jsonl
   │
-  ├─ STAGING ..... organização. JSONL vira 4 tabelas Parquet, encoding dos
-  │                metadados é acertado, o tipo real de cada arquivo é
-  │                detectado por magic bytes, integridade é validada.
+  ├─ STAGING ..... organização: 4 tabelas Parquet, encoding acertado, tipo real
+  │                do arquivo por magic bytes, integridade validada.
   │                Saída: documentos/autores/assuntos/arquivos.parquet
   │
-  ├─ PROCESSED ... enriquecimento e filtragem. Extração de texto, tratamento
-  │                completo, deduplicação. A camada mais cara do pipeline.
-  │                Saída: texto/*.txt + documentos.parquet com as métricas
+  ├─ PROCESSED ... extração, padronização, normalização, anonimização,
+  │                qualidade, escopo e deduplicação. A camada mais cara.
+  │                Saída: texto/*.txt, documentos.parquet, metadados.parquet,
+  │                       pii_relatorio.parquet, extracao_stats.jsonl
   │
-  └─ CURATED ..... moldagem. Quatro produtos para quatro consumidores.
+  └─ CURATED ..... quatro produtos para quatro consumidores + verificação de PII.
                    Saída: pretreino/, sft/, rag/, benchmark/, DATACARD.md
 ```
 
-Nenhuma camada modifica a anterior. Cada uma lê e gera artefatos novos. É isso
-que permite mudar um filtro de qualidade e reprocessar da Processed sem
-recoletar 100 mil registros.
+Nenhuma camada modifica a anterior. Mudar um filtro exige só reprocessar a
+partir da camada afetada, sem recoletar. A Processed só trata o que está no
+Staging da rodada atual: texto de rodada anterior esquecido em disco é ignorado
+e contado no relatório.
 
 Cada camada escreve `data/reports/<area>/<camada>.json` com entradas, saídas,
-métricas e **falhas tipadas**. Nada é silenciado: se um documento sumiu entre
-duas camadas, o relatório diz qual e por quê.
+métricas e **falhas tipadas**.
 
 ---
 
 ## 4. O pipeline de tratamento (Processed)
 
-Ordem obrigatória, e cada passo tem motivo para estar onde está:
-
 ```
-extração → NORMALIZAÇÃO → ANONIMIZAÇÃO → repetição interna → QUALIDADE → DEDUPLICAÇÃO
+extração → normalização → anonimização → repetição interna → qualidade → escopo → deduplicação
+                                     (+ padronização e anonimização dos metadados)
 ```
 
-Filtrar antes de normalizar reprova documento bom por mojibake. Anonimizar
-antes de normalizar faz o regex de CPF errar por causa de espaço Unicode e
-hifenização. Deduplicar antes de normalizar faz textos idênticos parecerem
-diferentes. Deduplicar antes de filtrar gasta MinHash em lixo de OCR.
+**Extração (`extract.py`).** PyMuPDF página a página; página quase sem texto é
+tratada como imagem e, se a maioria for imagem, entra OCR (Tesseract, português,
+com teto de páginas). Páginas e páginas com OCR vão para `extracao_stats.jsonl`,
+reaproveitado quando a extração vem do cache.
 
-### Extração (`extract.py`)
+**Normalização (`clean.py`).**
+- **Texto e caracteres:** `ftfy` e NFC; ligaduras; caracteres de controle;
+  espaços Unicode.
+- **Ruído de layout:** cabeçalho e rodapé repetidos entre páginas; números de
+  página; hifenização de quebra de linha; pontos de preenchimento de sumário;
+  colapso de espaços.
+- **Cortes:** pré-textuais até o RESUMO, e o material depois das referências ou
+  anexos.
 
-PyMuPDF página a página; páginas com pouquíssimo caractere são marcadas como
-imagem; se a maioria das páginas for imagem, entra OCR com Tesseract em
-português — com teto de páginas, para não gastar 40 minutos numa tese
-digitalizada inteira. Docling disponível como motor alternativo quando
-estrutura importa mais que velocidade.
+**Padronização (`padroniza.py`).** Idioma (código ISO), tipo (`dissertação de
+mestrado` / `tese de doutorado`) e ano (1800 até o ano corrente) em vocabulário
+fechado, com o valor original ao lado (`*_bruto`).
 
-Paralelismo em `ProcessPoolExecutor`: parsing de PDF e OCR são CPU-bound.
-(A coleta, que é I/O-bound, usa `ThreadPoolExecutor` — thread resolve espera
-de rede sem o custo de memória de processos separados.)
+**Anonimização (`clean.py`).** Alvo: PII de terceiros no texto, no título e no
+resumo. Autor e orientador são dado bibliográfico público e não são
+anonimizados.
 
-### Padronização e normalização (`clean.py`, 9 etapas)
+- **Detectores:**
+  - e-mail e perfil de rede social;
+  - CPF, CNPJ, **título de eleitor, PIS/PASEP e cartão SUS só com dígito
+    verificador válido**;
+  - telefone com DDD válido;
+  - CEP;
+  - RG (7 a 10 dígitos).
+- **Links, DOI e ORCID ficam fora dos detectores numéricos:** seus dígitos
+  imitavam documento.
+- **Placa de veículo desligada:** colidia com nome de gene (`CYP2C19`) e sigla de
+  estudo (`OMS-2008`).
+- **Auditoria:** cada máscara vai para `pii_relatorio.parquet` com o trecho em
+  volta **já mascarado**, e a Curated é verificada no fim.
 
-1. encoding e mojibake (`ftfy`), ligaduras tipográficas, NFC
-2. `U+2028`/`U+2029` → `\n` (quebram tokenizador)
-3. caracteres de controle invisíveis
-4. variantes de espaço Unicode → espaço ASCII
-5. **cabeçalho e rodapé repetidos entre páginas** — linha curta que aparece na
-   borda de ≥60% das páginas é layout, não conteúdo
-6. números de página soltos
-7. hifenização de quebra de linha (`arqui-\ntetura` → `arquitetura`)
-8. entidades HTML residuais
-9. colapso de espaços e linhas em branco
+**Qualidade.** Heurísticas no espírito Gopher/RefinedWeb calibradas para tese em
+português:
+- tamanho;
+- proporção de texto alfabético, símbolos e tamanho médio de palavra;
+- stopwords;
+- linhas duplicadas e tokens curtos (OCR de tabela);
+- idioma por votação em três janelas do miolo.
 
-Mais um corte estrutural: pré-textuais (capa, ficha catalográfica, folha de
-aprovação, dedicatória, agradecimentos) são descartados até o `RESUMO`. São
-ruído altamente repetitivo e cheio de nome de terceiro.
+O relatório guarda a métrica **e** o motivo de cada reprovação.
 
-### Anonimização
+**Escopo.** Exclusão de zootecnia/veterinária/agrárias por palavra inteira,
+sobre título, programa, assuntos e resumo (ou o começo do texto). Motivo gravado:
+`fora_de_escopo_zootecnia`.
 
-CPF, CNPJ, e-mail, telefone, CEP, RG, cartão SUS, título de eleitor,
-PIS/PASEP, placa e URLs de perfil social. Opcionalmente NER de nomes (spaCy).
-
-Dois detalhes que fazem diferença:
-
-**CPF e CNPJ são validados pelo dígito verificador antes de mascarar.** Sem
-isso, todo número de processo, código de tabela e identificador experimental
-com formato parecido vira `[CPF]` e o texto é destruído.
-
-**Autor e orientador NÃO são anonimizados.** São dado bibliográfico público —
-a tese é publicada com o nome deles, é assim que se cita, e vivem nos
-metadados, não no corpo. Remover quebraria a proveniência do corpus sem ganho
-de privacidade. O alvo real é PII de **terceiros** dentro do texto:
-participante de entrevista, paciente, documento em anexo, termo de
-consentimento digitalizado.
-
-### Filtros de qualidade
-
-Heurísticas no espírito de Gopher/RefinedWeb, calibradas para tese em
-português: tamanho, proporção de palavras alfabéticas, excesso de símbolos,
-tamanho médio de palavra, contagem de stopwords em português, proporção de
-linhas duplicadas e idioma com limiar de confiança.
-
-Perder boa parte dos documentos aqui é esperado e desejável. O que não é
-aceitável é perder sem saber por quê — por isso o relatório guarda a métrica
-**e** o motivo de reprovação de cada documento.
-
-### Deduplicação (`dedup.py`)
-
-Três níveis, porque duplicata aparece de três jeitos:
-
-- **exata** — o mesmo trabalho coletado de dois repositórios. SHA-256 do texto
-  normalizado.
-- **aproximada** — mesma tese com folha de aprovação diferente, ou reextraída
-  com OCR: 98% igual, hash diferente. MinHash + LSH, Jaccard ≥ 0.80, sem
-  comparar N² pares.
-- **interna** — sumário que reaparece, tabela repetida em anexo. Parágrafos
-  duplicados dentro do mesmo documento.
-
-Duplicata em corpus de pré-treino é o defeito mais caro que existe: o modelo
-memoriza em vez de generalizar, e se um documento cai metade no treino e
-metade no teste, o benchmark passa a medir memorização.
+**Deduplicação (`dedup.py`).**
+- **Exata:** SHA-256 do texto normalizado.
+- **Aproximada:** MinHash + LSH, Jaccard ≥ 0,80.
+- **Interna:** parágrafo repetido no mesmo documento.
 
 ---
 
@@ -262,61 +257,36 @@ metade no teste, o benchmark passa a medir memorização.
 
 | Produto | Formato | Para que serve |
 |---|---|---|
-| `pretreino/*.jsonl` | `{id, text, meta}` | pré-treino continuado (HF datasets, nanotron, litgpt) |
+| `pretreino/*.jsonl` | `{id, text, meta}` | pré-treino continuado |
 | `sft/*.jsonl` | `{id, messages, meta}` | fine-tuning supervisionado |
-| `rag/corpus_rag.parquet` | chunks de 500 palavras, overlap 50 | indexação vetorial |
-| `benchmark/` | 3 conjuntos + README de pontuação | avaliação |
-| `DATACARD.md` | composição, parâmetros, limitações | documentação do dataset |
+| `rag/corpus_rag.parquet` | chunks de 500 palavras, sobreposição de 50, metadado embutido | busca semântica com citação da fonte |
+| `benchmark/` | recuperação, múltipla escolha, perplexidade + README de pontuação | avaliação |
+| `indice_corpus.parquet`, `DATACARD.md` | índice e ficha do corpus | documentação |
 
-**Chunks são desnormalizados de propósito.** Cada chunk carrega título, autor,
-instituição, programa, ano e URL. O resultado da busca precisa ser
-autocontido, sem JOIN com outra tabela para saber de que tese veio o trecho.
-
-**Os pares de SFT são derivados de campos verificáveis** (resumo, título,
-palavras-chave), não gerados por um LLM. Assim você não destila alucinação
-para dentro do dataset. Se depois quiser instruções mais ricas via LLM, faça
-revisão humana amostral e registre isso no DATACARD.
-
-**Os benchmarks são três:**
-
-- **recuperação** — o resumo é a consulta, o documento é o gold. Reporte
-  recall@5, recall@10 e MRR.
-- **múltipla escolha** — 4 alternativas, gabarito vindo do registro
-  bibliográfico (sem alucinação possível). Baseline aleatório: 25%.
-- **perplexidade** — holdout para medir antes/depois do pré-treino continuado.
-
-Honestidade sobre o que eles medem: recuperação e memória factual sobre o
-acervo, **não** domínio do conteúdo. Um benchmark de domínio exige perguntas
-escritas e revisadas por humanos. Vale dizer isso na apresentação.
-
-### Split com anti-vazamento
-
-A divisão é **por grupo (autor + programa)**, não por documento. Se o mesmo
-orientando tem dissertação e tese, ou se o mesmo laboratório produz trabalhos
-com metodologia idêntica, dividir por documento vaza estilo e conteúdo.
-
-Depois do split, o treino é **descontaminado** contra o conjunto de avaliação
-por MinHash. Documento de treino parecido demais com um de teste sai do
-treino, não do teste.
+- **Metadados:** título e resumo usados no SFT e no benchmark vêm da Processed,
+  anonimizados; o campo `fonte` diz de onde o documento veio de fato.
+- **SFT:** os pares vêm de campos verificáveis (resumo, título, palavras-chave),
+  não de um LLM. Resumo em inglês não entra nem na pergunta nem na resposta.
+- **Split por grupo:** a divisão é por autor + programa, e o treino é
+  **descontaminado** contra a avaliação por MinHash.
+- **O RAG é gravado em lotes:** montar os ~150 mil chunks na memória derrubava o
+  processo.
+- **O que os benchmarks medem:** recuperação e memória factual sobre o acervo,
+  **não** domínio do conteúdo. Benchmark de domínio exige perguntas escritas e
+  revisadas por humanos.
 
 ---
 
 ## 6. Explorando o resultado
 
 ```python
-import duckdb
-duckdb.sql("""
-  SELECT meta_instituicao, count(*) chunks, count(distinct doc_id) teses
-  FROM 'data/curated/<area>/rag/corpus_rag.parquet'
-  GROUP BY 1 ORDER BY 2 DESC LIMIT 15
-""").show()
-```
-
-```python
-# por que documentos foram reprovados?
 import pandas as pd
-d = pd.read_parquet('data/processed/<area>/documentos.parquet')
-print(d[~d.aprovado_qualidade].motivos_reprovacao.value_counts())
+d = pd.read_parquet('data/processed/saude/documentos.parquet')
+print(d.loc[~d.no_corpus, 'motivos_reprovacao'].value_counts().head(15))   # por que saiu
+
+pii = pd.read_parquet('data/processed/saude/pii_relatorio.parquet')
+print(pii.groupby('tipo').size())
+print(pii.sample(20)[['tipo', 'contexto']])                                # conferir falso positivo à mão
 ```
 
 ---
@@ -325,37 +295,35 @@ print(d[~d.aprovado_qualidade].motivos_reprovacao.value_counts())
 
 | Sintoma | Causa provável | O que fazer |
 |---|---|---|
-| `RespostaInesperada: A BDTD devolveu HTML` | proteção anti-bot | baixe `requisicoes_por_segundo`, rode fora do pico, considere Selenium |
-| `resultCount` alto mas coleta para em ~10 mil | janela do Solr | mantenha `particionar_por_ano: true` |
-| Muitos `pdf_nao_localizado` | repositório monta o link via JS, ou exige login | ative `fallback_selenium`; alguns são realmente inacessíveis |
-| `conteudo_nao_e_pdf` | repositório devolveu página de erro com HTTP 200 | comportamento correto — o arquivo foi descartado, veja o relatório |
-| Tudo reprovado por `linhas_repetitivas` | texto muito repetitivo, ou OCR ruim | confira `data/processed/<area>/texto_bruto/` antes de mexer no limiar |
-| `texto_insuficiente` em massa | PDFs escaneados sem camada de texto | ative o OCR e instale `tesseract-ocr-por` |
+| `janela … falhou (500 Server Error)` na colheita OAI | defeito do servidor em registros daquele período | o pipeline divide a janela e declara a perda; teste `--prefixo oai_dc`; relate ao administrador |
+| `colheita interrompida` após 5 falhas | disjuntor | não force: registre o incidente no protocolo |
+| `robots.txt` que é página HTML de desafio | proteção anti-robô (Cloudflare) | exclua o domínio; não contorne |
+| Muitos `pdf_nao_localizado` | repositório monta o link via JavaScript ou exige login | se for DSpace 7, a API REST já é tentada; `fallback_selenium` só como último recurso |
+| `pdf_nao_localizado` em todo link `hdl.handle.net/<prefixo>/…` | servidor de handles da instituição fora do ar (HTTP 500, "Cannot Connect to Server") | retire a instituição; não insista |
+| `bloqueado_ou_erro_rede` com a página do item carregando | metatag com endereço interno (`localhost`) | já corrigido em `fulltext._no_mesmo_site`; se voltar, olhe o `citation_pdf_url` da página |
+| Verificação de PII falha só no RAG | texto do RAG diferente do pré-treino (linhas juntadas) | o RAG recorta o texto original; veja os `exemplos_mascarados` |
+| `conteudo_nao_e_pdf` | repositório devolveu página de erro com HTTP 200 | comportamento correto: o arquivo foi descartado |
+| `arquivos_brutos_orfaos_ignorados` no relatório | texto de rodada anterior que saiu da amostra | esperado; não entra no corpus |
+| Verificação de PII no Curated falha | máscara que não pegou algum campo | veja `verificacao_pii_curated.json`; corrija o detector e reprocesse |
 | Extração consumindo toda a RAM | `workers` alto demais | mantenha abaixo do número de núcleos |
 
 ---
 
 ## 8. Antes de entregar
 
-- [ ] área registrada no fórum e `area_rotulo`/`area_slug` batendo com ela
-- [ ] `projeto.contato` com um e-mail real (vai no User-Agent)
-- [ ] pipeline testado com dados sintéticos antes da coleta real
-- [ ] `data/reports/*.json` das 4 camadas commitados — são a prova de auditoria
-- [ ] `DATACARD.md` revisado à mão (as limitações genéricas precisam virar as
-      limitações reais **do seu** corpus)
-- [ ] auditoria manual de ~30 documentos: a anonimização pegou tudo? a
-      extração está legível?
-- [ ] licença conferida: a coluna `direitos` diz o que a fonte declarou, e
-      cada tese tem licença própria. Redistribuir texto integral exige
-      verificar item a item.
-- [ ] `data/` fora do Git (só os relatórios entram)
+- [ ] `python -m pytest` passando
+- [ ] `projeto.contato` com e-mail real (vai no User-Agent)
+- [ ] evidência de robots.txt de cada fonte em `data/reports/<area>/`
+- [ ] `data/reports/*.json` das camadas e o `DATACARD.md` commitados — são a prova de auditoria
+- [ ] leitura manual de amostra: textos, pares de SFT e `pii_relatorio.parquet`
+- [ ] verificação de PII no Curated sem ocorrências
+- [ ] protocolo com o registro de execução e os incidentes da rodada
+- [ ] `data/` fora do Git (só relatórios e DATACARD entram)
 
 ---
 
 ## Aviso
 
-Coleta para fins de pesquisa acadêmica. A BDTD agrega metadados; o direito
-sobre cada tese é da instituição de defesa e do autor. Este pipeline preserva
-o campo de direitos declarado na fonte e, por padrão, só baixa texto de
-registros marcados como acesso aberto — mas isso não substitui verificar a
-licença antes de redistribuir qualquer coisa.
+Coleta para fins de pesquisa acadêmica. O direito sobre cada tese é da
+instituição de defesa e do autor. Este pipeline só baixa texto de registros
+marcados como acesso aberto e não redistribui PDF nem texto integral.

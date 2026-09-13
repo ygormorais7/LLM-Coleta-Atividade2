@@ -1,0 +1,100 @@
+{
+  "camada": "inventario_janela",
+  "area": "Saúde",
+  "inicio": "2026-09-13T07:23:11.928022+00:00",
+  "fim": "2026-09-13T07:23:55.119601+00:00",
+  "duracao_s": 43.19,
+  "entradas": {
+    "candidatos_no_inventario": 3632
+  },
+  "saidas": {
+    "saude_colhidos_na_janela": 13,
+    "ja_estavam_no_inventario": 9,
+    "novos_candidatos": 4,
+    "inventario": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/inventario.jsonl"
+  },
+  "metricas": {
+    "bitstreams_via_ore": 4,
+    "janelas_oai_perdidas": [
+      {
+        "endpoint": "https://repositorio.ufmg.br/server/oai/request",
+        "de": "2026-02-25",
+        "ate": "2026-02-28",
+        "erro": "interrompida após 5 falhas seguidas: 500 Server Error:  for url: https://repositorio.ufmg.br/server/oai/request?verb=ListRecords&metadataPrefix=oai_dc&set=com_1843_6&from=2026-02-25&until=2026-02-28"
+      },
+      {
+        "endpoint": "https://repositorio.ufmg.br/server/oai/request",
+        "de": "2026-02-28",
+        "ate": "2026-03-04",
+        "erro": "não tentada: colheita interrompida por falhas seguidas"
+      },
+      {
+        "endpoint": "https://repositorio.ufmg.br/server/oai/request",
+        "de": "2026-03-04",
+        "ate": "2026-03-12",
+        "erro": "não tentada: colheita interrompida por falhas seguidas"
+      },
+      {
+        "endpoint": "https://repositorio.ufmg.br/server/oai/request",
+        "de": "2026-03-12",
+        "ate": "2026-03-27",
+        "erro": "não tentada: colheita interrompida por falhas seguidas"
+      },
+      {
+        "endpoint": "https://repositorio.ufmg.br/server/oai/request",
+        "de": "2026-03-27",
+        "ate": "2026-04-26",
+        "erro": "não tentada: colheita interrompida por falhas seguidas"
+      },
+      {
+        "endpoint": "https://repositorio.ufmg.br/server/oai/request",
+        "de": "2026-04-26",
+        "ate": "2026-06-25",
+        "erro": "não tentada: colheita interrompida por falhas seguidas"
+      }
+    ],
+    "falhas_por_tipo": {
+      "janela_oai_perdida": 6
+    },
+    "total_falhas": 6
+  },
+  "falhas": [
+    {
+      "id": "https://repositorio.ufmg.br/server/oai/request",
+      "tipo": "janela_oai_perdida",
+      "detalhe": "2026-02-25..2026-02-28: interrompida após 5 falhas seguidas: 500 Server Error:  for url: https://repositorio.ufmg.br/server/oai/request?verb=ListRecords&metadataPrefix=oai_dc&set=com_1843_6&from=2026-02-25&until=2026-02-28"
+    },
+    {
+      "id": "https://repositorio.ufmg.br/server/oai/request",
+      "tipo": "janela_oai_perdida",
+      "detalhe": "2026-02-28..2026-03-04: não tentada: colheita interrompida por falhas seguidas"
+    },
+    {
+      "id": "https://repositorio.ufmg.br/server/oai/request",
+      "tipo": "janela_oai_perdida",
+      "detalhe": "2026-03-04..2026-03-12: não tentada: colheita interrompida por falhas seguidas"
+    },
+    {
+      "id": "https://repositorio.ufmg.br/server/oai/request",
+      "tipo": "janela_oai_perdida",
+      "detalhe": "2026-03-12..2026-03-27: não tentada: colheita interrompida por falhas seguidas"
+    },
+    {
+      "id": "https://repositorio.ufmg.br/server/oai/request",
+      "tipo": "janela_oai_perdida",
+      "detalhe": "2026-03-27..2026-04-26: não tentada: colheita interrompida por falhas seguidas"
+    },
+    {
+      "id": "https://repositorio.ufmg.br/server/oai/request",
+      "tipo": "janela_oai_perdida",
+      "detalhe": "2026-04-26..2026-06-25: não tentada: colheita interrompida por falhas seguidas"
+    }
+  ],
+  "parametros": {
+    "de": "2026-02-25",
+    "ate": "2026-06-25",
+    "metadata_prefix": [
+      "oai_dc"
+    ]
+  }
+}

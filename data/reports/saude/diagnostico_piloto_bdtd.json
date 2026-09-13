@@ -1,0 +1,159 @@
+{
+  "UFRN": {
+    "url": "https://repositorio.ufrn.br/jspui/handle/123456789/17814",
+    "status": 200,
+    "url_final": "https://repositorio.ufrn.br/handle/123456789/17814",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 1107,
+    "tem_citation_pdf_url": false,
+    "links_bitstream": 0,
+    "titulo_html": "DSpace",
+    "inicio_html": "<!DOCTYPE html> <html data-beasties-container> <head> <meta charset=\"UTF-8\"> <base href=\"/\"> <title>DSpace</title> <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1\"> <meta http-equiv=\"cache-control\" content=\"no-store\"> <link rel=\"stylesheet\" href=\"styles.cf390c6bfbe7555f.css\" media=\"print\" onload=\"this.media='all'\"><noscript><link rel=\"stylesheet\" href=\"styles.cf390c6bf",
+    "dspace7": {
+      "ok": true,
+      "arquivo": "isabellesd_dissert.pdf",
+      "content": "https://repositorio.ufrn.br/server/api/core/bitstreams/762e0f41-9662-47fa-8579-88cccd409fa0/content"
+    },
+    "saltos": [
+      {
+        "robots": "https://repositorio.ufrn.br/jspui/handle/123456789/17814",
+        "permitido": true
+      },
+      {
+        "get": "https://repositorio.ufrn.br/jspui/handle/123456789/17814",
+        "status": 301,
+        "location": "https://repositorio.ufrn.br/handle/123456789/17814",
+        "content_type": "text/html"
+      },
+      {
+        "robots": "https://repositorio.ufrn.br/handle/123456789/17814",
+        "permitido": true
+      },
+      {
+        "get": "https://repositorio.ufrn.br/handle/123456789/17814",
+        "status": 200,
+        "location": null,
+        "content_type": "text/html; charset=utf-8"
+      },
+      {
+        "robots": "https://repositorio.ufrn.br/server/api/pid/find?id=hdl:123456789/17814",
+        "permitido": true
+      },
+      {
+        "get": "https://repositorio.ufrn.br/server/api/pid/find?id=hdl:123456789/17814",
+        "status": 302,
+        "location": "https://repositorio.ufrn.br/server/api/core/items/53ecf20f-f9c4-4126-be32-2a5c7d4d923a",
+        "content_type": null
+      },
+      {
+        "robots": "https://repositorio.ufrn.br/server/api/core/items/53ecf20f-f9c4-4126-be32-2a5c7d4d923a",
+        "permitido": true
+      },
+      {
+        "get": "https://repositorio.ufrn.br/server/api/core/items/53ecf20f-f9c4-4126-be32-2a5c7d4d923a",
+        "status": 200,
+        "location": null,
+        "content_type": "application/hal+json;charset=UTF-8"
+      },
+      {
+        "robots": "https://repositorio.ufrn.br/server/api/core/items/53ecf20f-f9c4-4126-be32-2a5c7d4d923a/bundles",
+        "permitido": true
+      },
+      {
+        "get": "https://repositorio.ufrn.br/server/api/core/items/53ecf20f-f9c4-4126-be32-2a5c7d4d923a/bundles",
+        "status": 200,
+        "location": null,
+        "content_type": "application/hal+json;charset=UTF-8"
+      },
+      {
+        "robots": "https://repositorio.ufrn.br/server/api/core/bundles/7e5bf6e0-479a-45be-b243-6a6fcebbc052/bitstreams",
+        "permitido": true
+      },
+      {
+        "get": "https://repositorio.ufrn.br/server/api/core/bundles/7e5bf6e0-479a-45be-b243-6a6fcebbc052/bitstreams",
+        "status": 200,
+        "location": null,
+        "content_type": "application/hal+json;charset=UTF-8"
+      }
+    ]
+  },
+  "FIOCRUZ": {
+    "url": "https://arca.fiocruz.br/handle/icict/43258",
+    "status": 200,
+    "url_final": "https://arca.fiocruz.br/items/f207400b-3682-417a-be15-49e347d1deb2",
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 523615,
+    "tem_citation_pdf_url": true,
+    "links_bitstream": 59,
+    "titulo_html": "Ensino médico no Brasil: desafios e prioridades, no contexto do SUS: um estudo a partir de seis estados brasileiros",
+    "inicio_html": "<!DOCTYPE html><html data-beasties-container=\"\" lang=\"pt-BR\"><head> <meta charset=\"UTF-8\"> <base href=\"/\"> <title>Ensino médico no Brasil: desafios e prioridades, no contexto do SUS: um estudo a partir de seis estados brasileiros</title> <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1\"> <meta http-equiv=\"cache-control\" content=\"no-store\"> <link href=\"https://cdn.jsdel",
+    "saltos": [
+      {
+        "robots": "https://arca.fiocruz.br/handle/icict/43258",
+        "permitido": true
+      },
+      {
+        "get": "https://arca.fiocruz.br/handle/icict/43258",
+        "status": 301,
+        "location": "/items/f207400b-3682-417a-be15-49e347d1deb2",
+        "content_type": "text/html; charset=utf-8"
+      },
+      {
+        "robots": "https://arca.fiocruz.br/items/f207400b-3682-417a-be15-49e347d1deb2",
+        "permitido": true
+      },
+      {
+        "get": "https://arca.fiocruz.br/items/f207400b-3682-417a-be15-49e347d1deb2",
+        "status": 200,
+        "location": null,
+        "content_type": "text/html; charset=utf-8"
+      }
+    ],
+    "citation_pdf": {
+      "status": 200,
+      "citation_pdf_url": "http://localhost:4000/bitstreams/7bf0311e-da6d-4e92-866e-aa230dd22be0/download",
+      "absoluto": "http://localhost:4000/bitstreams/7bf0311e-da6d-4e92-866e-aa230dd22be0/download",
+      "robots_permite": true,
+      "links_download": [
+        "/bitstreams/7bf0311e-da6d-4e92-866e-aa230dd22be0/download"
+      ]
+    }
+  },
+  "UFPR": {
+    "url": "http://hdl.handle.net/1884/49333",
+    "status": 500,
+    "url_final": "http://hdl.handle.net/1884/49333",
+    "content_type": "text/html;charset=utf-8",
+    "bytes": 7136,
+    "tem_citation_pdf_url": false,
+    "links_bitstream": 0,
+    "titulo_html": "Cannot Connect to Server",
+    "inicio_html": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"> <html> <head> <title>Cannot Connect to Server</title> </head> <body bgcolor=\"#ffffff\"> <img src=\"/static/images/res_tool.gif\" width=\"270\" height=\"40\" alt=\"Handle.net Logo\"> <!-- No status message was provided by the namespace--> <h3>Error - Cannot Connect to Server</h3><p></p> <p>The handle you requested -- </p> <p><b><i>1",
+    "dspace7": {
+      "ok": false,
+      "etapa": "pid/find"
+    },
+    "saltos": [
+      {
+        "robots": "http://hdl.handle.net/1884/49333",
+        "permitido": true
+      },
+      {
+        "get": "http://hdl.handle.net/1884/49333",
+        "status": 500,
+        "location": null,
+        "content_type": "text/html;charset=utf-8"
+      },
+      {
+        "robots": "http://hdl.handle.net/server/api/pid/find?id=hdl:1884/49333",
+        "permitido": true
+      },
+      {
+        "get": "http://hdl.handle.net/server/api/pid/find?id=hdl:1884/49333",
+        "status": 404,
+        "location": null,
+        "content_type": "text/html;charset=utf-8"
+      }
+    ]
+  }
+}

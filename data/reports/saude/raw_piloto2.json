@@ -1,23 +1,23 @@
 {
   "camada": "raw",
   "area": "Saúde",
-  "inicio": "2026-09-13T07:47:11.343551+00:00",
-  "fim": "2026-09-13T08:09:17.141329+00:00",
-  "duracao_s": 1325.8,
+  "inicio": "2026-09-13T07:27:43.598731+00:00",
+  "fim": "2026-09-13T07:36:59.359507+00:00",
+  "duracao_s": 555.76,
   "entradas": {
     "fonte_inventario": "inventario",
-    "candidatos": 3756
+    "candidatos": 3816
   },
   "saidas": {
     "metadata_jsonl": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/metadata/registros.jsonl",
-    "registros_coletados": 3756,
+    "registros_coletados": 3816,
     "manifesto": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/manifesto.jsonl",
-    "pdfs_baixados": 3596
+    "pdfs_baixados": 3477
   },
   "metricas": {
-    "bytes_baixados_humano": "451.5 MB",
-    "taxa_resolucao_global": 0.9983,
-    "estratos_com_cota_fechada": "11/15",
+    "bytes_baixados_humano": "13.0 MB",
+    "taxa_resolucao_global": 0.9495,
+    "estratos_com_cota_fechada": "0/22",
     "resolucao_por_estrato": {
       "ufmg|2015-2019": {
         "cota": 2774,
@@ -30,123 +30,179 @@
       "ufmg|2020-2024": {
         "cota": 1774,
         "obtidos": 1165,
-        "tentados": 1,
+        "tentados": 3,
         "fila_disponivel": 1166,
-        "taxa_resolucao": 1165.0,
+        "taxa_resolucao": 388.3333,
         "cota_fechada": false
       },
       "ufmg|2025-2029": {
         "cota": 456,
         "obtidos": 268,
-        "tentados": 3,
+        "tentados": 4,
         "fila_disponivel": 271,
-        "taxa_resolucao": 89.3333,
+        "taxa_resolucao": 67.0,
+        "cota_fechada": false
+      },
+      "ufpr|1995-1999": {
+        "cota": 1,
+        "obtidos": 0,
+        "tentados": 1,
+        "fila_disponivel": 1,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "fiocruz|1990-1994": {
+        "cota": 1,
+        "obtidos": 0,
+        "tentados": 1,
+        "fila_disponivel": 1,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufpr|2000-2004": {
+        "cota": 4,
+        "obtidos": 0,
+        "tentados": 4,
+        "fila_disponivel": 4,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "fiocruz|1995-1999": {
+        "cota": 1,
+        "obtidos": 0,
+        "tentados": 1,
+        "fila_disponivel": 1,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "fiocruz|2025-2029": {
+        "cota": 3,
+        "obtidos": 0,
+        "tentados": 3,
+        "fila_disponivel": 3,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufpr|2005-2009": {
+        "cota": 7,
+        "obtidos": 0,
+        "tentados": 7,
+        "fila_disponivel": 7,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufpr|2025-2029": {
+        "cota": 2,
+        "obtidos": 0,
+        "tentados": 2,
+        "fila_disponivel": 2,
+        "taxa_resolucao": 0.0,
         "cota_fechada": false
       },
       "ufrn|2000-2004": {
         "cota": 1,
-        "obtidos": 1,
+        "obtidos": 0,
         "tentados": 1,
         "fila_disponivel": 1,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufpr|2010-2014": {
+        "cota": 10,
+        "obtidos": 0,
+        "tentados": 10,
+        "fila_disponivel": 10,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
       },
       "ufrn|2005-2009": {
         "cota": 3,
-        "obtidos": 3,
+        "obtidos": 0,
         "tentados": 3,
         "fila_disponivel": 3,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
       },
-      "fiocruz|1990-1994": {
-        "cota": 1,
-        "obtidos": 1,
-        "tentados": 1,
-        "fila_disponivel": 1,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
+      "ufpr|2015-2019": {
+        "cota": 13,
+        "obtidos": 0,
+        "tentados": 13,
+        "fila_disponivel": 13,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
       },
-      "fiocruz|1995-1999": {
-        "cota": 1,
-        "obtidos": 1,
-        "tentados": 1,
-        "fila_disponivel": 1,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
-      },
-      "fiocruz|2025-2029": {
-        "cota": 3,
-        "obtidos": 3,
-        "tentados": 3,
-        "fila_disponivel": 3,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
+      "ufpr|2020-2024": {
+        "cota": 23,
+        "obtidos": 0,
+        "tentados": 23,
+        "fila_disponivel": 23,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
       },
       "fiocruz|2015-2019": {
         "cota": 14,
-        "obtidos": 14,
+        "obtidos": 0,
         "tentados": 14,
         "fila_disponivel": 14,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
-      },
-      "fiocruz|2010-2014": {
-        "cota": 14,
-        "obtidos": 14,
-        "tentados": 14,
-        "fila_disponivel": 14,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
-      },
-      "fiocruz|2020-2024": {
-        "cota": 14,
-        "obtidos": 13,
-        "tentados": 14,
-        "fila_disponivel": 14,
-        "taxa_resolucao": 0.9286,
+        "taxa_resolucao": 0.0,
         "cota_fechada": false
       },
       "fiocruz|2005-2009": {
         "cota": 13,
-        "obtidos": 13,
+        "obtidos": 0,
         "tentados": 13,
         "fila_disponivel": 13,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "fiocruz|2010-2014": {
+        "cota": 14,
+        "obtidos": 0,
+        "tentados": 14,
+        "fila_disponivel": 14,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "fiocruz|2020-2024": {
+        "cota": 14,
+        "obtidos": 0,
+        "tentados": 14,
+        "fila_disponivel": 14,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
       },
       "ufrn|2020-2024": {
         "cota": 17,
-        "obtidos": 17,
+        "obtidos": 0,
         "tentados": 17,
         "fila_disponivel": 17,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
       },
       "ufrn|2010-2014": {
         "cota": 18,
-        "obtidos": 18,
+        "obtidos": 0,
         "tentados": 18,
         "fila_disponivel": 18,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
       },
       "ufrn|2015-2019": {
         "cota": 21,
-        "obtidos": 21,
+        "obtidos": 0,
         "tentados": 21,
         "fila_disponivel": 21,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
       }
     },
     "falhas_por_tipo": {
       "acesso_restrito": 186,
-      "pdf_nao_localizado": 3,
-      "http_401": 2,
+      "pdf_nao_localizado": 124,
+      "bloqueado_ou_erro_rede": 60,
       "excede_tamanho_maximo": 1
     },
-    "total_falhas": 192
+    "total_falhas": 371
   },
   "falhas": [
     {
@@ -1096,18 +1152,913 @@
     },
     {
       "id": "81773724dc66f959",
-      "tipo": "http_401",
+      "tipo": "pdf_nao_localizado",
       "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/4620"
     },
     {
       "id": "fc44ec2339481e13",
-      "tipo": "http_401",
+      "tipo": "pdf_nao_localizado",
       "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/4652"
     },
     {
-      "id": "ef5c00fec55e5bc2",
+      "id": "bb239cba6e3624b0",
       "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|1995-1999|UFPR_2419ed75c9543df9a925290455e1ab21"
+    },
+    {
+      "id": "c302833b9d48b02f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2000-2004|UFPR_622a953e0968d0a1d4a5fa487b9495d0"
+    },
+    {
+      "id": "720e2351a74f1361",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2000-2004|UFPR_dc5be44e0de5bb3dfe0453d05bf38c1a"
+    },
+    {
+      "id": "8886af6b5c8f1a92",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|1990-1994|CRUZ_26a9b068def59e880868682d97a640e5"
+    },
+    {
+      "id": "2e865057c7f6a7af",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2000-2004|UFPR_739bcb6a2062b7cb5d641ffe4fed04f3"
+    },
+    {
+      "id": "2da490cf7604f47c",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_b1dc671fc53a59ad9914ec52b87c10b6"
+    },
+    {
+      "id": "01aa0d07310ff29f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2000-2004|UFPR_76b8041bd92ddf14a6d1615ff22cff2b"
+    },
+    {
+      "id": "ac3bd7b42a89b88d",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2005-2009|CRUZ_a786be8e96abeb14ea52e1cbe60c47ea"
+    },
+    {
+      "id": "d1184243f09deff6",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2020-2024|CRUZ_46095798809b5ac8c52feeab75fd1bfe"
+    },
+    {
+      "id": "75652054e67e4f13",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|1995-1999|CRUZ_88ae572f1390e7358df9ad6ee9c831d2"
+    },
+    {
+      "id": "566622e53d308f51",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2025-2029|CRUZ_2b5cb0f93286db9bedcdf281903159f7"
+    },
+    {
+      "id": "5056c9067a6e5f19",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_b2d3ccccfe3f366fed32fc41ea7021e9"
+    },
+    {
+      "id": "81cbeb23f447a1c6",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2005-2009|UFPR_8bcd35ae55173ac15d6824e13220cea0"
+    },
+    {
+      "id": "f4a106a46fed017d",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_ff408ae5ad56f8d4757e60f1c96a5a62"
+    },
+    {
+      "id": "be7bb936cb4d7c53",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2005-2009|CRUZ_bcf5e18084bd40128842c986e3d8ad5e"
+    },
+    {
+      "id": "8f1ad271621067f8",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2005-2009|UFPR_68c446a61910905ceab62201093c740a"
+    },
+    {
+      "id": "47801022722efd22",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2005-2009|UFPR_776343ef603bc472f4881ac1ee896787"
+    },
+    {
+      "id": "b5bfeb709f4e0dfa",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2020-2024|CRUZ_bb07824c8503cdc6173dac9fceea686b"
+    },
+    {
+      "id": "32ce83a2b1ebe9b8",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2005-2009|UFPR_c47da4e5e5ca99e8778fb206457a8339"
+    },
+    {
+      "id": "d727ab591f79e201",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2025-2029|CRUZ_8765042eabecac2f4257a47acf985122"
+    },
+    {
+      "id": "dff5763b9cbddb29",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2010-2014|UFPR_6fec60cae2bad8d1cb1048f6fb8ca41b"
+    },
+    {
+      "id": "08f25f237b6d9fe4",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_5aab5b4b7f4a4030bada4d3a7cd571f2"
+    },
+    {
+      "id": "6ac6fd9dc6bad837",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_6e2cba9ba0f76e149936c7dfd0bf8c60"
+    },
+    {
+      "id": "a53cd3646f8b9b30",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2010-2014|UFPR_e2c28c8726437b088e12e581125b23da"
+    },
+    {
+      "id": "df901b8c2b0f298a",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_cf52855d8fc40b06b490b729455c1486"
+    },
+    {
+      "id": "49da5c8bfe95ca31",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2010-2014|UFPR_72d9c0c72fb76b567dbddf73180e80da"
+    },
+    {
+      "id": "d60efa5426ed7f6e",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2020-2024|CRUZ_2c8f06d3480bf0042db58d22219151d4"
+    },
+    {
+      "id": "455685cd4bec5727",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2025-2029|CRUZ_dc21601501b439e0816c9412c9661812"
+    },
+    {
+      "id": "bb8531392efcb868",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2015-2019|UFPR_dabf3153d90102a685e87f0500c2f31c"
+    },
+    {
+      "id": "97bbe10f224b8377",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_dbb1ab2e1c272383bc79ba5cfdce999a"
+    },
+    {
+      "id": "4bbb9352cb65ddb2",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2005-2009|CRUZ_4a2c36822adb9d553f1bdec0134c8c1e"
+    },
+    {
+      "id": "5b51c235fb0b37d5",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2005-2009|CRUZ_9d4e52079bee2ec19b6e9ac10a37cfd5"
+    },
+    {
+      "id": "02aa675fb667f799",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2010-2014|UFPR_921da532753720ba0a12ee2498020d4c"
+    },
+    {
+      "id": "9ecea6ae6c07c1ad",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_8338104803e130b33cc321affdd6c703"
+    },
+    {
+      "id": "da1c739b1886e668",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2005-2009|UFPR_afbf0135d18659f3684c129cf61b3470"
+    },
+    {
+      "id": "fe3be2a326de45b8",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2020-2024|CRUZ_5fd5a03a4998778eee0b0eaf43c71f7e"
+    },
+    {
+      "id": "da50f5cd86830604",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2015-2019|UFPR_088a707b6b5c662d4f44263c9361d1e8"
+    },
+    {
+      "id": "af4329db2cc24967",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2005-2009|UFPR_d7eca11c1140bbda34149bce6d5ee634"
+    },
+    {
+      "id": "6c3a0d9e08abb6a9",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2005-2009|UFPR_59168729350141ddb81ec033358b04f3"
+    },
+    {
+      "id": "631d30ed02fef5a8",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2015-2019|UFPR_326e1cbe0f7d4ea9e28cc618efac5820"
+    },
+    {
+      "id": "d6a0d38a2880e3c0",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2010-2014|UFPR_e976e7d0a65129041c8f94c64586e931"
+    },
+    {
+      "id": "bccb729884d5b973",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2015-2019|UFPR_65fab71baad9842c834c5b847030569a"
+    },
+    {
+      "id": "06dd52d92318eb1d",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2010-2014|UFPR_5a6411216d3b0ae8cc1018eccd4890b8"
+    },
+    {
+      "id": "ebe70c001bb9ba00",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2010-2014|UFPR_7c38d9f1cec05e5c21a30bceecd42fbc"
+    },
+    {
+      "id": "63dc20c40b885ff9",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_1f17a522979bf64a67c26ce4d14c7a95"
+    },
+    {
+      "id": "0205bf01f28d41fa",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_33f2ef3d411e6194639d3212a0d13aed"
+    },
+    {
+      "id": "f55156444e5de6c9",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_2db83283218ea45687d070e221a624a4"
+    },
+    {
+      "id": "93acf51c0d982a29",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_9edfcefcda4ff2cdd133c5e3aefc2dbe"
+    },
+    {
+      "id": "f1fb163fabb09dae",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2015-2019|UFPR_3d8bb061da26182d012f310a59999cc4"
+    },
+    {
+      "id": "388f8492db26e61c",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2010-2014|UFPR_45edf884642cd8ade6238d8ea3eb2dcc"
+    },
+    {
+      "id": "f6ed1660ca133d4f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2015-2019|UFPR_d17fcf88c788d36d94393a835bb8f3ac"
+    },
+    {
+      "id": "2afc745e9544b0a8",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_73db34bd52ddaabcbf145a41cf2a730c"
+    },
+    {
+      "id": "64e79705b391f234",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2025-2029|UFPR_b6e2a176951fd444bde39e3ad19850ac"
+    },
+    {
+      "id": "6925b346b2243e78",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2025-2029|UFPR_5e9ff1fb8d5fa374792ff2aec8069280"
+    },
+    {
+      "id": "6dd6b870e4320dce",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2005-2009|CRUZ_4a6bb34cc737488cad52919520e09040"
+    },
+    {
+      "id": "07453ec0457dc0df",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2015-2019|UFPR_f188db34b88714ee1c51c52e9da31985"
+    },
+    {
+      "id": "5826329cf7a776f7",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2020-2024|CRUZ_b994e28afd28a924a097c29ba5e5fa18"
+    },
+    {
+      "id": "418e862b65319bea",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2000-2004|UFRN_877929da41fdb0c7f9d100ece9133e66"
+    },
+    {
+      "id": "8252189748752cbe",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2015-2019|UFPR_a20dee947498da7c8d5f1b0d38ad80d5"
+    },
+    {
+      "id": "df759416e9a9d4dd",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_e18435186d4293e5af7c9c173f053363"
+    },
+    {
+      "id": "224c6b2bde6f7e21",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_10a2ae96869fccb8f3a4176b7ffc5b96"
+    },
+    {
+      "id": "a598f0766f941cb3",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_ca476d81c01837332f064ff99f8ef922"
+    },
+    {
+      "id": "2f66395d6c9a9789",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_98ecdfbe060b887e8b5860629a46d01e"
+    },
+    {
+      "id": "bbc680cc493833df",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2005-2009|CRUZ_fbc932d086c29364718b87275656a07e"
+    },
+    {
+      "id": "90396f0d05c82013",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_7522db873d4c25d27c8166828c300896"
+    },
+    {
+      "id": "2b61800b186052e5",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2020-2024|CRUZ_36a3548ebeaa284fa8ae7c52c3ba4c05"
+    },
+    {
+      "id": "bbf231ba9df858b3",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2005-2009|UFRN_a3935bab9820b9b6b1789c996f93c6e4"
+    },
+    {
+      "id": "f81ed430bf976afb",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_a90250267d28e3aca875b0bf30243121"
+    },
+    {
+      "id": "54253a9e3a6cb15f",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_be84b9a218e62fe902fe8523f9f0bfc9"
+    },
+    {
+      "id": "35cc303afd353f4c",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2005-2009|UFRN_6b9e70d4accbec5a065070fb0cfa3237"
+    },
+    {
+      "id": "2f50c10c9e9378ab",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2010-2014|UFPR_f775b40c8f450ae00d22900c417b020f"
+    },
+    {
+      "id": "4266a69404337b58",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_e276909e453a4c5a6a644c0c82fe40a1"
+    },
+    {
+      "id": "22952db2966bfbe1",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2010-2014|UFPR_3192c5bb198f7a40012f2234e36dceb9"
+    },
+    {
+      "id": "607b6475d8a14770",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2005-2009|UFRN_5e93091e3d759c288b519b86db3d6a60"
+    },
+    {
+      "id": "c4e60c5467ca8d2c",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_0601490d4ef6cc2cd20337eb014e3884"
+    },
+    {
+      "id": "44f886598b975494",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2015-2019|UFPR_059651a1e1df909893350b69b95e11e9"
+    },
+    {
+      "id": "8e3defd267f97d55",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2020-2024|CRUZ_aaffaa8358d83277379e069df720131c"
+    },
+    {
+      "id": "829f70ffc55dff56",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2015-2019|UFPR_b19f3d157fb2a8b1e97b6f83b7b4bce9"
+    },
+    {
+      "id": "6575180ad87f20f7",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2015-2019|UFPR_2630c3f3323ac9863f850275f719627b"
+    },
+    {
+      "id": "13351b47cafc1b7b",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2005-2009|CRUZ_61f5ccc9b84dc25f9270de6dd72db6a3"
+    },
+    {
+      "id": "3b66e5c04088fbcb",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2015-2019|UFPR_10e2a3d52417d040c49514ea4cf70e1c"
+    },
+    {
+      "id": "5ddad2b6ad6506df",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_bebc8f09e7c80f1de02ef087390b2b42"
+    },
+    {
+      "id": "202fb22dea3acd4f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_3479a26cb4b4d7d733f7ff93c7bf6b56"
+    },
+    {
+      "id": "aff9967534a4b605",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2005-2009|CRUZ_35ba7d2973fdcf31617dac89ffc1b7aa"
+    },
+    {
+      "id": "7f278fabda165867",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_d713b7ca30cf44c0e28bf50b4054493a"
+    },
+    {
+      "id": "666e19e314e0a29e",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_e67bbed43ebbc991f6f59bbdb6ba2381"
+    },
+    {
+      "id": "ed13a778a1b7b1ed",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_cf4bbfb61a29e752ed1d1240300643cb"
+    },
+    {
+      "id": "784e9ded92c73dbf",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2020-2024|CRUZ_1d2a5ae55912f57be9592e93d3cb3f29"
+    },
+    {
+      "id": "affb5ef95ed8c563",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_905132fa923afb165f7d39392b965a73"
+    },
+    {
+      "id": "e91b1cd7a195336d",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_5144195d063a304e920add7dd877f30d"
+    },
+    {
+      "id": "cbab9c7b847e1025",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2015-2019|UFPR_ff4dde388afa9142d21f3dedff25d1bb"
+    },
+    {
+      "id": "ce11567f26edb180",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_3ff53a2b81a0539c34c28238b0df9dbd"
+    },
+    {
+      "id": "a50faf416ecdd23d",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_e7d924f7e5e96c00c55bdd761ab33747"
+    },
+    {
+      "id": "81a78db6a193eaf9",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_176d3d9a99ca042dc2e7850275b35ef0"
+    },
+    {
+      "id": "d4c0256ab5fc42fb",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_9045117bd5854c9c728c3e6d9f3a1681"
+    },
+    {
+      "id": "0cdeb79a648419e0",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_22f71cf09def41007993c5971e0fdd35"
+    },
+    {
+      "id": "d247c1be89a2e489",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_32d2795b16d0f19c7271584ce0ee68b7"
+    },
+    {
+      "id": "560c078d2d430f18",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_ed0d64f376673ae140942e0c43dad526"
+    },
+    {
+      "id": "4db6572a89cd9c4b",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_5f42ad14a5109ae0041447e7e096135a"
+    },
+    {
+      "id": "53ab3e786040c4e8",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_22fcb0ebc0b4002fa677b909c45c0a22"
+    },
+    {
+      "id": "e9237425412c6154",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_25e063b4769ff1b69591ffe625e920ae"
+    },
+    {
+      "id": "41d2278b17626201",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_ed35e65e0621cd440055d630ea453ffb"
+    },
+    {
+      "id": "c55da03e4a6d8c66",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_fae952a5ebf5a5a345e4e0d81447a867"
+    },
+    {
+      "id": "d94885d09fb5ea12",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_801dc51d503a696ad93f984f9eaa55b2"
+    },
+    {
+      "id": "d44a911747ff6d8f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_07bbb73d472ee963bc74e46c4b0c253a"
+    },
+    {
+      "id": "8008dd4dc623e02a",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_ad2156ba9e347c5b619355554a9c8ce8"
+    },
+    {
+      "id": "158959c31c71c96b",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_c1c534c43d9481ebe953cadccbf61e70"
+    },
+    {
+      "id": "9f3c547a02e52f49",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_1a593e7991a327d26d6a73f9745bf173"
+    },
+    {
+      "id": "c790d52ee2281a12",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_2ab4b2879d21fd2cd5a48b7ef6e043ee"
+    },
+    {
+      "id": "3fbda59c5de1109f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_7400d31cf043323bb29253c6c9cd0980"
+    },
+    {
+      "id": "917f0f81f0c1c8f9",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_4222932897e3d9729be87216ea66b072"
+    },
+    {
+      "id": "2c9f212e7c95449b",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_1596964cc93bed56d95029ea81d86eaf"
+    },
+    {
+      "id": "7e192a7d5e45d76c",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_1ebbfbc4bcea0323ac1e268bc110b269"
+    },
+    {
+      "id": "57b23996a8891ff2",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_7356aaee6e3d5547a046048ef077c106"
+    },
+    {
+      "id": "139e1275070a204b",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_6ba16c9fea53f0cb00c1a213f0605c20"
+    },
+    {
+      "id": "c2b99245285ef1ad",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2005-2009|CRUZ_d645a7443a86f2e518bea986d007f776"
+    },
+    {
+      "id": "ba1f285c07be16a4",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_da67e6716c760409c9e3a5e7dc3ccac2"
+    },
+    {
+      "id": "9e443d7ef849875a",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2005-2009|CRUZ_a5657105b8ba90942036371a23303931"
+    },
+    {
+      "id": "d1bf06dd61efac70",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_c6cb0af84ae8e42fbc1a1090db455196"
+    },
+    {
+      "id": "e7d8ca462974ef3c",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_5910ca49dbc1e772228da3ed51e7bb1c"
+    },
+    {
+      "id": "da67fca2a43cb55d",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2005-2009|CRUZ_77e120ebab6192b711a7a4248494de27"
+    },
+    {
+      "id": "bcb9960d19a66fa9",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_79e53942555e0973beee7038b2b710b4"
+    },
+    {
+      "id": "17577b0119f4e2e8",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufpr|2020-2024|UFPR_50aa56e22af028e2267e9cd9dbf5c964"
+    },
+    {
+      "id": "64c7c857f94d101d",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2005-2009|CRUZ_07571951d8ec8ad876e688b79ab0ba63"
+    },
+    {
+      "id": "3a4486bd7026e7d3",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_fd181759a7ffbf91c99a9cc1f08a5a90"
+    },
+    {
+      "id": "28a722ba4da002c7",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_208e850b4c59054427af7f57e9d90619"
+    },
+    {
+      "id": "e39a4ac1569aac87",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_8bd1c3887f6fd4668065d3d1b105b259"
+    },
+    {
+      "id": "fb404883e4d735ca",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_faf64c91bfd5d6293e4aaad36ac51456"
+    },
+    {
+      "id": "1a0dfd4c09b491b7",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_874e982652c943be89dbab7a683a273a"
+    },
+    {
+      "id": "a78db7456e779216",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_de1e64cce6dbe6825d479c1f169fd86d"
+    },
+    {
+      "id": "ebb74827f038027f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_1991d10790842ce265a7b4b0e6d26a6a"
+    },
+    {
+      "id": "05b18396dc38cc14",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_4750def2e81305d7a27e3b56b405832b"
+    },
+    {
+      "id": "56db1c39ca908b36",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_aeadffc5696afa5b5c067a8abdcdcae1"
+    },
+    {
+      "id": "da80bd08266cf2fc",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_88cab5ffc1e592f0bb7fb1ccd04e4baa"
+    },
+    {
+      "id": "fc9fed1574d146de",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2020-2024|CRUZ_0bc148e1b62cb978cdd35f8ee9188f8d"
+    },
+    {
+      "id": "d6f78ecc4823cd3b",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_035a433fc736417c74da32f0fe4b7f12"
+    },
+    {
+      "id": "ef5c00fec55e5bc2",
+      "tipo": "bloqueado_ou_erro_rede",
       "detalhe": "fiocruz|2020-2024|CRUZ_7073aca2a681088708f45f69ec3831ea"
+    },
+    {
+      "id": "7224528dcbb9fdeb",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_2340574d7e64cccd96e43a51411afd7d"
+    },
+    {
+      "id": "4749fdf60362193d",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2020-2024|CRUZ_dd68f7063c353ae4568c005fc38e507c"
+    },
+    {
+      "id": "96599ff835244312",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_7d7346610bccd933d5e3f402133b4529"
+    },
+    {
+      "id": "a96682e408afa79b",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2020-2024|CRUZ_cdc8926ab404e3db1d22558a7fb15381"
+    },
+    {
+      "id": "b52af189bae54490",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_4f2ab40abc941d247e6fee2c2d4dadbd"
+    },
+    {
+      "id": "d64a4e63544b6927",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_ac7c41133c7199caeea6794e7b08534d"
+    },
+    {
+      "id": "c46c182bbdb35bc9",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_e0ff76d83eb5c9c0d0e7d8340dded1b3"
+    },
+    {
+      "id": "ae0aabb3df69d91a",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_9c7c67b1e51f1e5d23e3791cbf85f19b"
+    },
+    {
+      "id": "8372985a18547827",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2015-2019|CRUZ_230c37c97cfdc97c4166a14fc1ea5119"
+    },
+    {
+      "id": "28c55df6f39c4886",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2005-2009|CRUZ_3d98da7bf7560d654bd0bb4235d4b396"
+    },
+    {
+      "id": "32999f53be09f9d5",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_76e13ec73c370de53892a0b39b40579f"
+    },
+    {
+      "id": "08cb3e1ce3ff29f8",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2010-2014|CRUZ_c630384f278aecf4d0f0b47a4fe49a80"
+    },
+    {
+      "id": "f79552704d71977d",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2020-2024|CRUZ_03722ef36e0470c1861cf99c8e69cb8a"
+    },
+    {
+      "id": "122bd39af63e5ac3",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_be8e414d139f32780ba7663930b5327f"
+    },
+    {
+      "id": "fde8c1dcdf591980",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "fiocruz|2020-2024|CRUZ_3a2bda9c0e3423e2b83f7b533841a8be"
+    },
+    {
+      "id": "cdb79146068a95b6",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_91d8c632449d5502649d5cb33f856829"
+    },
+    {
+      "id": "fa8d7f1f0b4d1606",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_0fd5504a9bfaca2d7c4b84deaa2da7bc"
+    },
+    {
+      "id": "96df3b0e9082a179",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_b2cb4563dc343df5c62cbb6162c68f9a"
+    },
+    {
+      "id": "13389743c058415c",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_f1f3b17760a9212c3f4070e5fe28d88e"
+    },
+    {
+      "id": "c262139f3e015111",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_13a41aedcbb06e82163563d6e72d6283"
+    },
+    {
+      "id": "24e1450a5549a71a",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_49439e56446037dcdde20c453bb4ee2e"
+    },
+    {
+      "id": "84775c392adc087f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_6353ce6a66448bf7b585e19cc00d7a55"
+    },
+    {
+      "id": "31dd20f5af32313d",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_6791e6f5ad03332bb0e47e59c9667ecf"
+    },
+    {
+      "id": "b5ad113e8e0ba3de",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_d32a960ff4d0cefcc1cb7d8ac9cc7674"
+    },
+    {
+      "id": "f5e45ff3f6768a04",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_99b2b05465dcf3bb676519f614ce3782"
+    },
+    {
+      "id": "8ee751bff35c4d95",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_47f7709da6d99d768c257de54405ce00"
+    },
+    {
+      "id": "d6e4adfc2e3c99be",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_13ee021e052d5c1da37ac32c1656534e"
+    },
+    {
+      "id": "c0a1b455cda769b7",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_86380c65bbc38a610c9d6dc50af5c84e"
+    },
+    {
+      "id": "f74671d3c31dbe83",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_b177e1d34cf9088bf9e6fa58d346752d"
+    },
+    {
+      "id": "dcd06af130927599",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_e8fc637f903c9c73601b1efd289205eb"
+    },
+    {
+      "id": "6c98948b5e377c30",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_3c95e33bc8f8bb20e3b8371fdbaae277"
+    },
+    {
+      "id": "682a02136a0edb4d",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_8edc7f6bfd3541c2c6763835a23e7460"
+    },
+    {
+      "id": "9ec54638e34a226a",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_399e2971d008d3d7233113a8fc71e6ca"
+    },
+    {
+      "id": "75eef8f1d3e1ba04",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_cb18dc0c1a29e877ff7703714a99d3c9"
+    },
+    {
+      "id": "5aea2961c5151451",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_73c7c711a3eeb2c41f87250a22c0d52d"
+    },
+    {
+      "id": "1637afe9b59d7f10",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_e80cb9837b9f68adbef8cd21aac0326a"
+    },
+    {
+      "id": "b2d94030cdede706",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_71e43119b1382fda83ae77ede6688ef4"
+    },
+    {
+      "id": "ac2c114e0d75fd19",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2010-2014|UFRN_fe3f394260dc93d3c3c38c0bcc49b638"
+    },
+    {
+      "id": "3e1fb17a56d98223",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_a932c33bee09aebb1b3cf1dad51cfc51"
+    },
+    {
+      "id": "cb317f2d601dde9a",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_543ddd2cbc5b17ee2dc0e2e601cf4c94"
+    },
+    {
+      "id": "1bdb885efffb64f5",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_1d7b84a38b44a7a066fde5a12fdd2f22"
+    },
+    {
+      "id": "32e3f8881128b04b",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_0dfe5e669fcaf58c2232a6caa3053e81"
+    },
+    {
+      "id": "831f32c610177947",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2015-2019|UFRN_7f23ed4f52f37f5373041b492f6ee966"
     }
   ],
   "parametros": {}

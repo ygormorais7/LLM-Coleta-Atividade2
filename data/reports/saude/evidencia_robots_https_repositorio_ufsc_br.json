@@ -1,0 +1,7 @@
+{
+  "dominio": "https://repositorio.ufsc.br",
+  "robots_txt": "https://repositorio.ufsc.br/robots.txt",
+  "status_http": 200,
+  "conteudo": "<html>\n<head>\n<script src=\"https://challenges.cloudflare.com/turnstile/v0/api.js\" async defer></script>\n</head>\n<body bgcolor=\"#f1f1f1\">\n<div  style=\"text-align:center; width:100%;\">\n<image src=/ufsct.png?20260913 width=500px >\n<h3>Sistema de Prevenção de Ataques da RedeUFSC</h3>\n<font color=\"#a0a0a0\">Por motivos de segurança, esta validação será solicitada</br>caso o acesso ao site seja de fora da RedeUFSC,</br>ou se não estiver utilizando VPN.</font></br></br>\n<form action=\"\" method=\"post\" align=center>\n  <div style=\"text-align: center;\">\n    <div class=\"cf-turnstile\" data-sitekey=\"0x4AAAAAABz5ryErwCntgpE2\"></div>\n    <!--div class=\"g-recaptcha\" data-sitekey=\"\" style=\"display: inline-block;\"></div-->\n  </div>\n  <br>\n  <input type=\"submit\" value=\"Acessar o site protegido\" name=\"valida_\">\n</form>\n</br><font color=\"#a0a0a0\">Caso ainda tenha dúvidas de porque está vendo essa página,</br>abra um chamado no sistema de atendimento da SeTIC.</font>\n</div>\n</body>\n</html>\n\n",
+  "verificado_em": "2026-09-13T07:23:07.361296+00:00"
+}

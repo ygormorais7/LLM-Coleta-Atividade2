@@ -1,40 +1,40 @@
 {
   "camada": "curated",
   "area": "Saúde",
-  "inicio": "2026-09-12T23:42:02.619782+00:00",
-  "fim": "2026-09-12T23:55:46.626192+00:00",
-  "duracao_s": 824.01,
+  "inicio": "2026-09-13T09:44:13.900633+00:00",
+  "fim": "2026-09-13T09:59:09.483170+00:00",
+  "duracao_s": 895.58,
   "entradas": {
-    "documentos_processed": 2840
+    "documentos_processed": 2951
   },
   "saidas": {
     "pretreino": {
-      "treino": 2562,
-      "validacao": 138,
-      "teste": 140
+      "treino": 2652,
+      "validacao": 150,
+      "teste": 149
     },
     "sft": {
-      "treino": 3215,
-      "validacao": 183,
-      "teste": 179
+      "treino": 882,
+      "validacao": 55,
+      "teste": 41
     },
     "rag": {
-      "chunks": 149071,
-      "documentos": 2840,
+      "chunks": 155312,
+      "documentos": 2951,
       "arquivo": "/home/lmssa/.vcoleta/bdtd-corpus/data/curated/saude/rag/corpus_rag.parquet"
     },
     "benchmark": {
-      "recuperacao": 276,
-      "multipla_escolha": 276,
+      "recuperacao": 292,
+      "multipla_escolha": 292,
       "perplexidade": 200
     },
     "datacard": "/home/lmssa/.vcoleta/bdtd-corpus/data/curated/saude/DATACARD.md"
   },
   "metricas": {
     "split": {
-      "treino": 2562,
-      "teste": 140,
-      "validacao": 138
+      "treino": 2652,
+      "validacao": 150,
+      "teste": 149
     },
     "falhas_por_tipo": {},
     "total_falhas": 0

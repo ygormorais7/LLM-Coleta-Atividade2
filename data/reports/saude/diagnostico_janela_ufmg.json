@@ -1,0 +1,19 @@
+{
+  "verificado_em": "2026-09-13T04:17:02-0300",
+  "janela": {
+    "set": "com_1843_6",
+    "from": "2026-02-25",
+    "until": "2026-06-25"
+  },
+  "list_identifiers_dim": {
+    "ok": true,
+    "registros": 755,
+    "deletados": 2,
+    "paginas": 8,
+    "limite_de_paginas_atingido": false
+  },
+  "list_records_oai_dc": {
+    "ok": true,
+    "registros_na_primeira_pagina": 100
+  }
+}

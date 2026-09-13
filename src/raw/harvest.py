@@ -290,11 +290,20 @@ def baixar_por_cota(cfg: Config, candidatos: list[dict], rel: Relatorio) -> list
     for fila in por_estrato.values():
         fila.sort(key=lambda x: x.get("ordem_na_fila", 0))
 
+    import threading
+
     manifesto = list(ja_feitos.values())
     estatisticas: dict[str, dict] = {}
-    total_bytes = 0
+    trava = threading.Lock()
+    # Meta global de PDFs no disco (0 = sem meta). Para ao atingir, podendo
+    # passar em até um bloco por estrato em andamento.
+    meta = int(cfg.get_path("coleta.meta_pdfs", 0) or 0)
+    placar = {"baixados": len(ja_feitos), "bytes": 0}
 
-    for estrato, fila in sorted(por_estrato.items()):
+    def _meta_atingida() -> bool:
+        return bool(meta) and placar["baixados"] >= meta
+
+    def _processar_estrato(estrato: str, fila: list[dict]) -> None:
         cota = int(fila[0].get("cota_estrato", 1))
         obtidos, tentados = 0, 0
 
@@ -302,7 +311,7 @@ def baixar_por_cota(cfg: Config, candidatos: list[dict], rel: Relatorio) -> list
         # que a cota fechar em vez de baixar a fila inteira.
         with ThreadPoolExecutor(max_workers=4) as pool:
             for inicio in range(0, len(fila), 8):
-                if obtidos >= cota:
+                if obtidos >= cota or _meta_atingida():
                     break
                 bloco = fila[inicio:inicio + 8]
                 futuros = {}
@@ -314,7 +323,8 @@ def baixar_por_cota(cfg: Config, candidatos: list[dict], rel: Relatorio) -> list
                         continue
                     urls = [u for u in (item.get("url_binario"), item.get("url_landing")) if u]
                     if not urls:
-                        rel.falha(did, "sem_link_de_fulltext", f"{estrato}|{ident}")
+                        with trava:
+                            rel.falha(did, "sem_link_de_fulltext", f"{estrato}|{ident}")
                         tentados += 1
                         continue
                     futuros[pool.submit(resolvedor.obter, urls, dir_pdf / f"{did}.pdf")] = (did, ident, urls, item)
@@ -325,38 +335,55 @@ def baixar_por_cota(cfg: Config, candidatos: list[dict], rel: Relatorio) -> list
                     try:
                         res = fut.result()
                     except Exception as exc:
-                        rel.falha(did, "excecao_download", f"{ident}: {exc}")
+                        with trava:
+                            rel.falha(did, "excecao_download", f"{ident}: {exc}")
                         continue
-                    manifesto.append({
-                        "doc_id": did, "id_bdtd": ident, "urls_origem": urls,
-                        "baixado": res.ok, "arquivo": str(res.caminho) if res.caminho else None,
-                        "url_pdf": res.url_pdf, "sha256": res.sha256, "bytes": res.bytes,
-                        "motivo": res.motivo, "estrato": estrato,
-                        "fontes_inventario": item.get("fontes", []),
-                        "coletado_em": datetime.now(timezone.utc).isoformat(),
-                    })
+                    with trava:
+                        manifesto.append({
+                            "doc_id": did, "id_bdtd": ident, "urls_origem": urls,
+                            "baixado": res.ok, "arquivo": str(res.caminho) if res.caminho else None,
+                            "url_pdf": res.url_pdf, "sha256": res.sha256, "bytes": res.bytes,
+                            "motivo": res.motivo, "estrato": estrato,
+                            "fontes_inventario": item.get("fontes", []),
+                            "coletado_em": datetime.now(timezone.utc).isoformat(),
+                        })
+                        if res.ok:
+                            placar["baixados"] += 1
+                            placar["bytes"] += res.bytes
+                        else:
+                            rel.falha(did, res.motivo or "download_falhou", f"{estrato}|{ident}")
                     if res.ok:
                         obtidos += 1
-                        total_bytes += res.bytes
-                    else:
-                        rel.falha(did, res.motivo or "download_falhou", f"{estrato}|{ident}")
 
-        estatisticas[estrato] = {
-            "cota": cota,
-            "obtidos": obtidos,
-            "tentados": tentados,
-            "fila_disponivel": len(fila),
-            "taxa_resolucao": round(obtidos / tentados, 4) if tentados else 0.0,
-            "cota_fechada": obtidos >= cota,
-        }
+        with trava:
+            estatisticas[estrato] = {
+                "cota": cota,
+                "obtidos": obtidos,
+                "tentados": tentados,
+                "fila_disponivel": len(fila),
+                "taxa_resolucao": round(obtidos / tentados, 4) if tentados else 0.0,
+                "cota_fechada": obtidos >= cota,
+            }
         log.info("estrato %s: %d/%d obtidos em %d tentativas", estrato, obtidos, cota, tentados)
 
+    # Estratos em paralelo: com o inventário da BDTD cada um é uma instituição,
+    # e o ritmo é por domínio — um repositório lento não segura os outros.
+    # Dentro do mesmo domínio o intervalo continua o do config.
+    with ThreadPoolExecutor(max_workers=max(1, min(8, len(por_estrato)))) as pool_estratos:
+        for fut in [pool_estratos.submit(_processar_estrato, e, f)
+                    for e, f in sorted(por_estrato.items())]:
+            fut.result()
+
+    total_bytes = placar["bytes"]
     escrever_jsonl(caminho_manifesto, manifesto)
     baixados = sum(1 for m in manifesto if m.get("baixado"))
     fechados = sum(1 for e in estatisticas.values() if e["cota_fechada"])
 
     rel.saidas["manifesto"] = str(caminho_manifesto)
     rel.saidas["pdfs_baixados"] = baixados
+    if meta:
+        rel.metricas["meta_pdfs"] = meta
+        rel.metricas["meta_atingida"] = _meta_atingida()
     rel.metricas["bytes_baixados_humano"] = humanizar_bytes(total_bytes)
     rel.metricas["taxa_resolucao_global"] = round(baixados / max(len(manifesto), 1), 4)
     rel.metricas["estratos_com_cota_fechada"] = f"{fechados}/{len(estatisticas)}"

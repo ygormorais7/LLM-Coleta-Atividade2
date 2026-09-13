@@ -59,6 +59,13 @@ def carregar_corpus(cfg: Config) -> tuple[pd.DataFrame, dict[str, str]]:
     else:
         df = df.copy()
 
+    # Título e resumo anonimizados, idioma/tipo/ano padronizados: tudo vem da
+    # Processed, nunca cru da Staging.
+    tratados = pd.read_parquet(dir_proc / "metadados.parquet").set_index("doc_id")
+    for coluna in tratados.columns:
+        valores = df["doc_id"].map(tratados[coluna])
+        df[coluna] = valores if pd.api.types.is_numeric_dtype(tratados[coluna]) else valores.fillna("")
+
     if len(autores):
         principais = autores[autores["papel"] == "autor"].groupby("doc_id")["nome"].first()
         df["autor"] = df["doc_id"].map(principais).fillna("")
@@ -112,6 +119,15 @@ def dividir(df: pd.DataFrame, cfg: Config, textos: dict[str, str]) -> pd.DataFra
     return df.drop(columns=["_grupo"])
 
 
+def _fonte(id_origem, url_registro) -> str:
+    """De onde o documento veio de fato: OAI-PMH do repositório ou inventário da BDTD."""
+    ident = str(id_origem or "")
+    if ident.startswith("oai:") and ident.count(":") >= 2:
+        return f"OAI-PMH {ident.split(':')[1]}"
+    m = re.match(r"https?://([^/]+)", str(url_registro or ""))
+    return f"inventário BDTD → {m.group(1)}" if m else "inventário BDTD"
+
+
 def _meta(linha) -> dict:
     return {
         "doc_id": linha.doc_id,
@@ -125,7 +141,7 @@ def _meta(linha) -> dict:
         "idioma": getattr(linha, "idioma", ""),
         "direitos": linha.direitos,
         "url": linha.url_registro,
-        "fonte": "BDTD/IBICT",
+        "fonte": _fonte(getattr(linha, "id_bdtd", ""), linha.url_registro),
     }
 
 
@@ -170,7 +186,8 @@ _TEMPLATES = [
     ("Quais são as palavras-chave do trabalho \"{titulo}\"?", "palavras_chave"),
     ("Escreva o resumo de uma {tipo} de {programa} da {instituicao} sobre o seguinte tema: {palavras_chave}.", "resumo"),
     ("Com base no resumo a seguir, proponha um título acadêmico adequado.\n\nResumo: {resumo}", "titulo"),
-    ("Resuma o trecho a seguir, extraído de {tipo} defendida na {instituicao}.\n\n{trecho}", "sintese_trecho"),
+    ("Leia a introdução da {tipo} a seguir, defendida na {instituicao}, e escreva o resumo do trabalho."
+     "\n\n{trecho}", "sintese_trecho"),
 ]
 
 
@@ -189,12 +206,54 @@ def _e_portugues(texto: str, minimo: float = 0.06) -> bool:
     palavras = re.findall(r"\w+", texto.lower())
     if len(palavras) < 20:
         return True
-    return sum(1 for p in palavras if p in _STOP_PT_SFT) / len(palavras) >= minimo
+    # "a", "as", "do", "no" também são palavras inglesas: sem comparar com o
+    # inglês, um abstract passava como português (achado real no SFT).
+    pt = sum(1 for p in palavras if p in _STOP_PT_SFT) / len(palavras)
+    en = sum(1 for p in palavras if p in _STOP_EN_SFT) / len(palavras)
+    return pt >= minimo and pt > en
+
+
+_STOP_EN_SFT = {"the", "of", "and", "in", "to", "is", "was", "with", "were", "for",
+                "this", "that", "are", "by", "from", "which"}
+
+# Título "INTRODUÇÃO" sozinho na linha (com ou sem número de capítulo).
+_CABECALHO_INTRODUCAO = re.compile(
+    r"(?im)^[ \t]*(?:\d+(?:\.\d+)*[ \t.–-]*)?INTRODU[ÇC][ÃA]O[ \t]*:?[ \t]*$")
 
 
 def _primeiro_bloco(texto: str, palavras: int = 600) -> str:
     tokens = texto.split()
     return " ".join(tokens[:palavras])
+
+
+def _limpar_palavras_chave(texto: str) -> str:
+    """Tira código de classificação (`CNPQ::CIENCIAS DA SAUDE::...`) da lista."""
+    itens = [i.strip() for i in re.split(r"[;|]", texto or "")]
+    return "; ".join(i for i in itens if i and "::" not in i)
+
+
+def _trecho_da_introducao(texto: str, resumo: str, palavras: int = 600) -> str:
+    """
+    Trecho para o par "leia a introdução e escreva o resumo".
+
+    Duas tentativas anteriores deram errado, as duas achadas lendo pares:
+    o começo do texto tratado É o resumo (a resposta vinha copiada na pergunta,
+    186 de 243 pares), e o que vem logo depois do resumo é o ABSTRACT (a
+    pergunta virava tradução, 109 de 178 pares). O trecho agora começa no
+    título INTRODUÇÃO do corpo — o último que aparece nos primeiros 40% do
+    texto, para pular a linha do sumário. Devolve "" (par descartado) se não
+    houver título ou se o resumo aparecer no trecho.
+    """
+    alvo = " ".join(resumo.split())
+    if len(alvo) < 120:
+        return ""
+    cabecalhos = [m for m in _CABECALHO_INTRODUCAO.finditer(texto) if m.start() < 0.4 * len(texto)]
+    if not cabecalhos:
+        return ""
+    trecho = _primeiro_bloco(texto[cabecalhos[-1].end():], palavras)
+    if alvo[:80] in trecho or alvo[-80:] in trecho:
+        return ""
+    return trecho
 
 
 def gerar_sft(df: pd.DataFrame, textos: dict, dir_out: Path, cfg: Config) -> dict:
@@ -219,12 +278,12 @@ def gerar_sft(df: pd.DataFrame, textos: dict, dir_out: Path, cfg: Config) -> dic
             campos = {
                 "titulo": (linha.titulo or "").strip(),
                 "resumo": (linha.resumo or "").strip(),
-                "palavras_chave": (linha.palavras_chave or "").strip(),
+                "palavras_chave": _limpar_palavras_chave(linha.palavras_chave),
                 "tipo": (linha.tipo or "tese").split("|")[0].strip() or "tese",
                 "instituicao": (linha.instituicao or "").strip(),
                 "programa": (linha.programa or "").split("|")[0].strip(),
-                "trecho": _primeiro_bloco(textos[linha.doc_id]),
             }
+            campos["trecho"] = _trecho_da_introducao(textos[linha.doc_id], campos["resumo"])
             gerados = 0
             for pergunta, campo_resposta in _TEMPLATES:
                 if gerados >= max_por_doc:
@@ -236,6 +295,11 @@ def gerar_sft(df: pd.DataFrame, textos: dict, dir_out: Path, cfg: Config) -> dic
                 if len(resposta) < min_car and campo_resposta != "titulo":
                     continue
                 if campo_resposta != "titulo" and not _e_portugues(resposta):
+                    continue
+                # O texto que vai DENTRO da pergunta também precisa estar em
+                # português: o resumo do repositório às vezes é o abstract.
+                if any("{" + c + "}" in pergunta and not _e_portugues(campos[c])
+                       for c in ("resumo", "trecho")):
                     continue
                 if any(("{" + c + "}") in pergunta and not campos[c] for c in campos):
                     continue
@@ -265,13 +329,17 @@ def gerar_sft(df: pd.DataFrame, textos: dict, dir_out: Path, cfg: Config) -> dic
 # 3. RAG
 # --------------------------------------------------------------------------
 def _chunkar(texto: str, tamanho: int, sobreposicao: int):
-    palavras = texto.split()
+    # Recorta o texto original (com as quebras de linha), em vez de juntar as
+    # palavras com espaço: juntar linhas criava números que não existiam
+    # ("1999\n9889 6596" virava telefone) e tirava a quebra de linha que a
+    # anonimização usa para separar célula de tabela de telefone.
+    posicoes = [m.span() for m in re.finditer(r"\S+", texto)]
     passo = max(tamanho - sobreposicao, 1)
-    for inicio in range(0, len(palavras), passo):
-        pedaco = palavras[inicio:inicio + tamanho]
+    for inicio in range(0, len(posicoes), passo):
+        pedaco = posicoes[inicio:inicio + tamanho]
         if len(pedaco) < 50:
             break
-        yield " ".join(pedaco)
+        yield texto[pedaco[0][0]:pedaco[-1][1]]
 
 
 def gerar_rag(df: pd.DataFrame, textos: dict, dir_out: Path, cfg: Config) -> dict:
@@ -470,11 +538,13 @@ def gerar_datacard(cfg: Config, df: pd.DataFrame, produtos: dict, dir_out: Path)
     linhas_inst = "\n".join(f"| {i} | {n} |" for i, n in instituicoes.items())
     licencas = df["direitos"].value_counts().head(8)
     linhas_lic = "\n".join(f"| {l or '(não informado)'} | {n} |" for l, n in licencas.items())
+    fontes = df.apply(lambda r: _fonte(r.get("id_bdtd", ""), r.get("url_registro", "")), axis=1)
+    linha_fontes = "; ".join(f"{f} ({n})" for f, n in fontes.value_counts().items())
 
     texto = f"""# DATACARD — Corpus BDTD: {area}
 
 **Versão:** {date.today().isoformat()}
-**Fonte:** Biblioteca Digital Brasileira de Teses e Dissertações (BDTD/IBICT)
+**Fontes de onde os documentos vieram:** {linha_fontes}
 **Coletado por:** {cfg.get_path("projeto.instituicao")} — contato: {cfg.get_path("projeto.contato")}
 
 ## 1. Composição
@@ -517,7 +587,7 @@ def gerar_datacard(cfg: Config, df: pd.DataFrame, produtos: dict, dir_out: Path)
 
 ## 3. Como foi construído
 
-`Raw` (resposta crua da API + PDF original) → `Staging` (tabelas Parquet,
+`Raw` (metadado cru da fonte + PDF original) → `Staging` (tabelas Parquet,
 validação de integridade) → `Processed` (extração, normalização,
 anonimização, filtros de qualidade, deduplicação) → `Curated` (este dataset).
 
@@ -526,14 +596,19 @@ falha por etapa em `data/reports/`.
 
 ## 4. Tratamento aplicado
 
-- **Padronização:** UTF-8/NFC, correção de mojibake (ftfy), ligaduras tipográficas.
+- **Padronização:** UTF-8/NFC, correção de mojibake (ftfy), ligaduras tipográficas;
+  idioma (código ISO: `pt`, `en`…), tipo (`dissertação de mestrado` / `tese de
+  doutorado`) e ano (inteiro entre 1800 e o ano corrente) em vocabulário fechado,
+  com o valor original preservado em `<campo>_bruto`.
 - **Normalização:** remoção de caracteres de controle, espaços Unicode, cabeçalho
   e rodapé repetidos entre páginas, números de página, hifenização de quebra de
   linha, entidades HTML, colapso de espaços em branco.
-- **Anonimização:** CPF e CNPJ (com validação de dígito verificador, para não
-  destruir números legítimos), e-mail, telefone, CEP, RG, cartão SUS, título de
-  eleitor, PIS/PASEP, placa e URLs de perfil social. Estratégia:
-  `{cfg.get_path('processed.anonimizacao.estrategia')}`.
+- **Anonimização:** e-mail e URL de perfil social; CPF, CNPJ, título de eleitor,
+  PIS/PASEP e cartão SUS só quando o dígito verificador confere; telefone com DDD
+  válido; CEP e RG. Links, DOI e ORCID ficam fora dos detectores numéricos (seus
+  dígitos imitam documento). Placa de veículo desligada (colidia com nome de gene
+  e sigla de estudo). Aplicada ao texto e também ao título e ao resumo usados no
+  SFT e no benchmark. Estratégia: `{cfg.get_path('processed.anonimizacao.estrategia')}`.
 - **Deduplicação:** exata (SHA-256 do texto normalizado), aproximada
   (MinHash+LSH, Jaccard ≥ {cfg.get_path('processed.deduplicacao.minhash_limiar_jaccard')})
   e interna (parágrafos repetidos no mesmo documento).
@@ -552,9 +627,10 @@ falha por etapa em `data/reports/`.
   instituição de origem. A coluna `direitos` preserva o que a fonte declarou;
   documentos sem acesso aberto declarado não têm o texto incluído. Uso além de
   pesquisa exige verificar a licença item a item.
-- **Viés de cobertura.** O acervo reflete quem deposita no repositório e quem
-  o IBICT consegue coletar: instituições grandes e do Sudeste estão
-  sobrerrepresentadas, e trabalhos anteriores a ~2005 são raros.
+- **Viés de cobertura.** O acervo reflete quem deposita no repositório e quais
+  repositórios a coleta alcançou (ver "Instituições distintas" e "Período
+  coberto" acima): com poucas instituições, o corpus fala pela produção delas,
+  não pela área no país. Perdas de coleta declaradas em `data/reports/`.
 - **Qualidade de OCR.** Trabalhos antigos digitalizados produzem texto com
   ruído mesmo após os filtros. A coluna `paginas_ocr` permite excluí-los.
 - **Benchmarks automáticos medem recuperação e memória factual**, não domínio

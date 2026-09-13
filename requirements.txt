@@ -17,6 +17,10 @@ langdetect>=1.0.9      # detecção de idioma com probabilidade
 # --- deduplicação ---------------------------------------------------------
 datasketch>=1.6        # MinHash + LSH
 
+# --- testes e documentação -----------------------------------------------
+pytest>=8.0            # python -m pytest
+markdown>=3.5          # docs/gerar_pdf_relatorio.py (usa também o LibreOffice)
+
 # --- opcionais (descomente conforme o config) -----------------------------
 # pytesseract>=0.3.10  # OCR   -> exige o binário: apt install tesseract-ocr tesseract-ocr-por
 # Pillow>=10.3         # necessário junto com pytesseract

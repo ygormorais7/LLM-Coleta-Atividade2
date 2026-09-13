@@ -103,7 +103,10 @@ inventario:
           - "ciencia animal"
           - "ciencias agrarias"
           - "producao animal"
-          - "saneamento"
+          # "saneamento" saiu em 2026-09-13: é tema central de saúde pública, e
+          # tirava do corpus teses de epidemiologia e de história da saúde da
+          # Fiocruz (4 casos). O programa de engenharia sanitária da UFMG
+          # continua fora por "recursos hidricos".
           - "recursos hidricos"
           # achados lendo o corpus real (14 docs de zootecnia/produção animal
           # que "nutricao" deixou passar — não tinham "zootecnia" no
@@ -165,6 +168,11 @@ inventario:
           - "pastagem"
           - "pastagens"
           - "silagem"
+          - "silagens"
+          - "rebanhos"
+          # A exclusão compara PALAVRA INTEIRA (ver `bate_algum_termo`): cada
+          # flexão precisa estar listada. Trecho solto fazia "equina" casar
+          # dentro de "catequina".
         filtro_tipo: ["Dissertação de mestrado", "Tese de doutorado"]
 
       # UNIFESP — as unidades já delimitam saúde, então o recorte é por TIPO.
@@ -203,6 +211,48 @@ inventario:
         filtro_tipo: ["masterThesis", "doctoralThesis"]
         excluir_assunto: ["veterinaria", "zootecnia"]
 
+    # Inventário da área inteira exportado pelo colega de grupo (Eduardo Melo,
+    # projeto G7-Atividade02-BDTD) a partir da API da BDTD: 183.718 fichas com a
+    # URL do item no repositório de origem. Entra como candidatos ADICIONAIS ao
+    # inventário atual (`python -m src.raw.inventario bdtd_csv`), sem recolher o
+    # OAI da UFMG. Não traz resumo: o escopo é checado de novo na Processed com o
+    # começo do texto. A exclusão usa também as listas `excluir_assunto` das
+    # fontes OAI acima.
+    bdtd_csv:
+      habilitada: true
+      arquivo: "data/externo/inventario_saude.csv.gz"
+      somente_acesso_aberto: true
+      # UFMG já vem pelo OAI (identificadores diferentes: seria baixada de novo);
+      # UNIFESP segue suspensa (Crawl-delay: 15 e conexão recusada).
+      # PUC_RS: o robots.txt de tede2.pucrs.br permite "*" mas proíbe nominalmente
+      # robôs de IA (ClaudeBot, CCBot, Amazonbot, Bytespider...). A letra deixaria
+      # nosso User-Agent passar; o espírito é não ceder conteúdo para treino de
+      # modelo, que é o uso deste corpus. Mesmo critério do protocolo para a
+      # busca da BDTD: vale o espírito. Retirada do piloto em 2026-09-13, antes do
+      # download — decisão final do usuário.
+      # UFSC: /robots.txt devolve página de desafio anti-robô do Cloudflare
+      # (Turnstile), não um robots.txt — sem regra legível e com proteção ativa
+      # contra acesso automatizado. Retirada do piloto em 2026-09-13.
+      excluir_instituicoes: ["UFMG", "UNIFESP", "PUC_RS", "UFSC"]
+      # Piloto autorizado em 2026-09-13: instituições com sistemas diferentes
+      # (DSpace 7 sem e com renderização no servidor). Vazio = todas.
+      # UFPR saiu depois do piloto 2: os links são hdl.handle.net/1884/..., e o
+      # servidor de handles da UFPR responde "Cannot Connect to Server" (HTTP 500)
+      # — 60 de 60 falharam. Não se insiste em serviço que está falhando
+      # (critério de parada do protocolo). Evidência:
+      # data/reports/saude/diagnostico_piloto_bdtd.json.
+      instituicoes: ["UFRN", "FIOCRUZ"]
+      limite_por_instituicao: 60
+      semente: 42
+      # Radicais, porque "odontologia" não pega "odontológico". Testados contra o
+      # corpus: "medic" sozinho casa com "medição" e "hospital" com
+      # "hospitalidade" — por isso não aparecem.
+      filtro_assunto: ["enfermag", "medicina", "medico", "medicas", "medicament", "medicacao",
+                       "odontolog", "farmac", "nutric", "epidemiolog", "obstetr",
+                       "saude coletiva", "saude publica", "fisioterap", "terapia ocupacional",
+                       "ciencias da saude"]
+      excluir_assunto: []
+
   reconciliacao:
     limiar: 0.90             # acima disso, funde
     limiar_revisao: 0.82     # entre os dois, vai para a amostra de revisão manual
@@ -215,6 +265,28 @@ inventario:
     # desigual: sem reserva, os estratos com repositório fraco encolhem
     # sozinhos e o corpus fica enviesado em silêncio.
     fator_reserva: 4.0
+
+# Expressões apagadas do texto ANTES da checagem de `excluir_assunto` (na
+# colheita e na Processed). Revisão à mão dos 42 documentos excluídos como
+# zootecnia em 2026-09-13: estes tiravam tese de Saúde do corpus — ortopedia
+# infantil ("pé equino"), odontologia in vitro (dentina bovina), reagente de
+# laboratório (soro fetal bovino, albumina sérica bovina, tripsina bovina).
+# Uma tese de zootecnia de verdade continua saindo pelos outros termos.
+escopo:
+  expressoes_permitidas:
+    - "pe equino"
+    - "pes equinos"
+    - "tratamento do equino"   # título real: "...no tratamento do equino de crianças com paralisia cerebral"
+    - "soro fetal bovino"
+    - "albumina serica bovina"
+    - "albumina bovina"
+    - "tripsina bovina"
+    - "dentina bovina"
+    - "dentina radicular bovina"
+    - "dentinas radiculares humana e bovina"
+    - "dentes bovinos"
+    - "incisivos bovinos"
+    - "esmalte bovino"
 
 coleta:
   # "inventario" = CAPES/OAI (recomendado) | "bdtd_api" = API VuFind da BDTD
@@ -325,7 +397,10 @@ processed:
       cartao_sus: true
       titulo_eleitor: true
       pis_pasep: true
-      placa_veiculo: true
+      # Desligado: placa de carro praticamente não aparece em tese de Saúde, e
+      # o formato Mercosul é igual a nome de gene (CYP2C19) e o antigo igual a
+      # sigla+ano de estudo (OMS-2008, GBD-2017) — 478 máscaras, todas falsas.
+      placa_veiculo: false
       url_perfil_social: true
       iban_conta: false
     # "mascara" -> [CPF], "hash" -> [CPF:9f2a...], "remove" -> ""

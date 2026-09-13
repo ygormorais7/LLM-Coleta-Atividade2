@@ -1,13 +1,8 @@
 # Protocolo de Coleta
 <!--
-> **Este documento deve estar preenchido e datado ANTES da primeira requisição.**
-> Um protocolo escrito depois da coleta não é protocolo, é descrição — você já
-> sabia o resultado quando escreveu. E, na prática, é ele que te diz onde parar
-> enquanto coleta.
->
-> Campos marcados **⚠ CONFIRMAR** só você pode preencher.
-> Campos marcados **⏳ MEDIR** só existem depois do piloto — deixe-os
-> explicitamente pendentes em vez de chutar.
+> Este documento foi preenchido e datado antes da primeira requisição (versão
+> 1.0, 08/09/2026) e é atualizado a cada rodada. O registro de execução (seção 8)
+> diz o que de fato aconteceu, incluindo incidentes e decisões de parar.
 -->
 ---
 
@@ -16,14 +11,15 @@
 | Campo | Valor |
 |---|---|
 | Projeto | `bdtd-corpus` — corpus de teses e dissertações da área de Saúde para adaptação de domínio de modelo de linguagem em português brasileiro |
-| Responsável | Ygor Francisco de Carvalho Morais |
+| Grupo | Grupo 7 — Otávio da Conceição França, Ygor Morais, Eduardo Melo |
+| Responsável pela coleta deste pipeline | Ygor Francisco de Carvalho Morais |
 | E-mail de contato | ygor.morais@ufpi.edu.br |
 | Instituição | Universidade Federal do Piauí — Centro de Ciências da Natureza — Departamento de Computação |
 | Disciplina | Tópicos em Inteligência Artificial (DC/CCN072), 60h |
 | Professor responsável | Prof. Raimundo Santos Moura (rsm@ufpi.edu.br) |
 | Programa | SoberanIA |
 | Data de início da coleta | 08/09/2026 |
-| Versão deste documento | 1.0 |
+| Versão deste documento | 2.0 (13/09/2026) |
 
 ---
 
@@ -44,130 +40,133 @@ conteúdo do plano de ensino:
 | `curated/pretreino/` | Aula 13 — pré-treinamento com dados não rotulados |
 | `curated/sft/` | Aulas 16 e 17 — fine-tuning para seguir instruções |
 
-Avaliação prevista: perplexidade em conjunto reservado e descontaminado,
-recall@k e MRR em benchmark de recuperação, e acurácia em benchmark de
-múltipla escolha com gabarito derivado de metadados bibliográficos.
+**Entrega da disciplina:** o código do pipeline e o relatório (com este
+protocolo). **Os dados não são entregues nem publicados.**
 
 ### O que NÃO será feito
 
 - **Não haverá redistribuição dos PDFs originais.**
-- **Não haverá publicação do texto integral extraído**, exceto para o
-  subconjunto com licença aberta explícita (ver seção 6).
+- **Não haverá publicação do texto integral extraído.**
 - Não haverá uso comercial.
 - Não haverá tentativa de identificar, contatar ou caracterizar indivíduos
   citados nos trabalhos, nem cruzamento com outras bases para esse fim.
 - **Não haverá treinamento de modelo a partir do zero.** O volume disponível
-  não sustenta isso: a razão compute-ótima estabelecida pelo Chinchilla é de
-  cerca de 20 tokens por parâmetro, e um corpus de 3 a 5 mil teses
-  (~150–300 M tokens) seria compute-ótimo para um modelo da ordem de 10 M de
-  parâmetros — irrelevante. O uso correto do material é **pré-treino
-  continuado e ajuste fino sobre um modelo aberto já existente**, com
-  avaliação de adaptação de domínio.
-- Não haverá coleta em massa por raspagem da interface de busca da BDTD
-  (ver seção 3).
+  não sustenta isso: a razão compute-ótima do Chinchilla é de cerca de 20 tokens
+  por parâmetro, e um corpus de alguns milhares de teses (~100–300 M tokens)
+  seria compute-ótimo para um modelo da ordem de 10 M de parâmetros. O uso
+  correto é **pré-treino continuado e ajuste fino sobre um modelo aberto já
+  existente**, com avaliação de adaptação de domínio.
+- Não haverá coleta em massa pela interface de busca da BDTD (seção 3).
+- Não haverá coleta de repositório cujo `robots.txt` vete robôs de IA, nem de
+  repositório com proteção anti-robô ativa (seção 3).
 
 ### Princípio orientador
 
-O material da disciplina é explícito: dataset é o diferencial, e o objetivo é
-**qualidade acima de quantidade**. Este protocolo assume isso como regra de
-projeto: um corpus de 3 a 5 mil documentos com procedência auditável,
-amostragem declarada e limitações medidas vale mais — como artefato técnico e
-como trabalho avaliado — do que uma tentativa malfeita de coletar 183 mil.
+**Qualidade acima de quantidade**: procedência auditável, amostragem declarada
+e perdas medidas valem mais do que uma tentativa malfeita de coletar a área
+inteira.
 
 ---
 
-## 2. Escopo e taxonomia
+## 2. Escopo
 
 | Campo | Valor |
 |---|---|
 | Área | Saúde |
-| Taxonomia adotada | `capes.area_avaliacao` |
-| Valores incluídos | Medicina I, Medicina II, Medicina III, Saúde Coletiva, Enfermagem, Farmácia, Odontologia, Nutrição, Educação Física |
-| Recorte temporal | 2015–2025 |
+| Taxonomia declarada no config | `capes.area_avaliacao` (referência de fronteira; a CAPES **não** foi usada como fonte) |
+| Definição efetiva de escopo | filtro de assunto sobre área/assuntos, título, programa e resumo: inclusão por lista (radicais no inventário da BDTD) e **exclusão por palavra inteira** de vocabulário de zootecnia/veterinária/agrárias (`config/config.yaml`) |
 | Tipos | tese de doutorado, dissertação de mestrado |
-| Idioma | português (filtro por detecção com limiar de confiança 0,65) |
-| N alvo — piloto | 300 documentos |
-| N alvo — corpus final | 3.000 a 5.000 documentos |
-
-### Por que esta taxonomia e não outra
-
-Três classificações concorrem e **nenhuma reproduz o número da outra**:
-
-| Taxonomia | Origem | Problema |
-|---|---|---|
-| `capes.area_avaliacao` | Catálogo de Teses e Dissertações da CAPES, dados abertos | Não é área do conhecimento, é área de **avaliação** de programas |
-| `capes.area_conhecimento` | Tabela CNPq | Preenchimento inconsistente nos metadados de repositório |
-| Faceta "Saúde" da BDTD | Navegação interna do portal | **Não reproduzível de fora** — não há como recalculá-la a partir das fontes |
-
-Adotamos `capes.area_avaliacao` porque tem fonte oficial em dados abertos,
-valores publicados e estáveis, e permite que qualquer pessoa recalcule a
-contagem. O número de referência do corpus é a contagem **nessa** taxonomia —
-não os 183.781 da faceta da BDTD, que pertencem a outra classificação.
+| Idioma | português (detecção com limiar de confiança 0,65) |
+| Direitos | somente acesso aberto declarado na fonte |
+| Recorte temporal | o que a fonte indexa: UFMG com datestamp desde 2019-08 (anos de defesa 2019–2026); inventário da BDTD sem recorte |
 
 ### Decisões de fronteira registradas
 
-- **Educação Física está incluída.** Pertence ao colégio de Ciências da Saúde
-  na CAPES, mas boa parte da produção é de treinamento esportivo e pedagogia,
-  não de saúde clínica. Decisão: incluir, e marcar a área de avaliação em cada
-  documento para permitir excluí-la depois sem recoletar.
-- **Psicologia está excluída.** Fica em Ciências Humanas na CAPES, apesar da
-  interface com saúde mental.
-- **Medicina Veterinária está excluída.** Fica em Ciências Agrárias.
+- **Medicina Veterinária e Zootecnia estão excluídas** (Ciências Agrárias na
+  CAPES). A lista de exclusão enumera cada flexão ("bovino", "bovina",
+  "bovinos"…): doença animal concorda no feminino ("raiva bovina") e a primeira
+  lista, só com plurais masculinos, deixava passar teses de produção animal.
+- A exclusão compara **palavra inteira**: por trecho, "equina" casava dentro de
+  "catequina" e excluía tese de nutrição.
+- **Expressões permitidas** (`escopo.expressoes_permitidas`) são apagadas do
+  texto antes da checagem. Revisando à mão os 42 excluídos em 13/09/2026, 10 eram
+  de Saúde e caíam por palavra de animal usada em outro sentido: "pé equino"
+  (ortopedia infantil), dentina bovina (odontologia in vitro), soro fetal
+  bovino, albumina sérica bovina e tripsina bovina (reagentes de laboratório).
+- **"Saneamento" não é critério de exclusão**: é tema central de saúde pública.
+  Estava na lista para tirar a engenharia sanitária, que continua fora por
+  "recursos hídricos".
+- **Casos de fronteira mantidos fora:** vaccinia bovina (vírus de gado que
+  infecta ordenhadores) e doenças vesiculares de bovinos.
+- **Educação Física está incluída** (colégio de Ciências da Saúde na CAPES).
+- **Psicologia está excluída** (Ciências Humanas na CAPES).
+- O escopo é checado duas vezes: na colheita (sobre o metadado) e de novo na
+  Processed (sobre título, programa, resumo e, quando não há resumo, o começo do
+  texto), para que uma lista corrigida valha para o que já foi baixado sem
+  recolher.
 
 ---
 
 ## 3. Fontes
 
-Uma linha por fonte. A evidência de cada uma é o JSON gerado por
-`python -m src.raw.inventario descobrir --base <url>`, que captura o
-robots.txt **como estava na data da consulta**.
+A evidência de cada fonte é um JSON em `data/reports/saude/` com o `robots.txt`
+**como estava na data da consulta**:
+`evidencia_<base>.json` (comando `descobrir`, com `Identify` do OAI) ou
+`evidencia_robots_<dominio>.json` (comando `robots`, só o `robots.txt`).
+O `preflight.py` bloqueia a coleta se faltar evidência de algum domínio.
 
-| # | Fonte | Endpoint | Protocolo | Verificado em | Tem ORE | Evidência |
-|---|---|---|---|---|---|---|
-| 1 | Repositório Institucional da UFPI | `https://repositorio.ufpi.br/oai/request` | OAI-PMH | 08/09/2026 | sim | `evidencia_https_repositorio_ufpi_br.json` |
-| 2 | Repositório Institucional da UFMG | `https://repositorio.ufmg.br/server/oai/request` | OAI-PMH | 08/09/2026 | sim | `evidencia_https_repositorio_ufmg_br.json` |
-| 3 | ARCA / Fiocruz | endpoint OAI não localizado | — | 08/09/2026 | — | `evidencia_https_www_arca_fiocruz_br.json` |
-| 4 | Catálogo CAPES | dadosabertos.capes.gov.br | Dados abertos | ⏳ | n/a | `data/externo/capes/` |
+| # | Fonte | Endpoint / origem | Protocolo | Verificado em | Situação |
+|---|---|---|---|---|---|
+| 1 | Repositório Institucional da UFMG, set `com_1843_6` | `https://repositorio.ufmg.br/server/oai/request` | OAI-PMH (`dim` + ORE) | 08/09/2026 | **fonte principal** |
+| 2 | Inventário da BDTD exportado pelo grupo (Eduardo Melo, projeto G7-Atividade02-BDTD) | `data/externo/inventario_saude.csv.gz` → página do item no repositório de origem | arquivo local + HTTP no repositório | 13/09/2026 | **piloto** (UFRN, UFPR, Fiocruz) |
+| 3 | Repositório Institucional da UFPI | `https://repositorio.ufpi.br/oai/request` | OAI-PMH | 08/09/2026 | não usada nesta entrega |
+| 4 | UNIFESP (três unidades de Saúde) | `https://repositorio.unifesp.br/oai/request` | OAI-PMH | 08/09/2026 | **suspensa**: `Crawl-delay: 15` violado por versão antiga do coletor; depois, conexão recusada |
+| 5 | ARCA/Fiocruz via OAI | endpoint OAI não localizado | — | 08/09/2026 | substituída pelo acesso às páginas de item via fonte 2 |
+| 6 | Catálogo CAPES | dadosabertos.capes.gov.br | dados abertos | — | não usada |
 
-Os robots.txt da UFPI e da UFMG bloqueiam apenas a interface de busca
-(`/search`, `/discover`, `/search-filter`) e não restringem o caminho do OAI —
-o mesmo padrão observado na BDTD. Isso confirma o desenho pressuposto por este
-protocolo: consulta facetada é cara e fica fechada a robôs; o OAI-PMH é a via
-prevista para colheita automatizada.
+### Sobre a fonte 2 (inventário da BDTD do grupo)
 
-O ARCA/Fiocruz publica `Sitemap: http://localhost:4000/...` no robots.txt,
-indicando frontend DSpace 7 com endereço interno exposto; o endpoint OAI não
-respondeu em nenhum dos sete caminhos convencionais testados. Fonte adiada,
-com pedido de indicação registrado na seção 9.
+O colega de grupo montou o inventário da área pela **API REST** da BDTD
+(`/vufind/api/v1/search`), fatiando a consulta por prefixo de identificador:
+183.718 fichas (título, autor, ano, tipo, instituição, direitos e a URL do item
+no repositório de origem). O `robots.txt` da BDTD proíbe só `/vufind/Search/`
+(a busca da interface); a API é a porta feita para programas. **Reutilizar o
+arquivo pronto não gera nenhuma requisição nova à BDTD.**
 
-> Candidatos sugeridos para Saúde, a verificar com o comando `descobrir`:
-> ARCA/Fiocruz (temático de saúde, grande, DSpace), mais dois ou três
-> repositórios universitários com programas fortes na área.
+Sobre esse inventário aplicamos os filtros deste projeto: acesso aberto com URL,
+escopo de Saúde (radicais testados: "medic" sozinho casa com "medição" e
+"hospital" com "hospitalidade", por isso não são usados), exclusão de
+zootecnia e exclusão de instituições (seção abaixo). O arquivo não traz resumo;
+o escopo é checado de novo na Processed com o começo do texto.
 
-### Base para coletar de cada uma
+### Evidência de `robots.txt` dos domínios do piloto (13/09/2026)
 
-**Repositórios via OAI-PMH.** O Open Archives Initiative Protocol for Metadata
-Harvesting existe especificamente para colheita automatizada de metadados por
-máquinas, e o provedor o expõe voluntariamente. É a porta da frente para
-robôs, não um contorno. O IBICT, aliás, opera a BDTD justamente colhendo esses
-mesmos endpoints.
-
-**Catálogo da CAPES.** Dados abertos publicados pelo governo federal, com
-licença de uso explícita. Nenhuma questão de robots.txt se aplica.
+| Domínio | O que o `robots.txt` diz | Decisão |
+|---|---|---|
+| `hdl.handle.net` | `User-agent: *` / `Crawl-delay: 1` | coleta permitida; nosso intervalo (3 s) é maior. O repositório final de cada handle tem o `robots.txt` checado ao vivo a cada redirecionamento |
+| `repositorio.ufrn.br` | lista padrão do DSpace: bloqueia `/search`, `/admin`, `/submit`… e robôs de cópia em massa; nenhum robô de IA | coleta permitida. A API REST `/server/api` (usada porque a página do item vem sem link) não é bloqueada, e cada chamada passa pelo mesmo `robots.txt` e ritmo |
+| `arca.fiocruz.br` | idem (DSpace 7) | coleta permitida |
+| `hdl.handle.net` → UFPR (prefixo `1884`) | — | **retirada** após o piloto 2: o servidor de handles da UFPR responde HTTP 500 ("Cannot Connect to Server") |
+| `tede2.pucrs.br` | `User-agent: * Allow: /`, mas **proíbe nominalmente robôs de IA**: GPTBot, ClaudeBot, CCBot, Google-Extended, Amazonbot, Applebot-Extended, Bytespider, meta-externalagent | **excluída**: a letra deixaria nosso User-Agent passar, mas o espírito é não ceder conteúdo para treino de modelo, que é o uso deste corpus |
+| `repositorio.ufsc.br` | `/robots.txt` devolve **página de desafio anti-robô do Cloudflare** (Turnstile), não um robots.txt | **excluída**: sem regra legível e com proteção ativa contra acesso automatizado |
+| `repositorio.ufmg.br` (08/09) | lista padrão do DSpace; nenhum robô de IA | fonte principal |
 
 ### O que foi deliberadamente evitado
 
 Coleta em massa pela interface de busca da BDTD. O `robots.txt` do portal
-contém `Disallow: /vufind/Search/`, e ainda que a letra da regra não alcance
-outros caminhos, o espírito é claro: não usar o portal para montar inventário
-em escala. Como as fontes acima resolvem o inventário, não há motivo para
-testar o limite. Consultas pontuais ao portal, quando necessárias para
-validação manual, são feitas por navegador, por uma pessoa.
+contém `Disallow: /vufind/Search/`. Consultas pontuais ao portal, quando
+necessárias para validação manual, são feitas por navegador, por uma pessoa.
 
-`robots.txt` (https://bdtd.ibict.br/robots.txt) completo no dia do início da coleta: 
+`robots.txt` (https://bdtd.ibict.br/robots.txt) no dia do início da coleta:
+
+```
 User-agent: *
 Allow: /
 Disallow: /vufind/Search/
+```
+
+**Regra geral adotada:** quando a letra e o espírito de um `robots.txt`
+divergem, vale o espírito (BDTD, PUC-RS).
 
 ---
 
@@ -175,38 +174,37 @@ Disallow: /vufind/Search/
 
 | Parâmetro | Valor adotado | Onde está configurado |
 |---|---|---|
-| User-Agent | `bdtd-corpus/1.0 (pesquisa academica; UFPI - SoberanIA; +mailto:<contato>) python-requests` | `src/common.py::Config.user_agent` |
-| robots.txt | consultado e respeitado por domínio | `coleta.http.respeitar_robots: true` |
+| User-Agent | `bdtd-corpus/1.0 (pesquisa academica; UFPI; +mailto:ygor.morais@ufpi.edu.br) python-requests` | `src/common.py::Config.user_agent` |
+| robots.txt | consultado e respeitado por domínio, inclusive o `Crawl-delay`, em **todos** os caminhos de rede (colheita OAI e download) | `coleta.http.respeitar_robots: true`; `ClienteOAI._aplicar_crawl_delay`; `ResolvedorTextoCompleto._permitido` |
 | Ritmo na fonte de metadados | 1 requisição a cada 2 s | `requisicoes_por_segundo: 0.5` |
-| Ritmo por domínio de repositório | 1 requisição a cada 3 s | `rps_repositorios: 0.33` |
-| Concorrência | 4 threads, com o limite por domínio valendo dentro delas | `harvest.py` |
+| Ritmo por domínio de repositório | 1 requisição a cada 3 s (ou o `Crawl-delay`, se maior) | `rps_repositorios: 0.33` |
+| Paralelismo | domínios diferentes em paralelo; **dentro de um domínio o intervalo é sempre o do config** (o limitador reserva o próximo horário livre por domínio) | `RateLimiter.aguardar`, `harvest.baixar_por_cota` |
+| Redirecionamento | seguido à mão; cada salto passa pelo `robots.txt` e pelo ritmo do domínio de destino (link `hdl.handle.net` → repositório final) | `ResolvedorTextoCompleto._obter` |
 | Retry | backoff exponencial; `Retry-After` respeitado; `503` do OAI tratado como controle de fluxo | `bdtd_client.py`, `fontes.py` |
+| Janela OAI que falha | dividida ao meio até 1 dia; o que não se recupera é **declarado** no relatório | `ClienteOAI._colher_janela` |
+| **Disjuntor** | **5 falhas seguidas sem registro novo interrompem a colheita** e declaram o resto do intervalo como perdido | `ClienteOAI.FALHAS_SEGUIDAS_MAX` |
 | Tamanho máximo por arquivo | 120 MB | `tamanho_max_pdf_mb` |
-| Teto do piloto | 300 documentos | `max_pdfs`, `limite` |
-| ORE quando disponível | sim | `prefix_binarios: "ore"` |
-
-**Sobre o ORE.** Quando o repositório oferece `metadataPrefix=ore`, o OAI
-entrega a URL do arquivo diretamente e dispensa a requisição à página HTML do
-registro. Isso **reduz pela metade a carga imposta ao servidor da
-universidade** por documento coletado. Não é otimização, é conduta.
+| Conteúdo | só grava se começar com `%PDF`; página de login/erro com HTTP 200 é descartada | `ResolvedorTextoCompleto.baixar` |
+| ORE quando disponível | sim: o OAI entrega a URL do arquivo e dispensa a requisição à página HTML | `prefix_binarios: "ore"` |
+| Página do item sem link (DSpace 7) | a API REST do próprio repositório (`/server/api`: item → pacote `ORIGINAL` → PDF), só depois de a página não trazer metatag nem link; metatag com endereço interno (`localhost`) é trocada pelo domínio da página | `ResolvedorTextoCompleto._descobrir_dspace7`, `_no_mesmo_site` |
+| Meta de PDFs | `coleta.meta_pdfs` (0 = sem meta) | `harvest.baixar_por_cota` |
+| Antes de qualquer coleta | `python -m pytest` e `python preflight.py` (bloqueia sem contato, sem evidência de robots.txt por domínio, com ritmo acima do protocolo) | `preflight.py` |
 
 ### Janela de coleta
 
-madrugada ou fim de semana, fora do horário de
-maior uso dos repositórios.
+Madrugada ou fim de semana, fora do horário de maior uso dos repositórios.
 
 ### Critérios de parada imediata
 
-A coleta é interrompida, e o incidente registrado na seção 8, se ocorrer
-qualquer um dos seguintes:
+A coleta é interrompida, e o incidente registrado na seção 8, se ocorrer:
 
-- HTTP 429 ou 503 persistente em um mesmo domínio após três ciclos de backoff;
-- bloqueio por IP ou por User-Agent;
-- **qualquer contato de administrador de repositório** — nesse caso, resposta
-  no mesmo dia e suspensão até acordo;
+- HTTP 429, 500 ou 503 persistente em um mesmo domínio (no OAI, o disjuntor
+  aplica isso sozinho após 5 falhas seguidas);
+- bloqueio por IP ou por User-Agent, ou página de desafio anti-robô;
+- **qualquer contato de administrador de repositório** — resposta no mesmo dia e
+  suspensão até acordo;
 - sinal de degradação do serviço (tempo de resposta subindo consistentemente);
-- taxa de erro acima de 30% em um domínio, o que costuma indicar que estamos
-  pedindo errado, não que o servidor está ruim.
+- taxa de erro acima de 30% em um domínio.
 
 ---
 
@@ -216,66 +214,60 @@ qualquer um dos seguintes:
 
 Tratamento para fins exclusivamente acadêmicos, por instituição de ensino e
 pesquisa, sem identificação de titulares e sem qualquer decisão que os afete.
-Os dispositivos pertinentes da Lei 13.709/2018 são o Art. 4º, II, 'b'
-(finalidade acadêmica), o Art. 7º, IV (realização de estudos por órgão de
-pesquisa, garantida sempre que possível a anonimização), o Art. 5º, II
-(definição de dado pessoal sensível, que inclui dado referente à saúde) e o
-Art. 11 (tratamento de dados sensíveis).
+Dispositivos pertinentes da Lei 13.709/2018: Art. 4º, II, 'b' (finalidade
+acadêmica), Art. 7º, IV (estudos por órgão de pesquisa, garantida sempre que
+possível a anonimização), Art. 5º, II (dado sensível, que inclui dado referente à
+saúde) e Art. 11 (tratamento de dados sensíveis).
 
 ### Comitê de ética em pesquisa
 
 A Resolução CNS 510/2016 lista, entre as pesquisas que não são registradas nem
-avaliadas pelo sistema CEP/CONEP, aquelas que utilizam informações de acesso
-público e aquelas que utilizam informações de domínio público. Teses e
-dissertações depositadas em repositório institucional aberto se enquadram
-nessa descrição, e não haverá contato com participantes de pesquisa nem acesso
-a dados não publicados.
+avaliadas pelo sistema CEP/CONEP, as que utilizam informações de acesso público
+ou de domínio público. Teses e dissertações depositadas em repositório
+institucional aberto se enquadram nessa descrição, e não há contato com
+participantes de pesquisa nem acesso a dados não publicados.
 
 ### Política de anonimização
 
 **Autoria não é anonimizada.** Autor, orientador e instituição são metadados
-bibliográficos públicos — a tese é publicada com esses nomes e é assim que se
-cita. Removê-los destruiria a proveniência do corpus sem qualquer ganho de
-privacidade.
-
-**O alvo é PII de terceiros no corpo do texto:** participantes de pesquisa,
-pacientes, entrevistados. Em Saúde, isso inclui dado sensível.
+bibliográficos públicos; removê-los destruiria a proveniência sem ganho de
+privacidade. **O alvo é PII de terceiros no corpo do texto** e também no título
+e no resumo que vão para o SFT e o benchmark.
 
 | Medida | Situação |
 |---|---|
 | Corte de pré-textuais, incluindo agradecimentos | implementado (`cortar_pretextuais`) |
-| **Corte de anexos e apêndices** | ligado (`cortar_pos_referencias: true`) |
-| CPF e CNPJ, com validação de dígito verificador | implementado |
-| E-mail, telefone, CEP, RG, cartão SUS, título de eleitor, PIS/PASEP | implementado |
+| Corte de anexos e apêndices | ligado (`cortar_pos_referencias: true`) — não pega todas as folhas de assinatura: CPFs reais de TCLE foram achados e mascarados |
+| CPF, CNPJ, **título de eleitor, PIS/PASEP e cartão SUS com dígito verificador** | implementado |
+| Telefone com DDD válido, CEP, RG (7 a 10 dígitos), e-mail, perfil de rede social | implementado |
+| **Links, DOI e ORCID fora dos detectores numéricos** | implementado (seus dígitos imitavam documento) |
+| Placa de veículo | **desligada** (colidia com nome de gene e sigla de estudo) |
+| Título e resumo anonimizados antes do SFT/benchmark | implementado (`metadados.parquet`) |
+| Relatório de cada máscara, com o contexto já mascarado | `data/processed/saude/pii_relatorio.parquet` |
+| **Verificação final do Curated, que para o pipeline com erro** | `src/curated/verificar_pii.py`, rodado pelo `run_pipeline.py` |
 | NER de nomes de pessoa | desligado — ver justificativa |
-| Auditoria manual de amostra | 30 documentos |
-| **Recall medido em amostra rotulada** | ⏳ MEDIR |
+| Auditoria manual de amostra | feita a cada rodada (seção 8) |
+| Recall medido em amostra rotulada | **não medido** (trabalho futuro). A leitura do relatório de PII já mostrou formatos que escapam, como telefone sem hífen `(31) 3xxxxxxx` e DDD escrito `(0XX31)` |
 
 **Por que o NER de nomes fica desligado.** Texto acadêmico é denso em nomes
-próprios legítimos: "segundo Minayo (2014)", "a técnica de Bardin", nomes de
-escalas, síndromes e instituições. Um NER de pessoas mascararia todos eles,
-degradando o texto sem ganho de privacidade — os nomes citados são referência
-bibliográfica pública, não PII de terceiro. A maior concentração de nomes de
-terceiros fica nos agradecimentos, já removidos pelo corte de pré-textuais, e
-nos anexos, já removidos. O NER será reavaliado apenas se a auditoria manual
-encontrar nomes de participantes de pesquisa sobrevivendo no corpo do texto.
+próprios legítimos ("segundo Minayo (2014)", "a técnica de Bardin", nomes de
+escalas e síndromes). Um NER de pessoas mascararia todos eles. A maior
+concentração de nomes de terceiros fica nos agradecimentos e nos anexos, já
+cortados.
 
-**Por que cortar anexos nesta área especificamente.** Em teses de Saúde, os
-apêndices concentram TCLE preenchido, instrumentos de coleta e descrição de
-caso clínico. É a seção de maior risco de PII e a de menor valor para
-pré-treino. O custo de cortar é quase zero; o risco evitado é o maior do
-projeto.
+**Precisão antes de recall, com medição.** Em 13/09/2026 recuperamos o valor por
+trás de cada máscara: ~1.900 eram falsas (DOI virando PIS/cartão SUS, ORCID
+virando título de eleitor, gene `CYP2C19` e sigla `OMS-2008` virando placa). Os
+detectores foram corrigidos e o diagnóstico refeito sobre as 2.840 teses (ver
+relatório da atividade).
 
 ### Limitação declarada: quase-identificadores
 
-A combinação de idade, doença rara, município e ano permite reidentificação
-sem que nenhum CPF ou nome apareça no texto. **Nenhum regex, NER ou
-ferramenta de detecção de PII resolve isso** — é um problema de
-reidentificação, categoricamente distinto de detecção de PII.
-
-Consequência para a redação: o corpus **não é declarado anonimizado**.
-Declara-se o recall medido dos detectores em amostra rotulada, e declara-se
-este risco residual como conhecido e não mitigado por meios automáticos.
+A combinação de idade, doença rara, município e ano permite reidentificação sem
+que nenhum CPF ou nome apareça. **Nenhum regex, NER ou detector de PII resolve
+isso.** O corpus **não é declarado anonimizado**: declara-se o que foi detectado
+e mascarado, e este risco residual como conhecido e não mitigado por meios
+automáticos.
 
 ---
 
@@ -283,24 +275,14 @@ este risco residual como conhecido e não mitigado por meios automáticos.
 
 Cada tese tem licença própria, definida pela instituição de defesa e pelo
 autor. O texto extraído é obra derivada: a licença governa publicá-lo tanto
-quanto publicar o PDF.
-
-**Acesso aberto não é licença de redistribuição.**
-`info:eu-repo/semantics/openAccess` significa legível sem pagar. O que o autor
-assina no depósito costuma ser autorização para **aquele repositório**
-disponibilizar, não licença pública para terceiros redistribuírem.
+quanto publicar o PDF. **Acesso aberto não é licença de redistribuição.**
 
 | Produto | Política |
 |---|---|
 | PDF original | não redistribuído; permanece em disco local |
 | Texto integral extraído | uso interno acadêmico, restrito à disciplina |
 | Metadados + `sha256` + link de origem | publicável |
-| Subconjunto com licença aberta explícita (CC-BY, CC-BY-SA, CC-BY-NC) | publicável — N = ⏳ MEDIR (____%) |
-
-> **Meça esse percentual no piloto, não no fim.** Ele determina se o produto
-> final é um corpus publicável ou apenas um corpus interno acompanhado de
-> metadados públicos. Se der 8%, isso muda o que você promete na apresentação
-> do seminário.
+| Subconjunto com licença aberta explícita (Creative Commons) | publicável em tese; não publicado nesta entrega |
 
 ---
 
@@ -309,32 +291,32 @@ disponibilizar, não licença pública para terceiros redistribuírem.
 | Item | Onde | Versionado no Git | Retenção | Descarte |
 |---|---|---|---|---|
 | PDFs originais | `data/raw/saude/pdf/` | não (`.gitignore`) | até o fim do semestre letivo | exclusão do diretório |
-| Texto extraído e tratado | `data/processed/saude/texto/` | não | idem | idem |
-| Inventário e manifesto | `data/raw/saude/*.jsonl` | **sim** (ver nota) | permanente | — |
-| Relatórios de camada | `data/reports/saude/*.json` | **sim** | permanente | — |
-| DATACARD e este protocolo | `docs/`, `data/curated/` | **sim** | permanente | — |
+| Texto extraído e tratado | `data/processed/saude/` | não | idem | idem |
+| Inventário, manifesto e inventário do grupo | `data/raw/saude/*.jsonl`, `data/externo/` | não | idem | idem |
+| Relatórios de camada e evidências de robots.txt | `data/reports/saude/*.json` | **sim** | permanente | — |
+| DATACARD e este protocolo | `data/curated/saude/DATACARD.md`, `docs/` | **sim** | permanente | — |
 
-Os relatórios e o DATACARD ficam versionados porque são a prova de auditoria:
-sem eles não há como responder por que um documento entrou ou saiu do corpus.
-
-O manifesto contém apenas identificadores, URLs, hashes e status — nenhum
-conteúdo protegido — e é versionado integralmente. O inventário é versionado
-sem a coluna `resumo`, para manter a consistência com a política da seção 6
-(metadados, hash e link são publicáveis; conteúdo não).
+Os relatórios, as evidências e o DATACARD ficam versionados porque são a prova
+de auditoria: sem eles não há como responder por que um documento entrou ou saiu
+do corpus.
 
 ---
 
 ## 8. Registro de execução
 
-Preencher a cada rodada. Junto com `data/reports/*.json` e o
-`manifesto.jsonl`, é o que torna a coleta auditável.
-
 | Data | Fonte | Requisições | Documentos obtidos | Incidentes | Observações |
 |---|---|---|---|---|---|
-| _(exemplo)_ 2026-09-08 | ARCA/Fiocruz | 82 | 38 | nenhum | piloto com `limite: 40`; ORE disponível, sem raspagem de HTML |
-| 2026-09-10/11 | UFMG (`com_1843_6`, dim) | metadado: ~38.638 registros do set inteiro, filtrados para 3.719 de Saúde (9,6%); ORE: 3.719; PDF: ~520 tentativas | 508 PDFs (1,8 GB), taxa de resolução 97,7% | 1 janela de datestamp (`2026-02-25..2026-06-25`) falhou com HTTP 500 persistente e foi pulada sem retry — número de registros perdidos nessa janela é desconhecido | amostragem estratificada por `ies`+`ano_faixa`, `n_alvo=500`, 3 estratos, cota fechada em todos; 12 falhas de download (`conteudo_nao_e_pdf`/`pdf_nao_localizado`), documentadas em `data/reports/saude/raw.json` |
-| 2026-09-11 | (pós-processamento, sem nova requisição) | — | 508 -> 386 documentos no corpus final | **2 achados só por leitura manual, nenhum por métrica**: (1) 14 documentos de zootecnia/produção animal passaram pelo filtro de assunto (`nutricao` casa com nutrição animal; `excluir_assunto` só checava área/título/programa, não o resumo); (2) `somente_acesso_aberto` nunca foi aplicado no caminho OAI-PMH (`baixar_por_cota`) — 16 documentos de Acesso Restrito tiveram o PDF baixado e o texto quase publicado | Corrigido: os 30 documentos marcados `no_corpus=false` com motivo em `documentos.parquet`; `excluir_assunto` da UFMG ampliado e passa a checar o resumo; `baixar_por_cota` agora filtra por `extra.direitos` antes de baixar. Curated reconstruída: 386 documentos, ~9,03M palavras |
-| | | | | | |
+| 2026-09-10/11 | UFMG (`com_1843_6`, dim) — 2ª rodada | metadado: ~38.638 registros do set; ORE nos sorteados; PDF: ~520 tentativas | 508 PDFs → 386 documentos no corpus | 1 janela de datestamp (`2026-02-25..2026-06-25`) com HTTP 500 persistente, pulada sem retry | amostra `n_alvo=500`; 2 defeitos achados só por leitura manual (zootecnia no corpus; `somente_acesso_aberto` não aplicado no caminho OAI) |
+| 2026-09-11/12 | UFMG (`com_1843_6`, dim) — 3ª rodada | metadado: 38.638 registros → 3.632 candidatos; ORE: 3.632; PDF: ~3.460 tentativas | **3.474 PDFs** (185 bloqueados por direitos) | a mesma janela de datestamp falhou de novo | `n_alvo=5000` (set inteiro); rodou em tmux e sobreviveu à suspensão da máquina |
+| 2026-09-12/13 | (pós-processamento, sem requisição) | — | 2.873 → 2.840 no corpus final | **auditoria manual**: zootecnia no corpus (flexão no feminino), ~1.900 máscaras de PII falsas, arquivo órfão de rodada anterior reaprovado, métrica de página zerando com cache, RAG estourando memória, exclusão por trecho de palavra ("equina" em "catequina") | corrigidos e cobertos por testes (`python -m pytest`) |
+| 2026-09-13 04:12 | UFMG — recoleta da janela `2026-02-25..2026-06-25` (dim) | 15 com falha | 0 | **HTTP 500 em todo recorte, até 1 dia.** Interrompida manualmente pelo critério de parada. Deu origem ao disjuntor | — |
+| 2026-09-13 04:17 | UFMG — diagnóstico da janela | ~10 | — | nenhum | `ListIdentifiers` conta **755 registros** (+2 excluídos) na janela; `oai_dc` responde a 1ª página. Evidência: `data/reports/saude/diagnostico_janela_ufmg.json` |
+| 2026-09-13 04:23 | UFMG — recoleta da janela em `oai_dc` | ~15 | 235 registros → 13 de Saúde → **4 candidatos novos** | a paginação em `oai_dc` também dá 500; **o disjuntor interrompeu sozinho** após 5 falhas | ~520 registros seguem não colhidos (~50 de Saúde, estimado), declarados em `inventario_janela.json` |
+| 2026-09-13 04:23 | Inventário BDTD — piloto 1 (UFSC, UFRN, PUC-RS, UFPR, Fiocruz) | robots.txt: 8; download: poucas antes da interrupção | **0 PDFs** | PUC-RS veta robôs de IA no robots.txt; UFSC responde com desafio anti-robô do Cloudflare. **Download interrompido** antes de gravar qualquer arquivo | as duas instituições foram excluídas; o inventário foi restaurado sem elas |
+| 2026-09-13 04:27 | Inventário BDTD — piloto 2 (UFRN, UFPR, Fiocruz; 60 cada) + 4 da janela UFMG | 180 candidatos, ~2 a 3 por candidato | **0 de 180 PDFs** (UFMG: +3 da janela) | **taxa de erro de 100% nos três domínios** → critério de parada: expansão não seguiu | testes e preflight antes (106 testes; 0 bloqueios). Falhas: UFRN e UFPR `pdf_nao_localizado` (60 cada), Fiocruz `bloqueado_ou_erro_rede` (60). Relatório preservado em `raw_piloto2.json` |
+| 2026-09-13 04:42 | Diagnóstico do piloto 2 (1 registro por instituição, sem baixar PDF) | ~15 | — | nenhum | UFRN: DSpace 7 sem renderização no servidor, página de 1 KB sem link; a API REST `/server/api` chega ao PDF. Fiocruz: `citation_pdf_url` aponta para `http://localhost:4000/...` (configuração do servidor deles). UFPR: `hdl.handle.net/1884/...` responde "Cannot Connect to Server" (HTTP 500) — servidor de handles da UFPR fora do ar. Evidência: `diagnostico_piloto_bdtd.json` |
+| 2026-09-13 04:47 | Inventário BDTD — piloto 3: **os mesmos 120 candidatos** de UFRN e Fiocruz, depois de corrigir o coletor | ~5 por candidato na UFRN (página + API REST), ~2 na Fiocruz; 04:47–05:09 | **119 de 120 PDFs** (UFRN 60/60, Fiocruz 59/60; 473 MB) | nenhum (1 `pdf_nao_localizado` na Fiocruz) | UFPR retirada (serviço falhando). Nenhum candidato novo. 109 testes; preflight com 0 bloqueios |
+| 2026-09-13 05:09–07:05 | (pós-processamento, sem requisição) | — | **2.951 no corpus final** (UFMG 2.845, Fiocruz 54, UFRN 52); 72,0 M palavras | a verificação de PII do Curated **parou o pipeline** numa passada intermediária (telefone quebrado em linha escapando); leitura manual achou pares de SFT com abstract e 10 teses de Saúde excluídas como zootecnia | todos corrigidos e cobertos por teste (128); verificação final: **0 ocorrências** |
 
 ---
 
@@ -342,14 +324,15 @@ Preencher a cada rodada. Junto com `data/reports/*.json` e o
 
 | Data | Para | Assunto | Resposta | Arquivo |
 |---|---|---|---|---|
-| 08/09/2026 | bdtd@ibict.br | orientação sobre coleta acadêmica — decisão em 23/09/2026 | pendente | `docs/correspondencia/` |
+| 08/09/2026 | bdtd@ibict.br | orientação sobre coleta acadêmica | pendente | `docs/correspondencia/` |
 | 08/09/2026 | repositório UFPI | aviso prévio + relato de problema de codificação nos metadados OAI | pendente | |
 | 08/09/2026 | repositório UFMG | aviso prévio de coleta acadêmica | pendente | |
 
 Avisar o administrador do repositório antes de começar não é obrigatório e não
-é exigido pelo OAI-PMH. Mas custa cinco minutos, evita que sua coleta seja
-lida como ataque, e o e-mail arquivado é o melhor anexo que esta seção pode
-ter.
+é exigido pelo OAI-PMH, mas evita que a coleta seja lida como ataque. Sugestão
+para a UFMG: relatar o HTTP 500 no OAI para registros com datestamp entre
+2026-02-25 e 2026-06-25, com os endereços exatos que falharam
+(`data/reports/saude/inventario_janela.json`).
 
 ---
 
@@ -371,8 +354,7 @@ ter.
 > Estimo cerca de [N] documentos.
 >
 > Os PDFs não serão redistribuídos. A publicação prevista se limita a
-> metadados, hashes e links de origem, e a eventual subconjunto com licença
-> aberta explícita.
+> metadados, hashes e links de origem.
 >
 > Escrevo para (a) avisar previamente, (b) perguntar se há restrição de
 > horário ou de volume que eu deva observar, e (c) saber se preferem
@@ -386,10 +368,12 @@ ter.
 
 ## Anexos
 
-- `data/reports/saude/evidencia_*.json` — robots.txt e `Identify` na data da consulta
-- `data/reports/saude/inventario.json` — reconciliação, plano amostral e taxonomia declarada
+- `data/reports/saude/evidencia_*.json` e `evidencia_robots_*.json` — robots.txt na data da consulta
+- `data/reports/saude/inventario.json`, `inventario_janela.json`, `inventario_bdtd.json` — inventário, janela recuperada e piloto
+- `data/reports/saude/diagnostico_janela_ufmg.json` — diagnóstico do incidente da janela
 - `data/reports/saude/raw.json` — taxa de resolução por estrato
-- `data/reports/saude/processed.json` — reprovações de qualidade, PII removida, duplicatas
+- `data/reports/saude/processed.json` — reprovações, PII removida, duplicatas, arquivos órfãos
+- `data/reports/saude/verificacao_pii_curated.json` — verificação final do Curated
 - `data/raw/saude/manifesto.jsonl` — ledger completo dos downloads
 - `data/curated/saude/DATACARD.md` — composição e limitações do corpus final
 - `docs/correspondencia/` — e-mails enviados e respostas recebidas

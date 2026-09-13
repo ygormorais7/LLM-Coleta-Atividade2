@@ -25,9 +25,10 @@ from pathlib import Path
 import pandas as pd
 
 from ..common import Config, Relatorio, configurar_log, ler_jsonl, sha256_texto
-from ..raw.fontes import _normalizar_nome_coluna
+from ..raw.fontes import _normalizar_nome_coluna, bate_exclusao
 from . import dedup as dedup_mod
 from .clean import anonimizar, avaliar, normalizar
+from .padroniza import padronizar_metadados
 from .extract import extrair_lote
 
 log = configurar_log("processed.run")
@@ -47,7 +48,16 @@ def _termos_exclusao_escopo(cfg: Config) -> list[str]:
     termos: set[str] = set()
     for fonte in cfg.get_path("inventario.fontes.oai", []) or []:
         termos.update(fonte.get("excluir_assunto", []) or [])
+    termos.update(cfg.get_path("inventario.fontes.bdtd_csv.excluir_assunto", []) or [])
     return [_normalizar_nome_coluna(t) for t in termos]
+
+
+def _expressoes_permitidas_escopo(cfg: Config) -> list[str]:
+    return list(cfg.get_path("escopo.expressoes_permitidas", []) or [])
+
+
+def fora_de_escopo(contexto: str, termos: list[str], permitidas: list[str] | None = None) -> bool:
+    return bool(termos) and bate_exclusao(contexto, termos, permitidas)
 
 
 def executar(cfg: Config) -> Relatorio:
@@ -82,14 +92,12 @@ def executar(cfg: Config) -> Relatorio:
         area_por_doc = {}
 
     termos_exclusao = _termos_exclusao_escopo(cfg)
+    permitidas = _expressoes_permitidas_escopo(cfg)
 
     def _fora_de_escopo(doc_id: str, titulo: str, programa: str, resumo: str) -> bool:
-        if not termos_exclusao:
-            return False
-        texto = _normalizar_nome_coluna(
-            f"{area_por_doc.get(doc_id, '')} {titulo} {programa} {resumo}"
+        return fora_de_escopo(
+            f"{area_por_doc.get(doc_id, '')} {titulo} {programa} {resumo}", termos_exclusao, permitidas
         )
-        return any(termo in texto for termo in termos_exclusao)
 
     metadados_staging = com_arquivo.set_index("doc_id")[["titulo", "programa", "resumo"]]
 
@@ -132,6 +140,7 @@ def executar(cfg: Config) -> Relatorio:
     linhas: list[dict] = []
     textos_aprovados: dict[str, str] = {}
     total_pii = 0
+    achados_pii: list[dict] = []
 
     todos_brutos = sorted(dir_bruto.glob("*.txt")) if dir_bruto.exists() else []
     arquivos_brutos = [p for p in todos_brutos if p.stem in ids_atuais]
@@ -151,6 +160,7 @@ def executar(cfg: Config) -> Relatorio:
         res_anon = anonimizar(texto, cfg_anon)
         texto = res_anon.texto
         total_pii += res_anon.total
+        achados_pii.extend({"doc_id": did, "campo": "texto", **a} for a in res_anon.achados)
 
         if cfg_dedup.get("remover_linhas_repetidas", True):
             texto, m_rep = dedup_mod.remover_repeticao_interna(
@@ -167,12 +177,18 @@ def executar(cfg: Config) -> Relatorio:
 
         if did in metadados_staging.index:
             meta = metadados_staging.loc[did]
-            fora_de_escopo = _fora_de_escopo(
-                did, meta.get("titulo", ""), meta.get("programa", ""), meta.get("resumo", "")
+            resumo = meta.get("resumo", "")
+            # Candidato vindo do inventário da BDTD não traz resumo, e foi pelo
+            # resumo que a zootecnia foi pega: sem ele, vale o começo do texto
+            # (que, depois do corte de pré-textuais, começa no RESUMO).
+            if not isinstance(resumo, str) or not resumo.strip():
+                resumo = texto[:3000]
+            excluido_por_escopo = _fora_de_escopo(
+                did, meta.get("titulo", ""), meta.get("programa", ""), resumo
             )
         else:
-            fora_de_escopo = False
-        if fora_de_escopo:
+            excluido_por_escopo = False
+        if excluido_por_escopo:
             aprovado = False
             metricas["motivos_reprovacao"].append("fora_de_escopo_zootecnia")
 
@@ -243,6 +259,32 @@ def executar(cfg: Config) -> Relatorio:
     (df_metricas if len(df_metricas) else pd.DataFrame({"doc_id": []})).to_parquet(
         destino, index=False
     )
+
+    # Título e resumo vão para SFT e benchmark: passam pela mesma anonimização
+    # do corpo do texto, em vez de irem crus da Staging para a Curated.
+    pii_metadados = 0
+    colunas_meta = ["doc_id", "titulo", "resumo"] + [
+        c for c in ("idioma", "tipo", "ano") if c in com_arquivo.columns
+    ]
+    metadados = padronizar_metadados(com_arquivo[colunas_meta])
+    for coluna in ("titulo", "resumo"):
+        tratados = []
+        for did, valor in zip(metadados["doc_id"], metadados[coluna].fillna("")):
+            res_meta = anonimizar(str(valor), cfg_anon)
+            pii_metadados += res_meta.total
+            achados_pii.extend({"doc_id": did, "campo": coluna, **a} for a in res_meta.achados)
+            tratados.append(res_meta.texto)
+        metadados[coluna] = tratados
+    metadados.to_parquet(dir_proc / "metadados.parquet", index=False)
+    rel.saidas["metadados_parquet"] = str(dir_proc / "metadados.parquet")
+    rel.metricas["pii_ocorrencias_metadados"] = pii_metadados
+
+    # Cada máscara aplicada, com o trecho em volta já mascarado: é por aqui que
+    # se audita falso positivo sem precisar reabrir o texto bruto.
+    pd.DataFrame(achados_pii, columns=["doc_id", "campo", "tipo", "contexto"]).to_parquet(
+        dir_proc / "pii_relatorio.parquet", index=False
+    )
+    rel.saidas["pii_relatorio"] = str(dir_proc / "pii_relatorio.parquet")
 
     rel.saidas["documentos_parquet"] = str(destino)
     rel.saidas["dir_texto"] = str(dir_limpo)

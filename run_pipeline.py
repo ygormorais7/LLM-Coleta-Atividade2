@@ -82,6 +82,17 @@ def main() -> int:
     print("-" * 74)
     print(f"total: {time.monotonic() - t0:.1f}s")
     print(f"relatórios: {cfg.dir_relatorios()}")
+
+    # Nenhum produto sai com dado pessoal detectável: se sair, o pipeline falha.
+    if "curated" in args.camadas:
+        from src.curated.verificar_pii import verificar
+        resultado = verificar(cfg)
+        if resultado["ocorrencias"]:
+            log.error("verificação de PII no Curated FALHOU: %d ocorrência(s) %s — ver "
+                      "verificacao_pii_curated.json", resultado["ocorrencias"], resultado["por_tipo"])
+            return 1
+        print(f"verificação de PII no Curated: 0 ocorrências em "
+              f"{len(resultado['arquivos_verificados'])} arquivos")
     return 0
 
 

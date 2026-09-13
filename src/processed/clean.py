@@ -209,35 +209,84 @@ def _valida_cnpj(digitos: str) -> bool:
     return True
 
 
+def _valida_pis(digitos: str) -> bool:
+    if len(digitos) != 11 or digitos == digitos[0] * 11:
+        return False
+    soma = sum(int(d) * p for d, p in zip(digitos[:10], [3, 2, 9, 8, 7, 6, 5, 4, 3, 2]))
+    dv = 11 - soma % 11
+    return (0 if dv >= 10 else dv) == int(digitos[10])
+
+
+def _valida_titulo_eleitor(digitos: str) -> bool:
+    """8 dígitos sequenciais + UF (01 a 28) + 2 verificadores (regra do TSE)."""
+    if len(digitos) != 12 or not 1 <= int(digitos[8:10]) <= 28:
+        return False
+    sp_ou_mg = digitos[8:10] in ("01", "02")
+
+    def _dv(soma: int) -> int:
+        resto = soma % 11
+        if resto == 10:
+            return 0
+        return 1 if resto == 0 and sp_ou_mg else resto
+
+    dv1 = _dv(sum(int(digitos[i]) * (i + 2) for i in range(8)))
+    dv2 = _dv(int(digitos[8]) * 7 + int(digitos[9]) * 8 + dv1 * 9)
+    return digitos[10:] == f"{dv1}{dv2}"
+
+
+def _valida_cns(digitos: str) -> bool:
+    """Cartão Nacional de Saúde: começa com 1, 2, 7, 8 ou 9 e soma ponderada divisível por 11."""
+    if len(digitos) != 15 or digitos[0] not in "12789":
+        return False
+    if digitos[0] in "12" and digitos[11:14] not in ("000", "001"):
+        return False
+    return sum(int(d) * (15 - i) for i, d in enumerate(digitos)) % 11 == 0
+
+
+def _valida_telefone(digitos: str) -> bool:
+    """DDD sem zero; fixo começa com 2-5, celular com 9; intervalo de anos não é telefone."""
+    if len(digitos) in (12, 13) and digitos.startswith("55"):
+        digitos = digitos[2:]
+    if len(digitos) not in (10, 11) or "0" in digitos[:2]:
+        return False
+    local = digitos[2:]
+    if len(local) == 9:
+        return local[0] == "9"
+    return local[0] in "2345" and not re.fullmatch(r"(?:19|20)\d{2}(?:19|20)\d{2}", local)
+
+
 # Ordem importa: e-mail antes de telefone, CNPJ antes de CPF.
+# Documento que tem dígito verificador só é mascarado se o dígito confere: o
+# diagnóstico de 2026-09-13 mostrou que, sem isso, DOI virava PIS/cartão SUS,
+# ORCID virava título de eleitor e código de setor censitário virava cartão SUS.
 _PADROES = [
     ("EMAIL", re.compile(r"\b[\w.+-]+@[\w-]+\.[\w.-]{2,}\b"), None),
     ("URL_PERFIL", re.compile(
         r"https?://(?:www\.)?(?:facebook|instagram|linkedin|twitter|x)\.com/[\w./-]+"), None),
     ("CNPJ", re.compile(r"\b\d{2}[.\s]?\d{3}[.\s]?\d{3}[/\s]?\d{4}[-\s]?\d{2}\b"), _valida_cnpj),
     ("CPF", re.compile(r"\b\d{3}[.\s]?\d{3}[.\s]?\d{3}[-\s]?\d{2}\b"), _valida_cpf),
-    ("CARTAO_SUS", re.compile(r"\b\d{3}[\s.]?\d{4}[\s.]?\d{4}[\s.]?\d{4}\b"), None),
-    # Exige separador de fato ("." ou "-"), não espaço solto: uma sequência de
-    # três números de 4 dígitos separados por espaço é o formato mais comum
-    # de eixo/tabela num PDF científico (anos, contagens) — achado real: 75
-    # falsos positivos num único documento, casando com um eixo "Anos" de
-    # gráfico. Um título de eleitor de verdade quase nunca aparece em prosa
-    # de tese de Saúde; a troca aceita perder recall nesse caso raro para
-    # não mascarar dado de tabela como se fosse PII.
-    ("TITULO_ELEITOR", re.compile(r"\b\d{4}[.-]\d{4}[.-]\d{4}\b"), None),
-    ("PIS_PASEP", re.compile(r"\b\d{3}[.\s]?\d{5}[.\s]?\d{2}[-\s]?\d\b"), None),
-    # Separador agora OBRIGATÓRIO entre os dois blocos de 4 dígitos (e depois
-    # do DDD, parênteses OU separador). Antes, os dois eram opcionais e um
-    # código sequencial puro de 10 dígitos sem separador nenhum (ex.: código
-    # de procedimento odontológico "0101020058", achado real: 219 falsos
-    # positivos num único documento) batia perfeitamente no padrão de
-    # telefone. Um telefone de verdade em prosa quase sempre tem alguma
-    # pontuação; código de tabela/lista, quase nunca.
+    ("CARTAO_SUS", re.compile(r"\b\d{3}[\s.]?\d{4}[\s.]?\d{4}[\s.]?\d{4}\b"), _valida_cns),
+    # Separador "." ou "-" obrigatório: três números de 4 dígitos separados por
+    # espaço são eixo de gráfico, não título de eleitor.
+    ("TITULO_ELEITOR", re.compile(r"\b\d{4}[.-]\d{4}[.-]\d{4}\b"), _valida_titulo_eleitor),
+    ("PIS_PASEP", re.compile(r"\b\d{3}[.\s]?\d{5}[.\s]?\d{2}[-\s]?\d\b"), _valida_pis),
+    # Separador obrigatório e sem quebra de linha: código de procedimento sem
+    # pontuação ("0101020058") e intervalo de anos quebrado em linha
+    # ("2008\n2009") batiam no padrão.
+    # Exceção: depois de DDD entre parênteses ou de "+55 DD" — prefixo que só
+    # telefone tem — a quebra de linha vale como separador. Achado real pela
+    # verificação do Curated: "(31)\n3xxx-xxxx" e "+55 31\n3xxx-xxxx" escapavam.
     ("TELEFONE", re.compile(
-        r"(?<!\d)(?:\+55[\s-]?)?(?:\(\d{2}\)|\d{2}[\s-])[\s-]?9?\d{4}[-\s]\d{4}(?!\d)"
-    ), None),
+        r"(?<!\d)(?:"
+        r"(?:\+55[ \t-]?\d{2}\s|(?:\+55[ \t-]?)?\(\d{2}\)\s?)[ \t-]?9?\d{4}[\s-]\d{4}"
+        r"|(?:\+55[ \t-]?)?\d{2}[ \t-][ \t-]?9?\d{4}[ \t-]\d{4}"
+        r")(?!\d)"
+    ), _valida_telefone),
     ("CEP", re.compile(r"\b\d{5}-\d{3}\b"), None),
-    ("RG", re.compile(r"\bRG[\s:nº.]{0,6}[\d.\s-]{7,14}\b", re.IGNORECASE), None),
+    # 7 a 10 dígitos: "RG" também é parâmetro de espectro de RMN (ganho do
+    # receptor, "RG 2050") — todos os 15 achados de RG no corpus eram isso.
+    ("RG", re.compile(r"\bRG[\s:nº.]{0,6}[\d.\s-]{6,13}\d\b", re.IGNORECASE),
+     lambda digitos: 7 <= len(digitos) <= 10),
     # Formato antigo (LLL-NNNN, hífen obrigatório) OU Mercosul (LLLNLNN, 5º
     # caractere tem que ser LETRA). O padrão antigo aceitava [A-Z0-9] na 5ª
     # posição, o que também casa com código de composto químico/material
@@ -254,11 +303,23 @@ _MAPA_DETECTORES = {
     "telefone": "TELEFONE", "cep": "CEP", "rg": "RG", "placa_veiculo": "PLACA",
 }
 
+_DETECTORES_TEXTUAIS = {"EMAIL", "URL_PERFIL"}
+_IDENTIFICADORES_PROTEGIDOS = re.compile(
+    r"https?://\S+|\bwww\.\S+|\bdoi:\s*\S+|\b10\.\d{4,9}/\S+|\b\d{4}-\d{4}-\d{4}-\d{3}[\dX]\b",
+    re.IGNORECASE,
+)
+
+
+_JANELA_CONTEXTO = 60
+
 
 @dataclass
 class ResultadoAnonimizacao:
     texto: str
     ocorrencias: dict = field(default_factory=dict)
+    # Cada ocorrência com o trecho em volta JÁ mascarado: dá para auditar falso
+    # positivo sem reexpor o dado.
+    achados: list = field(default_factory=list)
 
     @property
     def total(self) -> int:
@@ -287,43 +348,74 @@ def anonimizar(texto: str, cfg_anon: dict | None = None) -> ResultadoAnonimizaca
     }
     estrategia = cfg_anon.get("estrategia", "mascara")
     ocorrencias: Counter = Counter()
+    # Cada detecção vira um marcador interno; só no fim o marcador é trocado
+    # pela máscara. Assim o contexto de cada achado já sai com TODAS as
+    # máscaras aplicadas, inclusive as de detectores que rodaram depois.
+    substituicoes: list[tuple[str, str]] = []
 
-    def substituir(nome: str):
-        def _sub(m: re.Match) -> str:
-            ocorrencias[nome] += 1
-            if estrategia == "remove":
-                return ""
-            if estrategia == "hash":
-                return f"[{nome}:{sha256_texto(m.group(0))[:8]}]"
-            return f"[{nome}]"
-        return _sub
-
-    for nome, padrao, validador in _PADROES:
-        if nome not in ativos:
-            continue
-        if validador is None:
-            texto = padrao.sub(substituir(nome), texto)
+    def _marcar(nome: str, original: str) -> str:
+        ocorrencias[nome] += 1
+        if estrategia == "remove":
+            troca = ""
+        elif estrategia == "hash":
+            troca = f"[{nome}:{sha256_texto(original)[:8]}]"
         else:
+            troca = f"[{nome}]"
+        substituicoes.append((nome, troca))
+        return f"\x01{len(substituicoes) - 1}\x01"
+
+    def _aplicar(texto: str, nome: str, padrao: re.Pattern, validador) -> str:
+        def _sub(m: re.Match) -> str:
+            if validador is None:
+                return _marcar(nome, m.group(0))
             # Só substitui se o dígito verificador confere: evita destruir
-            # números de tabela e códigos de processo que "parecem" CPF.
-            def _cond(m: re.Match, _n=nome, _v=validador) -> str:
-                digitos = re.sub(r"\D", "", m.group(0))
-                if not _v(digitos):
-                    return m.group(0)
-                ocorrencias[_n] += 1
-                if estrategia == "remove":
-                    return ""
-                if estrategia == "hash":
-                    return f"[{_n}:{sha256_texto(digitos)[:8]}]"
-                return f"[{_n}]"
-            texto = padrao.sub(_cond, texto)
+            # números de tabela e códigos que "parecem" documento.
+            digitos = re.sub(r"\D", "", m.group(0))
+            return _marcar(nome, digitos) if validador(digitos) else m.group(0)
+        return padrao.sub(_sub, texto)
+
+    ativos_ordenados = [p for p in _PADROES if p[0] in ativos]
+    for nome, padrao, validador in ativos_ordenados:
+        if nome in _DETECTORES_TEXTUAIS:
+            texto = _aplicar(texto, nome, padrao, validador)
+
+    # Link, DOI e ORCID saem de cena antes dos detectores numéricos: seus
+    # dígitos imitam PIS, cartão SUS e título de eleitor.
+    guardados: list[str] = []
+
+    def _guardar(m: re.Match) -> str:
+        guardados.append(m.group(0))
+        return f"\x00{len(guardados) - 1}\x00"
+
+    texto = _IDENTIFICADORES_PROTEGIDOS.sub(_guardar, texto)
+    for nome, padrao, validador in ativos_ordenados:
+        if nome not in _DETECTORES_TEXTUAIS:
+            texto = _aplicar(texto, nome, padrao, validador)
+    texto = re.sub(r"\x00(\d+)\x00", lambda m: guardados[int(m.group(1))], texto)
+
+    partes, posicoes, tamanho, cursor = [], [], 0, 0
+    for m in re.finditer(r"\x01(\d+)\x01", texto):
+        partes.append(texto[cursor:m.start()])
+        tamanho += m.start() - cursor
+        nome, troca = substituicoes[int(m.group(1))]
+        posicoes.append((nome, tamanho, tamanho + len(troca)))
+        partes.append(troca)
+        tamanho += len(troca)
+        cursor = m.end()
+    partes.append(texto[cursor:])
+    texto = "".join(partes)
+    achados = [
+        {"tipo": nome,
+         "contexto": texto[max(0, ini - _JANELA_CONTEXTO):fim + _JANELA_CONTEXTO].replace("\n", " ")}
+        for nome, ini, fim in posicoes
+    ]
 
     if cfg_anon.get("ner_nomes", False):
         texto, n = _anonimizar_nomes_ner(texto, cfg_anon)
         if n:
             ocorrencias["NOME"] += n
 
-    return ResultadoAnonimizacao(texto, dict(ocorrencias))
+    return ResultadoAnonimizacao(texto, dict(ocorrencias), achados)
 
 
 def _anonimizar_nomes_ner(texto: str, cfg_anon: dict) -> tuple[str, int]:

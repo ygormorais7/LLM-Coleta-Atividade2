@@ -1,0 +1,18 @@
+{
+  "arquivos_verificados": [
+    "benchmark/multipla_escolha.jsonl",
+    "benchmark/perplexidade.jsonl",
+    "benchmark/recuperacao.jsonl",
+    "pretreino/teste-0000.jsonl",
+    "pretreino/treino-0000.jsonl",
+    "pretreino/validacao-0000.jsonl",
+    "sft/teste.jsonl",
+    "sft/treino.jsonl",
+    "sft/validacao.jsonl",
+    "indice_corpus.parquet",
+    "rag/corpus_rag.parquet"
+  ],
+  "ocorrencias": 0,
+  "por_tipo": {},
+  "exemplos_mascarados": []
+}

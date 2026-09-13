@@ -52,6 +52,23 @@ META_PDF = [
 ]
 
 
+_HOSTS_INTERNOS = {"localhost", "127.0.0.1", "0.0.0.0", "::1"}
+
+
+def _no_mesmo_site(url: str, url_pagina: str) -> str:
+    """
+    Metatag com endereço interno do servidor vira endereço do site público.
+    Achado real: o DSpace 7 da Fiocruz publica
+    `citation_pdf_url = http://localhost:4000/bitstreams/<uuid>/download`
+    (a renderização no servidor não conhece o próprio domínio).
+    """
+    partes = urllib.parse.urlsplit(url)
+    if (partes.hostname or "") not in _HOSTS_INTERNOS:
+        return url
+    pagina = urllib.parse.urlsplit(url_pagina)
+    return urllib.parse.urlunsplit((pagina.scheme, pagina.netloc, partes.path, partes.query, ""))
+
+
 @dataclass
 class ResultadoDownload:
     ok: bool
@@ -114,16 +131,27 @@ class ResolvedorTextoCompleto:
         return rp.can_fetch(self.cfg.user_agent(), url)
 
     def _obter(self, url: str, stream: bool = False) -> requests.Response | None:
-        if not self._permitido(url):
-            log.info("bloqueado por robots.txt: %s", url)
-            return None
-        dominio = urllib.parse.urlsplit(url).netloc
-        self.limiter.aguardar(dominio)
-        try:
-            return self.sessao.get(url, timeout=self.timeout, stream=stream, allow_redirects=True)
-        except requests.RequestException as exc:
-            log.debug("falha ao acessar %s: %s", url, exc)
-            return None
+        # Redirecionamento seguido à mão: cada salto passa pelo robots.txt e pelo
+        # ritmo DO SEU domínio. Com allow_redirects=True, um link hdl.handle.net
+        # caía no repositório final sem checar o robots.txt dele e sem esperar a
+        # vez daquele domínio.
+        for _ in range(6):  # até 5 redirecionamentos
+            if not self._permitido(url):
+                log.info("bloqueado por robots.txt: %s", url)
+                return None
+            self.limiter.aguardar(urllib.parse.urlsplit(url).netloc)
+            try:
+                resp = self.sessao.get(url, timeout=self.timeout, stream=stream, allow_redirects=False)
+            except requests.RequestException as exc:
+                log.debug("falha ao acessar %s: %s", url, exc)
+                return None
+            destino = resp.headers.get("Location") if resp.status_code in (301, 302, 303, 307, 308) else None
+            if not destino:
+                return resp
+            resp.close()
+            url = urllib.parse.urljoin(url, destino)
+        log.debug("redirecionamentos demais: %s", url)
+        return None
 
     # ------------------------------------------------------ descobrir PDF
     def descobrir_url_pdf(self, url_registro: str) -> str | None:
@@ -142,7 +170,7 @@ class ResolvedorTextoCompleto:
         for nome, attrs in META_PDF:
             tag = sopa.find(nome, attrs=attrs)
             if tag and tag.get("content"):
-                return urllib.parse.urljoin(resp.url, tag["content"])
+                return _no_mesmo_site(urllib.parse.urljoin(resp.url, tag["content"]), resp.url)
 
         # 3) bitstreams do DSpace
         for a in sopa.find_all("a", href=True):
@@ -159,10 +187,50 @@ class ResolvedorTextoCompleto:
         if candidatos:
             return candidatos[0]
 
-        # 5) último recurso: navegador de verdade
+        # 5) DSpace 7 sem renderização no servidor: a página é só a "casca" do
+        #    Angular (achado real: repositorio.ufrn.br, 1 KB, sem link nenhum).
+        #    A API REST do próprio repositório lista os arquivos do item.
+        url_pdf = self._descobrir_dspace7(resp.url)
+        if url_pdf:
+            return url_pdf
+
+        # 6) último recurso: navegador de verdade
         if self.cfg.get_path("coleta.fallback_selenium", False):
             return self._descobrir_com_selenium(url_registro)
 
+        return None
+
+    def _json(self, url: str) -> dict | None:
+        resp = self._obter(url) if url else None
+        if resp is None or resp.status_code != 200 or "json" not in (resp.headers.get("Content-Type") or ""):
+            return None
+        try:
+            return resp.json()
+        except ValueError:
+            return None
+
+    def _descobrir_dspace7(self, url_pagina: str) -> str | None:
+        """Item → pacote ORIGINAL → primeiro arquivo PDF, pela API `/server/api`."""
+        partes = urllib.parse.urlsplit(url_pagina)
+        base = f"{partes.scheme}://{partes.netloc}/server/api"
+        handle = re.search(r"/handle/(\d[\w.]*/[\w.-]+)", partes.path)
+        uuid = re.search(r"/items/([0-9a-f-]{36})", partes.path)
+        if handle:
+            item = self._json(f"{base}/pid/find?id=hdl:{handle.group(1)}")
+        elif uuid:
+            item = self._json(f"{base}/core/items/{uuid.group(1)}")
+        else:
+            return None
+        if not item:
+            return None
+        pacotes = self._json(item.get("_links", {}).get("bundles", {}).get("href", ""))
+        for pacote in (pacotes or {}).get("_embedded", {}).get("bundles", []):
+            if pacote.get("name") != "ORIGINAL":
+                continue
+            arquivos = self._json(pacote.get("_links", {}).get("bitstreams", {}).get("href", ""))
+            for arquivo in (arquivos or {}).get("_embedded", {}).get("bitstreams", []):
+                if (arquivo.get("name") or "").lower().endswith(".pdf"):
+                    return arquivo.get("_links", {}).get("content", {}).get("href")
         return None
 
     def _descobrir_com_selenium(self, url: str) -> str | None:

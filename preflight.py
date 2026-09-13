@@ -136,6 +136,29 @@ def checar_evidencia(cfg: Config) -> None:
         ok(f"evidência de robots.txt: {len(evidencias)} arquivo(s)")
 
 
+def checar_evidencia_bdtd_csv(cfg: Config) -> None:
+    """Cada domínio dos candidatos do inventário da BDTD precisa de evidência de robots.txt."""
+    import re
+    import urllib.parse
+
+    fonte = cfg.get_path("inventario.fontes.bdtd_csv", {}) or {}
+    if not fonte.get("habilitada"):
+        return
+    if not (RAIZ / fonte.get("arquivo", "")).exists():
+        bloqueio(f"inventario.fontes.bdtd_csv habilitada, mas {fonte.get('arquivo')} não existe.")
+        return
+    from src.raw.inventario import candidatos_bdtd
+
+    dominios = sorted({urllib.parse.urlsplit(c["url_landing"]).netloc for c in candidatos_bdtd(cfg)})
+    evidencias = " ".join(p.name for p in cfg.dir_relatorios().glob("evidencia_robots_*.json"))
+    faltando = [d for d in dominios if re.sub(r"[^a-z0-9]+", "_", d.lower()) not in evidencias]
+    if faltando:
+        bloqueio(f"Sem evidência de robots.txt para {len(faltando)} domínio(s) do inventário BDTD: "
+                 f"{', '.join(faltando)}. Rode: python -m src.raw.inventario robots")
+    else:
+        ok(f"evidência de robots.txt para os {len(dominios)} domínios do inventário BDTD")
+
+
 def checar_protocolo() -> None:
     caminho = RAIZ / "docs" / "PROTOCOLO_DE_COLETA.md"
     if not caminho.exists():
@@ -245,6 +268,7 @@ def main() -> int:
     checar_identificacao(cfg)
     checar_inventario(cfg)
     checar_evidencia(cfg)
+    checar_evidencia_bdtd_csv(cfg)
     checar_protocolo()
     checar_conduta(cfg)
     checar_recursos(cfg)

@@ -152,15 +152,18 @@ class RateLimiter:
                 self._intervalos[chave] = segundos
 
     def aguardar(self, chave: str = "default") -> None:
+        # Reserva o próximo horário livre DESTE domínio sob a trava e dorme fora
+        # dela. Antes o sleep acontecia com a trava presa, então um domínio
+        # esperando segurava todos os outros: paralelizar entre repositórios não
+        # adiantava nada. O intervalo por domínio continua exatamente o mesmo.
         with self._lock:
             agora = time.monotonic()
             intervalo = self._intervalos.get(chave, self.intervalo)
-            proximo = self._ultimo.get(chave, 0.0) + intervalo
-            espera = proximo - agora
-            if espera > 0:
-                time.sleep(espera)
-                agora = time.monotonic()
-            self._ultimo[chave] = agora
+            proximo = max(agora, self._ultimo.get(chave, float("-inf")) + intervalo)
+            self._ultimo[chave] = proximo
+        espera = proximo - time.monotonic()
+        if espera > 0:
+            time.sleep(espera)
 
 
 # --------------------------------------------------------------------------
