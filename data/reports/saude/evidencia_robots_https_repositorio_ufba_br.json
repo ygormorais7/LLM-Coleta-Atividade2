@@ -1,0 +1,12 @@
+{
+  "dominio": "https://repositorio.ufba.br",
+  "robots_txt": "https://repositorio.ufba.br/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPSConnectionPool(host='repositorio.ufba.br', port=443): Max retries exceeded with url: /robots.txt (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)'))))",
+  "verificado_em": "2026-09-13T16:36:01.432320+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

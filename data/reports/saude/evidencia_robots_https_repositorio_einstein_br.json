@@ -1,0 +1,12 @@
+{
+  "dominio": "https://repositorio.einstein.br",
+  "robots_txt": "https://repositorio.einstein.br/robots.txt",
+  "status_http": 200,
+  "conteudo": "User-agent: Googlebot\nDisallow: /nogooglebot/\n\nUser-agent: *\nAllow: /\n\nSitemap: https://repositorio.einstein.br/sitemap.xml",
+  "verificado_em": "2026-09-13T16:35:22.512206+00:00",
+  "veredito": {
+    "permitido": true,
+    "motivo": "ok",
+    "crawl_delay": null
+  }
+}

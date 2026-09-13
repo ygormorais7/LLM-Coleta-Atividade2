@@ -30,6 +30,7 @@ negação de serviço acidental:
 
 from __future__ import annotations
 
+import ipaddress
 import re
 import urllib.parse
 import urllib.robotparser
@@ -40,6 +41,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from ..common import Config, RateLimiter, configurar_log, sha256_arquivo
+from . import robots as robots_mod
 
 log = configurar_log("raw.fulltext")
 
@@ -63,10 +65,46 @@ def _no_mesmo_site(url: str, url_pagina: str) -> str:
     (a renderização no servidor não conhece o próprio domínio).
     """
     partes = urllib.parse.urlsplit(url)
-    if (partes.hostname or "") not in _HOSTS_INTERNOS:
-        return url
     pagina = urllib.parse.urlsplit(url_pagina)
+    host = partes.hostname or ""
+    interno = host in _HOSTS_INTERNOS
+    if not interno and host != (pagina.hostname or ""):
+        # Mesmo defeito com o IP do servidor e a porta do Angular: repositorio.uepb.edu.br
+        # publica `http://200.129.73.159:4000/bitstreams/<uuid>/download`.
+        try:
+            ipaddress.ip_address(host)
+            interno = True
+        except ValueError:
+            interno = partes.port == 4000
+    if not interno:
+        return url
     return urllib.parse.urlunsplit((pagina.scheme, pagina.netloc, partes.path, partes.query, ""))
+
+
+def _sem_barra_dupla(url: str) -> str:
+    """`https://www.bdtd.ueg.br//handle/tede/89` dá 404; com uma barra, abre."""
+    partes = urllib.parse.urlsplit(url)
+    caminho = re.sub(r"/{2,}", "/", partes.path)
+    if caminho == partes.path:
+        return url
+    return urllib.parse.urlunsplit((partes.scheme, partes.netloc, caminho, partes.query, partes.fragment))
+
+
+# `/bitstreams/<uuid>/download` do DSpace 7 sem renderização no servidor devolve a
+# casca HTML do Angular, não o arquivo (achado real na coleta até 20 mil:
+# repositorio.bc.ufg.br, 24 de 24 `conteudo_nao_e_pdf`). O arquivo está na API.
+_BITSTREAM_DSPACE7 = re.compile(r"/bitstreams/([0-9a-f-]{36})/download", re.I)
+
+
+def _endereco_interno(url: str) -> bool:
+    host = (urllib.parse.urlsplit(url).hostname or "").lower()
+    if not host or host in _HOSTS_INTERNOS:
+        return True
+    try:
+        ip = ipaddress.ip_address(host)
+    except ValueError:
+        return False
+    return ip.is_private or ip.is_loopback
 
 
 @dataclass
@@ -87,6 +125,9 @@ class ResolvedorTextoCompleto:
         self.respeitar_robots = cfg.get_path("coleta.http.respeitar_robots", True)
         self.limiter = RateLimiter(cfg.get_path("coleta.http.rps_repositorios", 0.33))
         self._robots: dict[str, urllib.robotparser.RobotFileParser | None] = {}
+        self.vetados: dict[str, str] = {}  # netloc -> motivo (robots.classificar)
+        self._apis_dspace7: dict[str, list[str]] = {}  # origem+prefixo -> bases da API
+        self._pagina_do_arquivo: dict[str, str] = {}  # url do arquivo -> página do item
         self.sessao = requests.Session()
         self.sessao.headers.update(
             {
@@ -102,33 +143,58 @@ class ResolvedorTextoCompleto:
             return True
         partes = urllib.parse.urlsplit(url)
         dominio = f"{partes.scheme}://{partes.netloc}"
+        if partes.netloc in self.vetados:
+            return False
         if dominio not in self._robots:
-            rp = urllib.robotparser.RobotFileParser()
-            rp.set_url(f"{dominio}/robots.txt")
-            try:
-                self.limiter.aguardar(partes.netloc)
-                rp.read()
-            except Exception as exc:  # robots inacessível: assume permitido
-                log.debug("robots.txt indisponível em %s (%s)", dominio, exc)
-                rp = None
-            self._robots[dominio] = rp
-
-            # Crawl-delay é uma instrução explícita do administrador. Respeitar
-            # 3s quando o servidor pediu 15s é descumprir o robots.txt tanto
-            # quanto ignorar um Disallow.
-            if rp is not None:
-                try:
-                    atraso = rp.crawl_delay(self.cfg.user_agent()) or rp.crawl_delay("*")
-                except Exception:
-                    atraso = None
-                if atraso:
-                    self.limiter.definir_intervalo(partes.netloc, float(atraso))
-                    log.info("%s pede Crawl-delay de %ss — adotado",
-                             partes.netloc, atraso)
+            self._robots[dominio] = self._carregar_robots(dominio, partes.netloc)
+        if partes.netloc in self.vetados:
+            return False
         rp = self._robots[dominio]
         if rp is None:
             return True
         return rp.can_fetch(self.cfg.user_agent(), url)
+
+    def _carregar_robots(self, dominio: str, netloc: str) -> urllib.robotparser.RobotFileParser | None:
+        """
+        Baixa o robots.txt pela mesma sessão (nosso User-Agent, ritmo do domínio)
+        e o classifica pela letra e pelo espírito (`robots.classificar`). É o que
+        protege o domínio FINAL de um link hdl.handle.net, que não tem evidência
+        prévia: veto a robôs de IA ou desafio anti-robô tiram o domínio da coleta.
+        """
+        url = f"{dominio}/robots.txt"
+        try:
+            self.limiter.aguardar(netloc)
+            resp = self.sessao.get(url, timeout=self.timeout, allow_redirects=False)
+            for _ in range(5):  # robots.txt pode redirecionar (http -> https)
+                destino = resp.headers.get("Location") if resp.status_code in (301, 302, 303, 307, 308) else None
+                if not destino:
+                    break
+                url = urllib.parse.urljoin(url, destino)
+                self.limiter.aguardar(urllib.parse.urlsplit(url).netloc)
+                resp = self.sessao.get(url, timeout=self.timeout, allow_redirects=False)
+            status, texto = resp.status_code, resp.text or ""
+        except requests.RequestException as exc:
+            # Inacessível: segue como antes; a página do item falha sozinha e o
+            # disjuntor da instituição age.
+            log.debug("robots.txt indisponível em %s (%s)", dominio, exc)
+            return None
+
+        veredito = robots_mod.classificar(status, texto, self.cfg.user_agent())
+        if not veredito.permitido:
+            self.vetados[netloc] = veredito.motivo
+            log.warning("%s fora da coleta: robots.txt → %s", netloc, veredito.motivo)
+            return None
+        # Crawl-delay é uma instrução explícita do administrador. Respeitar 3s
+        # quando o servidor pediu 15s é descumprir o robots.txt tanto quanto
+        # ignorar um Disallow.
+        if veredito.crawl_delay:
+            self.limiter.definir_intervalo(netloc, veredito.crawl_delay)
+            log.info("%s pede Crawl-delay de %ss — adotado", netloc, veredito.crawl_delay)
+        if status != 200 or veredito.motivo == "robots_html_sem_regras":
+            return None
+        rp = urllib.robotparser.RobotFileParser()
+        rp.parse(texto.splitlines())
+        return rp
 
     def _obter(self, url: str, stream: bool = False) -> requests.Response | None:
         # Redirecionamento seguido à mão: cada salto passa pelo robots.txt e pelo
@@ -156,7 +222,7 @@ class ResolvedorTextoCompleto:
     # ------------------------------------------------------ descobrir PDF
     def descobrir_url_pdf(self, url_registro: str) -> str | None:
         """Da página do trabalho no repositório até a URL do arquivo."""
-        resp = self._obter(url_registro)
+        resp = self._obter(_sem_barra_dupla(url_registro))
         if resp is None or resp.status_code >= 400:
             return None
 
@@ -164,19 +230,28 @@ class ResolvedorTextoCompleto:
         if "pdf" in tipo:
             return resp.url  # a própria URL já era o arquivo
 
+        # Desafio anti-robô no lugar da página: o domínio sai da coleta na hora,
+        # sem esperar o disjuntor (critério de parada do protocolo).
+        if robots_mod.pagina_de_desafio(resp.text):
+            netloc = urllib.parse.urlsplit(resp.url).netloc
+            self.vetados[netloc] = "desafio_anti_robo"
+            log.warning("%s fora da coleta: página de desafio anti-robô", netloc)
+            return None
+
         sopa = BeautifulSoup(resp.text, "html.parser")
 
         # 1-2) metatags padronizadas
         for nome, attrs in META_PDF:
             tag = sopa.find(nome, attrs=attrs)
             if tag and tag.get("content"):
-                return _no_mesmo_site(urllib.parse.urljoin(resp.url, tag["content"]), resp.url)
+                return self._lembrar_pagina(
+                    _no_mesmo_site(urllib.parse.urljoin(resp.url, tag["content"]), resp.url), resp.url)
 
         # 3) bitstreams do DSpace
         for a in sopa.find_all("a", href=True):
             href = a["href"]
             if re.search(r"/bitstreams?/", href) and ".pdf" in href.lower():
-                return urllib.parse.urljoin(resp.url, href)
+                return self._lembrar_pagina(urllib.parse.urljoin(resp.url, href), resp.url)
 
         # 4) qualquer .pdf na página
         candidatos = [
@@ -209,20 +284,52 @@ class ResolvedorTextoCompleto:
         except ValueError:
             return None
 
+    def _lembrar_pagina(self, url_pdf: str, url_pagina: str) -> str:
+        self._pagina_do_arquivo[url_pdf] = url_pagina
+        return url_pdf
+
+    def _bases_api_dspace7(self, url: str) -> list[str]:
+        """
+        Base(s) da API REST de um DSpace 7. O padrão é `<origem>/server`, mas o site
+        declara a verdadeira em `assets/config.json` (`rest.baseUrl`). Achados reais:
+        patua.iec.gov.br → patuaback.iec.gov.br/server; repositorio.udesc.br →
+        repositorio-api.udesc.br/server; repositorio.bc.ufg.br/tede → .../tedeserver
+        (e a raiz do mesmo site → .../riserver). Endereço interno é descartado.
+        """
+        partes = urllib.parse.urlsplit(url)
+        origem = f"{partes.scheme}://{partes.netloc}"
+        m = re.match(r"^(/[^/]+)/(?:handle|items|entities|bitstreams)/", partes.path)
+        prefixo = m.group(1) if m and m.group(1) not in ("/jspui", "/xmlui") else ""
+        chave = origem + prefixo
+        if chave not in self._apis_dspace7:
+            bases = []
+            for p in dict.fromkeys([prefixo, ""]):
+                config = self._json(f"{origem}{p}/assets/config.json")
+                base = str(((config or {}).get("rest") or {}).get("baseUrl") or "").rstrip("/")
+                if base.startswith("http") and not _endereco_interno(base):
+                    bases.append(base)
+                    break
+            bases.append(f"{origem}/server")
+            self._apis_dspace7[chave] = list(dict.fromkeys(bases))
+        return self._apis_dspace7[chave]
+
     def _descobrir_dspace7(self, url_pagina: str) -> str | None:
-        """Item → pacote ORIGINAL → primeiro arquivo PDF, pela API `/server/api`."""
+        """Item → pacote ORIGINAL → primeiro arquivo PDF, pela API REST do DSpace 7."""
         partes = urllib.parse.urlsplit(url_pagina)
-        base = f"{partes.scheme}://{partes.netloc}/server/api"
-        handle = re.search(r"/handle/(\d[\w.]*/[\w.-]+)", partes.path)
+        # Prefixo de handle nem sempre é numérico: `iec/5439`, `UDESC/20856`.
+        handle = re.search(r"/handle/([\w.-]+/[\w.-]+)", partes.path)
         uuid = re.search(r"/items/([0-9a-f-]{36})", partes.path)
-        if handle:
-            item = self._json(f"{base}/pid/find?id=hdl:{handle.group(1)}")
-        elif uuid:
-            item = self._json(f"{base}/core/items/{uuid.group(1)}")
-        else:
+        if not (handle or uuid):
             return None
-        if not item:
-            return None
+        for base in self._bases_api_dspace7(url_pagina):
+            api = f"{base}/api"
+            item = (self._json(f"{api}/pid/find?id=hdl:{handle.group(1)}") if handle
+                    else self._json(f"{api}/core/items/{uuid.group(1)}"))
+            if item:
+                return self._pdf_do_item_dspace7(item)
+        return None
+
+    def _pdf_do_item_dspace7(self, item: dict) -> str | None:
         pacotes = self._json(item.get("_links", {}).get("bundles", {}).get("href", ""))
         for pacote in (pacotes or {}).get("_embedded", {}).get("bundles", []):
             if pacote.get("name") != "ORIGINAL":
@@ -308,6 +415,13 @@ class ResolvedorTextoCompleto:
         if not primeiro.startswith(CABECALHOS_PDF):
             # Repositório devolveu página de login/erro com status 200.
             parcial.unlink(missing_ok=True)
+            m = _BITSTREAM_DSPACE7.search(url_pdf or "")
+            if m:
+                pagina = self._pagina_do_arquivo.get(url_pdf, url_pdf)
+                for base in self._bases_api_dspace7(pagina):
+                    res = self.baixar(f"{base}/api/core/bitstreams/{m.group(1)}/content", destino)
+                    if res.ok:
+                        return res
             return ResultadoDownload(False, url_pdf=url_pdf, motivo="conteudo_nao_e_pdf")
 
         parcial.replace(destino)
@@ -323,6 +437,7 @@ class ResolvedorTextoCompleto:
         for url in urls_registro:
             if not url:
                 continue
+            url = _sem_barra_dupla(url)
             url_pdf = url if url.lower().split("?")[0].endswith(".pdf") else self.descobrir_url_pdf(url)
             if not url_pdf:
                 ultimo = ResultadoDownload(False, motivo="pdf_nao_localizado")

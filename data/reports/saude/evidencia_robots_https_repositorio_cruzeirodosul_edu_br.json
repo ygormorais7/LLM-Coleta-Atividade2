@@ -1,0 +1,12 @@
+{
+  "dominio": "https://repositorio.cruzeirodosul.edu.br",
+  "robots_txt": "https://repositorio.cruzeirodosul.edu.br/robots.txt",
+  "status_http": 403,
+  "conteudo": "<!DOCTYPE html>\n<html lang=\"pt-BR\">\n\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Opss, pÃ¡gina nÃ£o encontrada!</title>\n    <link rel=\"stylesheet\" href=\"https://static-cdn.cruzeirodosul.edu.br/logos/style.css\" integrity=\"sha384-zHWY8/g06yAJl/P0FRM/gl7hCVwxWaZnI/dq/1GSYuR8EadLeM9+Hqjik+WMDIfV\" crossorigin=\"anonymous\">\n</head>\n\n<body>\n    <section class=\"container\">\n\n        <section id=\"error\" class=\"error\">\n            <img class=\"error__oops\" src=\"https://static-cdn.cruzeirodosul.edu.br/logos/oops.svg\" alt=\"Opps!\">\n            <h2 class=\"error__title\">\n                Oops!... <span>pÃ¡gina nÃ£o encontrada!</span>\n            </h2>\n            <section class=\"error__box\">\n                <p class=\"error__text\">\n                    Por favor, entre em contato com o administrador e informe o cÃ³digo:\n                </p>\n                <p class=\"error__code\">0.5fbd217.1789317322.97c892bb</p>\n            </section>\n            <img class=\"error__logo\" src=\"https://static-cdn.cruzeirodosul.edu.br/logos/logo_educacional_pb.svg\" alt=\"Logo Cruzeiro do Sul Educacional\">\n        </section>\n    </section>\n</body>\n\n</html>",
+  "verificado_em": "2026-09-13T16:35:22.092705+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "http_403",
+    "crawl_delay": null
+  }
+}

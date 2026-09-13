@@ -142,14 +142,13 @@ usuário em `1f2c355` ("primeira rodada"), junto com os consertos 3–7.
 
 Plano completo, com fases e checkboxes: `docs/PLANO_VERSAO_FINAL.md` —
 **ler antes de continuar qualquer trabalho**. Decisões do usuário: crescer
-até 20 mil PDFs usando o inventário da BDTD exportado pelo colega de grupo
-(`../G7-Atividade02-BDTD/inventario_saude.csv.gz`, 183.718 fichas),
+até 20 mil PDFs usando o inventário da BDTD montado pelo grupo
+(`data/externo/inventario_saude.csv.gz`, 183.718 fichas),
 aplicando os filtros de escopo deste projeto; verificação final de PII no
 Curated que para o pipeline com erro. Entrega da disciplina: código +
 relatório de como o pipeline funciona (com o protocolo de coleta); os dados
-NÃO são entregues — prioridade é código correto, testado e reprodutível. O
-colega é do mesmo grupo: código e informação compartilhados, uso liberado
-com crédito. Backup antes das mudanças:
+NÃO são entregues — prioridade é código correto, testado e reprodutível.
+Backup antes das mudanças:
 `~/.vcoleta/backups/{processed,curated}_saude_2026-09-13.tar.gz` (os
 `.zip` na raiz do projeto estão vazios — não são backup).
 
@@ -229,7 +228,33 @@ pré-treino 2.652/150/149; SFT 882/55/41 (978; 220 pares de introdução, 0
 cópias); RAG 155.312 chunks; benchmark 292/292/200. Coleta: 3.596 PDFs
 (UFMG 3.477, UFRN 60, Fiocruz 59). 128 testes. Relatório
 `docs/RELATORIO_ATIVIDADE_02.md` + `.pdf`. Patches e mensagens de commit em
-`~/.vcoleta/backups/patches/`. Coleta até 20 mil **não autorizada** ainda.
+`~/.vcoleta/backups/patches/`.
+
+**Coleta até 20 mil PDFs — AUTORIZADA pelo usuário em 2026-09-13 (~13h).**
+Código novo (145 testes, patch `fase10-coleta20k-codigo.patch`):
+`src/raw/robots.py` (robots.txt pela letra e pelo espírito: veto a robôs de IA,
+desafio anti-robô, bloqueio, 401/403/429/5xx → domínio fora), download
+paralelo por instituição em rodadas de 200, disjuntor por instituição (erro
+> 30% após 20 tentativas), manifesto gravado item a item. Config: meta_pdfs
+20000, 800 candidatos por instituição, UFPR excluída. Etapas em tmux
+`coleta20k`: `logs/coleta20k_1_robots.sh` (evidência de robots.txt) →
+revisar vetos à mão → `logs/coleta20k_2_inventario.sh` (local) →
+`logs/coleta20k_3_download.sh` (rede). Cada etapa grava
+`logs/coleta20k_N_*.status`. Depois: staging/processed/curated e ler textos.
+Andamento: etapas 1 e 2 ok (13:26–13:50). 1ª execução do download
+(13:51–14:40) chegou a 8.748 PDFs e o disjuntor cortou 26 instituições;
+diagnóstico → 19 suspensas no config (`coleta.instituicoes_suspensas`, com
+motivo) e 7 defeitos do coletor corrigidos (DSpace 7 via assets/config.json,
+handle não numérico, bitstream que devolve HTML, metatag com IP:4000, barra
+dupla, desafio anti-robô na página). 155 testes. 2ª execução relançada às
+14:40 no tmux `coleta20k` (monitor com marcador `logs/.reinicio_coleta20k`).
+**Coleta encerrada às 17:45: 15.098 PDFs** (meta reduzida para 15 mil pelo
+prazo, decisão do usuário; 4 execuções, a última com o disjuntor partindo do
+histórico, 156 testes). Staging/Processed/Curated **não** foram refeitos com
+eles: o relatório final usa os números da coleta e mantém corpus e produtos
+dos 3.596 PDFs (decisão do usuário). Relatório reescrito mais objetivo; PDF
+gerado por `docs/gerar_pdf_relatorio.py` (HTML → ODT → PDF, corpo justificado,
+linhas de tabela inteiras, conferência automática de texto cortado).
 Backups do piloto 2: `data/reports/saude/raw_piloto2.json`,
 `data/raw/saude/{manifesto,inventario}.piloto2.jsonl`.
 
@@ -262,3 +287,12 @@ sem ler antes: ele APAGA as quatro camadas de `data/` para gerar dados falsos.
   Eu posso preparar tudo (`git init`, `git add`, redigir a mensagem de
   commit), mas quem roda o `git commit` e o `git push` é o usuário, na
   própria máquina dele — nunca eu pela ferramenta Bash.
+
+## Regras de redação (relatório, protocolo, README, código)
+
+- **O trabalho é do grupo como um todo.** Nada de créditos individuais nem de
+  "o colega fez X": escrever "o grupo", "montado pelo grupo". Nomes só na
+  lista do grupo, em ordem alfabética e com primeiro e último nome:
+  **Eduardo Melo, Otávio França e Ygor Morais**.
+- Relatório final (entrega de 2026-09-14): números da coleta até ~15 mil PDFs;
+  corpus e produtos continuam os do processamento de 3.596 PDFs, declarado.

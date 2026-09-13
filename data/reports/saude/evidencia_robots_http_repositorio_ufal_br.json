@@ -1,0 +1,12 @@
+{
+  "dominio": "http://repositorio.ufal.br",
+  "robots_txt": "http://repositorio.ufal.br/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPConnectionPool(host='repositorio.ufal.br', port=80): Max retries exceeded with url: /robots.txt (Caused by NameResolutionError(\"HTTPConnection(host='repositorio.ufal.br', port=80): Failed to resolve 'repositorio.ufal.br' ([Errno -5] No address associated with hostname)\")))",
+  "verificado_em": "2026-09-13T16:29:53.731798+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

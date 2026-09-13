@@ -1,0 +1,12 @@
+{
+  "dominio": "http://191.252.194.60:8080",
+  "robots_txt": "http://191.252.194.60:8080/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPConnectionPool(host='191.252.194.60', port=8080): Read timed out. (read timeout=30))",
+  "verificado_em": "2026-09-13T16:40:46.836738+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

@@ -124,6 +124,26 @@ def bate_algum_termo(texto: str, termos: list[str], palavra_inteira: bool = Fals
     return any(t in alvo for t in termos if t)
 
 
+def host_interno(url: str) -> bool:
+    """
+    Endereço que não é de repositório público: localhost, IP privado ou vazio.
+    Achado no inventário da BDTD (2026-09-13): links `http://localhost:4000/...`
+    e `http://localhost:8080/...`, de repositórios que publicaram o endereço
+    interno. Pedir isso seria acessar a própria máquina da coleta.
+    """
+    import ipaddress
+    import urllib.parse
+
+    host = (urllib.parse.urlsplit(str(url)).hostname or "").lower()
+    if not host or host == "localhost" or host.endswith(".localhost"):
+        return True
+    try:
+        ip = ipaddress.ip_address(host)
+    except ValueError:
+        return False
+    return ip.is_private or ip.is_loopback or ip.is_unspecified or ip.is_link_local
+
+
 def bate_exclusao(texto: str, termos: list[str], permitidas: list[str] | None = None) -> bool:
     """
     Exclusão de escopo por palavra inteira, depois de apagar do texto as
@@ -285,6 +305,7 @@ def ler_inventario_bdtd(caminho: Path, cfg_fonte: dict,
     caminho = Path(caminho)
     df = pd.read_parquet(caminho) if caminho.suffix == ".parquet" else pd.read_csv(caminho, low_memory=False)
     df = df[df["url"].notna()]
+    df = df[~df["url"].astype(str).map(host_interno)]
     if cfg_fonte.get("somente_acesso_aberto", True):
         df = df[df["direitos"].fillna("").str.lower() == "openaccess"]
     excluidas = {str(i).upper() for i in cfg_fonte.get("excluir_instituicoes", []) or []}

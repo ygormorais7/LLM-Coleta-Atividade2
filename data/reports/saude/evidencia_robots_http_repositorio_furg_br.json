@@ -1,0 +1,12 @@
+{
+  "dominio": "http://repositorio.furg.br",
+  "robots_txt": "http://repositorio.furg.br/robots.txt",
+  "status_http": 403,
+  "conteudo": "<html>\r\n<head><title>403 Forbidden</title></head>\r\n<body>\r\n<center><h1>403 Forbidden</h1></center>\r\n<hr><center>nginx/1.18.0 (Ubuntu)</center>\r\n</body>\r\n</html>\r\n",
+  "verificado_em": "2026-09-13T16:29:49.975417+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "http_403",
+    "crawl_delay": null
+  }
+}

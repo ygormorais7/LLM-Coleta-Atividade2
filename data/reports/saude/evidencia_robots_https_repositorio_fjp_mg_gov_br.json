@@ -1,0 +1,12 @@
+{
+  "dominio": "https://repositorio.fjp.mg.gov.br",
+  "robots_txt": "https://repositorio.fjp.mg.gov.br/robots.txt",
+  "status_http": 403,
+  "conteudo": "<html><body><h1>403 Forbidden</h1>\nRequest forbidden by administrative rules.\n</body></html>\n",
+  "verificado_em": "2026-09-13T16:35:23.822029+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "http_403",
+    "crawl_delay": null
+  }
+}

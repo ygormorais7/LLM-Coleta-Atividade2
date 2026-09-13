@@ -1,0 +1,12 @@
+{
+  "dominio": "http://tede2.espm.br",
+  "robots_txt": "http://tede2.espm.br/robots.txt",
+  "status_http": 200,
+  "conteudo": "User-agent: *\nDisallow: /\n",
+  "verificado_em": "2026-09-13T16:31:13.683205+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "bloqueia_nosso_agente",
+    "crawl_delay": null
+  }
+}

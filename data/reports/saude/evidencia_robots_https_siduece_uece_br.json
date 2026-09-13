@@ -1,0 +1,12 @@
+{
+  "dominio": "https://siduece.uece.br",
+  "robots_txt": "https://siduece.uece.br/robots.txt",
+  "status_http": 200,
+  "conteudo": "<!DOCTYPE html>\n<html lang=\"pt-br\">\n<head>\n\t<meta charset=\"utf-8\">\n\t<title>.:UECE - Página não encontrada:.</title>\n\t<link href='http://fonts.googleapis.com/css?family=Ovo' rel='stylesheet' type='text/css'>\n\t<link rel=\"stylesheet\" type=\"text/css\" href=\"css/404.css\">\n</head>\n<body>\n<div class=\"container\">\n\t<div class=\"logouece\">\n\t\t<p>Universidade Estadual do Ceará</p>\n\t</div>\n\t<div class=\"warning\">\n\t\t<h1>Página não encontrada.</h1>\n\t\t<h2>Verifique se você digitou o endereço correto e tente novamente.</h2>\n\t</div>\n               \t<h3>Em caso de dúvidas, abra um chamado para o Departamento de Tecnologia da Informação e Comunicação - DETIC,<br>\n\t\t<br>\n\t\tenviando um e-mail, a partir de seu e-mail institucional, para atendimentodi@uece.br<br> \n\t\tou<br>\n\t\tacessando a <u>Central de Serviços do DETIC</u> no endereço: <a href=\"https://atendimentodi.uece.br\" target=\"_blank\">https://atendimentodi.uece.br</a></h3> \n</a></h3><br><br><br><br> \n\n        <div class=\"logodi\">\n                <p>Departamento de Tecnologia da Informação e Comunicação</p>\n        </div>\n</div>\n</body>\n</html>\n",
+  "verificado_em": "2026-09-13T16:36:44.419377+00:00",
+  "veredito": {
+    "permitido": true,
+    "motivo": "robots_html_sem_regras",
+    "crawl_delay": null
+  }
+}

@@ -1,23 +1,492 @@
 {
   "camada": "raw",
   "area": "Saúde",
-  "inicio": "2026-09-13T07:47:11.343551+00:00",
-  "fim": "2026-09-13T08:09:17.141329+00:00",
-  "duracao_s": 1325.8,
+  "inicio": "2026-09-13T20:29:03.044727+00:00",
+  "fim": "2026-09-13T20:44:59.931597+00:00",
+  "duracao_s": 956.89,
   "entradas": {
     "fonte_inventario": "inventario",
-    "candidatos": 3756
+    "candidatos": 24988
   },
   "saidas": {
     "metadata_jsonl": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/metadata/registros.jsonl",
-    "registros_coletados": 3756,
+    "registros_coletados": 24988,
     "manifesto": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/manifesto.jsonl",
-    "pdfs_baixados": 3596
+    "pdfs_baixados": 15098
   },
   "metricas": {
-    "bytes_baixados_humano": "451.5 MB",
-    "taxa_resolucao_global": 0.9983,
-    "estratos_com_cota_fechada": "11/15",
+    "instituicoes_suspensas": {
+      "fgv": "repositorio.fgv.br responde com página de desafio anti-robô",
+      "furb": "robots.txt de bu.furb.br proíbe o caminho dos PDFs",
+      "iec": "DSpace 7 com API em outro endereço: mesmo lendo assets/config.json, 0 de 24 (não investigado a fundo)",
+      "kroton": "página do item sem link de PDF (22 candidatos; não investigado)",
+      "m": "dspace.mackenzie.br: página do item sem PDF localizável (7 obtidos em ~50 tentativas)",
+      "puccamp": "links do inventário dão HTTP 404",
+      "pucrio": "maxwell.vrac.puc-rio.br responde HTTP 403 (robots.txt e página)",
+      "ucpel": "tede.ucpel.edu.br responde HTTP 500 na página do item",
+      "uece": "SidUece (JSF): o coletor não reconhece o link do PDF",
+      "ueg": "links do inventário dão HTTP 404 mesmo sem a barra dupla",
+      "ufjf": "repositorio.ufjf.br com certificado TLS inválido",
+      "ufpa": "servidor derruba a conexão ao abrir a página do item",
+      "ufrgs": "lume.ufrgs.br com certificado TLS inválido (a verificação nunca é desligada)",
+      "ufrj": "pantheon.ufrj.br recusa conexão",
+      "ufrrj": "robots.txt de rima.ufrrj.br responde HTTP 403 ao coletor",
+      "uft": "servidor de handles da UFT fora do ar (HTTP 500 'Cannot Connect to Server')",
+      "ufvjm": "links do inventário dão HTTP 404",
+      "unb": "Tainacan (WordPress): o coletor não reconhece o link do PDF",
+      "unicamp": "robots.txt de repositorio.unicamp.br responde HTTP 503",
+      "uninove": "parte dos links do inventário dá HTTP 404 (15 de 24 obtidos, abaixo do protocolo)",
+      "unirio": "handles com prefixo inexistente ('Prefix [unirio] Not Found')",
+      "unisinos": "repositorio.jesuita.org.br responde com página de desafio anti-robô",
+      "univates": "robots.txt de www.univates.br veta robôs de IA"
+    },
+    "por_instituicao": {
+      "accmrg": {
+        "tentados": 11,
+        "obtidos": 10,
+        "taxa": 0.9091,
+        "interrompida": false
+      },
+      "cbm": {
+        "tentados": 24,
+        "obtidos": 24,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "cefet": {
+        "tentados": 6,
+        "obtidos": 6,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "cp": {
+        "tentados": 1,
+        "obtidos": 1,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "cprm": {
+        "tentados": 1,
+        "obtidos": 1,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "embrapa": {
+        "tentados": 9,
+        "obtidos": 8,
+        "taxa": 0.8889,
+        "interrompida": false
+      },
+      "emescam": {
+        "tentados": 20,
+        "obtidos": 20,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "enap": {
+        "tentados": 2,
+        "obtidos": 2,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "est": {
+        "tentados": 9,
+        "obtidos": 9,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "famerp": {
+        "tentados": 619,
+        "obtidos": 613,
+        "taxa": 0.9903,
+        "interrompida": false
+      },
+      "fecap": {
+        "tentados": 10,
+        "obtidos": 10,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "fei": {
+        "tentados": 1,
+        "obtidos": 0,
+        "taxa": 0.0,
+        "interrompida": false
+      },
+      "fiocruz": {
+        "tentados": 849,
+        "obtidos": 842,
+        "taxa": 0.9918,
+        "interrompida": false
+      },
+      "ibict": {
+        "tentados": 14,
+        "obtidos": 10,
+        "taxa": 0.7143,
+        "interrompida": false
+      },
+      "ifal": {
+        "tentados": 3,
+        "obtidos": 3,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ifam": {
+        "tentados": 1,
+        "obtidos": 1,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ifes": {
+        "tentados": 7,
+        "obtidos": 7,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ifmg": {
+        "tentados": 2,
+        "obtidos": 2,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ifpb": {
+        "tentados": 3,
+        "obtidos": 3,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ifpe": {
+        "tentados": 8,
+        "obtidos": 0,
+        "taxa": 0.0,
+        "interrompida": false
+      },
+      "ifro": {
+        "tentados": 1,
+        "obtidos": 1,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ifrs": {
+        "tentados": 1,
+        "obtidos": 1,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "inpa": {
+        "tentados": 3,
+        "obtidos": 0,
+        "taxa": 0.0,
+        "interrompida": false
+      },
+      "ipea": {
+        "tentados": 1,
+        "obtidos": 0,
+        "taxa": 0.0,
+        "interrompida": false
+      },
+      "ital": {
+        "tentados": 2,
+        "obtidos": 2,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "m": {
+        "tentados": 7,
+        "obtidos": 7,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "pucmins": {
+        "tentados": 8,
+        "obtidos": 8,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "pucpr": {
+        "tentados": 33,
+        "obtidos": 32,
+        "taxa": 0.9697,
+        "interrompida": false
+      },
+      "sbibae": {
+        "tentados": 7,
+        "obtidos": 0,
+        "taxa": 0.0,
+        "interrompida": false
+      },
+      "u": {
+        "tentados": 277,
+        "obtidos": 263,
+        "taxa": 0.9495,
+        "interrompida": false
+      },
+      "ucb": {
+        "tentados": 7,
+        "obtidos": 0,
+        "taxa": 0.0,
+        "interrompida": false
+      },
+      "ucs": {
+        "tentados": 80,
+        "obtidos": 77,
+        "taxa": 0.9625,
+        "interrompida": false
+      },
+      "udesc": {
+        "tentados": 25,
+        "obtidos": 15,
+        "taxa": 0.6,
+        "interrompida": true
+      },
+      "uefs": {
+        "tentados": 209,
+        "obtidos": 206,
+        "taxa": 0.9856,
+        "interrompida": false
+      },
+      "uel": {
+        "tentados": 339,
+        "obtidos": 332,
+        "taxa": 0.9794,
+        "interrompida": false
+      },
+      "uem": {
+        "tentados": 488,
+        "obtidos": 463,
+        "taxa": 0.9488,
+        "interrompida": false
+      },
+      "uema": {
+        "tentados": 5,
+        "obtidos": 5,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uenp": {
+        "tentados": 9,
+        "obtidos": 9,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uepb": {
+        "tentados": 574,
+        "obtidos": 560,
+        "taxa": 0.9756,
+        "interrompida": false
+      },
+      "uepg": {
+        "tentados": 2,
+        "obtidos": 2,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uern": {
+        "tentados": 6,
+        "obtidos": 0,
+        "taxa": 0.0,
+        "interrompida": false
+      },
+      "ufal": {
+        "tentados": 279,
+        "obtidos": 272,
+        "taxa": 0.9749,
+        "interrompida": false
+      },
+      "ufersa": {
+        "tentados": 9,
+        "obtidos": 0,
+        "taxa": 0.0,
+        "interrompida": false
+      },
+      "ufes": {
+        "tentados": 191,
+        "obtidos": 174,
+        "taxa": 0.911,
+        "interrompida": false
+      },
+      "ufg": {
+        "tentados": 704,
+        "obtidos": 704,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufgd": {
+        "tentados": 145,
+        "obtidos": 145,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufma": {
+        "tentados": 512,
+        "obtidos": 433,
+        "taxa": 0.8457,
+        "interrompida": false
+      },
+      "ufmg": {
+        "tentados": 3482,
+        "obtidos": 3477,
+        "taxa": 0.9986,
+        "interrompida": false
+      },
+      "ufms": {
+        "tentados": 39,
+        "obtidos": 25,
+        "taxa": 0.641,
+        "interrompida": true
+      },
+      "ufpa": {
+        "tentados": 8,
+        "obtidos": 8,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufra": {
+        "tentados": 6,
+        "obtidos": 0,
+        "taxa": 0.0,
+        "interrompida": false
+      },
+      "ufrn": {
+        "tentados": 698,
+        "obtidos": 697,
+        "taxa": 0.9986,
+        "interrompida": false
+      },
+      "ufrpe": {
+        "tentados": 19,
+        "obtidos": 19,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufs": {
+        "tentados": 800,
+        "obtidos": 800,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufscar": {
+        "tentados": 704,
+        "obtidos": 702,
+        "taxa": 0.9972,
+        "interrompida": false
+      },
+      "ufu": {
+        "tentados": 800,
+        "obtidos": 797,
+        "taxa": 0.9962,
+        "interrompida": false
+      },
+      "ufv": {
+        "tentados": 701,
+        "obtidos": 700,
+        "taxa": 0.9986,
+        "interrompida": false
+      },
+      "uneb": {
+        "tentados": 56,
+        "obtidos": 49,
+        "taxa": 0.875,
+        "interrompida": false
+      },
+      "unesc": {
+        "tentados": 107,
+        "obtidos": 107,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unesp": {
+        "tentados": 800,
+        "obtidos": 800,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unicap": {
+        "tentados": 22,
+        "obtidos": 21,
+        "taxa": 0.9545,
+        "interrompida": false
+      },
+      "uniceub": {
+        "tentados": 8,
+        "obtidos": 0,
+        "taxa": 0.0,
+        "interrompida": false
+      },
+      "unifenas": {
+        "tentados": 161,
+        "obtidos": 161,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unila": {
+        "tentados": 9,
+        "obtidos": 9,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unilab": {
+        "tentados": 63,
+        "obtidos": 60,
+        "taxa": 0.9524,
+        "interrompida": false
+      },
+      "uninove": {
+        "tentados": 15,
+        "obtidos": 15,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unioeste": {
+        "tentados": 500,
+        "obtidos": 497,
+        "taxa": 0.994,
+        "interrompida": false
+      },
+      "unipampa": {
+        "tentados": 104,
+        "obtidos": 87,
+        "taxa": 0.8365,
+        "interrompida": false
+      },
+      "unoeste": {
+        "tentados": 136,
+        "obtidos": 136,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "upf": {
+        "tentados": 416,
+        "obtidos": 416,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uscs": {
+        "tentados": 25,
+        "obtidos": 25,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "utfpr": {
+        "tentados": 208,
+        "obtidos": 207,
+        "taxa": 0.9952,
+        "interrompida": false
+      }
+    },
+    "instituicoes_interrompidas": {
+      "udesc": "15/22 obtidos",
+      "ufms": "25/36 obtidos"
+    },
+    "dominios_vetados_robots": {
+      "repositorio.ufersa.edu.br": "desafio_anti_robo",
+      "saberaberto.uneb.br": "desafio_anti_robo"
+    },
+    "meta_pdfs": 15000,
+    "meta_atingida": true,
+    "bytes_baixados_humano": "1.2 GB",
+    "taxa_resolucao_global": 0.9802,
+    "estratos_com_cota_fechada": "162/405",
     "resolucao_por_estrato": {
       "ufmg|2015-2019": {
         "cota": 2774,
@@ -43,110 +512,635 @@
         "taxa_resolucao": 89.3333,
         "cota_fechada": false
       },
-      "ufrn|2000-2004": {
-        "cota": 1,
-        "obtidos": 1,
-        "tentados": 1,
-        "fila_disponivel": 1,
-        "taxa_resolucao": 1.0,
+      "ufrn|2010-2014": {
+        "cota": 168,
+        "obtidos": 147,
+        "tentados": 8,
+        "fila_disponivel": 168,
+        "taxa_resolucao": 18.375,
+        "cota_fechada": false
+      },
+      "fiocruz|2005-2009": {
+        "cota": 92,
+        "obtidos": 92,
+        "tentados": 0,
+        "fila_disponivel": 92,
+        "taxa_resolucao": 0.0,
         "cota_fechada": true
       },
-      "ufrn|2005-2009": {
-        "cota": 3,
-        "obtidos": 3,
-        "tentados": 3,
-        "fila_disponivel": 3,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
+      "fiocruz|2015-2019": {
+        "cota": 229,
+        "obtidos": 223,
+        "tentados": 7,
+        "fila_disponivel": 229,
+        "taxa_resolucao": 31.8571,
+        "cota_fechada": false
       },
       "fiocruz|1990-1994": {
         "cota": 1,
         "obtidos": 1,
-        "tentados": 1,
+        "tentados": 0,
         "fila_disponivel": 1,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
-      },
-      "fiocruz|1995-1999": {
-        "cota": 1,
-        "obtidos": 1,
-        "tentados": 1,
-        "fila_disponivel": 1,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
-      },
-      "fiocruz|2025-2029": {
-        "cota": 3,
-        "obtidos": 3,
-        "tentados": 3,
-        "fila_disponivel": 3,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
-      },
-      "fiocruz|2015-2019": {
-        "cota": 14,
-        "obtidos": 14,
-        "tentados": 14,
-        "fila_disponivel": 14,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
-      },
-      "fiocruz|2010-2014": {
-        "cota": 14,
-        "obtidos": 14,
-        "tentados": 14,
-        "fila_disponivel": 14,
-        "taxa_resolucao": 1.0,
+        "taxa_resolucao": 0.0,
         "cota_fechada": true
       },
       "fiocruz|2020-2024": {
-        "cota": 14,
-        "obtidos": 13,
-        "tentados": 14,
-        "fila_disponivel": 14,
-        "taxa_resolucao": 0.9286,
-        "cota_fechada": false
+        "cota": 249,
+        "obtidos": 249,
+        "tentados": 0,
+        "fila_disponivel": 249,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": true
       },
-      "fiocruz|2005-2009": {
-        "cota": 13,
-        "obtidos": 13,
-        "tentados": 13,
-        "fila_disponivel": 13,
-        "taxa_resolucao": 1.0,
+      "fiocruz|2010-2014": {
+        "cota": 190,
+        "obtidos": 190,
+        "tentados": 0,
+        "fila_disponivel": 190,
+        "taxa_resolucao": 0.0,
         "cota_fechada": true
       },
       "ufrn|2020-2024": {
-        "cota": 17,
-        "obtidos": 17,
-        "tentados": 17,
-        "fila_disponivel": 17,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
-      },
-      "ufrn|2010-2014": {
-        "cota": 18,
-        "obtidos": 18,
-        "tentados": 18,
-        "fila_disponivel": 18,
-        "taxa_resolucao": 1.0,
-        "cota_fechada": true
+        "cota": 263,
+        "obtidos": 197,
+        "tentados": 14,
+        "fila_disponivel": 263,
+        "taxa_resolucao": 14.0714,
+        "cota_fechada": false
       },
       "ufrn|2015-2019": {
-        "cota": 21,
+        "cota": 308,
+        "obtidos": 244,
+        "tentados": 12,
+        "fila_disponivel": 308,
+        "taxa_resolucao": 20.3333,
+        "cota_fechada": false
+      },
+      "ufrn|2005-2009": {
+        "cota": 94,
+        "obtidos": 92,
+        "tentados": 3,
+        "fila_disponivel": 94,
+        "taxa_resolucao": 30.6667,
+        "cota_fechada": false
+      },
+      "fiocruz|2025-2029": {
+        "cota": 33,
+        "obtidos": 32,
+        "tentados": 1,
+        "fila_disponivel": 33,
+        "taxa_resolucao": 32.0,
+        "cota_fechada": false
+      },
+      "ufrn|2000-2004": {
+        "cota": 6,
+        "obtidos": 6,
+        "tentados": 0,
+        "fila_disponivel": 6,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": true
+      },
+      "fiocruz|1995-1999": {
+        "cota": 8,
+        "obtidos": 8,
+        "tentados": 0,
+        "fila_disponivel": 8,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": true
+      },
+      "ufpa|2020-2024": {
+        "cota": 189,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 189,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufrgs|2010-2014": {
+        "cota": 150,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 150,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "unicamp|2010-2014": {
+        "cota": 130,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 130,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "uece|2000-2004": {
+        "cota": 125,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 125,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufs|2015-2019": {
+        "cota": 361,
+        "obtidos": 361,
+        "tentados": 0,
+        "fila_disponivel": 361,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": true
+      },
+      "ufes|2015-2019": {
+        "cota": 264,
+        "obtidos": 34,
+        "tentados": 11,
+        "fila_disponivel": 264,
+        "taxa_resolucao": 3.0909,
+        "cota_fechada": false
+      },
+      "m|2010-2014": {
+        "cota": 28,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 28,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ucpel|2020-2024": {
+        "cota": 85,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 85,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "unesp|2020-2024": {
+        "cota": 196,
+        "obtidos": 196,
+        "tentados": 0,
+        "fila_disponivel": 196,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": true
+      },
+      "ufpa|2015-2019": {
+        "cota": 210,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 210,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufu|2020-2024": {
+        "cota": 229,
+        "obtidos": 227,
+        "tentados": 2,
+        "fila_disponivel": 229,
+        "taxa_resolucao": 113.5,
+        "cota_fechada": false
+      },
+      "uninove|2015-2019": {
+        "cota": 306,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 306,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufma|2015-2019": {
+        "cota": 235,
+        "obtidos": 127,
+        "tentados": 67,
+        "fila_disponivel": 235,
+        "taxa_resolucao": 1.8955,
+        "cota_fechada": false
+      },
+      "ufms|2015-2019": {
+        "cota": 47,
+        "obtidos": 3,
+        "tentados": 1,
+        "fila_disponivel": 47,
+        "taxa_resolucao": 3.0,
+        "cota_fechada": false
+      },
+      "ufg|2015-2019": {
+        "cota": 283,
+        "obtidos": 244,
+        "tentados": 23,
+        "fila_disponivel": 283,
+        "taxa_resolucao": 10.6087,
+        "cota_fechada": false
+      },
+      "ufrrj|2025-2029": {
+        "cota": 9,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 9,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufgd|2020-2024": {
+        "cota": 46,
+        "obtidos": 46,
+        "tentados": 0,
+        "fila_disponivel": 46,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": true
+      },
+      "uninove|2010-2014": {
+        "cota": 123,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 123,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "uel|2020-2024": {
+        "cota": 704,
+        "obtidos": 205,
+        "tentados": 49,
+        "fila_disponivel": 704,
+        "taxa_resolucao": 4.1837,
+        "cota_fechada": false
+      },
+      "ufms|2010-2014": {
+        "cota": 35,
+        "obtidos": 5,
+        "tentados": 0,
+        "fila_disponivel": 35,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufma|2010-2014": {
+        "cota": 82,
+        "obtidos": 79,
+        "tentados": 3,
+        "fila_disponivel": 82,
+        "taxa_resolucao": 26.3333,
+        "cota_fechada": false
+      },
+      "ufjf|2020-2024": {
+        "cota": 129,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 129,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "u|2020-2024": {
+        "cota": 79,
+        "obtidos": 75,
+        "tentados": 16,
+        "fila_disponivel": 79,
+        "taxa_resolucao": 4.6875,
+        "cota_fechada": false
+      },
+      "ufma|2020-2024": {
+        "cota": 355,
+        "obtidos": 119,
+        "tentados": 76,
+        "fila_disponivel": 355,
+        "taxa_resolucao": 1.5658,
+        "cota_fechada": false
+      },
+      "unipampa|2015-2019": {
+        "cota": 49,
+        "obtidos": 40,
+        "tentados": 9,
+        "fila_disponivel": 49,
+        "taxa_resolucao": 4.4444,
+        "cota_fechada": false
+      },
+      "ufv|2020-2024": {
+        "cota": 202,
+        "obtidos": 201,
+        "tentados": 1,
+        "fila_disponivel": 202,
+        "taxa_resolucao": 201.0,
+        "cota_fechada": false
+      },
+      "uepb|2010-2014": {
+        "cota": 144,
+        "obtidos": 143,
+        "tentados": 1,
+        "fila_disponivel": 144,
+        "taxa_resolucao": 143.0,
+        "cota_fechada": false
+      },
+      "ufu|2015-2019": {
+        "cota": 304,
+        "obtidos": 303,
+        "tentados": 1,
+        "fila_disponivel": 304,
+        "taxa_resolucao": 303.0,
+        "cota_fechada": false
+      },
+      "uece|2020-2024": {
+        "cota": 78,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 78,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufscar|2010-2014": {
+        "cota": 152,
+        "obtidos": 152,
+        "tentados": 7,
+        "fila_disponivel": 152,
+        "taxa_resolucao": 21.7143,
+        "cota_fechada": true
+      },
+      "ufg|2010-2014": {
+        "cota": 300,
+        "obtidos": 246,
+        "tentados": 24,
+        "fila_disponivel": 300,
+        "taxa_resolucao": 10.25,
+        "cota_fechada": false
+      },
+      "pucrio|2020-2024": {
+        "cota": 12,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 12,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "uece|1995-1999": {
+        "cota": 63,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 63,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufrgs|2015-2019": {
+        "cota": 221,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 221,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufscar|2020-2024": {
+        "cota": 314,
+        "obtidos": 233,
+        "tentados": 22,
+        "fila_disponivel": 314,
+        "taxa_resolucao": 10.5909,
+        "cota_fechada": false
+      },
+      "ufpa|2010-2014": {
+        "cota": 235,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 235,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "uem|2020-2024": {
+        "cota": 189,
+        "obtidos": 126,
+        "tentados": 28,
+        "fila_disponivel": 189,
+        "taxa_resolucao": 4.5,
+        "cota_fechada": false
+      },
+      "ufrgs|2000-2004": {
+        "cota": 30,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 30,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufs|2020-2024": {
+        "cota": 189,
+        "obtidos": 189,
+        "tentados": 0,
+        "fila_disponivel": 189,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": true
+      },
+      "unb|2005-2009": {
+        "cota": 37,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 37,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "unicamp|2015-2019": {
+        "cota": 111,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 111,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "unesp|2015-2019": {
+        "cota": 237,
+        "obtidos": 237,
+        "tentados": 0,
+        "fila_disponivel": 237,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": true
+      },
+      "unioeste|2015-2019": {
+        "cota": 160,
+        "obtidos": 159,
+        "tentados": 1,
+        "fila_disponivel": 160,
+        "taxa_resolucao": 159.0,
+        "cota_fechada": false
+      },
+      "famerp|2010-2014": {
+        "cota": 164,
+        "obtidos": 164,
+        "tentados": 0,
+        "fila_disponivel": 164,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": true
+      },
+      "unirio|2015-2019": {
+        "cota": 179,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 179,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "unicamp|1995-1999": {
+        "cota": 48,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 48,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "unesp|2005-2009": {
+        "cota": 123,
+        "obtidos": 123,
+        "tentados": 0,
+        "fila_disponivel": 123,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": true
+      },
+      "uepb|2015-2019": {
+        "cota": 299,
+        "obtidos": 296,
+        "tentados": 3,
+        "fila_disponivel": 299,
+        "taxa_resolucao": 98.6667,
+        "cota_fechada": false
+      },
+      "uel|2025-2029": {
+        "cota": 73,
         "obtidos": 21,
-        "tentados": 21,
-        "fila_disponivel": 21,
-        "taxa_resolucao": 1.0,
+        "tentados": 7,
+        "fila_disponivel": 73,
+        "taxa_resolucao": 3.0,
+        "cota_fechada": false
+      },
+      "uem|2010-2014": {
+        "cota": 238,
+        "obtidos": 117,
+        "tentados": 36,
+        "fila_disponivel": 238,
+        "taxa_resolucao": 3.25,
+        "cota_fechada": false
+      },
+      "uem|2015-2019": {
+        "cota": 267,
+        "obtidos": 121,
+        "tentados": 32,
+        "fila_disponivel": 267,
+        "taxa_resolucao": 3.7812,
+        "cota_fechada": false
+      },
+      "ufscar|2015-2019": {
+        "cota": 226,
+        "obtidos": 209,
+        "tentados": 9,
+        "fila_disponivel": 226,
+        "taxa_resolucao": 23.2222,
+        "cota_fechada": false
+      },
+      "uepb|2020-2024": {
+        "cota": 92,
+        "obtidos": 92,
+        "tentados": 0,
+        "fila_disponivel": 92,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": true
+      },
+      "uece|2010-2014": {
+        "cota": 167,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 167,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufg|2020-2024": {
+        "cota": 117,
+        "obtidos": 114,
+        "tentados": 9,
+        "fila_disponivel": 117,
+        "taxa_resolucao": 12.6667,
+        "cota_fechada": false
+      },
+      "ufes|2020-2024": {
+        "cota": 270,
+        "obtidos": 32,
+        "tentados": 17,
+        "fila_disponivel": 270,
+        "taxa_resolucao": 1.8824,
+        "cota_fechada": false
+      },
+      "ufu|2005-2009": {
+        "cota": 103,
+        "obtidos": 103,
+        "tentados": 0,
+        "fila_disponivel": 103,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": true
+      },
+      "uece|2005-2009": {
+        "cota": 162,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 162,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "unicamp|2020-2024": {
+        "cota": 150,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 150,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "uece|2015-2019": {
+        "cota": 173,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 173,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "unioeste|2020-2024": {
+        "cota": 265,
+        "obtidos": 265,
+        "tentados": 0,
+        "fila_disponivel": 265,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": true
+      },
+      "ufpa|1995-1999": {
+        "cota": 9,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 9,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "unicamp|2000-2004": {
+        "cota": 130,
+        "obtidos": 0,
+        "tentados": 0,
+        "fila_disponivel": 130,
+        "taxa_resolucao": 0.0,
+        "cota_fechada": false
+      },
+      "ufal|2015-2019": {
+        "cota": 142,
+        "obtidos": 140,
+        "tentados": 2,
+        "fila_disponivel": 142,
+        "taxa_resolucao": 70.0,
+        "cota_fechada": false
+      },
+      "upf|2020-2024": {
+        "cota": 110,
+        "obtidos": 110,
+        "tentados": 0,
+        "fila_disponivel": 110,
+        "taxa_resolucao": 0.0,
         "cota_fechada": true
       }
     },
     "falhas_por_tipo": {
       "acesso_restrito": 186,
-      "pdf_nao_localizado": 3,
-      "http_401": 2,
-      "excede_tamanho_maximo": 1
+      "pdf_nao_localizado": 144,
+      "http_404": 81,
+      "http_401": 51,
+      "conteudo_nao_e_pdf": 22,
+      "excecao_download": 8,
+      "excede_tamanho_maximo": 6,
+      "instituicao_interrompida": 2,
+      "bloqueado_ou_erro_rede": 1
     },
-    "total_falhas": 192
+    "total_falhas": 501
   },
   "falhas": [
     {
@@ -1080,14 +2074,469 @@
       "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/725: Acesso restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/br/"
     },
     {
-      "id": "b5b451e57e837fd3",
-      "tipo": "excede_tamanho_maximo",
-      "detalhe": "ufmg|2015-2019|oai:repositorio.ufmg.br:1843/FAEC-86PMFQ"
+      "id": "7964189443ff8b90",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uefs|2015-2019|UEFS_a03726255fd41f93b1ee1b495064f50e"
     },
     {
-      "id": "495577ebefb06dd9",
+      "id": "913d75f8fa57146a",
+      "tipo": "http_404",
+      "detalhe": "pucpr|2015-2019|PUC_PR-29_e03d66c0f626f9df9f29cfb7c81b260b"
+    },
+    {
+      "id": "62e84f64b08fe1ef",
       "tipo": "pdf_nao_localizado",
-      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/61502"
+      "detalhe": "u|2020-2024|UNILASALLE_e3374fe20a90d14d8c887924fc6c25e8"
+    },
+    {
+      "id": "3f72ec5fb1731520",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ibict|2020-2024|IBICT-1_9e86088d6f786a03c137110e198c467e"
+    },
+    {
+      "id": "fcc450812fdbe816",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uefs|2015-2019|UEFS_05841b150b3b1cb439327aab8eb37360"
+    },
+    {
+      "id": "69ec7d4f0fa9895f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ibict|2020-2024|IBICT-1_d6b1f5af71e14e17df0513fcaf5dc2a3"
+    },
+    {
+      "id": "6b36e934e2749067",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "u|2015-2019|UNILASALLE_0732082706adc70e0c881f18018c9b00"
+    },
+    {
+      "id": "80a4afac99dbbb06",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uefs|2015-2019|UEFS_a24181aa6b7c757a2408bba150209c8e"
+    },
+    {
+      "id": "dd1d045a2ec2775c",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2010-2014|UEM-10_eb3314631ce768388407a660ae912442"
+    },
+    {
+      "id": "733c286eabc79892",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "fei|2015-2019|FEI_b855c4a543b7dcb291c691f907ddae72"
+    },
+    {
+      "id": "4ae39b93ca95ae97",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "inpa|2010-2014|INPA-2_69284777a61b5c9f36d3810665bcd38f"
+    },
+    {
+      "id": "7788bc6189405f3a",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ibict|2015-2019|IBICT-1_453ee3fca56231aa1f4a7d6a1ecc3739"
+    },
+    {
+      "id": "683a852ba362f5f4",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "u|2015-2019|UNILASALLE_32e67a998573dba6ae09384f65004acf"
+    },
+    {
+      "id": "bea788ac5eb4dd93",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufersa|2010-2014|UFER_7547dc3003b3462f2f3d79b82fd46ab2"
+    },
+    {
+      "id": "e2eed40027be0999",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufal|2005-2009|UFAL_462ad64e3a0b1ef011ca785e27136a9e"
+    },
+    {
+      "id": "ee9c509c9eddcecf",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "sbibae|2015-2019|HAE-1_bcacc6b272b0d323527cc82455005338"
+    },
+    {
+      "id": "ba909f359ddf862d",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "famerp|2015-2019|FMRP_259b579a598566947bebe52b01369024"
+    },
+    {
+      "id": "4aea1a240b034f4a",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "inpa|2015-2019|INPA-2_578f7394907f9e49aac90af1d901a1fa"
+    },
+    {
+      "id": "2300bfafc7623281",
+      "tipo": "http_404",
+      "detalhe": "ufma|2010-2014|UFMA_87ab30d78d19f51a64251d0ac3f051e8"
+    },
+    {
+      "id": "98883e39d0c72173",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ipea|2015-2019|IPEA_99f7795ba175a3f17630cd83b0a286f4"
+    },
+    {
+      "id": "0242fa8363f3dc46",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "u|2015-2019|UNILASALLE_ebd150b29545a203c9408465f3be5935"
+    },
+    {
+      "id": "1ecc5dbf584cf30e",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2005-2009|UEM-10_f481d19f8373a44f55722651879d82e8"
+    },
+    {
+      "id": "5007780a2d5e9eba",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufersa|2015-2019|UFER_2fda84c4e1719beeab882f93c21859d8"
+    },
+    {
+      "id": "f61a4818b053e049",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "sbibae|2020-2024|HAE-1_ef99280d99f3b22abbf022ea20789b08"
+    },
+    {
+      "id": "9ef60dededfc3a6f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ucs|2015-2019|UCS_d5605c435639fb92d3206e2a38026b68"
+    },
+    {
+      "id": "7be4083d33a9796d",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_e0b70db86c96d9d3940b442b6a27d4b6"
+    },
+    {
+      "id": "b82fabf14df4ad00",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufersa|2015-2019|UFER_98530d35f168ab7d50527aa71e96d8b2"
+    },
+    {
+      "id": "104f09f357abe04e",
+      "tipo": "http_404",
+      "detalhe": "accmrg|2025-2029|ACCMRG_7a43c541bde3c1c79f3db392889d6af4"
+    },
+    {
+      "id": "4260e37a1178868a",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufersa|2020-2024|UFER_c287a0ac480c7ca17f3f003e515407f1"
+    },
+    {
+      "id": "020ca8aa2ed668c6",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufersa|2015-2019|UFER_b58f927a41ce1c78eb5d7063b7a3d569"
+    },
+    {
+      "id": "e2a1830be904c83b",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "sbibae|2025-2029|HAE-1_b9cc154b63209ba7040c9c55da5d8872"
+    },
+    {
+      "id": "e501b609498e8bbd",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "famerp|2005-2009|FMRP_a4205fd4a39b6fc9963e36017236380d"
+    },
+    {
+      "id": "b7fa7aa4bf8c3443",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_64aa0bbc505e5a46755cae4abb050948"
+    },
+    {
+      "id": "e3bfaa13411f0c35",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufersa|2015-2019|UFER_00dc1a89726eee0bef7b671c355c1060"
+    },
+    {
+      "id": "2ddc8a92fd62aed4",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "u|2015-2019|UNILASALLE_cf7473a6e41db97fb69055b9ab5d6490"
+    },
+    {
+      "id": "5b5b804bb4aeaf55",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2010-2014|UEM-10_062659fa9c6b1a2de31abf549642a439"
+    },
+    {
+      "id": "9c37fd350e108e22",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufersa|2010-2014|UFER_98f152263fa51b33955ff55c636e4cdc"
+    },
+    {
+      "id": "b9c7fe4a3b2d6b88",
+      "tipo": "http_401",
+      "detalhe": "uepb|2025-2029|UEPB-2_5c323ca93920bf0a658462cd7a1eefad"
+    },
+    {
+      "id": "e3943ae441b0820e",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufal|2005-2009|UFAL_60ddd7a63a172876bde0d3d82902049c"
+    },
+    {
+      "id": "291c3c63ebe4a8a8",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "sbibae|2020-2024|HAE-1_244a53e4ae6578619bbce398d2be9ed4"
+    },
+    {
+      "id": "841011bcd696c5f0",
+      "tipo": "http_401",
+      "detalhe": "uel|2025-2029|UEL_45bf890d4f7429154aa3bee8c73142d8"
+    },
+    {
+      "id": "9488ebdb8bde3327",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_bdb004ead45c6a7dee1c854a3cfaf990"
+    },
+    {
+      "id": "12b462b3b5d97856",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uneb|2025-2029|UNEB-8_23751c8b7d6f7dca5d082cef3a4bb853"
+    },
+    {
+      "id": "738b51214721a17f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uneb|2020-2024|UNEB-8_f2c8335b6a8f07867cf75f99fd6fc737"
+    },
+    {
+      "id": "6f01ccdc1a4328d6",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uneb|2020-2024|UNEB-8_574d4d711a1f2f501ee70582aed10b27"
+    },
+    {
+      "id": "2000696d15f8c44e",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uneb|2020-2024|UNEB-8_1752dedd493254b5b10a0242fecedd90"
+    },
+    {
+      "id": "269b000dd2a74c48",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uneb|2020-2024|UNEB-8_2d5020d2c81871a6ded89ac1095f2ccb"
+    },
+    {
+      "id": "d2af100e2ca4a043",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uneb|2020-2024|UNEB-8_ec3e7fd536f80a31277bd6d9c4fc8bbd"
+    },
+    {
+      "id": "cf956c00a1da843c",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uneb|2020-2024|UNEB-8_7f9f0831854f81b6bd61b44eaa94c82e"
+    },
+    {
+      "id": "2b85ab8918f43122",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufersa|2015-2019|UFER_10f1d693c121a15dfcf07bb6e683c37d"
+    },
+    {
+      "id": "5ff3876aea708faa",
+      "tipo": "http_401",
+      "detalhe": "fiocruz|2025-2029|CRUZ_911a5ebb70ddb8158598ad541e0d5486"
+    },
+    {
+      "id": "cc855d3d76b65704",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "u|2020-2024|UNILASALLE_9fd9f9a64aa8d427219fc87931ec4f70"
+    },
+    {
+      "id": "06338a2ddb403ee2",
+      "tipo": "bloqueado_ou_erro_rede",
+      "detalhe": "ibict|2015-2019|IBICT_8329fe1ebdb74038dc8ef4984998b7b7"
+    },
+    {
+      "id": "0870d79c5ef521ae",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufu|2020-2024|UFU_ec97cdb46a46e3e4df1f37bf85211218"
+    },
+    {
+      "id": "ff4690f27a8281d5",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "embrapa|2020-2024|EMBR_92f06680b26ac5a4b82f1e98cf785fd3"
+    },
+    {
+      "id": "b35dcdff1e412096",
+      "tipo": "excecao_download",
+      "detalhe": "IFPE_57809925310ea128f481b7e19e16d00f: 'utf-8' codec can't decode byte 0xe1 in position 40: invalid continuation byte"
+    },
+    {
+      "id": "019c75737a4f61d1",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufes|2020-2024|UFES_ca3ccefe7d3d6bba31464cc92901b9bf"
+    },
+    {
+      "id": "178ad6e6818ff2cb",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufal|2005-2009|UFAL_8195afca7eab818eb143ce3ea7f656c4"
+    },
+    {
+      "id": "d4ab04e83855cbaa",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "sbibae|2020-2024|HAE-1_a19eec2fff2ffbc798134d8ff8cc5c7e"
+    },
+    {
+      "id": "c8a08aa8dd74c09e",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_84f6ec1453dbacdf7d080efd55754e58"
+    },
+    {
+      "id": "b215b5b33d518d69",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufersa|2015-2019|UFER_7a9e7e381f39fd3791c71783748babc7"
+    },
+    {
+      "id": "92e47d655dd417a0",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2010-2014|UEM-10_c05ee9418fd98d01351c9f8d8cc6fe8b"
+    },
+    {
+      "id": "e2b0efa5509364fc",
+      "tipo": "excecao_download",
+      "detalhe": "IFPE_1b03add80d3a447b3d6423c0299361a1: 'utf-8' codec can't decode byte 0xe7 in position 47: invalid continuation byte"
+    },
+    {
+      "id": "73b36e045ad6a63b",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "sbibae|2020-2024|HAE-1_4ae031714e7100b39a9c249daf5cc028"
+    },
+    {
+      "id": "5e88db4525cac39c",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ucs|2020-2024|UCS_045bc7f83a063bbf5ed5e391df197bb6"
+    },
+    {
+      "id": "3870cb5e74194304",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_b79d0963ad8035a5110db0d0e8e60a0c"
+    },
+    {
+      "id": "ea8c1d50d9be3b9f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "u|2020-2024|UNILASALLE_a86fbc89e62b636b53e71d7da3b5aed2"
+    },
+    {
+      "id": "94208a029807712b",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "fiocruz|2015-2019|CRUZ_6a229b98f3f1ab72bb12b50432c23d06"
+    },
+    {
+      "id": "e8c79f8d0dc8802f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2005-2009|UEM-10_f40d56df076b6c4bdd3ccf74a1cf60b9"
+    },
+    {
+      "id": "a172b512b7869b6e",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufal|2010-2014|UFAL_8317b7625ba2707fd6b2cc6a2c79e25a"
+    },
+    {
+      "id": "aff15da786d391fb",
+      "tipo": "excecao_download",
+      "detalhe": "IFPE_6a4711cf6286fa195998193207e32941: 'utf-8' codec can't decode byte 0xe7 in position 47: invalid continuation byte"
+    },
+    {
+      "id": "62b5df5a4f98a2a7",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "sbibae|2020-2024|HAE-1_ebf4b5f88dd2df53f015630a9f3f6d7c"
+    },
+    {
+      "id": "1128e20c05636928",
+      "tipo": "http_404",
+      "detalhe": "ufma|2005-2009|UFMA_6d2eca2a1961af9c90f34b1bd690a99f"
+    },
+    {
+      "id": "21a01106cd421e97",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "u|2010-2014|UNILASALLE_e5b504cad1ff0f0c5fdf70192f9f0d04"
+    },
+    {
+      "id": "f85c29ef3d858702",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unilab|2015-2019|UNILAB-1_ac0bf045a5944eaa6fb04fe2cb098e3c"
+    },
+    {
+      "id": "ebe73e7f37bd36e9",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2020-2024|UEM-10_67aa3fdcaea89dbcab5717a64286cc11"
+    },
+    {
+      "id": "f93f117bd64ab351",
+      "tipo": "excecao_download",
+      "detalhe": "IFPE_c95fbbc9921f488aceb329b3c55c3f5d: 'utf-8' codec can't decode byte 0xe7 in position 61: invalid continuation byte"
+    },
+    {
+      "id": "93d75152d119b8bd",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uern|2015-2019|UERN-7_6716a31fc44bcf3c226fa708d164f510"
+    },
+    {
+      "id": "57d29cc6b335be44",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_d53ec16bc837a1db3fbd347a9c253caa"
+    },
+    {
+      "id": "12e22b7187f4fada",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unilab|2020-2024|UNILAB-1_f687244703daa9a02e237322748dbab3"
+    },
+    {
+      "id": "2fb96b57cf8a206c",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uniceub|2015-2019|CEUB_3318e55f612bb30b3288209c82fd5694"
+    },
+    {
+      "id": "485e0ce284a8fc71",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2015-2019|UEM-10_b4b9de1e4f56bf99464933d55bb772eb"
+    },
+    {
+      "id": "4af62cc5c3bacbb5",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uern|2020-2024|UERN-7_4360f28868456b5df880f4f74e92e754"
+    },
+    {
+      "id": "457b1e8f69d4a710",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_b2c45141ae07522d329970f659f29f16"
+    },
+    {
+      "id": "39469c70de50e7ba",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unilab|2020-2024|UNILAB-1_af5d40662f2f3028b0333b48271872c5"
+    },
+    {
+      "id": "35b8c407eb852fc6",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uniceub|2020-2024|CEUB_dffb7847230fb062a3492c9793f0dc7c"
+    },
+    {
+      "id": "2286b61d227ae037",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "fiocruz|2015-2019|CRUZ_450157ce32bdbbe912b02332d9d937d1"
+    },
+    {
+      "id": "d6be6a594c9406ff",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "u|2015-2019|UNILASALLE_0d40b38ad47c9a41a5e2862f72bfd06c"
+    },
+    {
+      "id": "52f95cf0d2fdf563",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uern|2020-2024|UERN-7_4cc9d801c41954df4670c06f19341896"
+    },
+    {
+      "id": "d1f0bbea020a17f2",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ucs|2020-2024|UCS_19a8434914f72ebafff6e6b3127e93f5"
+    },
+    {
+      "id": "34e557323227e929",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_aa3fc7c1506ea9ad88fa27b09f66a318"
+    },
+    {
+      "id": "678a0ff8b73c8e95",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "famerp|2020-2024|FMRP_2a98d976f394a8f5042c84a354bc5f0f"
+    },
+    {
+      "id": "bc97be96de1f57bf",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unicap|2010-2014|UCAP_e65974c3db18946cb86ef3a42207691d"
     },
     {
       "id": "c07a059a98f8c7e3",
@@ -1095,9 +2544,819 @@
       "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/704"
     },
     {
+      "id": "90beebf0763d611b",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uniceub|2015-2019|CEUB_da4c64aa6c3dc3f508e6f1c7ff5f001e"
+    },
+    {
+      "id": "5b9d09a4e8fdc447",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "u|2020-2024|UNILASALLE_71e47c48407930ea594b278a737fec49"
+    },
+    {
+      "id": "e7366bb42868fd1f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2005-2009|UEM-10_2f4e1b647ad8ae900570c7b5f75bc11c"
+    },
+    {
+      "id": "595309cb5bc5ec06",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uern|2020-2024|UERN-7_3f34a8b332d01233a41ca3282102a810"
+    },
+    {
+      "id": "b91efffd130659f2",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_2334e3b2fabc420b087dc986b841f57d"
+    },
+    {
+      "id": "d898a5259f8ac379",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uniceub|2015-2019|CEUB_819708410f8d31177dbf8097e1b4ae4e"
+    },
+    {
+      "id": "fc18bd9d3d0be091",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_be43839e27b108fbcb2a21c976976a21"
+    },
+    {
+      "id": "8a68b9a01bac7e14",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "famerp|2015-2019|FMRP_c2a8b0b39fb2a86795c1a0f1bc3c02e8"
+    },
+    {
+      "id": "b159e58ec6e3d807",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unioeste|2015-2019|UNIOESTE-1_1d919944998c15a1e7bfc79b84edb671"
+    },
+    {
+      "id": "d36f6f600aaeac5d",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "fiocruz|2015-2019|CRUZ_51519e461747e0b36b959dd594317cea"
+    },
+    {
+      "id": "073879a87173d946",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uniceub|2015-2019|CEUB_f496205f7b10bd46ed8f99731f0cd946"
+    },
+    {
+      "id": "239a0c5bca14c8f3",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "u|2015-2019|UNILASALLE_047cf9a8c4e9c504ba2143b064db8d98"
+    },
+    {
+      "id": "93afb88fe235e8b7",
+      "tipo": "excecao_download",
+      "detalhe": "IFPE_154e4ba2e64a83693e8c07645cd1db3b: 'utf-8' codec can't decode byte 0xe3 in position 93: invalid continuation byte"
+    },
+    {
+      "id": "52a83c29055be92f",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_e9f0e8e3b2e2176105342a2b797d25c7"
+    },
+    {
+      "id": "a0991305aee7963c",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "utfpr|2010-2014|UTFPR-12_9db6e0182101f38ecc99a1bab0b1f52e"
+    },
+    {
+      "id": "5b892f9f34d59839",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufra|2010-2014|UFRA-1_c57dfb6efaaca5ad9182a2cac84a483a"
+    },
+    {
+      "id": "a3150ff2e9408ec3",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uniceub|2015-2019|CEUB_8e65ef511a46591c1d6cb91c709f2148"
+    },
+    {
+      "id": "a4eb9de8945b53d2",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unioeste|2025-2029|UNIOESTE-1_2e963fbd3aefb9e1d509bfc9cfd6f568"
+    },
+    {
+      "id": "7e366afc81bbcf5b",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "u|2015-2019|UNILASALLE_c4da1cab574be1e8aaf652c277355217"
+    },
+    {
+      "id": "41075fce2a401e55",
+      "tipo": "excecao_download",
+      "detalhe": "IFPE_994f688b9ab531775940190c5892dca0: 'utf-8' codec can't decode byte 0xe1 in position 41: invalid continuation byte"
+    },
+    {
+      "id": "1c1e54b8ba85c036",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufes|2020-2024|UFES_6bcc59a8d566f12dbe635640d58b5c7a"
+    },
+    {
+      "id": "2a4481fc713f818a",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uern|2020-2024|UERN-7_fac7878858f0d0fedf459e5e5d9313c3"
+    },
+    {
+      "id": "4e4096c331caef21",
+      "tipo": "http_404",
+      "detalhe": "ufma|2010-2014|UFMA_b55e911da5a83e5bf9d6575ffbbf6f2e"
+    },
+    {
+      "id": "2d90603a8811f5f8",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufal|2010-2014|UFAL_85647eb49a9d1c519d3afd60fc174e52"
+    },
+    {
+      "id": "c302c811756e9fa0",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufra|2015-2019|UFRA-1_e266b6eb1dc2fda70755c2885e6737ac"
+    },
+    {
+      "id": "212553645ff55907",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uniceub|2015-2019|CEUB_a634aedc251f44457dadecd06a778440"
+    },
+    {
+      "id": "b1d2e729c0ea4bf0",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unioeste|2025-2029|UNIOESTE-1_dfa62860313e3e7fe1f63f11fd7c07b4"
+    },
+    {
+      "id": "495577ebefb06dd9",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/61502"
+    },
+    {
+      "id": "5ed92ff309a9c368",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2015-2019|UEM-10_a2c712e7884662fa580821f08375436c"
+    },
+    {
+      "id": "2bee7cb56b2a4931",
+      "tipo": "http_401",
+      "detalhe": "uepb|2025-2029|UEPB-2_640d9fdd779d5751041d6a3bc5a8aaf3"
+    },
+    {
+      "id": "e739de4634142695",
+      "tipo": "excecao_download",
+      "detalhe": "IFPE_307098c8eebae65fc8a312ccdfa13263: 'utf-8' codec can't decode byte 0xe7 in position 59: invalid continuation byte"
+    },
+    {
+      "id": "a4683380a628c66b",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uern|2020-2024|UERN-7_4cc79b67bce35d7a686016912df7bb23"
+    },
+    {
+      "id": "bbea2eb95ab47144",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_20d088bd6d2db08cb4a65b5cd6a68b5f"
+    },
+    {
+      "id": "c4e1a7b9a823b166",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufal|2015-2019|UFAL_910532835c8aa86bdf77e6d782e3a2f4"
+    },
+    {
+      "id": "573f4b727dd59ff1",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufra|2020-2024|UFRA-1_86c7cb2bc984bff1b5a06006fc747d64"
+    },
+    {
+      "id": "6be2c93e75a6a623",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uniceub|2015-2019|CEUB_9d8582b125c784f8d019a684220322f9"
+    },
+    {
+      "id": "d1977eec6e0056c6",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2010-2014|UEM-10_2e0ee696277cc1ad6b6bd5831341c8a8"
+    },
+    {
+      "id": "e5d7f991d20d8ba6",
+      "tipo": "http_401",
+      "detalhe": "uepb|2025-2029|UEPB-2_a2d63976c67395d8016c54a84d55b4fe"
+    },
+    {
+      "id": "85f60819b9db402a",
+      "tipo": "excecao_download",
+      "detalhe": "IFPE_10d01c1fa740dd046b6d10bd73deed99: 'utf-8' codec can't decode byte 0xe7 in position 50: invalid continuation byte"
+    },
+    {
+      "id": "c672f657603091fc",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_49a39ed32bba6c12581b21e182b0b70e"
+    },
+    {
+      "id": "e04ca34bdd1fc869",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufra|2015-2019|UFRA-1_58fbd4bbf3ddc06a236bd68f5fc42f4e"
+    },
+    {
+      "id": "7ae6ac5efc77a9f0",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufv|2020-2024|UFV_512e78ef46059afd74f4686e5ee72b00"
+    },
+    {
+      "id": "a065fb02f27941d2",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2005-2009|UEM-10_12fb53806c5c7f6ed5961d0466c225c5"
+    },
+    {
+      "id": "838033f1d802d682",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_ee1b355ada77d449a9ce3908bc8cdf79"
+    },
+    {
+      "id": "86b89c1aaade665b",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufal|2015-2019|UFAL_ce934cb2e97c4b4628b39931620d242a"
+    },
+    {
+      "id": "6dee0a1423fe9578",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_bc0d4372c22ae8d12dc84e99df57f237"
+    },
+    {
+      "id": "63b2a8b0be95c352",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "famerp|2005-2009|FMRP_9d9673d0d393ef8aa7622200653bf063"
+    },
+    {
+      "id": "fa7a5138ec7e8660",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_06e3a848b2255f34aff23e257a2831c1"
+    },
+    {
+      "id": "b2ec217c916d5178",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufra|2015-2019|UFRA-1_24b161921fe07c6551e95286c26d605a"
+    },
+    {
+      "id": "ba9ef9ba9ddeec7c",
+      "tipo": "http_401",
+      "detalhe": "ufes|2015-2019|UFES_092a644085132f587c4eec13eb0d1f5f"
+    },
+    {
+      "id": "25322042ecad45bc",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_d87d0481c5f964cff47d2c639a661fa9"
+    },
+    {
+      "id": "7bd9c01a05a0176a",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "famerp|2015-2019|FMRP_0e9974823ea353732eb7309502df07f4"
+    },
+    {
+      "id": "1238b0e2545ad45d",
+      "tipo": "http_401",
+      "detalhe": "udesc|2000-2004|UDESC-2_c568f53caf63550a92e7c9945c47eed3"
+    },
+    {
+      "id": "9f354d4de908ceaf",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufra|2015-2019|UFRA-1_0ea21603feb01a5cbcb70bb4c887e0e7"
+    },
+    {
+      "id": "c7a3df6ef64cfcba",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufrn|2020-2024|UFRN_858a99db3294938893922bcba8155efb"
+    },
+    {
+      "id": "0afb349be91d2cac",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2015-2019|UEM-10_09eece1fcc116b2db0cf20e119fdf7f5"
+    },
+    {
+      "id": "df7185c3833c00d2",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_83ac87ba82216343b956e5c274245161"
+    },
+    {
+      "id": "b0277edd78af6403",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufscar|2015-2019|SCAR_18cc8af40e6b364a29d46078211c30cb"
+    },
+    {
+      "id": "544beb3e7e1d4190",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "inpa|2010-2014|INPA-2_87d159b7ca4dcb48140e3281b52bd5e8"
+    },
+    {
+      "id": "657e7b7ca9277d64",
+      "tipo": "http_401",
+      "detalhe": "udesc|2005-2009|UDESC-2_261fa2a90502ac45655f3c140a9e7edf"
+    },
+    {
+      "id": "399bfb694630bea2",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_b5e2fe2dafae40479f6b68f9fda4cceb"
+    },
+    {
+      "id": "dee09ddd92b3a224",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2015-2019|UFMS_17c2c0b8205d7ba0bfc2d75d95143ba0"
+    },
+    {
+      "id": "2de64705923b4338",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "uem|2010-2014|UEM-10_4a015064153c127a050322d2d87105da"
+    },
+    {
+      "id": "f512202d7aba2efe",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2015-2019|UEM-10_14a7e6a41ff4a5cfc40749acc9baec1b"
+    },
+    {
+      "id": "0b0ce7b1e0c6e48e",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_1713d959db65cd0d0029297c57b23c2c"
+    },
+    {
+      "id": "c5b884fcc167854d",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "udesc|2025-2029|UDESC-2_dda09594ce68f7bf0f194f8f18858308"
+    },
+    {
+      "id": "237ed4470ae9edda",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2020-2024|UFMS_ea819f5add65d50326216394ba66e5ab"
+    },
+    {
+      "id": "37fc0e5ce26900a7",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_29f358ffb275bdf52115d35f29ea9239"
+    },
+    {
+      "id": "4a31887d08033602",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2025-2029|UFMS_fdc7a07e32835e3edcc3f8ff40842fe8"
+    },
+    {
+      "id": "78135b56ebbe6f2f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufes|2020-2024|UFES_cc6eedea04890ea3cf57bd1e8c2c62a0"
+    },
+    {
+      "id": "7af5a2b2d9359aa9",
+      "tipo": "http_401",
+      "detalhe": "udesc|2015-2019|UDESC-2_123c146171ec08be4634e7468820a940"
+    },
+    {
+      "id": "d1fe46ddb879b81b",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_bbb82ea4e5ab4f305943cd6f74631f17"
+    },
+    {
+      "id": "3eb2029c427a46b9",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_bc8aa8103632e40ee6ce4c984ea02de5"
+    },
+    {
+      "id": "ca2819a9a77a7780",
+      "tipo": "http_401",
+      "detalhe": "uel|2025-2029|UEL_6c42d8546a0335d6dfa2627221e94aa9"
+    },
+    {
+      "id": "2174485c0724cd7f",
+      "tipo": "excede_tamanho_maximo",
+      "detalhe": "uepb|2015-2019|UEPB-2_ee7a71a8e9660bf54ed2542260623449"
+    },
+    {
+      "id": "19aa18881f01a152",
+      "tipo": "http_401",
+      "detalhe": "uel|2025-2029|UEL_019de065d069a4691b145fb41a9ae7d8"
+    },
+    {
+      "id": "ac4435687631d112",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2005-2009|UEM-10_1c5a19beeae89bd126bd6660d5bc82d7"
+    },
+    {
+      "id": "28c62dfb120d71ce",
+      "tipo": "http_401",
+      "detalhe": "udesc|2010-2014|UDESC-2_860f736f4ab5452a0a607b52c10d2f15"
+    },
+    {
+      "id": "51c56c10a3991ecc",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2020-2024|UNIP_1f3ebf2d7572524678c4c61d04cf1bc6"
+    },
+    {
+      "id": "29924e1ee37b06e5",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_0fedbaaa96e83f72db73807ef112b98b"
+    },
+    {
+      "id": "3706308595d1d92a",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2025-2029|UNIP_d3b1a5496195d6d2890d2660af7770d6"
+    },
+    {
+      "id": "b01b95c9753ee667",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2015-2019|UNIP_823f5afc82056aca4bcb6cc2a3480e9f"
+    },
+    {
+      "id": "db4be6639c577337",
+      "tipo": "http_401",
+      "detalhe": "uepb|2025-2029|UEPB-2_d05092e49915440ff4e8856c7ae17f22"
+    },
+    {
+      "id": "b79d289283f266e9",
+      "tipo": "http_401",
+      "detalhe": "uepb|2025-2029|UEPB-2_caf0b193621c5d85b79b6b2171dfd729"
+    },
+    {
+      "id": "98c2d36cb24f5dc5",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_01f56f909e5d147af6f5e413918abc27"
+    },
+    {
+      "id": "e01e6eb215918a33",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_934969c5d7cf665bd646ad39bbf5738a"
+    },
+    {
+      "id": "78df0313619af8ef",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_81e9406cdc9f08f4ca90d6169b49e1b1"
+    },
+    {
+      "id": "9514804a74589d16",
+      "tipo": "excede_tamanho_maximo",
+      "detalhe": "uepb|2015-2019|UEPB-2_8336c3833c4abd9a90e318abacbd9b35"
+    },
+    {
+      "id": "3bb9d0bde9ca6e65",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufes|2020-2024|UFES_15be3263e85264b4a9033c6cba5852c2"
+    },
+    {
+      "id": "751b58d316ea95c5",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_b9b2d7633eb683b454f8322f735f68ca"
+    },
+    {
+      "id": "e33b676f2824285a",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2005-2009|UEM-10_5fd4fb7371584037357a50df43b8f25c"
+    },
+    {
+      "id": "470f0605b54fc960",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufes|2020-2024|UFES_c8486995939e42b330cd8e2c83138c7a"
+    },
+    {
+      "id": "1d345dee5e90a69c",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_5796fb7f8404bf70b2329dbf873385ec"
+    },
+    {
       "id": "81773724dc66f959",
       "tipo": "http_401",
       "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/4620"
+    },
+    {
+      "id": "a4bbf2a23eba3b80",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufes|2020-2024|UFES_4bdaa3fb201cd11812b351ad58f9db8c"
+    },
+    {
+      "id": "c244ef89e8a94dd1",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_02e1c3f8523c3b5aa1841284bf886414"
+    },
+    {
+      "id": "7d313446f3010068",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ucb|2015-2019|UCB-2_ab604d99386f99558e9366a65cf8ea34"
+    },
+    {
+      "id": "3e69346e7a30f8e3",
+      "tipo": "http_401",
+      "detalhe": "udesc|2015-2019|UDESC-2_059b5a4c8f0c1b882c513ac5276d61d0"
+    },
+    {
+      "id": "d7ef2a64bd21059d",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ucb|2015-2019|UCB-2_6a168e2ecff06588073a7c8014c948d0"
+    },
+    {
+      "id": "5e279608548d0862",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ucb|2015-2019|UCB-2_2a32e0d277fbf0ad8a8a198fcf680584"
+    },
+    {
+      "id": "f4e9d314c0c4a2fe",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2010-2014|UEM-10_e97c8c89038b122f11f3ccce61fb0e2e"
+    },
+    {
+      "id": "d567b413af6622f3",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ucb|2015-2019|UCB-2_2c39bfd96b9ae586ce0d2f15124f42eb"
+    },
+    {
+      "id": "602b29d52c008572",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2015-2019|UNIP_1c87949cf5a7a98994acb64609d1004e"
+    },
+    {
+      "id": "0515648fe7468ab0",
+      "tipo": "http_401",
+      "detalhe": "uepb|2025-2029|UEPB-2_b029ba3063854da58e662dc2e5d04a93"
+    },
+    {
+      "id": "94742932311201bd",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_e676e6a739ae49dd96bf6455fa613769"
+    },
+    {
+      "id": "260f22ef83c7e207",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2015-2019|UNIP_bf9c21ac8067a30f5a374aa1d75c79c2"
+    },
+    {
+      "id": "ed37ee76c8a6fbdc",
+      "tipo": "excede_tamanho_maximo",
+      "detalhe": "uepb|2015-2019|UEPB-2_0b67405d21cb2c3210f0db88cf091d90"
+    },
+    {
+      "id": "cbd8097d12c19d3f",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_8d94eb7b487f8ba3c42ded60222525e9"
+    },
+    {
+      "id": "3761dc184d75d913",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2020-2024|UFMS_c9de32a4dd17408a5b2e77ebc3ed0829"
+    },
+    {
+      "id": "396cffc8a60dbad4",
+      "tipo": "http_401",
+      "detalhe": "udesc|2010-2014|UDESC-2_e0781a6d28d01cc4a6b126dd2f38f723"
+    },
+    {
+      "id": "udesc",
+      "tipo": "instituicao_interrompida",
+      "detalhe": "15/22 obtidos"
+    },
+    {
+      "id": "958a87606b4fcafa",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2020-2024|UFMS_0ba6e03ba7d16dd319a73e10de698a74"
+    },
+    {
+      "id": "cf1754b1af3dc7b6",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2020-2024|UFMS_e783e084cd9000dc56662b49bf6e52d1"
+    },
+    {
+      "id": "079498db92e5cd77",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2010-2014|UEM-10_b992eee918166073e6a49c470ad68b94"
+    },
+    {
+      "id": "f265f574a451cadb",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_c7d698e80d10b79c89d2273177e5ccc9"
+    },
+    {
+      "id": "8576562ce640b6bf",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2020-2024|UFMS_6bcdd06b960fb61a14ec3e007117a9d3"
+    },
+    {
+      "id": "2a83dc749b19ed29",
+      "tipo": "http_401",
+      "detalhe": "udesc|2015-2019|UDESC-2_3ebdb83ba47a830a7f20470130efd300"
+    },
+    {
+      "id": "20ac0552295a7389",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_f2fb16b18626ed365231941e96dd2d01"
+    },
+    {
+      "id": "088589f03daa2dee",
+      "tipo": "http_401",
+      "detalhe": "udesc|2025-2029|UDESC-2_3d6a6e0bf4d6de4c715df22149612766"
+    },
+    {
+      "id": "47e9d21f547fb59c",
+      "tipo": "http_401",
+      "detalhe": "uepb|2025-2029|UEPB-2_b881770126383cbe9e8fb5ce9b04cde4"
+    },
+    {
+      "id": "9fd6f482217be516",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "udesc|2025-2029|UDESC-2_6a3cce0cd2b2d4bf3c05c0acb741a9e8"
+    },
+    {
+      "id": "2fb2fede0f1c2408",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_7eccdf5071283a3e5ca9ae846440afe0"
+    },
+    {
+      "id": "32bc54910c8e0fd3",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufu|2020-2024|UFU_c8f6c96afde925683a2161e692822521"
+    },
+    {
+      "id": "67af7b4ae82fdd87",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2020-2024|UFMS_a4b0bf170ff1eab9512b073af0ab4628"
+    },
+    {
+      "id": "7439477a3b64c2d2",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2025-2029|UFMS_644e29f62c50e107c273f203be9f4177"
+    },
+    {
+      "id": "e671adaadd376278",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_de07fca99fed4eeec950eef99b26423c"
+    },
+    {
+      "id": "1a93629c99ae5ccd",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2020-2024|UFMS_aa6f445328421e21b89a62861a9cdc81"
+    },
+    {
+      "id": "0894e134713812b0",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "fiocruz|2015-2019|CRUZ_b612d23ea2a8516c0368dabb0ddd626c"
+    },
+    {
+      "id": "af503aa59f32501d",
+      "tipo": "http_401",
+      "detalhe": "uepb|2025-2029|UEPB-2_29d0fcd48c2055faa7d03dd4fe23f2ec"
+    },
+    {
+      "id": "3e054ba5247a7ff7",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2020-2024|UNIP_8b8f4f80607523b5cb3adb2bed4c339e"
+    },
+    {
+      "id": "b01153993bc88523",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2015-2019|UEM-10_4e518d05f7b458c64986ee961e2ea297"
+    },
+    {
+      "id": "41a92fde94a869e3",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufes|2010-2014|UFES_4b108ad64f831098b767af20a03c3b26"
+    },
+    {
+      "id": "c6b8fb8ff325b2bb",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_9cce4ed714a72ca499410e8ae2eb8152"
+    },
+    {
+      "id": "a9ab864a5c168c51",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2015-2019|UNIP_1a4fe57c1d07ff38f6793ba0c008b2bc"
+    },
+    {
+      "id": "8870d958c78054e1",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ucb|2015-2019|UCB-2_461948a0183a6b85abdafd61fc806eb0"
+    },
+    {
+      "id": "dd47b1d8ab34b62a",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ucb|2015-2019|UCB-2_6b4c1553ebb8b070f2b884e072770ad4"
+    },
+    {
+      "id": "675c9fafc95feafb",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ucb|2015-2019|UCB-2_91a9cd929b7614edff21622d7578d395"
+    },
+    {
+      "id": "7cf64050105d0170",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "fiocruz|2015-2019|CRUZ_b7c3f010178fade0cf74df1a73857c02"
+    },
+    {
+      "id": "462090591a591be4",
+      "tipo": "http_401",
+      "detalhe": "uepb|2025-2029|UEPB-2_f2c3828cfbcaa999129cf0ff515d982e"
+    },
+    {
+      "id": "1ca7768b3ac84954",
+      "tipo": "http_404",
+      "detalhe": "ufma|2010-2014|UFMA_61016659a122290efd605c46a06ed7e9"
+    },
+    {
+      "id": "37fe365ba40954a3",
+      "tipo": "excede_tamanho_maximo",
+      "detalhe": "fiocruz|2015-2019|CRUZ_ba3032f049497b8a78562e31921f3ab2"
+    },
+    {
+      "id": "6404b52b0b70842f",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2005-2009|UEM-10_c7b37ade551d16211a2b278ab9464f29"
+    },
+    {
+      "id": "36f5e4f19ef91317",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_7459e901f77a07b50cd8f947b1fd8343"
+    },
+    {
+      "id": "0d0f34b0e125d77d",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2020-2024|UFMS_f1e7d7afb20a586ec6386f7be02b8191"
+    },
+    {
+      "id": "ufms",
+      "tipo": "instituicao_interrompida",
+      "detalhe": "25/36 obtidos"
+    },
+    {
+      "id": "c1b55a0608d50369",
+      "tipo": "http_401",
+      "detalhe": "uepb|2025-2029|UEPB-2_415adda2ffbc950f4ef602ca1c213263"
+    },
+    {
+      "id": "acc06bb4b83fc119",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_d570f439330184af670335f409b5bdc2"
+    },
+    {
+      "id": "75ebdcac58f4414b",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_a61d531c0663b8fb008312f2138a41d9"
+    },
+    {
+      "id": "5f86800ba3fd4fb2",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2020-2024|UNIP_d4688bcaf5753d84ead23f370f5a1e4b"
+    },
+    {
+      "id": "2c2fdd748307643e",
+      "tipo": "excede_tamanho_maximo",
+      "detalhe": "ufscar|2020-2024|SCAR_b271f84f83c7693f95670eb0739f25f5"
+    },
+    {
+      "id": "d2878b4f8ac1c7f7",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2025-2029|UFMS_227e57bfef1d0d462ac78e37c9139abb"
+    },
+    {
+      "id": "953322c303cffc93",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2015-2019|UNIP_f51c719e608a5fd91671b3fe57f2906c"
+    },
+    {
+      "id": "28b3b22f29df3c40",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uepb|2010-2014|UEPB-2_1cb3fc5f80eedb635051ba3dfcc6cf4b"
+    },
+    {
+      "id": "4d9415727e769cd4",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_f9a694b8d7d44fe08fe6dbe2ee975c39"
+    },
+    {
+      "id": "d38ec613a28ed550",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2020-2024|UFMS_7bdf8d760a62dd6ee57cd1f9e58dc1ab"
+    },
+    {
+      "id": "d2dc803d2dd7ddec",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_19ea351c7f2ab664ace8b2b5bc54fed2"
+    },
+    {
+      "id": "123d3f23627b8900",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufms|2025-2029|UFMS_ee8e47a19b104d700276d9f9b467fd42"
+    },
+    {
+      "id": "acd69e7f2d2aae08",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_a9b493cb79faad6301dfa8a20c3e3bc5"
+    },
+    {
+      "id": "5726ffa86125ec4e",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "u|2015-2019|UNILASALLE_48297a950c0665910b2622ada5dce4df"
+    },
+    {
+      "id": "c0b2fdba76ec6f3b",
+      "tipo": "http_401",
+      "detalhe": "uel|2025-2029|UEL_1f2714c9f972dfa3b22d15fd0009a1d4"
+    },
+    {
+      "id": "891749ccca907642",
+      "tipo": "http_401",
+      "detalhe": "uel|2025-2029|UEL_ece579b1a63b4460ae0f41917cb36545"
+    },
+    {
+      "id": "98328003d26efc44",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_fa84f3f35c50dd758b4ba68aea2723fa"
+    },
+    {
+      "id": "ffb1d7f86389fcc6",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2015-2019|UNIP_da0ea866f211812e275c03e1701ceebc"
     },
     {
       "id": "fc44ec2339481e13",
@@ -1105,9 +3364,289 @@
       "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/4652"
     },
     {
-      "id": "ef5c00fec55e5bc2",
+      "id": "012d38648f033ca7",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_b7d4d07d36e9ac084710c76fcef486fb"
+    },
+    {
+      "id": "6c5fe52c6c655cfe",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_28c96db81c5ee2c0051cbd6ba123e9a2"
+    },
+    {
+      "id": "3214df37fccd198f",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_015d18c17bb97e17bfd7df5c5be33ea1"
+    },
+    {
+      "id": "4fcf66522dc76c1b",
       "tipo": "pdf_nao_localizado",
-      "detalhe": "fiocruz|2020-2024|CRUZ_7073aca2a681088708f45f69ec3831ea"
+      "detalhe": "uem|2010-2014|UEM-10_bdba67e337653cda8319e2aecd60b37d"
+    },
+    {
+      "id": "825245da38840401",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2020-2024|UNIP_a93ae88dd0ec9ca8317c5b7a7ab30add"
+    },
+    {
+      "id": "1953e24c497a918c",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_62d1bdfa9855893ccccbd03eabfd8cbb"
+    },
+    {
+      "id": "abe6ad0a94cbe915",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_0caa3ac9228534d8b8af5225ae188f7d"
+    },
+    {
+      "id": "e93d00333f417a88",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufes|2005-2009|UFES_3ec00547f7ef48e7dbda44a1b2d18ff7"
+    },
+    {
+      "id": "cc9558ecebc63260",
+      "tipo": "http_401",
+      "detalhe": "ufes|2015-2019|UFES_0dab78ee7dc83dfc96b0d79458b2139b"
+    },
+    {
+      "id": "a33e244a450caae5",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_532d7c38984d5747ef6cd194b3e0e1ea"
+    },
+    {
+      "id": "25d85d4c2459a198",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2015-2019|UNIP_c5440f1ac9bc0577bf6cfb6a2c4d1ec5"
+    },
+    {
+      "id": "9d2bb20b9333af49",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2015-2019|UNIP_55a2939e0032783300d77115ae5d5fc1"
+    },
+    {
+      "id": "f2cb8fd541f092f0",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "u|2015-2019|UNILASALLE_07980d1455e1e38a070b7acac368193f"
+    },
+    {
+      "id": "d3e63a05aac22725",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2010-2014|UEM-10_c0c7257c42096757718091caa27f1037"
+    },
+    {
+      "id": "450a571ea36ba859",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_15b286f19964988925941af1c600cf7d"
+    },
+    {
+      "id": "82bd27f666634afd",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2020-2024|UNIP_7adc1e8ac7b720f4e930366f1f11d9fa"
+    },
+    {
+      "id": "371419f3cf80460e",
+      "tipo": "http_404",
+      "detalhe": "ufma|2025-2029|UFMA_b1c4f581fdaf8457f527637e4bbf75d6"
+    },
+    {
+      "id": "2cd47ca945d6d84e",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2010-2014|UEM-10_7a5f7ed0bcc305a6e256d7f98fac43fb"
+    },
+    {
+      "id": "5fff0198ffa0f8cd",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_50b3f78dc228eec8e57b50eeadc4750b"
+    },
+    {
+      "id": "0c48183766108a1b",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_5b72c29f43330a55a3435fcb589daa52"
+    },
+    {
+      "id": "4c23373f7cc503c8",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2020-2024|UNIP_557ee7573703b9b466c2d66b63dfbf7b"
+    },
+    {
+      "id": "de6c7e7794188281",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2015-2019|UNIP_7e68234e2ba7095ff1dbfeddd90bcf23"
+    },
+    {
+      "id": "4682e97ccc2424ac",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2015-2019|UEM-10_57355b6220fbf1fa64b5f7403f731db1"
+    },
+    {
+      "id": "97f97f5e4e733123",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_11cf638a0948957d9cd131b7fd64130d"
+    },
+    {
+      "id": "1b1a5e354d5df285",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_2be92cb4350943711dbf191d01b51203"
+    },
+    {
+      "id": "5f629df0e252a9cf",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_1a78bb09cc1631e0511f0b37d2b88a14"
+    },
+    {
+      "id": "9d7c73c4b2894159",
+      "tipo": "http_401",
+      "detalhe": "unipampa|2020-2024|UNIP_87630d7b4d135726cf59ad2f95d8e661"
+    },
+    {
+      "id": "441364e0a7b0ddd4",
+      "tipo": "conteudo_nao_e_pdf",
+      "detalhe": "ufu|2015-2019|UFU_e977c91297dd3b6ba7fe428224bb1b7f"
+    },
+    {
+      "id": "a15c763feda4d438",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_49e7d5ceb8ad39d1b343af6c0a9fda72"
+    },
+    {
+      "id": "1b6596f3afa934fc",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_09be3219df7fed914e36ec0ae68140af"
+    },
+    {
+      "id": "03b2ff6198aaa49b",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_dc39c93d6cedd054067137a7e0097e29"
+    },
+    {
+      "id": "b5b451e57e837fd3",
+      "tipo": "excede_tamanho_maximo",
+      "detalhe": "ufmg|2015-2019|oai:repositorio.ufmg.br:1843/FAEC-86PMFQ"
+    },
+    {
+      "id": "f407cb00317f982c",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_04fb692d3b87766587df6c86144b8e94"
+    },
+    {
+      "id": "2e6cb3ed3927b939",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "uem|2010-2014|UEM-10_e6979124825198b9ddf2de95af0de4d6"
+    },
+    {
+      "id": "970d609cf95fbe10",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_fdc5a20a257ad6875d7df7cd4342f7b5"
+    },
+    {
+      "id": "5765dc4cd1918e7f",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_14837eeeb2c24e7d98a8946557b68515"
+    },
+    {
+      "id": "90ee21391f54ef40",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_90d3dceb3409e03299b9b343db78ba99"
+    },
+    {
+      "id": "a32da986c896e3a8",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_f52cc52ddae974f26454f6ac4b0218f5"
+    },
+    {
+      "id": "97ecafec28859054",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_41d75b82d506b0da0f98d53cde52b0eb"
+    },
+    {
+      "id": "60a29addf44b67b4",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_647f4d5e08a87d349d03765fbc2c7e08"
+    },
+    {
+      "id": "96b1156de6faacd4",
+      "tipo": "http_401",
+      "detalhe": "uel|2025-2029|UEL_9fda761ef9558099e1cf81053f6e7c03"
+    },
+    {
+      "id": "e08a8d8e1587c5fd",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_a2ba7af29808b8702e647c3a3fbc4ece"
+    },
+    {
+      "id": "582b634dce668011",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_7e6623a5a111530e4732dadb20fc9830"
+    },
+    {
+      "id": "c3d850ccb025a5ce",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_2c24e08ed7bade27a83862e46a2b2bb2"
+    },
+    {
+      "id": "3d50b0aa0874eb47",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_5fd26675cbf28195c73eb6e17fe09d46"
+    },
+    {
+      "id": "3f66b58588531b11",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_47c635bee69e402ea11b6e03a810bf6c"
+    },
+    {
+      "id": "7b3b5e462d0402dc",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_7c047b93b2697a038272e9295748bd7d"
+    },
+    {
+      "id": "f69119b69db9bb25",
+      "tipo": "http_404",
+      "detalhe": "ufma|2015-2019|UFMA_ea20679c2cec7efaee3d41158a07d868"
+    },
+    {
+      "id": "b82779754a33e211",
+      "tipo": "http_401",
+      "detalhe": "ufes|2015-2019|UFES_aa937ca4ab83ea5ceaef7b4aa1c60239"
+    },
+    {
+      "id": "810ac4db8dd627de",
+      "tipo": "http_404",
+      "detalhe": "ufma|2020-2024|UFMA_1573ced525a62d63e8817b73dc46b407"
+    },
+    {
+      "id": "f6a15ed89b03de36",
+      "tipo": "http_401",
+      "detalhe": "ufes|2015-2019|UFES_75ef6f9e668fc591706ef2f0875971d5"
+    },
+    {
+      "id": "a243f827e5fd92e4",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufes|2020-2024|UFES_b4abbd038323f78950c805a7ae4094a2"
+    },
+    {
+      "id": "ed6c7bd2247b00eb",
+      "tipo": "http_401",
+      "detalhe": "uel|2025-2029|UEL_f39004edead8787ee88f0fbd78e40760"
+    },
+    {
+      "id": "d3fd83a627c52fac",
+      "tipo": "http_401",
+      "detalhe": "ufes|2015-2019|UFES_6f3044cd5c1e0e0b8b63406f2fab472f"
+    },
+    {
+      "id": "43fc88b03a23b2d5",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufes|2020-2024|UFES_dc46611e6d555b3499cbd2b62b0b0517"
+    },
+    {
+      "id": "8118ec01aeb22030",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufes|2020-2024|UFES_e2c52053022e0ff9211d56d8cbc2b02b"
+    },
+    {
+      "id": "aca977439d206c07",
+      "tipo": "http_401",
+      "detalhe": "ufes|2015-2019|UFES_9115a02a3c100a7251a7f701263601a7"
     }
   ],
   "parametros": {}

@@ -290,89 +290,172 @@ def baixar_por_cota(cfg: Config, candidatos: list[dict], rel: Relatorio) -> list
     for fila in por_estrato.values():
         fila.sort(key=lambda x: x.get("ordem_na_fila", 0))
 
+    import itertools
+    import json
     import threading
 
     manifesto = list(ja_feitos.values())
-    estatisticas: dict[str, dict] = {}
+    # O manifesto é regravado agora e depois cresce item a item: uma coleta de
+    # horas que cai no meio não perde a nota fiscal do que já baixou.
+    escrever_jsonl(caminho_manifesto, manifesto)
+    estatisticas: dict[str, dict] = {
+        estrato: {"cota": int(fila[0].get("cota_estrato", 1)), "obtidos": 0, "tentados": 0,
+                  "fila_disponivel": len(fila)}
+        for estrato, fila in por_estrato.items()
+    }
     trava = threading.Lock()
     # Meta global de PDFs no disco (0 = sem meta). Para ao atingir, podendo
-    # passar em até um bloco por estrato em andamento.
+    # passar em até um bloco por instituição em andamento.
     meta = int(cfg.get_path("coleta.meta_pdfs", 0) or 0)
-    placar = {"baixados": len(ja_feitos), "bytes": 0}
+    placar = {"baixados": len(ja_feitos), "bytes": 0, "tentados": 0}
+
+    # Critério de parada do protocolo ("taxa de erro acima de 30% num domínio"),
+    # aplicado sozinho: depois de `min_tentativas`, a instituição com sucesso
+    # abaixo de `taxa_minima` sai da coleta. Sem isso o piloto 2 teria martelado
+    # 180 páginas sem obter nada.
+    cfg_disjuntor = cfg.get_path("coleta.disjuntor", {}) or {}
+    min_tentativas = int(cfg_disjuntor.get("min_tentativas", 20))
+    taxa_minima = float(cfg_disjuntor.get("taxa_minima", 0.70))
+    # O disjuntor parte do histórico: numa execução retomada, os PDFs já obtidos
+    # são pulados sem contar e só as falhas antigas voltam a ser tentadas. Sem o
+    # histórico, instituição boa era cortada com "0 de 20" logo na retomada
+    # (achado real, 2026-09-13 17:18: UEM tinha 306 de 321, UFMA 302 de 344).
+    por_instituicao: dict[str, dict] = {}
+    for feito in ja_feitos.values():
+        s = por_instituicao.setdefault(str(feito.get("estrato", "?")).split("|")[0],
+                                       {"tentados": 0, "obtidos": 0})
+        s["tentados"] += 1
+        s["obtidos"] += 1
+    interrompidas: dict[str, str] = {}
 
     def _meta_atingida() -> bool:
         return bool(meta) and placar["baixados"] >= meta
 
-    def _processar_estrato(estrato: str, fila: list[dict]) -> None:
-        cota = int(fila[0].get("cota_estrato", 1))
-        obtidos, tentados = 0, 0
+    def _anexar_ao_manifesto(entrada: dict) -> None:
+        with open(caminho_manifesto, "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(entrada, ensure_ascii=False) + "\n")
 
-        # Paraleliza dentro do estrato, mas em blocos, para poder parar assim
-        # que a cota fechar em vez de baixar a fila inteira.
+    def _contar_na_instituicao(inst: str, ok: bool) -> None:  # chamada com a trava
+        s = por_instituicao.setdefault(inst, {"tentados": 0, "obtidos": 0})
+        s["tentados"] += 1
+        s["obtidos"] += int(ok)
+        if (inst not in interrompidas and s["tentados"] >= min_tentativas
+                and s["obtidos"] / s["tentados"] < taxa_minima):
+            interrompidas[inst] = f"{s['obtidos']}/{s['tentados']} obtidos"
+            log.warning("instituição %s interrompida pelo disjuntor: %s (mínimo %.0f%%)",
+                        inst, interrompidas[inst], taxa_minima * 100)
+            rel.falha(inst, "instituicao_interrompida", interrompidas[inst])
+
+    # Uma fila por instituição, intercalando os estratos (faixas de ano), para
+    # uma rodada parcial já cobrir o período todo.
+    listas_por_inst: dict[str, list[list[tuple[str, dict]]]] = {}
+    for estrato, fila in sorted(por_estrato.items()):
+        listas_por_inst.setdefault(estrato.split("|")[0], []).append([(estrato, it) for it in fila])
+    filas = {inst: [par for grupo in itertools.zip_longest(*listas) for par in grupo if par]
+             for inst, listas in listas_por_inst.items()}
+
+    # Rodadas: os primeiros N de todas as instituições, depois os N seguintes...
+    # O pool atende na ordem de chegada, então a meta não é consumida pelas
+    # primeiras instituições da lista.
+    # Instituições suspensas depois de diagnóstico (motivo no config): nem entram
+    # na fila, para não gastar requisição num servidor que já se sabe que falha
+    # (certificado inválido, handle fora do ar, desafio anti-robô...).
+    suspensas = {str(k).lower(): v for k, v in (cfg.get_path("coleta.instituicoes_suspensas", {}) or {}).items()}
+    for inst in sorted(set(filas) & set(suspensas)):
+        log.info("instituição %s suspensa: %s", inst, suspensas[inst])
+        del filas[inst]
+    rel.metricas["instituicoes_suspensas"] = dict(sorted(suspensas.items()))
+
+    tamanho_rodada = int(cfg.get_path("coleta.rodada_por_instituicao", 200) or 200)
+    tarefas = [(inst, filas[inst][inicio:inicio + tamanho_rodada])
+               for inicio in range(0, max((len(f) for f in filas.values()), default=0), tamanho_rodada)
+               for inst in sorted(filas) if filas[inst][inicio:inicio + tamanho_rodada]]
+
+    def _processar(inst: str, pedaco: list[tuple[str, dict]]) -> None:
+        # Blocos de 8, para poder parar (meta, disjuntor, cota) sem baixar tudo.
         with ThreadPoolExecutor(max_workers=4) as pool:
-            for inicio in range(0, len(fila), 8):
-                if obtidos >= cota or _meta_atingida():
-                    break
-                bloco = fila[inicio:inicio + 8]
+            for inicio in range(0, len(pedaco), 8):
+                if _meta_atingida() or inst in interrompidas:
+                    return
                 futuros = {}
-                for item in bloco:
+                for estrato, item in pedaco[inicio:inicio + 8]:
+                    est = estatisticas[estrato]
                     ident = item.get("chave_origem") or item.get("titulo", "")[:120]
                     did = doc_id(ident)
-                    if did in ja_feitos:
-                        obtidos += 1
-                        continue
+                    with trava:
+                        if did in ja_feitos:
+                            est["obtidos"] += 1
+                            continue
+                        if est["obtidos"] >= est["cota"]:
+                            continue
                     urls = [u for u in (item.get("url_binario"), item.get("url_landing")) if u]
                     if not urls:
                         with trava:
                             rel.falha(did, "sem_link_de_fulltext", f"{estrato}|{ident}")
-                        tentados += 1
+                            est["tentados"] += 1
                         continue
-                    futuros[pool.submit(resolvedor.obter, urls, dir_pdf / f"{did}.pdf")] = (did, ident, urls, item)
+                    futuros[pool.submit(resolvedor.obter, urls, dir_pdf / f"{did}.pdf")] = (
+                        did, ident, urls, item, estrato)
 
                 for fut in as_completed(futuros):
-                    did, ident, urls, item = futuros[fut]
-                    tentados += 1
+                    did, ident, urls, item, estrato = futuros[fut]
+                    est = estatisticas[estrato]
                     try:
                         res = fut.result()
                     except Exception as exc:
                         with trava:
+                            est["tentados"] += 1
+                            placar["tentados"] += 1
                             rel.falha(did, "excecao_download", f"{ident}: {exc}")
+                            _contar_na_instituicao(inst, False)
                         continue
+                    entrada = {
+                        "doc_id": did, "id_bdtd": ident, "urls_origem": urls,
+                        "baixado": res.ok, "arquivo": str(res.caminho) if res.caminho else None,
+                        "url_pdf": res.url_pdf, "sha256": res.sha256, "bytes": res.bytes,
+                        "motivo": res.motivo, "estrato": estrato,
+                        "fontes_inventario": item.get("fontes", []),
+                        "coletado_em": datetime.now(timezone.utc).isoformat(),
+                    }
                     with trava:
-                        manifesto.append({
-                            "doc_id": did, "id_bdtd": ident, "urls_origem": urls,
-                            "baixado": res.ok, "arquivo": str(res.caminho) if res.caminho else None,
-                            "url_pdf": res.url_pdf, "sha256": res.sha256, "bytes": res.bytes,
-                            "motivo": res.motivo, "estrato": estrato,
-                            "fontes_inventario": item.get("fontes", []),
-                            "coletado_em": datetime.now(timezone.utc).isoformat(),
-                        })
+                        manifesto.append(entrada)
+                        _anexar_ao_manifesto(entrada)
+                        est["tentados"] += 1
+                        placar["tentados"] += 1
                         if res.ok:
+                            est["obtidos"] += 1
                             placar["baixados"] += 1
                             placar["bytes"] += res.bytes
                         else:
                             rel.falha(did, res.motivo or "download_falhou", f"{estrato}|{ident}")
-                    if res.ok:
-                        obtidos += 1
+                        _contar_na_instituicao(inst, res.ok)
+                        if placar["tentados"] % 200 == 0:
+                            log.info("progresso: %d PDFs no disco (meta %s) | %d tentativas nesta execução, "
+                                     "%s | %d instituição(ões) interrompida(s)",
+                                     placar["baixados"], meta or "—", placar["tentados"],
+                                     humanizar_bytes(placar["bytes"]), len(interrompidas))
 
-        with trava:
-            estatisticas[estrato] = {
-                "cota": cota,
-                "obtidos": obtidos,
-                "tentados": tentados,
-                "fila_disponivel": len(fila),
-                "taxa_resolucao": round(obtidos / tentados, 4) if tentados else 0.0,
-                "cota_fechada": obtidos >= cota,
-            }
-        log.info("estrato %s: %d/%d obtidos em %d tentativas", estrato, obtidos, cota, tentados)
-
-    # Estratos em paralelo: com o inventário da BDTD cada um é uma instituição,
-    # e o ritmo é por domínio — um repositório lento não segura os outros.
-    # Dentro do mesmo domínio o intervalo continua o do config.
-    with ThreadPoolExecutor(max_workers=max(1, min(8, len(por_estrato)))) as pool_estratos:
-        for fut in [pool_estratos.submit(_processar_estrato, e, f)
-                    for e, f in sorted(por_estrato.items())]:
+    # Instituições em paralelo: o ritmo é por domínio, então um repositório
+    # lento não segura os outros, e dentro do mesmo domínio o intervalo continua
+    # o do config. (Antes o paralelismo era por estrato: os estratos de uma
+    # mesma instituição ocupavam as threads esperando a vez do mesmo domínio.)
+    n_paralelas = int(cfg.get_path("coleta.max_instituicoes_paralelas", 8) or 8)
+    with ThreadPoolExecutor(max_workers=max(1, min(n_paralelas, len(tarefas) or 1))) as pool_inst:
+        for fut in [pool_inst.submit(_processar, inst, pedaco) for inst, pedaco in tarefas]:
             fut.result()
+
+    for estrato, est in sorted(estatisticas.items()):
+        est["taxa_resolucao"] = round(est["obtidos"] / est["tentados"], 4) if est["tentados"] else 0.0
+        est["cota_fechada"] = est["obtidos"] >= est["cota"]
+        if est["tentados"]:
+            log.info("estrato %s: %d/%d obtidos em %d tentativas",
+                     estrato, est["obtidos"], est["cota"], est["tentados"])
+    rel.metricas["por_instituicao"] = {
+        inst: {**s, "taxa": round(s["obtidos"] / s["tentados"], 4), "interrompida": inst in interrompidas}
+        for inst, s in sorted(por_instituicao.items())
+    }
+    rel.metricas["instituicoes_interrompidas"] = interrompidas
+    rel.metricas["dominios_vetados_robots"] = dict(getattr(resolvedor, "vetados", {}))
 
     total_bytes = placar["bytes"]
     escrever_jsonl(caminho_manifesto, manifesto)

@@ -1,0 +1,12 @@
+{
+  "dominio": "https://bibliodigital.unijui.edu.br",
+  "robots_txt": "https://bibliodigital.unijui.edu.br/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPSConnectionPool(host='bibliodigital.unijui.edu.br', port=443): Max retries exceeded with url: /robots.txt (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)'))))",
+  "verificado_em": "2026-09-13T16:34:52.545879+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

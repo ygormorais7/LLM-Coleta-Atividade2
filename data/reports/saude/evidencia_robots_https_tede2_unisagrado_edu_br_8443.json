@@ -1,0 +1,12 @@
+{
+  "dominio": "https://tede2.unisagrado.edu.br:8443",
+  "robots_txt": "https://tede2.unisagrado.edu.br:8443/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPSConnectionPool(host='tede2.unisagrado.edu.br', port=8443): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPSConnection(host='tede2.unisagrado.edu.br', port=8443) at 0x7f8ddb5d1590>, 'Connection to tede2.unisagrado.edu.br timed out. (connect timeout=30)')))",
+  "verificado_em": "2026-09-13T16:48:52.750324+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "dominio": "https://tedebc.ufma.br",
+  "robots_txt": "https://tedebc.ufma.br/robots.txt",
+  "status_http": 404,
+  "conteudo": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>404 Not Found</title>\n</head><body>\n<h1>Not Found</h1>\n<p>The requested URL /robots.txt was not found on this server.</p>\n</body></html>\n",
+  "verificado_em": "2026-09-13T16:37:48.223323+00:00",
+  "veredito": {
+    "permitido": true,
+    "motivo": "sem_robots",
+    "crawl_delay": null
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "dominio": "http://tede.unioeste.br:8080",
+  "robots_txt": "http://tede.unioeste.br:8080/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPSConnectionPool(host='tede.unioeste.br', port=8080): Max retries exceeded with url: /robots.txt (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1081)'))))",
+  "verificado_em": "2026-09-13T16:30:42.880702+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

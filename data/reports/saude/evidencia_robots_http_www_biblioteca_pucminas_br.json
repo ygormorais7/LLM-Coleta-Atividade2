@@ -1,0 +1,12 @@
+{
+  "dominio": "http://www.biblioteca.pucminas.br",
+  "robots_txt": "http://www.biblioteca.pucminas.br/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPConnectionPool(host='www.biblioteca.pucminas.br', port=80): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPConnection(host='www.biblioteca.pucminas.br', port=80) at 0x7f8dc8b329c0>, 'Connection to www.biblioteca.pucminas.br timed out. (connect timeout=30)')))",
+  "verificado_em": "2026-09-13T16:46:49.835369+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

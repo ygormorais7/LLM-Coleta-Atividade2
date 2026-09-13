@@ -1,0 +1,12 @@
+{
+  "dominio": "http://localhost:8080",
+  "robots_txt": "http://localhost:8080/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /robots.txt (Caused by NewConnectionError(\"HTTPConnection(host='localhost', port=8080): Failed to establish a new connection: [Errno 111] Connection refused\")))",
+  "verificado_em": "2026-09-13T16:29:47.418819+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

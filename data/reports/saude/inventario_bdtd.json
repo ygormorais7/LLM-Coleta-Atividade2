@@ -1,24 +1,510 @@
 {
   "camada": "inventario_bdtd",
   "area": "Saúde",
-  "inicio": "2026-09-13T07:27:40.576721+00:00",
-  "fim": "2026-09-13T07:27:43.318902+00:00",
-  "duracao_s": 2.74,
+  "inicio": "2026-09-13T16:50:01.924057+00:00",
+  "fim": "2026-09-13T16:50:16.661571+00:00",
+  "duracao_s": 14.74,
   "entradas": {
-    "candidatos_no_inventario": 3636
+    "candidatos_no_inventario": 3756
   },
   "saidas": {
-    "candidatos_depois_dos_filtros": 180,
-    "novos_candidatos": 180,
+    "dominios_excluidos_robots": {
+      "http://www.bdtd.uerj.br": {
+        "motivo": "inacessivel",
+        "candidatos": 800
+      },
+      "http://repositorio.ufsm.br": {
+        "motivo": "http_403",
+        "candidatos": 800
+      },
+      "https://repositorio.ufpb.br": {
+        "motivo": "veto_robos_ia",
+        "candidatos": 800
+      },
+      "https://repositorio.ufpe.br": {
+        "motivo": "http_403",
+        "candidatos": 800
+      },
+      "http://bdtd.uftm.edu.br": {
+        "motivo": "inacessivel",
+        "candidatos": 679
+      },
+      "https://repositorio.ufjf.br": {
+        "motivo": "inacessivel",
+        "candidatos": 670
+      },
+      "https://tede2.pucsp.br": {
+        "motivo": "http_468",
+        "candidatos": 621
+      },
+      "http://guaiaca.ufpel.edu.br": {
+        "motivo": "veto_robos_ia",
+        "candidatos": 579
+      },
+      "https://repositorio.unifal-mg.edu.br": {
+        "motivo": "inacessivel",
+        "candidatos": 573
+      },
+      "https://tede.ufam.edu.br": {
+        "motivo": "inacessivel",
+        "candidatos": 562
+      },
+      "https://repositorio.cruzeirodosul.edu.br": {
+        "motivo": "http_403",
+        "candidatos": 550
+      },
+      "http://www.repositorio.ufc.br": {
+        "motivo": "inacessivel",
+        "candidatos": 488
+      },
+      "https://tede2.pucgoias.edu.br": {
+        "motivo": "veto_robos_ia",
+        "candidatos": 468
+      },
+      "https://app.uff.br": {
+        "motivo": "inacessivel",
+        "candidatos": 466
+      },
+      "https://biblioteca.sophia.com.br": {
+        "motivo": "veto_robos_ia",
+        "candidatos": 436
+      },
+      "https://bdtd.ucb.br:8443": {
+        "motivo": "inacessivel",
+        "candidatos": 408
+      },
+      "http://repositorio.ufba.br": {
+        "motivo": "http_468",
+        "candidatos": 393
+      },
+      "http://repositorio.unb.br": {
+        "motivo": "http_503",
+        "candidatos": 383
+      },
+      "http://repositorio.ufc.br": {
+        "motivo": "inacessivel",
+        "candidatos": 312
+      },
+      "https://repositorio.ufba.br": {
+        "motivo": "inacessivel",
+        "candidatos": 294
+      },
+      "http://repositorio.furg.br": {
+        "motivo": "http_403",
+        "candidatos": 243
+      },
+      "http://tede.ufam.edu.br": {
+        "motivo": "inacessivel",
+        "candidatos": 238
+      },
+      "https://biblioteca.slmandic.edu.br": {
+        "motivo": "http_403",
+        "candidatos": 193
+      },
+      "http://tede2.usc.br:8080": {
+        "motivo": "inacessivel",
+        "candidatos": 188
+      },
+      "https://repositorio.pucsp.br": {
+        "motivo": "http_468",
+        "candidatos": 179
+      },
+      "http://www.tede.universidadefranciscana.edu.br:8080": {
+        "motivo": "bloqueia_nosso_agente",
+        "candidatos": 150
+      },
+      "http://repositorio.ufpel.edu.br": {
+        "motivo": "veto_robos_ia",
+        "candidatos": 129
+      },
+      "http://www.repositorio.ufba.br": {
+        "motivo": "http_468",
+        "candidatos": 113
+      },
+      "http://dspace.sti.ufcg.edu.br:8080": {
+        "motivo": "inacessivel",
+        "candidatos": 109
+      },
+      "https://repositorio.furg.br": {
+        "motivo": "http_403",
+        "candidatos": 108
+      },
+      "https://guaiaca.ufpel.edu.br": {
+        "motivo": "veto_robos_ia",
+        "candidatos": 92
+      },
+      "http://app.uff.br": {
+        "motivo": "inacessivel",
+        "candidatos": 90
+      },
+      "http://www7.bahiana.edu.br": {
+        "motivo": "http_522",
+        "candidatos": 90
+      },
+      "http://tede.utp.br:8080": {
+        "motivo": "inacessivel",
+        "candidatos": 88
+      },
+      "http://tede2.pucgoias.edu.br:8080": {
+        "motivo": "veto_robos_ia",
+        "candidatos": 83
+      },
+      "http://bib.pucminas.br": {
+        "motivo": "inacessivel",
+        "candidatos": 76
+      },
+      "http://tede.unioeste.br:8080": {
+        "motivo": "inacessivel",
+        "candidatos": 60
+      },
+      "https://repositorio.unb.br": {
+        "motivo": "http_503",
+        "candidatos": 57
+      },
+      "https://tede2.usc.br:8443": {
+        "motivo": "inacessivel",
+        "candidatos": 47
+      },
+      "https://repositorio.bahiana.edu.br:8443": {
+        "motivo": "http_522",
+        "candidatos": 46
+      },
+      "https://dspace.sti.ufcg.edu.br": {
+        "motivo": "inacessivel",
+        "candidatos": 44
+      },
+      "http://rdu.unicesumar.edu.br": {
+        "motivo": "desafio_anti_robo",
+        "candidatos": 42
+      },
+      "http://repositorio.ufrr.br:8080": {
+        "motivo": "inacessivel",
+        "candidatos": 41
+      },
+      "https://repositorio.pgsskroton.com": {
+        "motivo": "inacessivel",
+        "candidatos": 38
+      },
+      "http://dspace.unisa.br": {
+        "motivo": "veto_robos_ia",
+        "candidatos": 37
+      },
+      "http://repositorio.ufal.br": {
+        "motivo": "inacessivel",
+        "candidatos": 32
+      },
+      "https://bibliodigital.unijui.edu.br": {
+        "motivo": "inacessivel",
+        "candidatos": 30
+      },
+      "https://tede.lncc.br": {
+        "motivo": "bloqueia_nosso_agente",
+        "candidatos": 29
+      },
+      "http://repositorio.unitau.br": {
+        "motivo": "inacessivel",
+        "candidatos": 29
+      },
+      "http://repositorio.fjp.mg.gov.br": {
+        "motivo": "inacessivel",
+        "candidatos": 28
+      },
+      "https://ri.uea.edu.br": {
+        "motivo": "http_403",
+        "candidatos": 23
+      },
+      "https://www.repositorio.mar.mil.br": {
+        "motivo": "inacessivel",
+        "candidatos": 23
+      },
+      "http://acervo.ufvjm.edu.br:8080": {
+        "motivo": "inacessivel",
+        "candidatos": 19
+      },
+      "https://repositorio.unifei.edu.br": {
+        "motivo": "inacessivel",
+        "candidatos": 17
+      },
+      "https://repositorio.metodista.br": {
+        "motivo": "veto_robos_ia",
+        "candidatos": 16
+      },
+      "http://biblioteca.ufabc.edu.br": {
+        "motivo": "inacessivel",
+        "candidatos": 11
+      },
+      "http://repositorio.cruzeirodosul.edu.br": {
+        "motivo": "http_403",
+        "candidatos": 9
+      },
+      "http://tede2.espm.br": {
+        "motivo": "bloqueia_nosso_agente",
+        "candidatos": 8
+      },
+      "http://teste.tede.unifacs.br:8080": {
+        "motivo": "inacessivel",
+        "candidatos": 6
+      },
+      "http://200.129.209.58:8080": {
+        "motivo": "inacessivel",
+        "candidatos": 6
+      },
+      "http://191.252.194.60:8080": {
+        "motivo": "inacessivel",
+        "candidatos": 5
+      },
+      "http://www.repositorio.mar.mil.br": {
+        "motivo": "inacessivel",
+        "candidatos": 5
+      },
+      "http://www.bd.bibl.ita.br": {
+        "motivo": "inacessivel",
+        "candidatos": 5
+      },
+      "https://repositorio.insper.edu.br": {
+        "motivo": "http_403",
+        "candidatos": 2
+      },
+      "https://repositorio.uninter.com": {
+        "motivo": "desafio_anti_robo",
+        "candidatos": 2
+      },
+      "http://repositorio.unifap.br:80": {
+        "motivo": "inacessivel",
+        "candidatos": 2
+      },
+      "http://tede2.unisagrado.edu.br:8080": {
+        "motivo": "inacessivel",
+        "candidatos": 2
+      },
+      "http://sitios.anhembi.br": {
+        "motivo": "desafio_anti_robo",
+        "candidatos": 2
+      },
+      "http://www.biblioteca.pucminas.br": {
+        "motivo": "inacessivel",
+        "candidatos": 2
+      },
+      "http://web.bndes.gov.br": {
+        "motivo": "http_403",
+        "candidatos": 2
+      },
+      "http://repositorio2.unb.br": {
+        "motivo": "inacessivel",
+        "candidatos": 1
+      },
+      "https://repositorio.unicamp.br": {
+        "motivo": "http_503",
+        "candidatos": 1
+      },
+      "https://tede2.unisagrado.edu.br:8443": {
+        "motivo": "inacessivel",
+        "candidatos": 1
+      },
+      "https://rd.uffs.edu.br": {
+        "motivo": "veto_robos_ia",
+        "candidatos": 1
+      },
+      "https://repositorio.fjp.mg.gov.br": {
+        "motivo": "http_403",
+        "candidatos": 1
+      },
+      "http://repositorio.ifap.edu.br": {
+        "motivo": "http_403",
+        "candidatos": 1
+      },
+      "http://lattes.cnpq.br": {
+        "motivo": "http_500",
+        "candidatos": 1
+      }
+    },
+    "retirados_do_inventario_por_robots": 0,
+    "candidatos_depois_dos_filtros": 21253,
+    "novos_candidatos": 21232,
     "por_instituicao": {
-      "UFRN": 60,
-      "FIOCRUZ": 60,
-      "UFPR": 60
+      "UFPA": 800,
+      "UFRGS": 800,
+      "UECE": 800,
+      "UFS": 800,
+      "UFES": 800,
+      "UNESP": 800,
+      "UFU": 800,
+      "UFMA": 800,
+      "UFG": 800,
+      "UEL": 800,
+      "UFSCAR": 800,
+      "UEM": 800,
+      "UNICAMP": 799,
+      "UNINOVE": 799,
+      "UFRN": 790,
+      "FIOCRUZ": 789,
+      "UFV": 701,
+      "FAMERP": 619,
+      "UEPB": 574,
+      "UNIOESTE": 500,
+      "UNISINOS": 462,
+      "UNIRIO": 444,
+      "UPF": 416,
+      "UCPEL": 410,
+      "UNB": 359,
+      "FGV": 358,
+      "UFAL": 279,
+      "UNISANTOS": 263,
+      "UEFS": 209,
+      "UTFPR": 208,
+      "UFMS": 205,
+      "UFT": 179,
+      "UNIFENAS": 161,
+      "UFRRJ": 157,
+      "UFVJM": 147,
+      "UDESC": 147,
+      "UFGD": 145,
+      "UNOESTE": 136,
+      "MACKENZIE": 131,
+      "UFJF": 130,
+      "UNESC": 107,
+      "UFRJ": 106,
+      "UNIPAMPA": 104,
+      "UCS": 80,
+      "IEC": 65,
+      "UNILAB": 63,
+      "UNEB": 56,
+      "UEG": 54,
+      "PUC_RIO": 42,
+      "PUC_CAMP": 36,
+      "PUC_PR": 33,
+      "FURB": 32,
+      "USCS": 25,
+      "CBM": 24,
+      "KROTON": 22,
+      "UNICAP": 22,
+      "EMESCAM": 20,
+      "UNIVATES": 19,
+      "UFRPE": 19,
+      "IBICT": 14,
+      "UNILASALLE": 14,
+      "ACCMRG": 11,
+      "FECAP": 10,
+      "UNILA": 9,
+      "UFERSA": 9,
+      "EST": 9,
+      "UENP": 9,
+      "EMBRAPA": 9,
+      "IFPE": 8,
+      "UNICEUB": 8,
+      "PUC_MINS": 8,
+      "UCB": 7,
+      "SBIBAE": 7,
+      "IFES": 7,
+      "UFRA": 6,
+      "CEFET": 6,
+      "UERN": 6,
+      "UEMA": 5,
+      "IFPB": 3,
+      "IFAL-1": 3,
+      "INPA": 3,
+      "ITAL": 2,
+      "IFMG": 2,
+      "ENAP": 2,
+      "UEPG": 2,
+      "FEI": 1,
+      "CPRM": 1,
+      "IFRO": 1,
+      "IFRS": 1,
+      "IFAM": 1,
+      "CP2": 1,
+      "IPEA": 1
     },
     "por_dominio": {
-      "repositorio.ufrn.br": 60,
-      "arca.fiocruz.br": 60,
-      "hdl.handle.net": 60
+      "hdl.handle.net": 3582,
+      "repositorio.ufpa.br": 800,
+      "siduece.uece.br": 800,
+      "ri.ufs.br": 800,
+      "repositorio.ufes.br": 800,
+      "repositorio.ufu.br": 800,
+      "repositorio.bc.ufg.br": 800,
+      "repositorio.uel.br": 800,
+      "repositorio.uem.br:8080": 800,
+      "bibliotecatede.uninove.br": 799,
+      "repositorio.ufrn.br": 790,
+      "arca.fiocruz.br": 789,
+      "repositorio.ufscar.br": 739,
+      "bdtd.famerp.br": 619,
+      "tedebc.ufma.br": 589,
+      "repositorio.uepb.edu.br": 574,
+      "locus.ufv.br": 537,
+      "tede.unioeste.br": 500,
+      "www.repositorio.jesuita.org.br": 424,
+      "repositorio.upf.br": 416,
+      "tede.ucpel.edu.br:8080": 410,
+      "riunbtainacan.unb.br": 358,
+      "www.repositorio.ufal.br": 279,
+      "tede.unisantos.br": 263,
+      "tedebc.ufma.br:8080": 211,
+      "tede2.uefs.br:8080": 209,
+      "repositorio.utfpr.edu.br": 208,
+      "repositorio.ufms.br": 205,
+      "www.locus.ufv.br": 164,
+      "tede2.unifenas.br:8080": 161,
+      "rima.ufrrj.br": 157,
+      "acervo.ufvjm.edu.br": 147,
+      "repositorio.udesc.br": 147,
+      "repositorio.ufgd.edu.br": 145,
+      "bdtd.unoeste.br:8080": 136,
+      "doi.org": 134,
+      "dspace.mackenzie.br": 131,
+      "repositorio.unesc.net": 107,
+      "repositorio.ucs.br": 80,
+      "patua.iec.gov.br": 65,
+      "repositorio.unilab.edu.br": 63,
+      "dspace.unipampa.edu.br": 56,
+      "saberaberto.uneb.br": 56,
+      "www.bdtd.ueg.br": 54,
+      "repositorio.unipampa.edu.br": 48,
+      "www.maxwell.vrac.puc-rio.br": 42,
+      "repositorio.jesuita.org.br": 38,
+      "repositorio.sis.puc-campinas.edu.br": 36,
+      "archivum.grupomarista.org.br": 33,
+      "bu.furb.br": 32,
+      "repositorio.uscs.edu.br": 25,
+      "repositorio.baraodemaua.br": 24,
+      "repositorio.pgsscogna.com.br": 22,
+      "tede2.unicap.br:8080": 22,
+      "ri.emescam.br": 20,
+      "www.tede2.ufrpe.br:8080": 19,
+      "ridi.ibict.br": 11,
+      "accamargo.phlnet.com.br": 11,
+      "dspace.unila.edu.br": 9,
+      "dspace.est.edu.br:8080": 9,
+      "repositorio.uenp.edu.br": 9,
+      "www.alice.cnptia.embrapa.br": 9,
+      "tede.fecap.br:8080": 8,
+      "dx.doi.org": 8,
+      "repositorio.ifpe.edu.br": 8,
+      "repositorio.uniceub.br": 8,
+      "bib.pucminas.br": 8,
+      "repositorio.einstein.br": 7,
+      "repositorio.ifes.edu.br": 7,
+      "repositorio.ufra.edu.br": 6,
+      "repositorio.cefetmg.br": 6,
+      "repositorio.apps.uern.br": 6,
+      "repositorio.ufersa.edu.br": 5,
+      "repositorio.uema.br": 5,
+      "deposita.ibict.br": 3,
+      "repositorio.ifpb.edu.br": 3,
+      "repositorio.ifal.edu.br": 3,
+      "repositorio.inpa.gov.br": 3,
+      "repositorio.ital.sp.gov.br": 2,
+      "repositorio.enap.gov.br": 2,
+      "tede.fecap.br": 2,
+      "tede2.uepg.br": 2,
+      "repositorio.fei.edu.br": 1,
+      "rigeo.sgb.gov.br": 1,
+      "repositorio.ifro.edu.br": 1,
+      "dspace.ifrs.edu.br": 1,
+      "repositorio.ifam.edu.br": 1,
+      "petrus.cp2.g12.br": 1,
+      "repositorio.ipea.gov.br": 1
     },
     "inventario": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/inventario.jsonl"
   },
@@ -29,18 +515,15 @@
   "falhas": [],
   "parametros": {
     "arquivo": "data/externo/inventario_saude.csv.gz",
-    "instituicoes": [
-      "UFRN",
-      "UFPR",
-      "FIOCRUZ"
-    ],
+    "instituicoes": [],
     "excluir_instituicoes": [
       "UFMG",
       "UNIFESP",
       "PUC_RS",
-      "UFSC"
+      "UFSC",
+      "UFPR"
     ],
-    "limite_por_instituicao": 60,
+    "limite_por_instituicao": 800,
     "filtro_assunto": [
       "enfermag",
       "medicina",

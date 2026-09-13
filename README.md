@@ -5,7 +5,7 @@ Pipeline em camadas que vai da coleta de teses e dissertações de **Saúde**
 pré-treino continuado, fine-tuning, RAG e avaliação de modelos de linguagem em
 português.
 
-**Grupo 7** — Otávio da Conceição França, Ygor Morais, Eduardo Melo ·
+**Grupo 7** — Eduardo Melo, Otávio França e Ygor Morais ·
 Tópicos em Inteligência Artificial (DC/CCN072) · UFPI · Prof. Raimundo Moura
 
 | Item do enunciado | Onde está |
@@ -88,9 +88,9 @@ URL do PDF e dispensa raspar a página do item.
 - `inventario janela` recolhe só um intervalo e junta ao inventário os candidatos
   que faltavam, sem reamostrar.
 
-**Inventário da BDTD exportado pelo grupo** (`inventario.fontes.bdtd_csv`).
-Eduardo Melo montou o inventário da área pela API da BDTD: 183.718 fichas com a
-URL do item no repositório de origem. `inventario bdtd_csv` aplica os filtros
+**Inventário da BDTD montado pelo grupo** (`inventario.fontes.bdtd_csv`).
+Inventário da área pela API da BDTD: 183.718 fichas com a URL do item no
+repositório de origem. `inventario bdtd_csv` aplica os filtros
 deste projeto:
 
 - **Direitos:** só acesso aberto com URL.
@@ -127,13 +127,12 @@ depois âncoras `/bitstream/` e `.pdf`, e por último a **API REST do DSpace 7**
 endereço interno do servidor (`http://localhost:4000/...`, na Fiocruz), que o
 coletor troca pelo domínio da página.
 
-**Armadilhas da API da BDTD** (documentadas por Eduardo Melo no projeto
-G7-Atividade02-BDTD):
+**Armadilhas da API da BDTD:**
 - a paginação trava na página 10 (teto de 1.000 registros por consulta);
 - as facetas devolvem no máximo 30 valores;
 - booleano dentro de `filter[]` devolve 0 em silêncio.
 
-A saída dele é particionar a consulta por prefixo do identificador.
+A saída é particionar a consulta por prefixo do identificador.
 
 **A busca da interface é proibida a robôs** (`Disallow: /vufind/Search/`).
 Este pipeline não usa a interface: usa OAI-PMH e o inventário pronto do grupo.

@@ -1,0 +1,12 @@
+{
+  "dominio": "https://bib.pucminas.br",
+  "robots_txt": "https://bib.pucminas.br/robots.txt",
+  "status_http": 200,
+  "conteudo": "User-agent: *\nDisallow:\n\nSitemap: https://bib.pucminas.br/sitemap_index.xml\n",
+  "verificado_em": "2026-09-13T16:34:52.312385+00:00",
+  "veredito": {
+    "permitido": true,
+    "motivo": "ok",
+    "crawl_delay": null
+  }
+}

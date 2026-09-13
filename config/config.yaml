@@ -211,8 +211,8 @@ inventario:
         filtro_tipo: ["masterThesis", "doctoralThesis"]
         excluir_assunto: ["veterinaria", "zootecnia"]
 
-    # Inventário da área inteira exportado pelo colega de grupo (Eduardo Melo,
-    # projeto G7-Atividade02-BDTD) a partir da API da BDTD: 183.718 fichas com a
+    # Inventário da área inteira montado pelo grupo a partir da API da BDTD:
+    # 183.718 fichas com a
     # URL do item no repositório de origem. Entra como candidatos ADICIONAIS ao
     # inventário atual (`python -m src.raw.inventario bdtd_csv`), sem recolher o
     # OAI da UFMG. Não traz resumo: o escopo é checado de novo na Processed com o
@@ -233,16 +233,18 @@ inventario:
       # UFSC: /robots.txt devolve página de desafio anti-robô do Cloudflare
       # (Turnstile), não um robots.txt — sem regra legível e com proteção ativa
       # contra acesso automatizado. Retirada do piloto em 2026-09-13.
-      excluir_instituicoes: ["UFMG", "UNIFESP", "PUC_RS", "UFSC"]
-      # Piloto autorizado em 2026-09-13: instituições com sistemas diferentes
-      # (DSpace 7 sem e com renderização no servidor). Vazio = todas.
-      # UFPR saiu depois do piloto 2: os links são hdl.handle.net/1884/..., e o
-      # servidor de handles da UFPR responde "Cannot Connect to Server" (HTTP 500)
-      # — 60 de 60 falharam. Não se insiste em serviço que está falhando
-      # (critério de parada do protocolo). Evidência:
-      # data/reports/saude/diagnostico_piloto_bdtd.json.
-      instituicoes: ["UFRN", "FIOCRUZ"]
-      limite_por_instituicao: 60
+      # UFPR: os links são hdl.handle.net/1884/..., e o servidor de handles da
+      # UFPR respondeu "Cannot Connect to Server" (HTTP 500) — 60 de 60 falharam
+      # no piloto 2. Evidência: data/reports/saude/diagnostico_piloto_bdtd.json.
+      # Além desta lista, sai automaticamente todo domínio cujo robots.txt não
+      # autoriza (src/raw/robots.py: veto a robôs de IA, desafio anti-robô...).
+      excluir_instituicoes: ["UFMG", "UNIFESP", "PUC_RS", "UFSC", "UFPR"]
+      # Vazio = todas. O piloto de 2026-09-13 usou ["UFRN", "UFPR", "FIOCRUZ"].
+      instituicoes: []
+      # Coleta até 20 mil: no máximo 800 candidatos sorteados por instituição
+      # (36.485 no total), para a meta não sair concentrada nas maiores (UERJ
+      # tem 3.853 candidatos, UFRN 3.500).
+      limite_por_instituicao: 800
       semente: 42
       # Radicais, porque "odontologia" não pega "odontológico". Testados contra o
       # corpus: "medic" sozinho casa com "medição" e "hospital" com
@@ -325,7 +327,52 @@ coleta:
   # Teto de registros por execução (0 = sem teto). Útil para testar o pipeline
   # antes de rodar a coleta completa.
   max_registros: 500
-  max_pdfs: 500
+  max_pdfs: 20000
+
+  # Coleta autorizada até 20 mil PDFs (2026-09-13); meta reduzida para 15 mil
+  # pelo prazo de entrega. A meta conta os PDFs já no disco; ao atingir, o
+  # download para (0 = sem meta).
+  meta_pdfs: 15000
+  # Paralelismo POR INSTITUIÇÃO. Cada repositório continua recebendo no máximo
+  # 1 requisição a cada 3 s (rps_repositorios); instituições diferentes andam
+  # juntas. Não acelera nenhum domínio.
+  max_instituicoes_paralelas: 24
+  # A fila de cada instituição é servida em rodadas (os 200 primeiros de todas,
+  # depois os 200 seguintes...), para a meta não sair concentrada nas primeiras.
+  rodada_por_instituicao: 200
+  # Critério de parada do protocolo, automático: depois de 20 tentativas, a
+  # instituição com erro acima de 30% (sucesso abaixo de 70%) sai da coleta.
+  disjuntor:
+    min_tentativas: 20
+    taxa_minima: 0.70
+  # Suspensas depois do diagnóstico das instituições cortadas pelo disjuntor
+  # (13/09/2026; data/reports/saude/diagnostico_coleta20k_cortadas.json). Chave =
+  # instituição como aparece no estrato. Não recebem nenhuma requisição.
+  instituicoes_suspensas:
+    ufrgs: "lume.ufrgs.br com certificado TLS inválido (a verificação nunca é desligada)"
+    ufjf: "repositorio.ufjf.br com certificado TLS inválido"
+    ufrj: "pantheon.ufrj.br recusa conexão"
+    uft: "servidor de handles da UFT fora do ar (HTTP 500 'Cannot Connect to Server')"
+    unirio: "handles com prefixo inexistente ('Prefix [unirio] Not Found')"
+    unicamp: "robots.txt de repositorio.unicamp.br responde HTTP 503"
+    univates: "robots.txt de www.univates.br veta robôs de IA"
+    fgv: "repositorio.fgv.br responde com página de desafio anti-robô"
+    unisinos: "repositorio.jesuita.org.br responde com página de desafio anti-robô"
+    pucrio: "maxwell.vrac.puc-rio.br responde HTTP 403 (robots.txt e página)"
+    furb: "robots.txt de bu.furb.br proíbe o caminho dos PDFs"
+    ucpel: "tede.ucpel.edu.br responde HTTP 500 na página do item"
+    puccamp: "links do inventário dão HTTP 404"
+    ufvjm: "links do inventário dão HTTP 404"
+    uninove: "parte dos links do inventário dá HTTP 404 (15 de 24 obtidos, abaixo do protocolo)"
+    ufpa: "servidor derruba a conexão ao abrir a página do item"
+    unb: "Tainacan (WordPress): o coletor não reconhece o link do PDF"
+    uece: "SidUece (JSF): o coletor não reconhece o link do PDF"
+    kroton: "página do item sem link de PDF (22 candidatos; não investigado)"
+    # Depois da 2ª execução (13/09/2026, 17:15): as correções não bastaram.
+    iec: "DSpace 7 com API em outro endereço: mesmo lendo assets/config.json, 0 de 24 (não investigado a fundo)"
+    ueg: "links do inventário dão HTTP 404 mesmo sem a barra dupla"
+    ufrrj: "robots.txt de rima.ufrrj.br responde HTTP 403 ao coletor"
+    m: "dspace.mackenzie.br: página do item sem PDF localizável (7 obtidos em ~50 tentativas)"
 
   # Educação do crawler (não mexa para cima sem pensar)
   http:

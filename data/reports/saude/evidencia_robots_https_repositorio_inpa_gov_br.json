@@ -1,0 +1,12 @@
+{
+  "dominio": "https://repositorio.inpa.gov.br",
+  "robots_txt": "https://repositorio.inpa.gov.br/robots.txt",
+  "status_http": 200,
+  "conteudo": "User-agent: *\r\nAllow: /\r\n",
+  "verificado_em": "2026-09-13T16:35:26.403213+00:00",
+  "veredito": {
+    "permitido": true,
+    "motivo": "ok",
+    "crawl_delay": null
+  }
+}

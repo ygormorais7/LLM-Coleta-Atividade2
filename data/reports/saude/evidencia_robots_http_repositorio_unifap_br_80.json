@@ -1,0 +1,12 @@
+{
+  "dominio": "http://repositorio.unifap.br:80",
+  "robots_txt": "http://repositorio.unifap.br:80/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPSConnectionPool(host='repositorio.unifap.brrobots.txt', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='repositorio.unifap.brrobots.txt', port=443): Failed to resolve 'repositorio.unifap.brrobots.txt' ([Errno -2] Name or service not known)\")))",
+  "verificado_em": "2026-09-13T16:30:39.597441+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "dominio": "http://tede2.usc.br:8080",
+  "robots_txt": "http://tede2.usc.br:8080/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPConnectionPool(host='tede2.usc.br', port=8080): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPConnection(host='tede2.usc.br', port=8080) at 0x7f8dc8af56a0>, 'Connection to tede2.usc.br timed out. (connect timeout=30)')))",
+  "verificado_em": "2026-09-13T16:45:18.707364+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

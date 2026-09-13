@@ -1,0 +1,12 @@
+{
+  "dominio": "http://bu.furb.br",
+  "robots_txt": "http://bu.furb.br/robots.txt",
+  "status_http": 200,
+  "conteudo": "user-agent: *\nDisallow: /mauro/\nDisallow: /intranet/\nDisallow: /consulta/\nDisallow: /sugestao/\nDisallow: /cardoso/\nDisallow: /bdigital/\nDisallow: /helpdesk/\nDisallow: /sinbac/\nDisallow: /temp/\nDisallow: /teste/\nDisallow: /laboratorio/\nDisallow: /erro/\nDisallow: /docs/\nDisallow: /fotosBU/\nAllow: /ojs/\nDisallow: /ojs/index.php/linguagens/user/getInterests\nAllow: /soac/\n",
+  "verificado_em": "2026-09-13T16:29:12.367781+00:00",
+  "veredito": {
+    "permitido": true,
+    "motivo": "ok",
+    "crawl_delay": null
+  }
+}

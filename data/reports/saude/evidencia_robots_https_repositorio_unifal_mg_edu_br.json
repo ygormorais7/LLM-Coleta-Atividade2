@@ -1,0 +1,12 @@
+{
+  "dominio": "https://repositorio.unifal-mg.edu.br",
+  "robots_txt": "https://repositorio.unifal-mg.edu.br/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPSConnectionPool(host='repositorio.unifal-mg.edu.br', port=443): Read timed out. (read timeout=30))",
+  "verificado_em": "2026-09-13T16:48:22.589364+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

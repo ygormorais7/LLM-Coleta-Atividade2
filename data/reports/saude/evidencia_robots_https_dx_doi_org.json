@@ -1,0 +1,12 @@
+{
+  "dominio": "https://dx.doi.org",
+  "robots_txt": "https://dx.doi.org/robots.txt",
+  "status_http": 200,
+  "conteudo": "User-agent: *\nCrawl-delay: 1\nRequest-rate: 1/1\n",
+  "verificado_em": "2026-09-13T16:34:58.258902+00:00",
+  "veredito": {
+    "permitido": true,
+    "motivo": "ok",
+    "crawl_delay": 1.0
+  }
+}

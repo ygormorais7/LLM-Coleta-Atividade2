@@ -1,0 +1,12 @@
+{
+  "dominio": "https://riunbtainacan.unb.br",
+  "robots_txt": "https://riunbtainacan.unb.br/robots.txt",
+  "status_http": 200,
+  "conteudo": "User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\nSitemap: https://riunbtainacan.unb.br/wp-sitemap.xml\n",
+  "verificado_em": "2026-09-13T16:36:43.909586+00:00",
+  "veredito": {
+    "permitido": true,
+    "motivo": "ok",
+    "crawl_delay": null
+  }
+}

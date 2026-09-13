@@ -158,6 +158,24 @@ def checar_evidencia_bdtd_csv(cfg: Config) -> None:
     else:
         ok(f"evidência de robots.txt para os {len(dominios)} domínios do inventário BDTD")
 
+    # Letra E espírito: veto a robôs de IA, desafio anti-robô, bloqueio.
+    from src.common import ler_jsonl
+    from src.raw.inventario import _dominio, vereditos_robots
+
+    vereditos = vereditos_robots(cfg)
+    fora = {d: v.motivo for d, v in vereditos.items() if not v.permitido}
+    if fora:
+        aviso(f"{len(fora)} domínio(s) fora pelo robots.txt (saem do inventário no `bdtd_csv`): "
+              + ", ".join(f"{d} ({m})" for d, m in sorted(fora.items())))
+    caminho_inventario = cfg.dir_camada("raw") / "inventario.jsonl"
+    if caminho_inventario.exists():
+        no_inventario = {_dominio(c.get("url_landing") or "") for c in ler_jsonl(caminho_inventario)
+                         if c.get("fonte") == "bdtd_inventario"}
+        vetados = sorted(d for d in no_inventario if d in fora)
+        if vetados:
+            bloqueio(f"inventario.jsonl tem candidatos de domínio que o robots.txt não autoriza: "
+                     f"{', '.join(vetados)}. Refaça: python -m src.raw.inventario bdtd_csv")
+
 
 def checar_protocolo() -> None:
     caminho = RAIZ / "docs" / "PROTOCOLO_DE_COLETA.md"

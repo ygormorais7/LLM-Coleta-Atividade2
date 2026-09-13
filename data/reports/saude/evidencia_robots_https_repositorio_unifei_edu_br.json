@@ -1,0 +1,12 @@
+{
+  "dominio": "https://repositorio.unifei.edu.br",
+  "robots_txt": "https://repositorio.unifei.edu.br/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))",
+  "verificado_em": "2026-09-13T16:48:22.719449+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

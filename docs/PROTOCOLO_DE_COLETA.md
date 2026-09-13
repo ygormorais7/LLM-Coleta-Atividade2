@@ -11,8 +11,8 @@
 | Campo | Valor |
 |---|---|
 | Projeto | `bdtd-corpus` — corpus de teses e dissertações da área de Saúde para adaptação de domínio de modelo de linguagem em português brasileiro |
-| Grupo | Grupo 7 — Otávio da Conceição França, Ygor Morais, Eduardo Melo |
-| Responsável pela coleta deste pipeline | Ygor Francisco de Carvalho Morais |
+| Grupo | Grupo 7 — Eduardo Melo, Otávio França e Ygor Morais |
+| Responsável pela coleta | Grupo 7 |
 | E-mail de contato | ygor.morais@ufpi.edu.br |
 | Instituição | Universidade Federal do Piauí — Centro de Ciências da Natureza — Departamento de Computação |
 | Disciplina | Tópicos em Inteligência Artificial (DC/CCN072), 60h |
@@ -118,7 +118,7 @@ O `preflight.py` bloqueia a coleta se faltar evidência de algum domínio.
 | # | Fonte | Endpoint / origem | Protocolo | Verificado em | Situação |
 |---|---|---|---|---|---|
 | 1 | Repositório Institucional da UFMG, set `com_1843_6` | `https://repositorio.ufmg.br/server/oai/request` | OAI-PMH (`dim` + ORE) | 08/09/2026 | **fonte principal** |
-| 2 | Inventário da BDTD exportado pelo grupo (Eduardo Melo, projeto G7-Atividade02-BDTD) | `data/externo/inventario_saude.csv.gz` → página do item no repositório de origem | arquivo local + HTTP no repositório | 13/09/2026 | **piloto** (UFRN, UFPR, Fiocruz) |
+| 2 | Inventário da BDTD montado pelo grupo | `data/externo/inventario_saude.csv.gz` → página do item no repositório de origem | arquivo local + HTTP no repositório | 13/09/2026 | piloto (UFRN, UFPR, Fiocruz); **coleta até 20 mil PDFs autorizada em 13/09/2026** (até 800 candidatos por instituição) |
 | 3 | Repositório Institucional da UFPI | `https://repositorio.ufpi.br/oai/request` | OAI-PMH | 08/09/2026 | não usada nesta entrega |
 | 4 | UNIFESP (três unidades de Saúde) | `https://repositorio.unifesp.br/oai/request` | OAI-PMH | 08/09/2026 | **suspensa**: `Crawl-delay: 15` violado por versão antiga do coletor; depois, conexão recusada |
 | 5 | ARCA/Fiocruz via OAI | endpoint OAI não localizado | — | 08/09/2026 | substituída pelo acesso às páginas de item via fonte 2 |
@@ -126,7 +126,7 @@ O `preflight.py` bloqueia a coleta se faltar evidência de algum domínio.
 
 ### Sobre a fonte 2 (inventário da BDTD do grupo)
 
-O colega de grupo montou o inventário da área pela **API REST** da BDTD
+O grupo montou o inventário da área pela **API REST** da BDTD
 (`/vufind/api/v1/search`), fatiando a consulta por prefixo de identificador:
 183.718 fichas (título, autor, ano, tipo, instituição, direitos e a URL do item
 no repositório de origem). O `robots.txt` da BDTD proíbe só `/vufind/Search/`
@@ -150,6 +150,36 @@ o escopo é checado de novo na Processed com o começo do texto.
 | `tede2.pucrs.br` | `User-agent: * Allow: /`, mas **proíbe nominalmente robôs de IA**: GPTBot, ClaudeBot, CCBot, Google-Extended, Amazonbot, Applebot-Extended, Bytespider, meta-externalagent | **excluída**: a letra deixaria nosso User-Agent passar, mas o espírito é não ceder conteúdo para treino de modelo, que é o uso deste corpus |
 | `repositorio.ufsc.br` | `/robots.txt` devolve **página de desafio anti-robô do Cloudflare** (Turnstile), não um robots.txt | **excluída**: sem regra legível e com proteção ativa contra acesso automatizado |
 | `repositorio.ufmg.br` (08/09) | lista padrão do DSpace; nenhum robô de IA | fonte principal |
+
+### Evidência de `robots.txt` para a coleta até 20 mil (13/09/2026, 13:26–13:50)
+
+Uma requisição por domínio (`python -m src.raw.inventario robots`), mais **uma**
+nova tentativa só para falhas que podiam ser passageiras (tempo esgotado,
+resposta malformada): 23 domínios, dos quais nenhum voltou. Classificação
+automática (`src/raw/robots.py`) de 179 domínios (esquema + endereço) e 35.238
+candidatos (até 800 por instituição):
+
+| Veredito | Domínios | Candidatos | Decisão | Maiores |
+|---|---:|---:|---|---|
+| `ok` (regras lidas, nosso agente autorizado) | 79 | 17.366 | **fica** | hdl.handle.net, UFU, UFRN, UFPA, UEL |
+| sem robots.txt (HTTP 404) | 20 | 3.084 | **fica** | UEM, UFMA, UCPel |
+| página HTML no lugar do robots.txt, sem desafio | 3 | 803 | **fica** | UECE |
+| inacessível (tempo esgotado 16, certificado TLS inválido 9, DNS 6, resposta malformada 4, conexão recusada 3, outros 3) | 39 | 6.495 | sai | UERJ, UFTM, UFJF, UNIFAL, UFAM |
+| HTTP 403 | 12 | 2.732 | sai (bloqueio) | UFPE, UFSM, Cruzeiro do Sul |
+| **veto nominal a robôs de IA** | 10 | 2.641 | sai (espírito) | UFPB (CCBot), UFPel (GPTBot, CCBot), PUC Goiás, Sophia, UFFS (GPTBot, Claude-Web), UNISA, Metodista |
+| HTTP 468 (bloqueio de firewall) | 4 | 1.306 | sai | PUC-SP, UFBA |
+| HTTP 503 / 522 / 500 | 6 | 578 | sai (servidor com problema) | UnB, Bahiana |
+| `Disallow: /` para todos | 3 | 187 | sai | Franciscana, LNCC, ESPM |
+| **desafio anti-robô** (Cloudflare) | 3 | 46 | sai | Unicesumar, Uninter, Anhembi |
+| **Total** | **179** | **35.238** | fica 21.253 · sai 13.985 | |
+
+Certificado TLS inválido não é contornado: a verificação nunca é desligada. Os
+vetos a robôs de IA foram conferidos à mão: cada domínio tem um grupo explícito
+(`User-agent: CCBot` / `GPTBot` / `ClaudeBot`… com `Disallow: /`), às vezes
+abaixo das regras padrão do DSpace. Links `hdl.handle.net` (3.582 candidatos)
+têm o robots.txt do domínio final classificado ao vivo, com as mesmas regras.
+Evidência: `data/reports/saude/evidencia_robots_*.json` (conteúdo inteiro e
+veredito).
 
 ### O que foi deliberadamente evitado
 
@@ -178,14 +208,16 @@ divergem, vale o espírito (BDTD, PUC-RS).
 | robots.txt | consultado e respeitado por domínio, inclusive o `Crawl-delay`, em **todos** os caminhos de rede (colheita OAI e download) | `coleta.http.respeitar_robots: true`; `ClienteOAI._aplicar_crawl_delay`; `ResolvedorTextoCompleto._permitido` |
 | Ritmo na fonte de metadados | 1 requisição a cada 2 s | `requisicoes_por_segundo: 0.5` |
 | Ritmo por domínio de repositório | 1 requisição a cada 3 s (ou o `Crawl-delay`, se maior) | `rps_repositorios: 0.33` |
-| Paralelismo | domínios diferentes em paralelo; **dentro de um domínio o intervalo é sempre o do config** (o limitador reserva o próximo horário livre por domínio) | `RateLimiter.aguardar`, `harvest.baixar_por_cota` |
+| Paralelismo | até 24 **instituições** em paralelo, em rodadas de 200 candidatos cada; **dentro de um domínio o intervalo é sempre o do config** (o limitador reserva o próximo horário livre por domínio) | `coleta.max_instituicoes_paralelas`, `coleta.rodada_por_instituicao`, `RateLimiter.aguardar` |
 | Redirecionamento | seguido à mão; cada salto passa pelo `robots.txt` e pelo ritmo do domínio de destino (link `hdl.handle.net` → repositório final) | `ResolvedorTextoCompleto._obter` |
 | Retry | backoff exponencial; `Retry-After` respeitado; `503` do OAI tratado como controle de fluxo | `bdtd_client.py`, `fontes.py` |
 | Janela OAI que falha | dividida ao meio até 1 dia; o que não se recupera é **declarado** no relatório | `ClienteOAI._colher_janela` |
 | **Disjuntor** | **5 falhas seguidas sem registro novo interrompem a colheita** e declaram o resto do intervalo como perdido | `ClienteOAI.FALHAS_SEGUIDAS_MAX` |
+| **Disjuntor por instituição (download)** | depois de 20 tentativas, instituição com **erro acima de 30%** sai da coleta sozinha e vai para o relatório (`instituicoes_interrompidas`) — o critério de parada da seção abaixo, sem depender de alguém olhando | `coleta.disjuntor`, `harvest.baixar_por_cota` |
 | Tamanho máximo por arquivo | 120 MB | `tamanho_max_pdf_mb` |
 | Conteúdo | só grava se começar com `%PDF`; página de login/erro com HTTP 200 é descartada | `ResolvedorTextoCompleto.baixar` |
 | ORE quando disponível | sim: o OAI entrega a URL do arquivo e dispensa a requisição à página HTML | `prefix_binarios: "ore"` |
+| **robots.txt pelo espírito, automático** | cada domínio é classificado: **veto nominal a robôs de IA** (GPTBot, ClaudeBot, CCBot…), **página de desafio anti-robô**, bloqueio total ao nosso agente, HTTP 401/403/429/5xx ou inacessível → domínio **fora da coleta**. Vale na evidência (sai do inventário; o preflight bloqueia se sobrar), e ao vivo no domínio final de cada link `hdl.handle.net` | `src/raw/robots.py`, `inventario.vereditos_robots`, `ResolvedorTextoCompleto._carregar_robots` |
 | Página do item sem link (DSpace 7) | a API REST do próprio repositório (`/server/api`: item → pacote `ORIGINAL` → PDF), só depois de a página não trazer metatag nem link; metatag com endereço interno (`localhost`) é trocada pelo domínio da página | `ResolvedorTextoCompleto._descobrir_dspace7`, `_no_mesmo_site` |
 | Meta de PDFs | `coleta.meta_pdfs` (0 = sem meta) | `harvest.baixar_por_cota` |
 | Antes de qualquer coleta | `python -m pytest` e `python preflight.py` (bloqueia sem contato, sem evidência de robots.txt por domínio, com ritmo acima do protocolo) | `preflight.py` |
@@ -317,6 +349,11 @@ do corpus.
 | 2026-09-13 04:42 | Diagnóstico do piloto 2 (1 registro por instituição, sem baixar PDF) | ~15 | — | nenhum | UFRN: DSpace 7 sem renderização no servidor, página de 1 KB sem link; a API REST `/server/api` chega ao PDF. Fiocruz: `citation_pdf_url` aponta para `http://localhost:4000/...` (configuração do servidor deles). UFPR: `hdl.handle.net/1884/...` responde "Cannot Connect to Server" (HTTP 500) — servidor de handles da UFPR fora do ar. Evidência: `diagnostico_piloto_bdtd.json` |
 | 2026-09-13 04:47 | Inventário BDTD — piloto 3: **os mesmos 120 candidatos** de UFRN e Fiocruz, depois de corrigir o coletor | ~5 por candidato na UFRN (página + API REST), ~2 na Fiocruz; 04:47–05:09 | **119 de 120 PDFs** (UFRN 60/60, Fiocruz 59/60; 473 MB) | nenhum (1 `pdf_nao_localizado` na Fiocruz) | UFPR retirada (serviço falhando). Nenhum candidato novo. 109 testes; preflight com 0 bloqueios |
 | 2026-09-13 05:09–07:05 | (pós-processamento, sem requisição) | — | **2.951 no corpus final** (UFMG 2.845, Fiocruz 54, UFRN 52); 72,0 M palavras | a verificação de PII do Curated **parou o pipeline** numa passada intermediária (telefone quebrado em linha escapando); leitura manual achou pares de SFT com abstract e 10 teses de Saúde excluídas como zootecnia | todos corrigidos e cobertos por teste (128); verificação final: **0 ocorrências** |
+| 2026-09-13 13:26– | Inventário BDTD — **coleta até 20 mil PDFs** (141 instituições, 159 domínios; até 800 candidatos sorteados por instituição; UFPR, UFMG, UNIFESP, PUC-RS e UFSC fora) | 1) robots.txt de cada domínio; 2) inventário sem domínios vetados; 3) download em 4 execuções (abaixo) | **15.098 PDFs no disco ao fim**, com a meta reduzida para 15 mil pelo prazo de entrega | ver as execuções abaixo | 145 testes; preflight antes de cada etapa; disjuntor por instituição ativo |
+| 2026-09-13 13:51–14:40 | Coleta até 20 mil — download, 1ª execução | 6.000 tentativas (~84% de sucesso) | **8.748 PDFs no disco** (de 3.596) | **o disjuntor cortou 26 instituições** (8.858 candidatos, 41% do inventário BDTD), quase todas com 0 de 20 | diagnóstico com 1 link por instituição cortada e uma sonda de ~10 requisições nos DSpace 7 (`diagnostico_coleta20k_cortadas.json`): 19 falhas **legítimas** (certificado TLS inválido na UFRGS e na UFJF; handle fora do ar na UFT; prefixo de handle inexistente na UNIRIO; robots.txt 503 na UNICAMP e veto a robôs de IA na Univates, ambos no domínio final; página "você não é um bot" na FGV e na UNISINOS; HTTP 403, 404 ou 500; conexão recusada ou derrubada) e 3 sistemas não reconhecidos (Tainacan, JSF, Kroton) → **suspensas no config, sem nenhuma requisição**; 7 **defeitos do coletor**, corrigidos com teste (155): API do DSpace 7 declarada em `assets/config.json` (IEC, UDESC, UFG), handle não numérico, `/bitstreams/…/download` que devolve HTML (UFG, UFMS, Mackenzie), metatag com IP e porta 4000 (UEPB), barra dupla no link (UEG), desafio anti-robô na página tira o domínio na 1ª vez |
+| 2026-09-13 14:40–17:15 | Coleta até 20 mil — download, 2ª execução, com as correções (processo anterior encerrado de propósito; manifesto gravado item a item e copiado antes) | ~6.000 tentativas | **14.488 PDFs no disco** | 11 instituições cortadas pelo disjuntor, parte delas por corte falso na retomada (ver 17:15) | encerrada de propósito: **meta reduzida para 15 mil pelo prazo de entrega** |
+| 2026-09-13 17:15–17:28 | 3ª execução, meta 15 mil | ~450 tentativas | 14.551 | **defeito do disjuntor na retomada**: os PDFs já obtidos eram pulados sem contar, e instituições boas (UEM, UFMA, UFES) caíram com "0 de 20" só em falhas antigas | encerrada para corrigir (o disjuntor parte do histórico; 156 testes); IEC, UEG, UFRRJ e Mackenzie suspensas (correções não bastaram, robots.txt 403 ou 404) |
+| 2026-09-13 17:28–17:45 | 4ª execução, meta 15 mil, disjuntor com histórico | ~800 tentativas | **15.098 PDFs no disco: meta atingida** (UFMG 3.477, piloto 119, coleta em escala 11.502; 62 instituições) | disjuntor cortou UDESC (15 de 22) e UFMS (25 de 36) pela taxa real; desafio anti-robô visto ao vivo em repositorio.ufersa.edu.br e saberaberto.uneb.br (domínios saíram na hora) | 23 instituições suspensas, sem nenhuma requisição; testes e preflight antes |
 
 ---
 

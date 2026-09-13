@@ -1,0 +1,12 @@
+{
+  "dominio": "http://teste.tede.unifacs.br:8080",
+  "robots_txt": "http://teste.tede.unifacs.br:8080/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPConnectionPool(host='teste.tede.unifacs.br', port=8080): Max retries exceeded with url: /robots.txt (Caused by NameResolutionError(\"HTTPConnection(host='teste.tede.unifacs.br', port=8080): Failed to resolve 'teste.tede.unifacs.br' ([Errno -5] No address associated with hostname)\")))",
+  "verificado_em": "2026-09-13T16:32:16.310169+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

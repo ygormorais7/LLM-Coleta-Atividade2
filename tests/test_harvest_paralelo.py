@@ -46,6 +46,85 @@ def test_todos_os_estratos_sao_baixados_em_paralelo_sem_perder_item(cfg_tmp, mon
     assert _ResolvedorFalso.pico > 4  # mais de um estrato ao mesmo tempo
 
 
+class _ResolvedorQueFalhaNaUfpr(_ResolvedorFalso):
+    chamadas: dict = {}
+
+    def obter(self, urls, destino):
+        inst = urls[0].split("//")[1].split(".")[0]
+        with _ResolvedorFalso.trava:
+            _ResolvedorQueFalhaNaUfpr.chamadas[inst] = _ResolvedorQueFalhaNaUfpr.chamadas.get(inst, 0) + 1
+        if inst == "ufpr":
+            return ResultadoDownload(False, motivo="pdf_nao_localizado")
+        return super().obter(urls, destino)
+
+
+def test_disjuntor_interrompe_so_a_instituicao_que_falha(cfg_tmp, monkeypatch):
+    monkeypatch.setattr(harvest, "ResolvedorTextoCompleto", _ResolvedorQueFalhaNaUfpr)
+    _ResolvedorQueFalhaNaUfpr.chamadas = {}
+    cfg_tmp["coleta"]["disjuntor"] = {"min_tentativas": 10, "taxa_minima": 0.70}
+    rel = Relatorio(camada="raw", area="teste")
+
+    harvest.baixar_por_cota(cfg_tmp, _candidatos(60, ["ufpr", "ufrn"]), rel)
+
+    assert list(rel.metricas["instituicoes_interrompidas"]) == ["ufpr"]
+    assert _ResolvedorQueFalhaNaUfpr.chamadas["ufpr"] <= 10 + 8  # para no bloco em andamento
+    assert _ResolvedorQueFalhaNaUfpr.chamadas["ufrn"] == 60
+    # manifesto gravado item a item também tem as falhas
+    manifesto = list(ler_jsonl(cfg_tmp.dir_camada("raw") / "manifesto.jsonl"))
+    assert sum(1 for m in manifesto if not m["baixado"]) == _ResolvedorQueFalhaNaUfpr.chamadas["ufpr"]
+
+
+def test_disjuntor_considera_o_historico_ao_retomar(cfg_tmp, monkeypatch):
+    # Retomada: 30 PDFs já obtidos (manifesto + disco); os 20 restantes falham.
+    # Sem histórico, cortaria na 10ª falha; com ele, só quando 30/(30+k) < 70%.
+    from src.common import escrever_jsonl
+
+    monkeypatch.setattr(harvest, "ResolvedorTextoCompleto", _ResolvedorQueFalhaNaUfpr)
+    _ResolvedorQueFalhaNaUfpr.chamadas = {}
+    cfg_tmp["coleta"]["disjuntor"] = {"min_tentativas": 10, "taxa_minima": 0.70}
+    candidatos = _candidatos(50, ["ufpr"])
+    dir_raw = cfg_tmp.dir_camada("raw")
+    (dir_raw / "pdf").mkdir(parents=True, exist_ok=True)
+    feitos = []
+    for c in candidatos[:30]:
+        did = harvest.doc_id(c["chave_origem"])
+        arquivo = dir_raw / "pdf" / f"{did}.pdf"
+        arquivo.write_bytes(b"%PDF-1.4 falso")
+        feitos.append({"doc_id": did, "baixado": True, "arquivo": str(arquivo), "estrato": "ufpr"})
+    escrever_jsonl(dir_raw / "manifesto.jsonl", feitos)
+    rel = Relatorio(camada="raw", area="teste")
+
+    harvest.baixar_por_cota(cfg_tmp, candidatos, rel)
+
+    assert "ufpr" in rel.metricas["instituicoes_interrompidas"]
+    assert 13 <= _ResolvedorQueFalhaNaUfpr.chamadas["ufpr"] <= 13 + 8
+
+
+def test_instituicao_suspensa_nao_recebe_nenhuma_requisicao(cfg_tmp, monkeypatch):
+    monkeypatch.setattr(harvest, "ResolvedorTextoCompleto", _ResolvedorQueFalhaNaUfpr)
+    _ResolvedorQueFalhaNaUfpr.chamadas = {}
+    cfg_tmp["coleta"]["instituicoes_suspensas"] = {"UFPR": "servidor de handles fora do ar"}
+    rel = Relatorio(camada="raw", area="teste")
+
+    harvest.baixar_por_cota(cfg_tmp, _candidatos(30, ["ufpr", "ufrn"]), rel)
+
+    assert "ufpr" not in _ResolvedorQueFalhaNaUfpr.chamadas
+    assert _ResolvedorQueFalhaNaUfpr.chamadas["ufrn"] == 30
+    assert rel.metricas["instituicoes_suspensas"] == {"ufpr": "servidor de handles fora do ar"}
+
+
+def test_rodadas_espalham_a_meta_entre_instituicoes(cfg_tmp, monkeypatch):
+    monkeypatch.setattr(harvest, "ResolvedorTextoCompleto", _ResolvedorFalso)
+    cfg_tmp["coleta"].update({"meta_pdfs": 20, "rodada_por_instituicao": 8, "max_instituicoes_paralelas": 1})
+    rel = Relatorio(camada="raw", area="teste")
+
+    harvest.baixar_por_cota(cfg_tmp, _candidatos(50, ["a", "b"]), rel)
+
+    manifesto = list(ler_jsonl(cfg_tmp.dir_camada("raw") / "manifesto.jsonl"))
+    por_inst = {e: sum(1 for m in manifesto if m["estrato"] == e) for e in ("a", "b")}
+    assert por_inst["a"] >= 8 and por_inst["b"] >= 8  # sem rodadas, "a" levaria os 20
+
+
 def test_meta_de_pdfs_interrompe_a_coleta(cfg_tmp, monkeypatch):
     monkeypatch.setattr(harvest, "ResolvedorTextoCompleto", _ResolvedorFalso)
     cfg_tmp["coleta"]["meta_pdfs"] = 3

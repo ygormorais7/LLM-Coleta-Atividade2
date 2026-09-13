@@ -1,0 +1,12 @@
+{
+  "dominio": "http://bibliotecatede.uninove.br",
+  "robots_txt": "http://bibliotecatede.uninove.br/robots.txt",
+  "status_http": 200,
+  "conteudo": "User-agent: *\n\n# Uncomment the following line ONLY if sitemaps.org or HTML sitemaps are used\n# and you have verified that your site is being indexed correctly.\n# Disallow: /browse\n",
+  "verificado_em": "2026-09-13T16:29:11.671488+00:00",
+  "veredito": {
+    "permitido": true,
+    "motivo": "ok",
+    "crawl_delay": null
+  }
+}

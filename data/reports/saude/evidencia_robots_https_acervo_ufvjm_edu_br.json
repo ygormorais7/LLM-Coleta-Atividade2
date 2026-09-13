@@ -1,0 +1,12 @@
+{
+  "dominio": "https://acervo.ufvjm.edu.br",
+  "robots_txt": "https://acervo.ufvjm.edu.br/robots.txt",
+  "status_http": 404,
+  "conteudo": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>404 Not Found</title>\n</head><body>\n<h1>Not Found</h1>\n<p>The requested URL was not found on this server.</p>\n<hr>\n<address>Apache/2.4.52 (Ubuntu) Server at acervo.ufvjm.edu.br Port 443</address>\n</body></html>\n",
+  "verificado_em": "2026-09-13T16:34:49.961529+00:00",
+  "veredito": {
+    "permitido": true,
+    "motivo": "sem_robots",
+    "crawl_delay": null
+  }
+}

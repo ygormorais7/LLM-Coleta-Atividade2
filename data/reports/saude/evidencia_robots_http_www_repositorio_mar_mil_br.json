@@ -1,0 +1,12 @@
+{
+  "dominio": "http://www.repositorio.mar.mil.br",
+  "robots_txt": "http://www.repositorio.mar.mil.br/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPConnectionPool(host='www.repositorio.mar.mil.br', port=80): Max retries exceeded with url: /robots.txt (Caused by NameResolutionError(\"HTTPConnection(host='www.repositorio.mar.mil.br', port=80): Failed to resolve 'www.repositorio.mar.mil.br' ([Errno -5] No address associated with hostname)\")))",
+  "verificado_em": "2026-09-13T16:33:55.883788+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

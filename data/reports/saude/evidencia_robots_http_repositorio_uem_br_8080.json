@@ -1,0 +1,12 @@
+{
+  "dominio": "http://repositorio.uem.br:8080",
+  "robots_txt": "http://repositorio.uem.br:8080/robots.txt",
+  "status_http": 404,
+  "conteudo": "",
+  "verificado_em": "2026-09-13T16:29:53.371506+00:00",
+  "veredito": {
+    "permitido": true,
+    "motivo": "sem_robots",
+    "crawl_delay": null
+  }
+}

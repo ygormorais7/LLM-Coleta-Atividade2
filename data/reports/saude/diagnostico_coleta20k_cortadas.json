@@ -1,0 +1,887 @@
+{
+  "fgv": {
+    "url": "https://hdl.handle.net/10438/8662",
+    "status": 200,
+    "final": "https://repositorio.fgv.br/handle/10438/8662",
+    "tipo": "text/html; charset=utf-8",
+    "bytes": 7597,
+    "titulo": "Certificando de que você não é um bot!",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": "<!doctype html><html lang=\"pt-BR\"><head><title>Certificando de que você não é um bot!</title><link rel=\"stylesheet\" href=\"/.within.website/x/xess/xess.min.css?cachebuster=v1.27.0\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta name=\"robots\" content=\"noindex,nofollow\"><st",
+    "saltos": [
+      {
+        "url": "https://hdl.handle.net/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain",
+        "servidor": "cloudflare"
+      },
+      {
+        "url": "https://hdl.handle.net/10438/8662",
+        "status": 302,
+        "location": "https://repositorio.fgv.br/handle/10438/8662",
+        "tipo": "text/html;charset=utf-8",
+        "servidor": "cloudflare"
+      },
+      {
+        "url": "https://repositorio.fgv.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": "Apache"
+      },
+      {
+        "url": "https://repositorio.fgv.br/handle/10438/8662",
+        "status": 200,
+        "location": null,
+        "tipo": "text/html; charset=utf-8",
+        "servidor": "Apache"
+      }
+    ],
+    "vetados": {}
+  },
+  "furb": {
+    "url": "http://bu.furb.br/docs/TE/2002/290987_1_1.pdf",
+    "saltos": [
+      {
+        "url": "http://bu.furb.br/robots.txt",
+        "status": 301,
+        "location": "https://bu.furb.br/robots.txt",
+        "tipo": null,
+        "servidor": "nginx"
+      },
+      {
+        "url": "https://bu.furb.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=ISO-8859-1",
+        "servidor": "nginx"
+      }
+    ],
+    "vetados": {}
+  },
+  "iec": {
+    "url": "https://patua.iec.gov.br/handle/iec/5439",
+    "status": 200,
+    "final": "https://patua.iec.gov.br/handle/iec/5439",
+    "tipo": "text/html; charset=utf-8",
+    "bytes": 1182,
+    "titulo": "Patuá",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": "<!DOCTYPE html><html><head> <meta charset=\"UTF-8\"> <base href=\"/\"> <title>Patuá</title> <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1\"> <meta http-equiv=\"cache-control\" content=\"no-store\"> <script async=\"\" src=\"https://badge.dimensions.ai/badge.js\" charset=\"utf-8\"></s",
+    "saltos": [
+      {
+        "url": "https://patua.iec.gov.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": null
+      },
+      {
+        "url": "https://patua.iec.gov.br/handle/iec/5439",
+        "status": 200,
+        "location": null,
+        "tipo": "text/html; charset=UTF-8",
+        "servidor": null
+      }
+    ],
+    "vetados": {}
+  },
+  "kroton": {
+    "url": "https://repositorio.pgsscogna.com.br//handle/123456789/68006",
+    "status": 200,
+    "final": "https://repositorio.pgsscogna.com.br//handle/123456789/68006",
+    "tipo": "text/html",
+    "bytes": 8270,
+    "titulo": "RepositÃ³rio Cogna",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": "<!doctype html> <html lang=\"pt\"> <head> <meta charset=\"utf-8\"> <meta property=\"og:title\" content=\"RepositÃ³rio Institucional da Cogna\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <!-- Required meta tags --> <meta charset=\"utf-8\"> <meta name=\"viewpor",
+    "saltos": [
+      {
+        "url": "https://repositorio.pgsscogna.com.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain",
+        "servidor": "cloudflare"
+      },
+      {
+        "url": "https://repositorio.pgsscogna.com.br//handle/123456789/68006",
+        "status": 200,
+        "location": null,
+        "tipo": "text/html",
+        "servidor": "cloudflare"
+      }
+    ],
+    "vetados": {}
+  },
+  "m": {
+    "url": "http://dspace.mackenzie.br/handle/10899/23685",
+    "status": 200,
+    "final": "https://dspace.mackenzie.br/items/cbcff953-c209-40a0-8e76-8a7d4fca8e1c",
+    "tipo": "text/html; charset=utf-8",
+    "bytes": 498370,
+    "titulo": "Marketing de serviços na assistência médica: fatores que podem determinar a qualidade",
+    "citation_pdf_url": [
+      "https://dspace.mackenzie.br/bitstreams/2ff46de1-945c-490e-aa10-689af18aba8c/download"
+    ],
+    "links_pdf": [],
+    "links_bitstream": [
+      "https://dspace.mackenzie.br/bitstreams/2ff46de1-945c-490e-aa10-689af18aba8c/download",
+      "/bitstreams/2ff46de1-945c-490e-aa10-689af18aba8c/download"
+    ],
+    "inicio": "<!DOCTYPE html><html data-critters-container=\"\" lang=\"pt-BR\"><head> <meta charset=\"UTF-8\"> <base href=\"/\"> <title>Marketing de serviços na assistência médica: fatores que podem determinar a qualidade</title> <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1\"> <meta http-equ",
+    "saltos": [
+      {
+        "url": "http://dspace.mackenzie.br/robots.txt",
+        "status": 301,
+        "location": "https://dspace.mackenzie.br/robots.txt",
+        "tipo": "text/html; charset=iso-8859-1",
+        "servidor": null
+      },
+      {
+        "url": "https://dspace.mackenzie.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": null
+      },
+      {
+        "url": "http://dspace.mackenzie.br/handle/10899/23685",
+        "status": 301,
+        "location": "https://dspace.mackenzie.br/handle/10899/23685",
+        "tipo": "text/html; charset=iso-8859-1",
+        "servidor": null
+      },
+      {
+        "url": "https://dspace.mackenzie.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": null
+      },
+      {
+        "url": "https://dspace.mackenzie.br/handle/10899/23685",
+        "status": 301,
+        "location": "/items/cbcff953-c209-40a0-8e76-8a7d4fca8e1c",
+        "tipo": "text/html; charset=utf-8",
+        "servidor": null
+      },
+      {
+        "url": "https://dspace.mackenzie.br/items/cbcff953-c209-40a0-8e76-8a7d4fca8e1c",
+        "status": 200,
+        "location": null,
+        "tipo": "text/html; charset=utf-8",
+        "servidor": null
+      }
+    ],
+    "vetados": {}
+  },
+  "puccamp": {
+    "url": "https://repositorio.sis.puc-campinas.edu.br/handle/123456789/272",
+    "status": 404,
+    "final": "https://repositorio.sis.puc-campinas.edu.br/handle/123456789/272",
+    "tipo": "text/html; charset=utf-8",
+    "bytes": 400597,
+    "titulo": "Repositório Institucional PUC-Campinas",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": "<!DOCTYPE html><html data-critters-container=\"\" lang=\"pt-BR\"><head> <meta charset=\"UTF-8\"> <base href=\"/\"> <title>Repositório Institucional PUC-Campinas</title> <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1\"> <meta http-equiv=\"cache-control\" content=\"no-store\"> <link re",
+    "saltos": [
+      {
+        "url": "https://repositorio.sis.puc-campinas.edu.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": "nginx/1.24.0 (Ubuntu)"
+      },
+      {
+        "url": "https://repositorio.sis.puc-campinas.edu.br/handle/123456789/272",
+        "status": 404,
+        "location": null,
+        "tipo": "text/html; charset=utf-8",
+        "servidor": "nginx/1.24.0 (Ubuntu)"
+      }
+    ],
+    "vetados": {}
+  },
+  "pucrio": {
+    "url": "https://www.maxwell.vrac.puc-rio.br/colecao.php?strSecao=resultado&nrSeq=6023&idi=1",
+    "status": 403,
+    "final": "https://www.maxwell.vrac.puc-rio.br/colecao.php?strSecao=resultado&nrSeq=6023&idi=1",
+    "tipo": "text/html; charset=iso-8859-1",
+    "bytes": 292,
+    "titulo": "403 Forbidden",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\"> <html><head> <title>403 Forbidden</title> </head><body> <h1>Forbidden</h1> <p>You don't have permission to access this resource.</p> <hr> <address>Apache/2.4.52 (Ubuntu) Server at www.maxwell.vrac.puc-rio.br Port 80</address> </body></html> ",
+    "saltos": [
+      {
+        "url": "https://www.maxwell.vrac.puc-rio.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=UTF-8",
+        "servidor": "nginx"
+      },
+      {
+        "url": "https://www.maxwell.vrac.puc-rio.br/colecao.php?strSecao=resultado&nrSeq=6023&idi=1",
+        "status": 403,
+        "location": null,
+        "tipo": "text/html; charset=iso-8859-1",
+        "servidor": "nginx"
+      }
+    ],
+    "vetados": {}
+  },
+  "ucpel": {
+    "url": "http://tede.ucpel.edu.br:8080/jspui/handle/tede/433",
+    "status": 500,
+    "final": "http://tede.ucpel.edu.br:8080/jspui/handle/tede/433",
+    "tipo": "text/html;charset=utf-8",
+    "bytes": 9451,
+    "titulo": "TEDE: Erro interno do sistema",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": " <!DOCTYPE html> <html> <head> <title>TEDE: Erro interno do sistema</title> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /> <meta name=\"Generator\" content=\"DSpace 4.2\" /> <meta name=\"viewport\" content=\"width=device-width, i",
+    "saltos": [
+      {
+        "url": "http://tede.ucpel.edu.br:8080/robots.txt",
+        "status": 404,
+        "location": null,
+        "tipo": null,
+        "servidor": "Apache-Coyote/1.1"
+      },
+      {
+        "url": "http://tede.ucpel.edu.br:8080/jspui/handle/tede/433",
+        "status": 500,
+        "location": null,
+        "tipo": "text/html;charset=UTF-8",
+        "servidor": "Apache-Coyote/1.1"
+      }
+    ],
+    "vetados": {}
+  },
+  "udesc": {
+    "url": "https://repositorio.udesc.br/handle/UDESC/20856",
+    "status": 200,
+    "final": "https://repositorio.udesc.br/handle/UDESC/20856",
+    "tipo": "text/html; charset=utf-8",
+    "bytes": 751,
+    "titulo": "DSpace",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": "<!DOCTYPE html> <html data-beasties-container> <head> <meta charset=\"UTF-8\"> <base href=\"/\"> <title>DSpace</title> <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1\"> <meta http-equiv=\"cache-control\" content=\"no-store\"> <link rel=\"stylesheet\" href=\"styles.cf390c6bfbe7555f.",
+    "saltos": [
+      {
+        "url": "https://repositorio.udesc.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": "Apache/2.4.66 (Debian)"
+      },
+      {
+        "url": "https://repositorio.udesc.br/handle/UDESC/20856",
+        "status": 200,
+        "location": null,
+        "tipo": "text/html; charset=utf-8",
+        "servidor": "Apache/2.4.66 (Debian)"
+      }
+    ],
+    "vetados": {}
+  },
+  "uece": {
+    "url": "https://siduece.uece.br/siduece/trabalhoAcademicoPublico.jsf?id=48559",
+    "status": 200,
+    "final": "https://siduece.uece.br/siduece/trabalhoAcademicoPublico.jsf?id=48559",
+    "tipo": "text/html;charset=iso-8859-1",
+    "bytes": 19361,
+    "titulo": "SidUece - Sistema de Informação e Documentação",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"> <html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"pt_BR\"><head><link type=\"text/css\" rel=\"stylesheet\" href=\"/siduece/javax.faces.resource/th",
+    "saltos": [
+      {
+        "url": "https://siduece.uece.br/robots.txt",
+        "status": 302,
+        "location": "https://error.uece.br/404.html",
+        "tipo": "text/html; charset=iso-8859-1",
+        "servidor": "Apache"
+      },
+      {
+        "url": "https://error.uece.br/404.html",
+        "status": 200,
+        "location": null,
+        "tipo": "text/html; charset=UTF-8",
+        "servidor": "Apache"
+      },
+      {
+        "url": "https://siduece.uece.br/siduece/trabalhoAcademicoPublico.jsf?id=48559",
+        "status": 200,
+        "location": null,
+        "tipo": "text/html;charset=ISO-8859-1",
+        "servidor": "Apache"
+      }
+    ],
+    "vetados": {}
+  },
+  "ueg": {
+    "url": "https://www.bdtd.ueg.br//handle/tede/89",
+    "status": 404,
+    "final": "https://www.bdtd.ueg.br//handle/tede/89",
+    "tipo": "",
+    "bytes": 0,
+    "titulo": null,
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": "",
+    "saltos": [
+      {
+        "url": "https://www.bdtd.ueg.br/robots.txt",
+        "status": 404,
+        "location": null,
+        "tipo": null,
+        "servidor": null
+      },
+      {
+        "url": "https://www.bdtd.ueg.br//handle/tede/89",
+        "status": 404,
+        "location": null,
+        "tipo": null,
+        "servidor": null
+      }
+    ],
+    "vetados": {}
+  },
+  "uepb": {
+    "url": "https://repositorio.uepb.edu.br/handle/123456789/71230",
+    "status": 200,
+    "final": "https://repositorio.uepb.edu.br/items/b3506394-ccc9-4b3f-a06c-20bd213e2bcf",
+    "tipo": "text/html; charset=utf-8",
+    "bytes": 501989,
+    "titulo": "Adesão ao tratamento da hipertensão arterial e seus determinantes em pacientes atendidos no programa saúde da família",
+    "citation_pdf_url": [
+      "http://200.129.73.159:4000/bitstreams/188ef039-12c2-42ed-8dab-3f78b80c9e12/download"
+    ],
+    "links_pdf": [],
+    "links_bitstream": [
+      "https://repositorio.uepb.edu.br/bitstreams/188ef039-12c2-42ed-8dab-3f78b80c9e12/download",
+      "/bitstreams/188ef039-12c2-42ed-8dab-3f78b80c9e12/download"
+    ],
+    "inicio": "<!DOCTYPE html><html data-critters-container=\"\" lang=\"pt-BR\"><head> <meta charset=\"UTF-8\"> <base href=\"/\"> <title>Adesão ao tratamento da hipertensão arterial e seus determinantes em pacientes atendidos no programa saúde da família</title> <meta name=\"viewport\" content=\"width=device-width,mi",
+    "saltos": [
+      {
+        "url": "https://repositorio.uepb.edu.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": "nginx"
+      },
+      {
+        "url": "https://repositorio.uepb.edu.br/handle/123456789/71230",
+        "status": 301,
+        "location": "/items/b3506394-ccc9-4b3f-a06c-20bd213e2bcf",
+        "tipo": "text/html; charset=utf-8",
+        "servidor": "nginx"
+      },
+      {
+        "url": "https://repositorio.uepb.edu.br/items/b3506394-ccc9-4b3f-a06c-20bd213e2bcf",
+        "status": 200,
+        "location": null,
+        "tipo": "text/html; charset=utf-8",
+        "servidor": "nginx"
+      }
+    ],
+    "vetados": {}
+  },
+  "ufg": {
+    "url": "http://repositorio.bc.ufg.br/tede/handle/tde/724",
+    "status": 200,
+    "final": "https://repositorio.bc.ufg.br/tede/items/4df78089-f5d4-41f3-952d-d936ea88c673",
+    "tipo": "text/html; charset=utf-8",
+    "bytes": 407955,
+    "titulo": "O Serviço de Triagem do Hospital das Clínicas da Universidade Federal de Goiás- promotovendo o acolhimento e a reorganiz",
+    "citation_pdf_url": [
+      "https://repositorio.bc.ufg.br/bitstreams/84b3f2fc-5775-474f-9c19-f7c287f46944/download"
+    ],
+    "links_pdf": [],
+    "links_bitstream": [
+      "https://repositorio.bc.ufg.br/tede/bitstreams/84b3f2fc-5775-474f-9c19-f7c287f46944/download",
+      "/tede/bitstreams/84b3f2fc-5775-474f-9c19-f7c287f46944/download"
+    ],
+    "inicio": "<!DOCTYPE html><html lang=\"pt-BR\"><head> <meta charset=\"UTF-8\"> <base href=\"/tede/\"> <title>O Serviço de Triagem do Hospital das Clínicas da Universidade Federal de Goiás- promotovendo o acolhimento e a reorganização institucional</title> <meta name=\"viewport\" content=\"width=device-width,min",
+    "saltos": [
+      {
+        "url": "http://repositorio.bc.ufg.br/robots.txt",
+        "status": 302,
+        "location": "https://repositorio.bc.ufg.br/robots.txt",
+        "tipo": "text/html; charset=iso-8859-1",
+        "servidor": "Apache/2.4.65 (Unix) OpenSSL/3.0.16"
+      },
+      {
+        "url": "https://repositorio.bc.ufg.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": "Apache/2.4.65 (Unix) OpenSSL/3.0.16"
+      },
+      {
+        "url": "http://repositorio.bc.ufg.br/tede/handle/tde/724",
+        "status": 302,
+        "location": "https://repositorio.bc.ufg.br/tede/handle/tde/724",
+        "tipo": "text/html; charset=iso-8859-1",
+        "servidor": "Apache/2.4.65 (Unix) OpenSSL/3.0.16"
+      },
+      {
+        "url": "https://repositorio.bc.ufg.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": "Apache/2.4.65 (Unix) OpenSSL/3.0.16"
+      },
+      {
+        "url": "https://repositorio.bc.ufg.br/tede/handle/tde/724",
+        "status": 301,
+        "location": "/tede/items/4df78089-f5d4-41f3-952d-d936ea88c673",
+        "tipo": "text/html; charset=utf-8",
+        "servidor": "Apache/2.4.65 (Unix) OpenSSL/3.0.16"
+      },
+      {
+        "url": "https://repositorio.bc.ufg.br/tede/items/4df78089-f5d4-41f3-952d-d936ea88c673",
+        "status": 200,
+        "location": null,
+        "tipo": "text/html; charset=utf-8",
+        "servidor": "Apache/2.4.65 (Unix) OpenSSL/3.0.16"
+      }
+    ],
+    "vetados": {}
+  },
+  "ufjf": {
+    "url": "https://doi.org/10.34019/ufjf.ppgcf.di.2018.001",
+    "saltos": [
+      {
+        "url": "https://doi.org/robots.txt",
+        "status": 301,
+        "location": "https://www.doi.org/robots.txt",
+        "tipo": null,
+        "servidor": "cloudflare"
+      },
+      {
+        "url": "https://www.doi.org/robots.txt",
+        "status": 404,
+        "location": null,
+        "tipo": "text/html",
+        "servidor": "cloudflare"
+      },
+      {
+        "url": "https://doi.org/10.34019/ufjf.ppgcf.di.2018.001",
+        "status": 302,
+        "location": "https://repositorio.ufjf.br/jspui/handle/ufjf/9315",
+        "tipo": "text/html;charset=utf-8",
+        "servidor": "cloudflare"
+      },
+      {
+        "url": "https://repositorio.ufjf.br/robots.txt",
+        "erro": "SSLError(MaxRetryError(\"HTTPSConnectionPool(host='repositorio.ufjf.br', port=443): Max retries exceeded with url: /robots.txt (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_"
+      },
+      {
+        "url": "https://repositorio.ufjf.br/jspui/handle/ufjf/9315",
+        "erro": "SSLError(MaxRetryError(\"HTTPSConnectionPool(host='repositorio.ufjf.br', port=443): Max retries exceeded with url: /jspui/handle/ufjf/9315 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFI"
+      }
+    ],
+    "vetados": {}
+  },
+  "ufms": {
+    "url": "https://repositorio.ufms.br/handle/123456789/6621",
+    "status": 200,
+    "final": "https://repositorio.ufms.br/items/67fc3029-b59d-4923-b6cf-14508cde70f8",
+    "tipo": "text/html; charset=utf-8",
+    "bytes": 503156,
+    "titulo": "Agravos odontológicos e auto-percepção da saúde bucal em pacientes com paracoccidioidomicose",
+    "citation_pdf_url": [
+      "https://repositorio.ufms.br/bitstreams/b820c723-7809-467d-8195-e9ecd465f607/download"
+    ],
+    "links_pdf": [],
+    "links_bitstream": [
+      "https://repositorio.ufms.br/bitstreams/b820c723-7809-467d-8195-e9ecd465f607/download",
+      "/bitstreams/b820c723-7809-467d-8195-e9ecd465f607/download"
+    ],
+    "inicio": "<!DOCTYPE html><html data-beasties-container=\"\" lang=\"pt-BR\"><head> <meta charset=\"UTF-8\"> <base href=\"/\"> <title>Agravos odontológicos e auto-percepção da saúde bucal em pacientes com paracoccidioidomicose</title> <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1\"> <meta h",
+    "saltos": [
+      {
+        "url": "https://repositorio.ufms.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": "nginx/1.22.1"
+      },
+      {
+        "url": "https://repositorio.ufms.br/handle/123456789/6621",
+        "status": 301,
+        "location": "/items/67fc3029-b59d-4923-b6cf-14508cde70f8",
+        "tipo": "text/html; charset=utf-8",
+        "servidor": "nginx/1.22.1"
+      },
+      {
+        "url": "https://repositorio.ufms.br/items/67fc3029-b59d-4923-b6cf-14508cde70f8",
+        "status": 200,
+        "location": null,
+        "tipo": "text/html; charset=utf-8",
+        "servidor": "nginx/1.22.1"
+      }
+    ],
+    "vetados": {}
+  },
+  "ufpa": {
+    "url": "https://repositorio.ufpa.br/handle/2011/9688",
+    "saltos": [
+      {
+        "url": "https://repositorio.ufpa.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": "Apache"
+      },
+      {
+        "url": "https://repositorio.ufpa.br/handle/2011/9688",
+        "status": 301,
+        "location": "/items/6d65ba4e-715d-4bf6-a94b-999ec8245f82",
+        "tipo": "text/html; charset=utf-8",
+        "servidor": "Apache"
+      },
+      {
+        "url": "https://repositorio.ufpa.br/items/6d65ba4e-715d-4bf6-a94b-999ec8245f82",
+        "erro": "ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response')))"
+      }
+    ],
+    "vetados": {}
+  },
+  "ufrgs": {
+    "url": "http://hdl.handle.net/10183/1372",
+    "saltos": [
+      {
+        "url": "http://hdl.handle.net/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain",
+        "servidor": "cloudflare"
+      },
+      {
+        "url": "http://hdl.handle.net/10183/1372",
+        "status": 302,
+        "location": "https://lume.ufrgs.br/handle/10183/1372",
+        "tipo": "text/html;charset=utf-8",
+        "servidor": "cloudflare"
+      },
+      {
+        "url": "https://lume.ufrgs.br/robots.txt",
+        "erro": "SSLError(MaxRetryError(\"HTTPSConnectionPool(host='lume.ufrgs.br', port=443): Max retries exceeded with url: /robots.txt (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED"
+      },
+      {
+        "url": "https://lume.ufrgs.br/handle/10183/1372",
+        "erro": "SSLError(MaxRetryError(\"HTTPSConnectionPool(host='lume.ufrgs.br', port=443): Max retries exceeded with url: /handle/10183/1372 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY"
+      }
+    ],
+    "vetados": {}
+  },
+  "ufrj": {
+    "url": "http://hdl.handle.net/11422/5754",
+    "saltos": [
+      {
+        "url": "http://hdl.handle.net/11422/5754",
+        "status": 302,
+        "location": "http://pantheon.ufrj.br/handle/11422/5754",
+        "tipo": "text/html;charset=utf-8",
+        "servidor": "cloudflare"
+      },
+      {
+        "url": "http://pantheon.ufrj.br/robots.txt",
+        "erro": "ConnectionError(MaxRetryError('HTTPConnectionPool(host=\\'pantheon.ufrj.br\\', port=80): Max retries exceeded with url: /robots.txt (Caused by NewConnectionError(\"HTTPConnection(host=\\'pantheon.ufrj.br\\"
+      },
+      {
+        "url": "http://pantheon.ufrj.br/handle/11422/5754",
+        "erro": "ConnectionError(MaxRetryError('HTTPConnectionPool(host=\\'pantheon.ufrj.br\\', port=80): Max retries exceeded with url: /handle/11422/5754 (Caused by NewConnectionError(\"HTTPConnection(host=\\'pantheon.u"
+      }
+    ],
+    "vetados": {}
+  },
+  "ufrrj": {
+    "url": "https://rima.ufrrj.br/jspui/handle/20.500.14407/9091",
+    "status": 200,
+    "final": "https://rima.ufrrj.br/jspui/handle/20.500.14407/9091",
+    "tipo": "text/html;charset=utf-8",
+    "bytes": 64533,
+    "titulo": "Repositório de Múltiplos Acervos da UFRRJ: Nutrição mineral da alface (Lactuca sativa L.) em cultura hidropônica - siste",
+    "citation_pdf_url": [
+      "http://rima.ufrrj.br/jspui/bitstream/20.500.14407/9091/3/2003%20-%20Nilton%20Nelio%20Cometti.pdf"
+    ],
+    "links_pdf": [
+      "/jspui/bitstream/20.500.14407/9091/3/2003%20-%20Nilton%20Nelio%20Cometti.pdf",
+      "/jspui/bitstream/20.500.14407/9091/3/2003%20-%20Nilton%20Nelio%20Cometti.pdf",
+      "/jspui/bitstream/20.500.14407/9091/3/2003%20-%20Nilton%20Nelio%20Cometti.pdf"
+    ],
+    "links_bitstream": [
+      "/jspui/bitstream/20.500.14407/9091/3/2003%20-%20Nilton%20Nelio%20Cometti.pdf",
+      "/jspui/bitstream/20.500.14407/9091/3/2003%20-%20Nilton%20Nelio%20Cometti.pdf",
+      "/jspui/bitstream/20.500.14407/9091/3/2003%20-%20Nilton%20Nelio%20Cometti.pdf"
+    ],
+    "inicio": " <!DOCTYPE html> <html> <head> <title>Repositório de Múltiplos Acervos da UFRRJ: Nutrição mineral da alface (Lactuca sativa L.) em cultura hidropônica - sistema NFT</title> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /> <meta name=\"",
+    "saltos": [
+      {
+        "url": "https://rima.ufrrj.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain",
+        "servidor": "Apache/2.4.52 (Ubuntu)"
+      },
+      {
+        "url": "https://rima.ufrrj.br/jspui/handle/20.500.14407/9091",
+        "status": 200,
+        "location": null,
+        "tipo": "text/html;charset=UTF-8",
+        "servidor": "Apache/2.4.52 (Ubuntu)"
+      }
+    ],
+    "vetados": {}
+  },
+  "uft": {
+    "url": "http://hdl.handle.net/11612/3657",
+    "status": 500,
+    "final": "http://hdl.handle.net/11612/3657",
+    "tipo": "text/html;charset=utf-8",
+    "bytes": 7136,
+    "titulo": "Cannot Connect to Server",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"> <html> <head> <title>Cannot Connect to Server</title> </head> <body bgcolor=\"#ffffff\"> <img src=\"/static/images/res_tool.gif\" width=\"270\" height=\"40\" alt=\"Handle.net Logo\"> <!-- No status message was provided by the namespace",
+    "saltos": [
+      {
+        "url": "http://hdl.handle.net/11612/3657",
+        "status": 500,
+        "location": null,
+        "tipo": "text/html;charset=utf-8",
+        "servidor": "cloudflare"
+      }
+    ],
+    "vetados": {}
+  },
+  "ufvjm": {
+    "url": "https://acervo.ufvjm.edu.br/items/c99adbce-fac8-4f45-9175-8aa1aef07ae2",
+    "status": 404,
+    "final": "https://acervo.ufvjm.edu.br/items/c99adbce-fac8-4f45-9175-8aa1aef07ae2",
+    "tipo": "text/html; charset=iso-8859-1",
+    "bytes": 282,
+    "titulo": "404 Not Found",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\"> <html><head> <title>404 Not Found</title> </head><body> <h1>Not Found</h1> <p>The requested URL was not found on this server.</p> <hr> <address>Apache/2.4.52 (Ubuntu) Server at acervo.ufvjm.edu.br Port 443</address> </body></html> ",
+    "saltos": [
+      {
+        "url": "https://acervo.ufvjm.edu.br/robots.txt",
+        "status": 404,
+        "location": null,
+        "tipo": "text/html; charset=iso-8859-1",
+        "servidor": "Apache/2.4.52 (Ubuntu)"
+      },
+      {
+        "url": "https://acervo.ufvjm.edu.br/items/c99adbce-fac8-4f45-9175-8aa1aef07ae2",
+        "status": 404,
+        "location": null,
+        "tipo": "text/html; charset=iso-8859-1",
+        "servidor": "Apache/2.4.52 (Ubuntu)"
+      }
+    ],
+    "vetados": {}
+  },
+  "unb": {
+    "url": "https://riunbtainacan.unb.br/teses-e-dissertacoes/prevalencia-da-resistencia-as-drogas-do-mycobacterium-tuberculosis-associada-ao-tratamento-auto-administrado-parcialmente-intermitente-comparada-ao-tratamento-diario/",
+    "status": 200,
+    "final": "https://riunbtainacan.unb.br/teses-e-dissertacoes/prevalencia-da-resistencia-as-drogas-do-mycobacterium-tuberculosis-associada-ao-tratamento-auto-administrado-parcialmente-intermitente-comparada-ao-tratamento-diario/",
+    "tipo": "text/html; charset=utf-8",
+    "bytes": 392784,
+    "titulo": "Prevalência da resistência às drogas do Mycobacterium tuberculosis associada ao tratamento auto-administrado parcialment",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": "<!DOCTYPE html> <html lang=\"pt-BR\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"> <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\"> <title>Prevalência da resistência às drogas do Mycobacterium tuberculosis associada ao t",
+    "saltos": [
+      {
+        "url": "https://riunbtainacan.unb.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": "Apache/2.4.66 (Debian)"
+      },
+      {
+        "url": "https://riunbtainacan.unb.br/teses-e-dissertacoes/prevalencia-da-resistencia-as-drogas-do-mycobacterium-tuberculosis-associada-ao-tratamento-auto-administrado-parcialmente-intermitente-comparada-ao-tratamento-diario/",
+        "status": 200,
+        "location": null,
+        "tipo": "text/html; charset=UTF-8",
+        "servidor": "Apache/2.4.66 (Debian)"
+      }
+    ],
+    "vetados": {}
+  },
+  "unicamp": {
+    "url": "https://hdl.handle.net/20.500.12733/1580205",
+    "saltos": [
+      {
+        "url": "https://hdl.handle.net/20.500.12733/1580205",
+        "status": 302,
+        "location": "http://repositorio.unicamp.br/Acervo/Detalhe/59669",
+        "tipo": "text/html;charset=utf-8",
+        "servidor": "cloudflare"
+      },
+      {
+        "url": "http://repositorio.unicamp.br/robots.txt",
+        "status": 503,
+        "location": null,
+        "tipo": "text/html; charset=us-ascii",
+        "servidor": "Microsoft-HTTPAPI/2.0"
+      }
+    ],
+    "vetados": {
+      "repositorio.unicamp.br": "http_503"
+    }
+  },
+  "uninove": {
+    "url": "http://bibliotecatede.uninove.br/tede/handle/tede/811",
+    "status": 404,
+    "final": "https://bibliotecatede.uninove.br/tede/handle/tede/811",
+    "tipo": "text/html;charset=utf-8",
+    "bytes": 9507,
+    "titulo": "TEDE: Erro: Documento não encontrado",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": " <!DOCTYPE html> <html> <head> <title>TEDE: Erro: Documento não encontrado</title> <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /> <meta name=\"Generator\" content=\"DSpace 4.2\" /> <meta name=\"viewport\" content=\"width=device-w",
+    "saltos": [
+      {
+        "url": "http://bibliotecatede.uninove.br/robots.txt",
+        "status": 302,
+        "location": "https://bibliotecatede.uninove.br/robots.txt",
+        "tipo": null,
+        "servidor": null
+      },
+      {
+        "url": "https://bibliotecatede.uninove.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain",
+        "servidor": "Apache-Coyote/1.1"
+      },
+      {
+        "url": "http://bibliotecatede.uninove.br/tede/handle/tede/811",
+        "status": 302,
+        "location": "https://bibliotecatede.uninove.br/tede/handle/tede/811",
+        "tipo": null,
+        "servidor": null
+      },
+      {
+        "url": "https://bibliotecatede.uninove.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain",
+        "servidor": "Apache-Coyote/1.1"
+      },
+      {
+        "url": "https://bibliotecatede.uninove.br/tede/handle/tede/811",
+        "status": 404,
+        "location": null,
+        "tipo": "text/html;charset=UTF-8",
+        "servidor": "Apache-Coyote/1.1"
+      }
+    ],
+    "vetados": {
+      "repositorio.unicamp.br": "http_503"
+    }
+  },
+  "unirio": {
+    "url": "http://hdl.handle.net/unirio/11876",
+    "status": 404,
+    "final": "http://hdl.handle.net/unirio/11876",
+    "tipo": "text/html;charset=utf-8",
+    "bytes": 7144,
+    "titulo": "Prefix [unirio] Not Found",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"> <html> <head> <title>Prefix [unirio] Not Found</title> </head> <body bgcolor=\"#ffffff\"> <img src=\"/static/images/res_tool.gif\" width=\"270\" height=\"40\" alt=\"Handle.net Logo\"> <!-- No status message was provided by the namespac",
+    "saltos": [
+      {
+        "url": "http://hdl.handle.net/unirio/11876",
+        "status": 404,
+        "location": null,
+        "tipo": "text/html;charset=utf-8",
+        "servidor": "cloudflare"
+      }
+    ],
+    "vetados": {
+      "repositorio.unicamp.br": "http_503"
+    }
+  },
+  "unisinos": {
+    "url": "http://www.repositorio.jesuita.org.br/handle/UNISINOS/2921",
+    "status": 200,
+    "final": "https://repositorio.jesuita.org.br/handle/UNISINOS/2921",
+    "tipo": "text/html; charset=utf-8",
+    "bytes": 7746,
+    "titulo": "Certificando de que você não é um bot!",
+    "citation_pdf_url": [],
+    "links_pdf": [],
+    "links_bitstream": [],
+    "inicio": "<!doctype html><html lang=\"pt-BR\"><head><title>Certificando de que você não é um bot!</title><link rel=\"stylesheet\" href=\"/.within.website/x/xess/xess.min.css?cachebuster=v1.27.0\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta name=\"robots\" content=\"noindex,nofollow\"><st",
+    "saltos": [
+      {
+        "url": "http://www.repositorio.jesuita.org.br/robots.txt",
+        "status": 307,
+        "location": "https://repositorio.jesuita.org.br/robots.txt",
+        "tipo": "text/html",
+        "servidor": "nginx"
+      },
+      {
+        "url": "https://repositorio.jesuita.org.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": "nginx"
+      },
+      {
+        "url": "http://www.repositorio.jesuita.org.br/handle/UNISINOS/2921",
+        "status": 307,
+        "location": "https://repositorio.jesuita.org.br/handle/UNISINOS/2921",
+        "tipo": "text/html",
+        "servidor": "nginx"
+      },
+      {
+        "url": "https://repositorio.jesuita.org.br/robots.txt",
+        "status": 200,
+        "location": null,
+        "tipo": "text/plain; charset=utf-8",
+        "servidor": "nginx"
+      },
+      {
+        "url": "https://repositorio.jesuita.org.br/handle/UNISINOS/2921",
+        "status": 200,
+        "location": null,
+        "tipo": "text/html; charset=utf-8",
+        "servidor": "nginx"
+      }
+    ],
+    "vetados": {
+      "repositorio.unicamp.br": "http_503"
+    }
+  }
+}

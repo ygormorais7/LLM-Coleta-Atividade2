@@ -5,15 +5,13 @@ Criado em 2026-09-13. Marque `[x]` ao terminar cada item. Uma fase por vez.
 ## Decisões já tomadas
 
 - **Meta:** chegar a **20 mil PDFs baixados**, crescendo com o inventário da
-  BDTD exportado pelo colega de grupo (`inventario_saude.csv.gz`, 183.718
+  BDTD montado pelo grupo (`inventario_saude.csv.gz`, 183.718
   fichas), **aplicando os filtros de escopo deste projeto**.
   Observação: pela taxa atual de reprovação na Processed (~18%), 20 mil PDFs
   viram ~16,4 mil documentos no corpus final.
 - **Verificação final de dados pessoais no Curated:** se encontrar algo,
   **para o pipeline com erro**.
-- **Usar o inventário do colega:** sim. É do mesmo grupo, e código e
-  informação são compartilhados entre todos. Crédito no relatório e
-  justificativa no protocolo.
+- **Usar o inventário do grupo:** sim, com justificativa no protocolo.
 - **O que é entregue:** o **código** e um **relatório** explicando como o
   pipeline funciona, incluindo o protocolo de coleta. **Os dados não são
   entregues.** Consequência: o que pesa é código correto, testado e
@@ -35,7 +33,7 @@ Criado em 2026-09-13. Marque `[x]` ao terminar cada item. Uma fase por vez.
 - [x] Formato da entrega: código + relatório (com protocolo). Dados não são
   entregues.
 - [ ] Data de entrega (define até qual fase ir).
-- [x] Uso do material do colega: liberado (mesmo grupo, tudo compartilhado).
+- [x] Uso do inventário do grupo: liberado.
 - [x] Links que falharam no teste manual (2 dos 4 anotados), ambos da
   Anhembi, sistema TEDE:
   `https://sitios.anhembi.br/tedesimplificado/handle/TEDE/1774` e
@@ -75,7 +73,7 @@ para por alarme falso).
 
 ## Números da meta de 20 mil
 
-| Etapa sobre o CSV do colega | Fichas |
+| Etapa sobre o CSV do grupo | Fichas |
 |---|---:|
 | Total | 183.718 |
 | Acesso aberto e com link | 160.801 |
@@ -86,7 +84,7 @@ para por alarme falso).
 - 139 instituições, 158 domínios; 6.477 links passam por `hdl.handle.net`.
 - Faltam ~16,5 mil PDFs (já temos 3.474).
 - Taxa de sucesso esperada entre 33% (teste manual: 2 de 6) e 50% (download do
-  colega: 419 de 831) → entre ~33 mil e ~50 mil tentativas. Folga pequena
+  grupo: 419 de 831) → entre ~33 mil e ~50 mil tentativas. Folga pequena
   sobre os 61,6 mil candidatos.
 - Disco: PDF médio atual 4,11 MB → ~68 GB a mais. Livre: 899 GB.
 - Tempo: ~2 requisições por candidato a 1 a cada 3 s **por site**. Um site
@@ -264,7 +262,7 @@ Inglês (2), fra (2), N/A (1).
   Recuperação registro a registro (`GetRecord` para ~520 identificadores de um
   servidor que está falhando) ficou como trabalho futuro.
 
-## Fase 8 — Expansão para 20 mil PDFs com o inventário do colega
+## Fase 8 — Expansão para 20 mil PDFs com o inventário do grupo
 
 Pré-requisito: Fases 1–6 concluídas.
 
@@ -290,7 +288,7 @@ Pré-requisito: Fases 1–6 concluídas.
   Saúde, 2 duvidosos (fármacos em água de superfície; gestão de resíduos de
   hospital), 1 fora (gestão organizacional). **Armadilhas de radical, testar
   cada uma:** `medic` casa com "medição" (engenharia); `hospital` casa com
-  "hospitalidade" — é por isso que o rótulo do colega deu relevância "alta"
+  "hospitalidade" — é por isso que o rótulo do inventário deu relevância "alta"
   a `TEDE/1774`, uma tese de gastronomia. Não usar `hospital` como radical.
 - [x] `src/raw/fulltext.py`: depois de redirecionar pelo `hdl.handle.net`,
   checar `robots.txt` e aplicar ritmo **no site final** (redirecionamento
@@ -306,7 +304,7 @@ Pré-requisito: Fases 1–6 concluídas.
 - [x] Evidência de `robots.txt` dos domínios do piloto
   (`evidencia_robots_*.json`).
 - [x] `docs/PROTOCOLO_DE_COLETA.md` v2.0: justifica o uso do inventário do
-  colega (feito pela API, não pela busca bloqueada) e dá crédito.
+  grupo (feito pela API, não pela busca bloqueada).
 
 **8.3 Piloto (rede, com autorização)**
 - [ ] ~300 candidatos de 5 instituições com sistemas diferentes (DSpace, TEDE,
@@ -335,14 +333,36 @@ Pré-requisito: Fases 1–6 concluídas.
   para a expansão.
 
 **8.4 Coleta completa (rede, com nova autorização)**
-- [ ] Até 20 mil PDFs, em tmux; reprocessar todas as camadas; ler textos.
+- [x] Autorização do usuário (13/09/2026, ~13h).
+- [x] Código para escala (145 testes): robots.txt pelo espírito automático,
+  download paralelo por instituição em rodadas, disjuntor por instituição,
+  manifesto item a item. Patch `fase10-coleta20k-codigo.patch`.
+- [x] Etapa 1 (13:26–13:50): evidência de robots.txt de 179 domínios (com
+  esquema) + 1 nova tentativa para 23 falhas passageiras (nenhuma voltou).
+  Ficam 21.253 de 35.238 candidatos; saem 13.985 (inacessível 6.495, HTTP 403
+  2.732, veto a robôs de IA 2.641, HTTP 468 1.306, 5xx 578, bloqueio total 187,
+  desafio anti-robô 46). Vetos conferidos à mão: todos têm grupo explícito de
+  robô de IA com `Disallow: /`. Tabela no protocolo, seção 3. Achado: links
+  `http://localhost:4000` e `:8080` no CSV → `fontes.host_interno` os descarta.
+- [x] Etapa 2 (13:50): inventário com 21.232 candidatos novos (total 24.988;
+  BDTD 21.352 de 92 instituições; 405 estratos); 0 candidatos em domínio
+  vetado ou endereço interno; backup `inventario.antes_bdtd_csv_20260913_1350.jsonl`;
+  preflight com 0 bloqueios.
+- [x] Etapa 3 (13:51–17:45, 4 execuções): **15.098 PDFs** (UFMG 3.477, piloto
+  119, coleta em escala 11.502; 62 instituições). Meta reduzida para 15 mil pelo
+  prazo, por decisão do usuário. Defeitos achados e corrigidos no caminho:
+  variações de DSpace 7, barra dupla, desafio anti-robô na página, disjuntor sem
+  histórico na retomada; 23 instituições suspensas com motivo.
+- [ ] Reprocessar todas as camadas com os 15.098 PDFs; ler textos. **Não feito
+  nesta entrega**, por decisão do usuário (prazo): o relatório traz os números da
+  coleta, e o corpus e os produtos continuam os dos 3.596 PDFs, declarado.
 - [ ] Verificação final passa → **commit**.
 
 ## Fase 9 — Documentação da entrega
 
 - [x] `docs/RELATORIO_ATIVIDADE_02.md` (3 membros do grupo): como o pipeline
-  funciona, protocolo resumido, armadilhas da API da BDTD com crédito ao
-  colega, 15 defeitos achados e corrigidos, incidentes e perdas declaradas,
+  funciona, protocolo resumido, armadilhas da API da BDTD, defeitos achados e
+  corrigidos, incidentes e perdas declaradas,
   números finais, limitações.
 - [x] PDF gerado com `python docs/gerar_pdf_relatorio.py` (LibreOffice).
 - [ ] **Commit final — feito pelo usuário** (ver

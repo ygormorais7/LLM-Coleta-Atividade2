@@ -1,0 +1,12 @@
+{
+  "dominio": "http://repositorio.unitau.br",
+  "robots_txt": "http://repositorio.unitau.br/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPConnectionPool(host='repositorio.unitau.br', port=80): Max retries exceeded with url: /robots.txt (Caused by NameResolutionError(\"HTTPConnection(host='repositorio.unitau.br', port=80): Failed to resolve 'repositorio.unitau.br' ([Errno -2] Name or service not known)\")))",
+  "verificado_em": "2026-09-13T16:30:39.667177+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

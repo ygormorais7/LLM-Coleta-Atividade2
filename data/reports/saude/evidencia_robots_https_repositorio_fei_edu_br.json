@@ -1,0 +1,12 @@
+{
+  "dominio": "https://repositorio.fei.edu.br",
+  "robots_txt": "https://repositorio.fei.edu.br/robots.txt",
+  "status_http": 200,
+  "conteudo": "<html><head><title>Request Rejected</title></head>\n<body>The requested URL was rejected. Please consult with your administrator.<br/><br/>\nYour support ID is a0b805bc-f485-42fc-8250-10010bb6123e<br/><br/><a href='javascript:history.back();'>[Go Back]</a></body></html>\n",
+  "verificado_em": "2026-09-13T16:35:23.496459+00:00",
+  "veredito": {
+    "permitido": true,
+    "motivo": "robots_html_sem_regras",
+    "crawl_delay": null
+  }
+}

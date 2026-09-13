@@ -1,0 +1,1114 @@
+{
+  "camada": "raw",
+  "area": "Saúde",
+  "inicio": "2026-09-13T07:47:11.343551+00:00",
+  "fim": "2026-09-13T08:09:17.141329+00:00",
+  "duracao_s": 1325.8,
+  "entradas": {
+    "fonte_inventario": "inventario",
+    "candidatos": 3756
+  },
+  "saidas": {
+    "metadata_jsonl": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/metadata/registros.jsonl",
+    "registros_coletados": 3756,
+    "manifesto": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/manifesto.jsonl",
+    "pdfs_baixados": 3596
+  },
+  "metricas": {
+    "bytes_baixados_humano": "451.5 MB",
+    "taxa_resolucao_global": 0.9983,
+    "estratos_com_cota_fechada": "11/15",
+    "resolucao_por_estrato": {
+      "ufmg|2015-2019": {
+        "cota": 2774,
+        "obtidos": 2012,
+        "tentados": 1,
+        "fila_disponivel": 2013,
+        "taxa_resolucao": 2012.0,
+        "cota_fechada": false
+      },
+      "ufmg|2020-2024": {
+        "cota": 1774,
+        "obtidos": 1165,
+        "tentados": 1,
+        "fila_disponivel": 1166,
+        "taxa_resolucao": 1165.0,
+        "cota_fechada": false
+      },
+      "ufmg|2025-2029": {
+        "cota": 456,
+        "obtidos": 268,
+        "tentados": 3,
+        "fila_disponivel": 271,
+        "taxa_resolucao": 89.3333,
+        "cota_fechada": false
+      },
+      "ufrn|2000-2004": {
+        "cota": 1,
+        "obtidos": 1,
+        "tentados": 1,
+        "fila_disponivel": 1,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": true
+      },
+      "ufrn|2005-2009": {
+        "cota": 3,
+        "obtidos": 3,
+        "tentados": 3,
+        "fila_disponivel": 3,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": true
+      },
+      "fiocruz|1990-1994": {
+        "cota": 1,
+        "obtidos": 1,
+        "tentados": 1,
+        "fila_disponivel": 1,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": true
+      },
+      "fiocruz|1995-1999": {
+        "cota": 1,
+        "obtidos": 1,
+        "tentados": 1,
+        "fila_disponivel": 1,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": true
+      },
+      "fiocruz|2025-2029": {
+        "cota": 3,
+        "obtidos": 3,
+        "tentados": 3,
+        "fila_disponivel": 3,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": true
+      },
+      "fiocruz|2015-2019": {
+        "cota": 14,
+        "obtidos": 14,
+        "tentados": 14,
+        "fila_disponivel": 14,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": true
+      },
+      "fiocruz|2010-2014": {
+        "cota": 14,
+        "obtidos": 14,
+        "tentados": 14,
+        "fila_disponivel": 14,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": true
+      },
+      "fiocruz|2020-2024": {
+        "cota": 14,
+        "obtidos": 13,
+        "tentados": 14,
+        "fila_disponivel": 14,
+        "taxa_resolucao": 0.9286,
+        "cota_fechada": false
+      },
+      "fiocruz|2005-2009": {
+        "cota": 13,
+        "obtidos": 13,
+        "tentados": 13,
+        "fila_disponivel": 13,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": true
+      },
+      "ufrn|2020-2024": {
+        "cota": 17,
+        "obtidos": 17,
+        "tentados": 17,
+        "fila_disponivel": 17,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": true
+      },
+      "ufrn|2010-2014": {
+        "cota": 18,
+        "obtidos": 18,
+        "tentados": 18,
+        "fila_disponivel": 18,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": true
+      },
+      "ufrn|2015-2019": {
+        "cota": 21,
+        "obtidos": 21,
+        "tentados": 21,
+        "fila_disponivel": 21,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": true
+      }
+    },
+    "falhas_por_tipo": {
+      "acesso_restrito": 186,
+      "pdf_nao_localizado": 3,
+      "http_401": 2,
+      "excede_tamanho_maximo": 1
+    },
+    "total_falhas": 192
+  },
+  "falhas": [
+    {
+      "id": "a7b6422341eb5ec3",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2015-2019|oai:repositorio.ufmg.br:1843/31117: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "21537de812b97979",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2015-2019|oai:repositorio.ufmg.br:1843/31181: Acesso Restrito"
+    },
+    {
+      "id": "485aa0e49a6c3158",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/38112: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "1cdb4d866458c62b",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/55526: Acesso Restrito"
+    },
+    {
+      "id": "681959ab9ea29bfb",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/35320: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "70e934afeebbd1f4",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/41896: Acesso Restrito"
+    },
+    {
+      "id": "310313ab7a1d01e7",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/38530: Acesso Restrito"
+    },
+    {
+      "id": "41937348c91bd4fd",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/76360: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "133ac26aca801094",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/59008: Acesso Restrito; http://creativecommons.org/licenses/by-nd/3.0/pt/"
+    },
+    {
+      "id": "3376abbd3c6d24d0",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/77562: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "2a1744819474b26a",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/49673: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "f8cfcb3a58f49f39",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/49360: Acesso Restrito"
+    },
+    {
+      "id": "86852161011b3923",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/58985: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "5d6a6f8c20015a95",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/63100: Acesso Restrito"
+    },
+    {
+      "id": "cd3a86048717a802",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/39269: Acesso Restrito"
+    },
+    {
+      "id": "3a34a22683c02852",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/36431: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "bbc116fbeef6eaac",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/46431: Acesso Restrito"
+    },
+    {
+      "id": "6601b2f2da87dbbf",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/44554: Acesso Restrito"
+    },
+    {
+      "id": "dc3e0d155173123d",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/68592: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "28c29d2fd27ad973",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/49254: Acesso Restrito"
+    },
+    {
+      "id": "947cd9d1ca83292d",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/42053: Acesso Restrito"
+    },
+    {
+      "id": "081164189f95989d",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/61431: Acesso Restrito; http://creativecommons.org/licenses/by-nd/3.0/pt/"
+    },
+    {
+      "id": "a99a869a78d2a9a7",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/64953: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "cf10b517d8c14f6d",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/47865: Acesso Restrito"
+    },
+    {
+      "id": "e0a176f97a0cea67",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/58899: Acesso Restrito"
+    },
+    {
+      "id": "205994bd4d47723a",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/76466: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "d70e9d94d9e5d41f",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/46856: Acesso Restrito"
+    },
+    {
+      "id": "f695f859a0301d51",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/45162: Acesso Restrito"
+    },
+    {
+      "id": "6620770dab0ef3b1",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/44910: Acesso Restrito"
+    },
+    {
+      "id": "5581c879a1918878",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/57989: Acesso Restrito"
+    },
+    {
+      "id": "9c4680f0a902b8f7",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/59081: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "fd2eacd71f359f7e",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/50651: Acesso Embargado"
+    },
+    {
+      "id": "f37e1fce3f2ebd96",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/36784: Acesso Restrito; http://creativecommons.org/licenses/by-nd/3.0/pt/"
+    },
+    {
+      "id": "4cf2b6ec037a3872",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/42649: Acesso Restrito"
+    },
+    {
+      "id": "0ec4785caa9d20bd",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/43414: Acesso Restrito"
+    },
+    {
+      "id": "4772dd367e5e72aa",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/76711: Acesso restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "b15677159e436941",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/57735: Acesso Restrito"
+    },
+    {
+      "id": "3fe79f1f5d45a107",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/51797: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "f753a113e79cf516",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/61872: Acesso Restrito"
+    },
+    {
+      "id": "0ad42353f762cce6",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/61377: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "64dc65e57266214d",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/49057: Acesso Restrito"
+    },
+    {
+      "id": "d5d515e1ce207a20",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/44024: Acesso Restrito"
+    },
+    {
+      "id": "36c147cf52c08831",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/70791: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "3f92d8e2dac63596",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/61666: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "a2c2d3278a9aebc8",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/48500: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "05f1d93e8bd243fd",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/58235: Acesso Restrito"
+    },
+    {
+      "id": "366fa7ca7c58070c",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/71705: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "17131be0e025fecc",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/67965: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "757fb1f9a7a5d169",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/35840: Acesso Restrito"
+    },
+    {
+      "id": "914510e1a6ce1c5b",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/75887: Acesso Restrito"
+    },
+    {
+      "id": "29b2b6f32a143df9",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/34722: Acesso Restrito"
+    },
+    {
+      "id": "436347d0667ce265",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/78160: Acesso Restrito"
+    },
+    {
+      "id": "48b176b357178198",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/52367: Acesso Restrito"
+    },
+    {
+      "id": "94dc27461994e178",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/53497: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "6f2513714fbb19a0",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/44082: Acesso Restrito"
+    },
+    {
+      "id": "1d9867d7b2899523",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/49646: Acesso Restrito"
+    },
+    {
+      "id": "08f64c91be65b25c",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/35812: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "b675e2f76d120820",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/78665: Acesso Restrito"
+    },
+    {
+      "id": "be4b58ca83bf7175",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/38690: Acesso Restrito"
+    },
+    {
+      "id": "74bdd464baddb36c",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/44314: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "12b4276ab9e23048",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/48545: Acesso Restrito"
+    },
+    {
+      "id": "858d0c217fe91741",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/78714: Acesso Restrito"
+    },
+    {
+      "id": "68332c6b292e49c5",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/78146: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "6d6da957bbac92bf",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/65284: Acesso Restrito"
+    },
+    {
+      "id": "4ecff3a051240b77",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/58941: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "400f473e0eea6559",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/59189: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "65ce51af1d74338f",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/54296: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "1ec71dedb1e6e228",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/35386: Acesso Restrito"
+    },
+    {
+      "id": "8dccc7f5f242fd86",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/32333: Acesso Restrito"
+    },
+    {
+      "id": "062cf76f5917d494",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/61895: Acesso Restrito"
+    },
+    {
+      "id": "f8b64d638ecb473f",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/48441: Acesso Restrito"
+    },
+    {
+      "id": "235b9386c5818763",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/47556: Acesso Restrito; http://creativecommons.org/licenses/by-nd/3.0/pt/"
+    },
+    {
+      "id": "33b6621b770f729a",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/53380: Acesso Restrito"
+    },
+    {
+      "id": "6d9d81d5c7c0dc1b",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/51114: Acesso Restrito"
+    },
+    {
+      "id": "d778fde02d737ce0",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/38787: Acesso Restrito"
+    },
+    {
+      "id": "7c34b4760dcb6f4f",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/34482: Acesso Restrito"
+    },
+    {
+      "id": "f3d58eb322b5698c",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/42259: Acesso Restrito"
+    },
+    {
+      "id": "5e8a84c1e7076358",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/64195: Acesso Restrito; http://creativecommons.org/licenses/by/3.0/pt/"
+    },
+    {
+      "id": "621ac5bf7c234783",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/55740: Acesso Restrito"
+    },
+    {
+      "id": "3e9033fee18dbfd4",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/51239: Acesso Restrito"
+    },
+    {
+      "id": "2bf1a49a1bed4fdf",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/36734: Acesso Restrito"
+    },
+    {
+      "id": "7f88a8cbc5dc51cc",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/35664: Acesso Restrito"
+    },
+    {
+      "id": "cd3a7532504dadeb",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/46061: Acesso Restrito"
+    },
+    {
+      "id": "896deecd4010db0f",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/41470: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "7e0625ec1de17bf1",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/49650: Acesso Restrito"
+    },
+    {
+      "id": "6873f3633984fe39",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/36045: Acesso Restrito"
+    },
+    {
+      "id": "1ce7f86ae67b986b",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/78624: Acesso Restrito"
+    },
+    {
+      "id": "e30d756db6ffa574",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/59088: Acesso Restrito"
+    },
+    {
+      "id": "fbea197984373e81",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/49292: Acesso Restrito"
+    },
+    {
+      "id": "151534b36c564cb6",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/53350: Acesso Embargado"
+    },
+    {
+      "id": "62213f4d14606e3f",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/55405: Acesso Restrito"
+    },
+    {
+      "id": "8c41e3a022fdb081",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/46691: Acesso Restrito"
+    },
+    {
+      "id": "96780ca09ed8f6bd",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/46484: Acesso Restrito"
+    },
+    {
+      "id": "27aeffc580968649",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/76328: Acesso Restrito"
+    },
+    {
+      "id": "2ac65dcf9f8c902c",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/58972: Acesso Restrito"
+    },
+    {
+      "id": "2a61e67396f44218",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/55259: Acesso Restrito"
+    },
+    {
+      "id": "b3a82ed516b7ec40",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/48546: Acesso Restrito; http://creativecommons.org/licenses/by/3.0/pt/"
+    },
+    {
+      "id": "296118d34aa0f57c",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/46987: Acesso Restrito"
+    },
+    {
+      "id": "6dfc67b47f46c092",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/46989: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "2c0534e28db86eca",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/67127: Acesso Restrito"
+    },
+    {
+      "id": "1a0fcae8e3ac3ade",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/38532: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "efb93c1dcdb19775",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/46684: Acesso Restrito"
+    },
+    {
+      "id": "aba1958413fca602",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/49681: Acesso Restrito"
+    },
+    {
+      "id": "62ddc43e39ce4ea1",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/41975: Acesso Restrito"
+    },
+    {
+      "id": "8bc03d196e8fbb27",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/41877: Acesso Restrito"
+    },
+    {
+      "id": "d8c3849c349c7c77",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/55037: Acesso Restrito"
+    },
+    {
+      "id": "679bd7a19e58d535",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/34464: Acesso Restrito"
+    },
+    {
+      "id": "c46ed3f1ada7b58e",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/58536: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "2270cb54267f6f7b",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/41632: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "26ffa79acc2bf779",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/44838: Acesso Restrito"
+    },
+    {
+      "id": "cd60c81b4f7c6025",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/51285: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "44b7f2bee93eb056",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/78264: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "ebac9a1f3764f37a",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/34475: Acesso Restrito"
+    },
+    {
+      "id": "0d2b2f6708ab5db3",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/50867: Acesso Restrito"
+    },
+    {
+      "id": "8de61e0a165e31f1",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/49359: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "059083f4e4f7012c",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/68965: Acesso Restrito"
+    },
+    {
+      "id": "ea8aac41ed3ac720",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/43995: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "71cf425bf118a985",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/76597: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "9f4ff73799e49a95",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/43415: Acesso Restrito; http://creativecommons.org/licenses/by-nc/3.0/pt/"
+    },
+    {
+      "id": "0fe00ec2b93408cc",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/61422: Acesso Restrito"
+    },
+    {
+      "id": "850e469bf7379c71",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/38827: Acesso Restrito"
+    },
+    {
+      "id": "5e7aef8499a48d3b",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/60622: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "e4b659c2d3781e1b",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/59487: Acesso Restrito"
+    },
+    {
+      "id": "c2dc70ae19636797",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/48272: Acesso Restrito"
+    },
+    {
+      "id": "fdf0bcfe7dcab40d",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/78722: Acesso Restrito"
+    },
+    {
+      "id": "27fab732bdad33fa",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/81118: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "eac416333641ea67",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/83537: Acesso Restrito"
+    },
+    {
+      "id": "1a18412fc5a4f743",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/709: Acesso restrito"
+    },
+    {
+      "id": "5bba7f5b0b86ecc6",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/686: Acesso restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/br/"
+    },
+    {
+      "id": "39a6a46f8c76d5b0",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/4278: Acesso restrito"
+    },
+    {
+      "id": "2ffb41fbb380833c",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/4649: Acesso restrito"
+    },
+    {
+      "id": "ad68b3476f98ac65",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/80656: Acesso Restrito"
+    },
+    {
+      "id": "585f8a09be125793",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/83447: Acesso Restrito; http://creativecommons.org/licenses/by-nc-sa/3.0/pt/"
+    },
+    {
+      "id": "3f1aa0b9c6058c8c",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/84299: Acesso Restrito"
+    },
+    {
+      "id": "59ee9a99e42f5e34",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/79494: Acesso Restrito; http://creativecommons.org/licenses/by-nc/3.0/pt/"
+    },
+    {
+      "id": "5d621d5ded9d63ae",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/653: Acesso restrito"
+    },
+    {
+      "id": "ac367c3d9946d8ee",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/475: Acesso restrito"
+    },
+    {
+      "id": "1d73cecf7e67aab5",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/79525: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "9ae234c16638064c",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/79233: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "985f61257b1149ee",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/82036: Acesso Restrito"
+    },
+    {
+      "id": "8723b4f3343375f4",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/748: Acesso restrito; Attribution-NonCommercial-NoDerivs 3.0 Brazil; http://creativecommons.org/licenses/by-nc-nd/3.0/br/"
+    },
+    {
+      "id": "18144ccff83e8433",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/82428: Acesso Restrito"
+    },
+    {
+      "id": "ed113f0d66243c83",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/3461: Acesso restrito"
+    },
+    {
+      "id": "d68ebc8f6b0efa3a",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/738: Acesso restrito; Attribution-NonCommercial-NoDerivs 3.0 Brazil; http://creativecommons.org/licenses/by-nc-nd/3.0/br/"
+    },
+    {
+      "id": "b98e250fa52b57ed",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/534: Acesso restrito"
+    },
+    {
+      "id": "e8d9847b893ea12d",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/81672: Acesso restrito"
+    },
+    {
+      "id": "fd93a2274a79f65e",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/529: Acesso restrito; Acesso restrito; http://creativecommons.org/licenses/by-nd/3.0/br/"
+    },
+    {
+      "id": "0a01fca02d692432",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/83371: Acesso Restrito"
+    },
+    {
+      "id": "acb38fae3c82f82c",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/79538: Acesso Restrito"
+    },
+    {
+      "id": "c34a7c9eaf6915df",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/81237: Acesso Restrito"
+    },
+    {
+      "id": "615c68f198e8d4b4",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/3387: Acesso restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/br/"
+    },
+    {
+      "id": "9305f6ba610c1a82",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/83682: Acesso Restrito"
+    },
+    {
+      "id": "bab688bcadeaebfb",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/1942: Acesso restrito"
+    },
+    {
+      "id": "d2cb47f3197bb908",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/3695: Acesso restrito; Attribution-NonCommercial-NoDerivs 3.0 Brazil; http://creativecommons.org/licenses/by-nc-nd/3.0/br/"
+    },
+    {
+      "id": "9e9f3a42400808fc",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/528: Acesso restrito"
+    },
+    {
+      "id": "9cc30b335008d401",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/85454: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "30c3541660ae202c",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/3606: Acesso restrito; Attribution-NonCommercial-NoDerivatives 4.0 International; http://creativecommons.org/licenses/by-nc-nd/4.0/"
+    },
+    {
+      "id": "d983b9248527f6b8",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/630: Acesso restrito"
+    },
+    {
+      "id": "9d578d2a9b826974",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/84105: Acesso Restrito"
+    },
+    {
+      "id": "574cc4e75a85bbfc",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/84550: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "739faa971b62a49a",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/3193: Acesso restrito"
+    },
+    {
+      "id": "f11b35e441da83ad",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/82258: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "50d22d441f7630b8",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/79046: Acesso restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "062453d25cf09e33",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/608: Acesso restrito; CC0 1.0 Universal; http://creativecommons.org/publicdomain/zero/1.0/"
+    },
+    {
+      "id": "8501fbaf0f89d944",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/1113: Acesso restrito"
+    },
+    {
+      "id": "a0e179867d319a8b",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/3280: Acesso restrito"
+    },
+    {
+      "id": "40222044276d6382",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/80655: Acesso Restrito; http://creativecommons.org/licenses/by-nd/3.0/pt/"
+    },
+    {
+      "id": "f36bd442ed0d2b1b",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/2910: Acesso restrito; http://creativecommons.org/licenses/by-nc-nd/4.0/"
+    },
+    {
+      "id": "37c61f2eb4474d0f",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/79645: Acesso Restrito"
+    },
+    {
+      "id": "5e5e6f8f06619fbe",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/1218: Acesso restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/br/"
+    },
+    {
+      "id": "a1b85b66dd21ee32",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/83451: Acesso Restrito"
+    },
+    {
+      "id": "8a33bea63158fecb",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/1671: Acesso restrito"
+    },
+    {
+      "id": "694de7c45623f314",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/701: Acesso restrito"
+    },
+    {
+      "id": "247cace6c61efd6c",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/81919: Acesso Restrito"
+    },
+    {
+      "id": "270cc25bb010fb15",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/829: Acesso restrito"
+    },
+    {
+      "id": "6900265cca15f7b2",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/84336: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "1d98c0f2449c0931",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/81931: Acesso Restrito"
+    },
+    {
+      "id": "4c250154c54d64ee",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/81054: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "55b5fee0482e2270",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/1455: Acesso restrito"
+    },
+    {
+      "id": "b6c803eff989223a",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/82963: Acesso Restrito; http://creativecommons.org/licenses/by-nd/3.0/pt/"
+    },
+    {
+      "id": "c2090378e83cdac1",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/967: Acesso restrito; Attribution-NonCommercial-NoDerivs 3.0 Brazil; http://creativecommons.org/licenses/by-nc-nd/3.0/br/"
+    },
+    {
+      "id": "15470f9664df1afd",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/739: Acesso restrito"
+    },
+    {
+      "id": "118dc4b78961d75b",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/79462: Acesso Restrito; http://creativecommons.org/licenses/by-nc-sa/3.0/pt/"
+    },
+    {
+      "id": "15b25d13beabb4d0",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/83412: Acesso Restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/"
+    },
+    {
+      "id": "cd51371cd871b8ad",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/4344: Acesso restrito"
+    },
+    {
+      "id": "a5c021b5eea7374e",
+      "tipo": "acesso_restrito",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/725: Acesso restrito; http://creativecommons.org/licenses/by-nc-nd/3.0/br/"
+    },
+    {
+      "id": "b5b451e57e837fd3",
+      "tipo": "excede_tamanho_maximo",
+      "detalhe": "ufmg|2015-2019|oai:repositorio.ufmg.br:1843/FAEC-86PMFQ"
+    },
+    {
+      "id": "495577ebefb06dd9",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufmg|2020-2024|oai:repositorio.ufmg.br:1843/61502"
+    },
+    {
+      "id": "c07a059a98f8c7e3",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/704"
+    },
+    {
+      "id": "81773724dc66f959",
+      "tipo": "http_401",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/4620"
+    },
+    {
+      "id": "fc44ec2339481e13",
+      "tipo": "http_401",
+      "detalhe": "ufmg|2025-2029|oai:repositorio.ufmg.br:1843/4652"
+    },
+    {
+      "id": "ef5c00fec55e5bc2",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "fiocruz|2020-2024|CRUZ_7073aca2a681088708f45f69ec3831ea"
+    }
+  ],
+  "parametros": {}
+}

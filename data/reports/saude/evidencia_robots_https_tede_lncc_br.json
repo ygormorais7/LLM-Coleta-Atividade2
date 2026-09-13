@@ -1,0 +1,12 @@
+{
+  "dominio": "https://tede.lncc.br",
+  "robots_txt": "https://tede.lncc.br/robots.txt",
+  "status_http": 200,
+  "conteudo": "User-agent: *\n\n# Uncomment the following line ONLY if sitemaps.org or HTML sitemaps are used\n# and you have verified that your site is being indexed correctly.\n# Disallow: /browse\nDisallow: /\n",
+  "verificado_em": "2026-09-13T16:36:45.246289+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "bloqueia_nosso_agente",
+    "crawl_delay": null
+  }
+}

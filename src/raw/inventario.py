@@ -535,14 +535,49 @@ def _termos_exclusao_oai(cfg_inv: dict) -> list[str]:
     return termos
 
 
-def candidatos_bdtd(cfg: Config) -> list[dict]:
+def _dominio(url: str) -> str:
+    import urllib.parse
+
+    partes = urllib.parse.urlsplit(url or "")
+    return f"{partes.scheme}://{partes.netloc}"
+
+
+def vereditos_robots(cfg: Config) -> dict:
+    """
+    Veredito (`robots.classificar`) de cada `evidencia_robots_*.json`, por
+    domínio com esquema (`https://repositorio.ufrn.br`). Evidência antiga, sem
+    veredito gravado, é classificada de novo a partir do conteúdo.
+    """
+    import json
+
+    from . import robots as robots_mod
+
+    vereditos = {}
+    for caminho in sorted(cfg.dir_relatorios().glob("evidencia_robots_*.json")):
+        try:
+            evidencia = json.loads(caminho.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if not evidencia.get("dominio"):
+            continue
+        vereditos[evidencia["dominio"].rstrip("/")] = robots_mod.classificar(
+            evidencia.get("status_http"), evidencia.get("conteudo") or "", cfg.user_agent())
+    return vereditos
+
+
+def candidatos_bdtd(cfg: Config, aplicar_robots: bool = False) -> list[dict]:
     from ..common import RAIZ
 
     cfg_inv = cfg.get_path("inventario", {}) or {}
     cfg_fonte = cfg_inv.get("fontes", {}).get("bdtd_csv", {}) or {}
-    return [r.para_dict() for r in fontes_mod.ler_inventario_bdtd(
+    candidatos = [r.para_dict() for r in fontes_mod.ler_inventario_bdtd(
         RAIZ / cfg_fonte["arquivo"], cfg_fonte, excluir_extra=_termos_exclusao_oai(cfg_inv),
         permitidas=cfg.get_path("escopo.expressoes_permitidas", []))]
+    if not aplicar_robots:
+        return candidatos
+    vereditos = vereditos_robots(cfg)
+    return [c for c in candidatos
+            if vereditos.get(_dominio(c["url_landing"])) is None or vereditos[_dominio(c["url_landing"])].permitido]
 
 
 def adicionar_inventario_bdtd(cfg: Config) -> Relatorio:
@@ -560,15 +595,39 @@ def adicionar_inventario_bdtd(cfg: Config) -> Relatorio:
         rel.salvar(cfg.dir_relatorios())
         return rel
 
+    import collections
+    from datetime import datetime
+
     destino = cfg.dir_camada("raw") / "inventario.jsonl"
     existentes = list(ler_jsonl(destino))
     estratos = (cfg.get_path("inventario.amostragem.estratos") or ["ies", "ano_faixa"])
-    novos = candidatos_bdtd(cfg)
+
+    # Domínio cujo robots.txt não autoriza (veto a robôs de IA, desafio
+    # anti-robô, bloqueio, servidor com erro) sai do inventário — inclusive
+    # candidatos que já estavam lá de uma rodada anterior.
+    vereditos = vereditos_robots(cfg)
+
+    def _vetado(candidato: dict) -> bool:
+        veredito = vereditos.get(_dominio(candidato.get("url_landing") or ""))
+        return veredito is not None and not veredito.permitido
+
+    retirados = [c for c in existentes if c.get("fonte") == "bdtd_inventario" and _vetado(c)]
+    existentes = [c for c in existentes if not (c.get("fonte") == "bdtd_inventario" and _vetado(c))]
+    todos = candidatos_bdtd(cfg)
+    novos = [c for c in todos if not _vetado(c)]
+    excluidos = collections.Counter(_dominio(c["url_landing"]) for c in todos if _vetado(c))
     mesclado, adicionados = mesclar_candidatos(existentes, novos, estratos)
-    if adicionados:
+    if adicionados or retirados:
         if destino.exists():
-            shutil.copy2(destino, destino.with_name("inventario.antes_bdtd_csv.jsonl"))
+            carimbo = datetime.now().strftime("%Y%m%d_%H%M")
+            shutil.copy2(destino, destino.with_name(f"inventario.antes_bdtd_csv_{carimbo}.jsonl"))
         escrever_jsonl(destino, mesclado)
+    rel.saidas["dominios_excluidos_robots"] = {
+        d: {"motivo": vereditos[d].motivo, "candidatos": n} for d, n in excluidos.most_common()}
+    rel.saidas["retirados_do_inventario_por_robots"] = len(retirados)
+    if excluidos:
+        log.warning("inventário BDTD: %d domínio(s) fora pelo robots.txt: %s", len(excluidos),
+                    ", ".join(f"{d} ({vereditos[d].motivo})" for d in sorted(excluidos)))
 
     dominios = pd.Series([re.sub(r"^https?://", "", a["url_landing"]).split("/")[0]
                           for a in adicionados], dtype=str)
@@ -599,21 +658,29 @@ def registrar_robots(cfg: Config, urls: list[str]) -> list[Path]:
 
     import requests
 
-    dominios = sorted({f"{p.scheme}://{p.netloc}" for p in map(urllib.parse.urlsplit, urls) if p.netloc})
+    from . import robots as robots_mod
+
+    dominios = sorted({f"{p.scheme}://{p.netloc}" for p in map(urllib.parse.urlsplit, urls)
+                       if p.netloc and not fontes_mod.host_interno(p.geturl())})
     salvos: list[Path] = []
     for dominio in dominios:
         try:
             resp = requests.get(f"{dominio}/robots.txt", timeout=30,
                                 headers={"User-Agent": cfg.user_agent()})
-            status, conteudo = resp.status_code, resp.text[:4000]
+            # Conteúdo inteiro: a lista de robôs de IA vetados costuma vir no fim
+            # (antes guardávamos só os primeiros 4.000 caracteres).
+            status, conteudo = resp.status_code, resp.text[:200_000]
         except requests.RequestException as exc:
             status, conteudo = None, f"(inacessível: {exc})"
+        veredito = robots_mod.classificar(status, conteudo if status is not None else "", cfg.user_agent())
         destino = cfg.dir_relatorios() / f"evidencia_robots_{re.sub(r'[^a-z0-9]+', '_', dominio.lower())}.json"
         destino.write_text(json.dumps({
             "dominio": dominio, "robots_txt": f"{dominio}/robots.txt", "status_http": status,
             "conteudo": conteudo, "verificado_em": datetime.now(timezone.utc).isoformat(),
+            "veredito": {"permitido": veredito.permitido, "motivo": veredito.motivo,
+                         "crawl_delay": veredito.crawl_delay},
         }, ensure_ascii=False, indent=2), encoding="utf-8")
-        log.info("robots.txt de %s: HTTP %s", dominio, status)
+        log.info("robots.txt de %s: HTTP %s → %s", dominio, status, veredito.motivo)
         salvos.append(destino)
     return salvos
 
