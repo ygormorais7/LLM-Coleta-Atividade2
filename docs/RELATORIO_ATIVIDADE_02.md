@@ -16,15 +16,17 @@ linguagem em português.
   UFMG e pelo inventário da BDTD (183.718 fichas). A coleta respeita o
   robots.txt pela letra e pelo espírito, no ritmo de 1 requisição a cada 3
   segundos por repositório.
-- **Corpus tratado:** 2.951 documentos (72,0 milhões de palavras), a partir dos
-  primeiros 3.596 PDFs, com 4.937 dados pessoais mascarados.
-- **Produtos:** pré-treino com 2.951 documentos, 978 pares de fine-tuning,
-  155.312 trechos para RAG e 784 itens de benchmark. A verificação final de
+- **Corpus tratado:** amostra de 5.023 PDFs (os 3.582 do primeiro tratamento e
+  até 40 sorteados por instituição entre os novos). Resultou em 4.219
+  documentos de 62 instituições, com 98,8 milhões de palavras e 6.555 dados
+  pessoais mascarados.
+- **Produtos:** pré-treino com 4.219 documentos, 1.165 pares de fine-tuning,
+  213.573 trechos para RAG e 776 itens de benchmark. A verificação final de
   dados pessoais encontrou 0 ocorrências.
-- **Qualidade:** 156 testes automáticos e 21 defeitos corrigidos, a maioria
+- **Qualidade:** 157 testes automáticos e 21 defeitos corrigidos, a maioria
   achada por leitura manual dos dados.
-- **Limites:** a coleta parou em 15.098 PDFs pelo prazo; a meta era 20 mil. Os
-  PDFs coletados além dos primeiros 3.596 ainda não passaram pelo tratamento.
+- **Limites:** a coleta parou em 15.098 PDFs pelo prazo; a meta era 20 mil. O
+  tratamento usou uma amostra de 5.023 desses PDFs.
 
 ## 1. Enunciado e onde está no código
 
@@ -170,7 +172,7 @@ ORCID tomados por documento, nome de gene tomado por placa) e foram eliminadas.
 
 ## 7. Verificação de qualidade
 
-O projeto tem **156 testes automáticos** (`python -m pytest`), que não acessam a
+O projeto tem **157 testes automáticos** (`python -m pytest`), que não acessam a
 rede nem os dados reais. Cada defeito corrigido ganhou um teste com o caso real
 que o revelou. A cada reprocessamento, o grupo leu textos tratados, pares de
 fine-tuning e amostras das máscaras de dados pessoais. No total, 21 defeitos
@@ -212,32 +214,45 @@ Os PDFs vêm de 62 instituições. Além da UFMG, as que mais contribuíram fora
 Fiocruz (842), UFS e UNESP (800 cada), UFU (797), UFG (704), UFSCar (702),
 UFV (700) e UFRN (697).
 
-### 9.2 Corpus tratado (primeiros 3.596 PDFs)
+### 9.2 Corpus tratado (amostra de 5.023 PDFs)
+
+Pelo prazo, o tratamento usou uma amostra dos 15.098 PDFs: os 3.582 do primeiro
+tratamento (UFMG e piloto) e até 40 PDFs sorteados por instituição entre os
+novos (1.441), com semente fixa. A amostra é uma opção do `config.yaml`; sem ela,
+o pipeline trata todos os PDFs.
 
 | Métrica | Valor |
 |---|---|
-| Documentos no corpus | 2.951 (UFMG 2.845, Fiocruz 54, UFRN 52) |
-| Palavras | 72,0 milhões (mediana de 20.546 por documento) |
-| Reprovados | 631: texto em inglês 445, linhas repetitivas 150, pouco texto 42, fora de escopo 32, duplicatas 3 |
-| Dados pessoais mascarados | 4.937: e-mail 2.992, CEP 1.244, telefone 626, outros 75 |
+| PDFs tratados | 5.020 (3 não tiveram texto extraído) |
+| Documentos no corpus | 4.219 de 62 instituições: UFMG 2.845, Fiocruz 90, UFRN 90 e 1.194 das demais |
+| Aprovação | 82% na UFMG e 88% nas demais instituições |
+| Palavras | 98,8 milhões (mediana de 19.376 por documento) |
+| Reprovados | 801: texto em inglês 536, linhas repetitivas 209, pouco texto 53, fora de escopo 50, duplicatas 8 |
+| Dados pessoais mascarados | 6.555: e-mail 3.915, CEP 1.573, telefone 960, outros 107 |
 
 ### 9.3 Produtos
 
 | Produto | Treino | Validação | Teste | Total |
 |---|---:|---:|---:|---:|
-| Pré-treino (documentos) | 2.652 | 150 | 149 | 2.951 |
-| Fine-tuning (pares) | 882 | 55 | 41 | 978 |
-| RAG (trechos) | — | — | — | 155.312 |
-| Benchmark (itens) | — | — | — | 784 |
+| Pré-treino (documentos) | 3.793 | 210 | 216 | 4.219 |
+| Fine-tuning (pares) | 1.057 | 58 | 50 | 1.165 |
+| RAG (trechos) | — | — | — | 213.573 |
+| Benchmark (itens) | — | — | — | 776 |
 
 A verificação final de dados pessoais encontrou 0 ocorrências nos 11 arquivos
 de produtos.
 
 ## 10. Limitações
 
-- A coleta parou em 15.098 PDFs pelo prazo. O tratamento e os produtos
-  correspondem aos primeiros 3.596 PDFs; os demais estão coletados e podem ser
-  reprocessados sem nova requisição.
+- A coleta parou em 15.098 PDFs pelo prazo, e o tratamento usou uma amostra de
+  5.023. Os demais estão coletados e podem ser tratados sem nova requisição.
+- Nos documentos do inventário, que não têm resumo, o escopo é checado pelo
+  começo do texto. Na amostra, cerca de 7 das 18 exclusões desses documentos
+  eram de Saúde. Por exemplo, o sobrenome "Bezerra" casou com o termo de
+  exclusão "bezerra", e "recursos hídricos" apareceu num estudo sobre dengue e
+  clima. A regra não foi refinada a tempo.
+- O filtro por radicais também admite trabalhos de gestão e economia da saúde,
+  como estudos sobre operadoras de planos de saúde.
 - A cobertura é desigual: há instituições fora por robots.txt, por falhas de
   servidor ou por sistemas que o coletor não reconhece (Tainacan, JSF).
 - Os documentos do inventário chegam sem resumo, o que reduz os pares de

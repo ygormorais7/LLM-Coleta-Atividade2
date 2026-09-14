@@ -392,6 +392,12 @@ coleta:
 # CAMADA PROCESSED — extração e tratamento
 # --------------------------------------------------------------------------
 processed:
+  # Amostra tratada nesta entrega (decisão de 13/09/2026, pelo prazo): todos os
+  # textos já extraídos (3.582: UFMG e piloto) + até `max_novos_por_instituicao`
+  # PDFs novos sorteados por instituição (semente fixa). 0 = tratar tudo.
+  amostra:
+    max_novos_por_instituicao: 40
+    semente: 42
   extracao:
     # "pymupdf" (rápido) | "docling" (mais preciso, mais lento)
     motor: "pymupdf"

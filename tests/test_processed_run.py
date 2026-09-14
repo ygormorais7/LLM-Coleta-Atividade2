@@ -106,6 +106,29 @@ def test_sem_resumo_o_escopo_olha_o_comeco_do_texto(cfg_tmp, gerar_texto):
     assert res.loc["doc_ok", "no_corpus"], res.loc["doc_ok", "motivos_reprovacao"]
 
 
+def test_amostra_trata_os_ja_extraidos_e_ate_n_novos_por_instituicao(cfg_tmp, gerar_texto, monkeypatch):
+    import src.processed.run as run_mod
+
+    _preparar(cfg_tmp, gerar_texto, [("doc_a", "Cuidado de enfermagem ao idoso"),
+                                     ("doc_b", "Saúde bucal de escolares")])
+    stg = cfg_tmp.dir_camada("staging") / "documentos.parquet"
+    docs = pd.read_parquet(stg).assign(instituicao="UFMG")
+    base = docs.iloc[0].to_dict()
+    novos = ([{**base, "doc_id": f"x{i}", "instituicao": "UFRN"} for i in range(5)]
+             + [{**base, "doc_id": "y0", "instituicao": "UEM"}])
+    pd.concat([docs, pd.DataFrame(novos)]).to_parquet(stg, index=False)
+    cfg_tmp["processed"]["amostra"] = {"max_novos_por_instituicao": 2, "semente": 1}
+    pedidos = []
+    monkeypatch.setattr(run_mod, "extrair_lote",
+                        lambda cfg, tarefas, destino, rel: pedidos.extend(t[0] for t in tarefas) or [])
+
+    rel = executar(cfg_tmp)
+
+    assert sorted(d[0] for d in pedidos) == ["x", "x", "y"]  # 2 da UFRN, 1 da UEM; os extraídos não voltam
+    assert rel.metricas["amostra"] == {"ja_extraidos": 2, "novos_sorteados": 3, "novos_disponiveis": 6,
+                                       "max_novos_por_instituicao": 2, "total": 5}
+
+
 def test_relatorio_de_pii_guarda_contexto_mascarado(cfg_tmp, gerar_texto):
     proc = _preparar(cfg_tmp, gerar_texto, [
         ("doc_a", "Cuidado de enfermagem ao idoso", "Dúvidas: fulano@exemplo.com.br."),

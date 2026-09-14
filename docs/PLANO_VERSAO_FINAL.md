@@ -353,9 +353,15 @@ Pré-requisito: Fases 1–6 concluídas.
   prazo, por decisão do usuário. Defeitos achados e corrigidos no caminho:
   variações de DSpace 7, barra dupla, desafio anti-robô na página, disjuntor sem
   histórico na retomada; 23 instituições suspensas com motivo.
-- [ ] Reprocessar todas as camadas com os 15.098 PDFs; ler textos. **Não feito
-  nesta entrega**, por decisão do usuário (prazo): o relatório traz os números da
-  coleta, e o corpus e os produtos continuam os dos 3.596 PDFs, declarado.
+- [x] Staging, Processed e Curated com uma **amostra de 5.023 PDFs** (decisão do
+  usuário, pelo prazo): os 3.582 já tratados + até 40 sorteados por instituição
+  (`processed.amostra`). 18:53–20:05: 4.219 documentos de 62 instituições,
+  98,8 M palavras, verificação de PII com 0 ocorrências. Leitura manual achou ~7
+  exclusões de escopo erradas em documentos sem resumo (sobrenome "Bezerra",
+  "recursos hídricos"): declarado, não corrigido a tempo.
+- [ ] Trabalho futuro: tratar os 15.098 PDFs; refinar o escopo dos documentos
+  sem resumo (termo que casa com sobrenome; exigir mais de um termo quando só o
+  texto casa).
 - [ ] Verificação final passa → **commit**.
 
 ## Fase 9 — Documentação da entrega

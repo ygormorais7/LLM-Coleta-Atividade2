@@ -30,7 +30,7 @@ pip install -r requirements.txt
 sudo dnf install tesseract tesseract-langpack-por   # ou: apt install tesseract-ocr tesseract-ocr-por
 pip install pytesseract Pillow
 
-python -m pytest          # 128 testes, todos em diretório temporário: nenhum toca em data/
+python -m pytest          # 157 testes, todos em diretório temporário: nenhum toca em data/
 ```
 
 > **Cuidado:** `tests/gerar_dados_sinteticos.py` **apaga as quatro camadas de
@@ -305,19 +305,6 @@ print(pii.sample(20)[['tipo', 'contexto']])                                # con
 | `arquivos_brutos_orfaos_ignorados` no relatório | texto de rodada anterior que saiu da amostra | esperado; não entra no corpus |
 | Verificação de PII no Curated falha | máscara que não pegou algum campo | veja `verificacao_pii_curated.json`; corrija o detector e reprocesse |
 | Extração consumindo toda a RAM | `workers` alto demais | mantenha abaixo do número de núcleos |
-
----
-
-## 8. Antes de entregar
-
-- [ ] `python -m pytest` passando
-- [ ] `projeto.contato` com e-mail real (vai no User-Agent)
-- [ ] evidência de robots.txt de cada fonte em `data/reports/<area>/`
-- [ ] `data/reports/*.json` das camadas e o `DATACARD.md` commitados — são a prova de auditoria
-- [ ] leitura manual de amostra: textos, pares de SFT e `pii_relatorio.parquet`
-- [ ] verificação de PII no Curated sem ocorrências
-- [ ] protocolo com o registro de execução e os incidentes da rodada
-- [ ] `data/` fora do Git (só relatórios e DATACARD entram)
 
 ---
 

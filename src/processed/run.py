@@ -60,6 +60,36 @@ def fora_de_escopo(contexto: str, termos: list[str], permitidas: list[str] | Non
     return bool(termos) and bate_exclusao(contexto, termos, permitidas)
 
 
+def _amostrar(com_arquivo: pd.DataFrame, dir_bruto, cfg: Config, rel: Relatorio) -> pd.DataFrame:
+    """
+    Amostra tratada (`processed.amostra`): todo documento cujo texto já foi
+    extraído + até `max_novos_por_instituicao` novos sorteados por instituição
+    (semente fixa). Criada para o prazo da entrega de 13/09/2026: extrair e
+    deduplicar os 11,5 mil PDFs novos levaria horas; a cota por instituição
+    mantém a cobertura. Sem a opção (ou com 0), trata tudo.
+    """
+    cfg_amostra = cfg.get_path("processed.amostra", {}) or {}
+    limite = int(cfg_amostra.get("max_novos_por_instituicao", 0) or 0)
+    if not limite:
+        return com_arquivo
+    extraidos = {p.stem for p in dir_bruto.glob("*.txt")} if dir_bruto.exists() else set()
+    ja = com_arquivo[com_arquivo["doc_id"].isin(extraidos)]
+    novos = com_arquivo[~com_arquivo["doc_id"].isin(extraidos)]
+    embaralhados = novos.sample(frac=1.0, random_state=int(cfg_amostra.get("semente", 42)))
+    instituicao = (embaralhados["instituicao"].fillna("?") if "instituicao" in embaralhados
+                   else pd.Series("?", index=embaralhados.index))
+    sorteados = embaralhados.groupby(instituicao, sort=False).head(limite)
+    amostra = pd.concat([ja, sorteados]).sort_values("doc_id")
+    rel.metricas["amostra"] = {
+        "ja_extraidos": int(len(ja)), "novos_sorteados": int(len(sorteados)),
+        "novos_disponiveis": int(len(novos)), "max_novos_por_instituicao": limite,
+        "total": int(len(amostra)),
+    }
+    log.info("amostra: %d já extraídos + %d novos sorteados (até %d por instituição) de %d disponíveis",
+             len(ja), len(sorteados), limite, len(novos))
+    return amostra
+
+
 def executar(cfg: Config) -> Relatorio:
     rel = Relatorio(camada="processed", area=cfg.get_path("projeto.area_rotulo", ""))
     dir_stg = cfg.dir_camada("staging")
@@ -78,6 +108,7 @@ def executar(cfg: Config) -> Relatorio:
     com_arquivo = df[df["tem_arquivo"] & df["arquivo"].notna()]
     rel.entradas["documentos_staging"] = int(len(df))
     rel.entradas["com_arquivo"] = int(len(com_arquivo))
+    com_arquivo = _amostrar(com_arquivo, dir_bruto, cfg, rel)
 
     # Contexto de escopo por doc (título + programa + resumo + assunto), para
     # reaplicar `excluir_assunto` aqui sem precisar recolher. `area` mora em

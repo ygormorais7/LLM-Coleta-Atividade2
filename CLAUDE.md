@@ -250,9 +250,12 @@ dupla, desafio anti-robô na página). 155 testes. 2ª execução relançada às
 14:40 no tmux `coleta20k` (monitor com marcador `logs/.reinicio_coleta20k`).
 **Coleta encerrada às 17:45: 15.098 PDFs** (meta reduzida para 15 mil pelo
 prazo, decisão do usuário; 4 execuções, a última com o disjuntor partindo do
-histórico, 156 testes). Staging/Processed/Curated **não** foram refeitos com
-eles: o relatório final usa os números da coleta e mantém corpus e produtos
-dos 3.596 PDFs (decisão do usuário). Relatório reescrito mais objetivo; PDF
+histórico, 156 testes). Depois, Staging/Processed/Curated com uma **amostra de
+5.023 PDFs** (`processed.amostra`: os 3.582 já extraídos + até 40 sorteados por
+instituição; 18:53–20:05): 4.219 documentos de 62 instituições, 98,8 M
+palavras, PII 0 na verificação, 157 testes. Limitação achada lendo: ~7 das 18
+exclusões de escopo em documentos sem resumo eram Saúde (sobrenome "Bezerra"
+casa com o termo "bezerra"; "recursos hídricos" em estudo de dengue). Relatório reescrito mais objetivo; PDF
 gerado por `docs/gerar_pdf_relatorio.py` (HTML → ODT → PDF, corpo justificado,
 linhas de tabela inteiras, conferência automática de texto cortado).
 Backups do piloto 2: `data/reports/saude/raw_piloto2.json`,
@@ -294,5 +297,5 @@ sem ler antes: ele APAGA as quatro camadas de `data/` para gerar dados falsos.
   "o colega fez X": escrever "o grupo", "montado pelo grupo". Nomes só na
   lista do grupo, em ordem alfabética e com primeiro e último nome:
   **Eduardo Melo, Otávio França e Ygor Morais**.
-- Relatório final (entrega de 2026-09-14): números da coleta até ~15 mil PDFs;
-  corpus e produtos continuam os do processamento de 3.596 PDFs, declarado.
+- Relatório final (entrega de 2026-09-14): coleta de 15.098 PDFs; corpus e
+  produtos da amostra de 5.023 PDFs, declarada.
