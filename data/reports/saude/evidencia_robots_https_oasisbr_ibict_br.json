@@ -1,0 +1,12 @@
+{
+  "dominio": "https://oasisbr.ibict.br",
+  "robots_txt": "https://oasisbr.ibict.br/robots.txt",
+  "status_http": 200,
+  "conteudo": "# Bloqueio de diretÃ³rios especÃ­ficos do VuFind\nUser-agent: *\nDisallow: /vufind/AJAX\nDisallow: /vufind/Alphabrowse\nDisallow: /vufind/Browse\nDisallow: /vufind/Combined\nDisallow: /vufind/EDS\nDisallow: /vufind/EdsRecord\nDisallow: /vufind/Search/Results\nDisallow: /vufind/Summon\nDisallow: /vufind/SummonRecord\nDisallow: /vufind/AJAX/\nDisallow: /vufind/Alphabrowse/\nDisallow: /vufind/Browse/\nDisallow: /vufind/Combined/\nDisallow: /vufind/EDS/\nDisallow: /vufind/EdsRecord/\nDisallow: /vufind/Search/Results/\nDisallow: /vufind/Summon/\nDisallow: /vufind/SummonRecord/\n\n# Bloqueio de bots de IA conhecidos\nUser-agent: GPTBot\nDisallow: /\n\nUser-agent: PetalBot\nDisallow: /\n\nUser-agent: Bingbot\nDisallow: /\n\nUser-agent: openai\nDisallow: /\n\nUser-agent: ClaudeBot\nDisallow: /\n\nUser-agent: Claude-Web\nDisallow: /\n\nUser-agent: CCBot\nDisallow: /\n\nUser-agent: Applebot-Extended\nDisallow: /\n\nUser-agent: Facebookbot\nDisallow: /\n\nUser-agent: Meta-ExternalAgent\nDisallow: /\n\nUser-agent: Meta-ExternalFetcher\nDisallow: /\n\nUser-agent: diffbot\nDisallow: /\n\nUser-agent: PerplexityBot\nDisallow: /\n\nUser-agent: Omgili\nDisallow: /\n\nUser-agent: Omgilibot\nDisallow: /\n\nUser-agent: webzio-extended\nDisallow: /\n\nUser-agent: ImagesiftBot\nDisallow: /\n\nUser-agent: Bytespider\nDisallow: /\n\nUser-agent: Amazonbot\nDisallow: /\n\n",
+  "verificado_em": "2026-09-17T18:28:32.716581+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "veto_robos_ia",
+    "crawl_delay": null
+  }
+}

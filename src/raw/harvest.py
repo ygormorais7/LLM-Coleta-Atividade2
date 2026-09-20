@@ -316,6 +316,12 @@ def baixar_por_cota(cfg: Config, candidatos: list[dict], rel: Relatorio) -> list
     cfg_disjuntor = cfg.get_path("coleta.disjuntor", {}) or {}
     min_tentativas = int(cfg_disjuntor.get("min_tentativas", 20))
     taxa_minima = float(cfg_disjuntor.get("taxa_minima", 0.70))
+    falhas_seguidas_max = int(cfg_disjuntor.get("falhas_seguidas_max", 20) or 0)
+    seguidas: dict[str, int] = {}
+    # Só falha de rede entra na sequência: 404, 401 ou PDF ausente em série são
+    # conteúdo, não servidor com problema (achados reais: 62 PDFs ausentes
+    # seguidos na UFSCar e 25 links 404 na UFMA, com as duas funcionando bem).
+    falhas_de_rede = {"sem_resposta", "bloqueado_ou_erro_rede", "http_429"}
     # O disjuntor parte do histórico: numa execução retomada, os PDFs já obtidos
     # são pulados sem contar e só as falhas antigas voltam a ser tentadas. Sem o
     # histórico, instituição boa era cortada com "0 de 20" logo na retomada
@@ -335,16 +341,29 @@ def baixar_por_cota(cfg: Config, candidatos: list[dict], rel: Relatorio) -> list
         with open(caminho_manifesto, "a", encoding="utf-8") as fh:
             fh.write(json.dumps(entrada, ensure_ascii=False) + "\n")
 
-    def _contar_na_instituicao(inst: str, ok: bool) -> None:  # chamada com a trava
+    def _contar_na_instituicao(inst: str, ok: bool, motivo_falha: str = "") -> None:  # com a trava
         s = por_instituicao.setdefault(inst, {"tentados": 0, "obtidos": 0})
         s["tentados"] += 1
         s["obtidos"] += int(ok)
-        if (inst not in interrompidas and s["tentados"] >= min_tentativas
-                and s["obtidos"] / s["tentados"] < taxa_minima):
-            interrompidas[inst] = f"{s['obtidos']}/{s['tentados']} obtidos"
-            log.warning("instituição %s interrompida pelo disjuntor: %s (mínimo %.0f%%)",
-                        inst, interrompidas[inst], taxa_minima * 100)
-            rel.falha(inst, "instituicao_interrompida", interrompidas[inst])
+        if ok:
+            seguidas[inst] = 0
+        elif motivo_falha in falhas_de_rede or motivo_falha.startswith("http_5"):
+            seguidas[inst] = seguidas.get(inst, 0) + 1
+        if inst in interrompidas:
+            return
+        motivo = None
+        if s["tentados"] >= min_tentativas and s["obtidos"] / s["tentados"] < taxa_minima:
+            motivo = f"{s['obtidos']}/{s['tentados']} obtidos (mínimo {taxa_minima:.0%})"
+        elif falhas_seguidas_max and seguidas.get(inst, 0) >= falhas_seguidas_max:
+            # Com o histórico no placar, a taxa acumulada reage devagar demais a um
+            # servidor que para de responder de repente. Achado real (14/09/2026):
+            # a Fiocruz tinha 842 PDFs, parou de responder e levou 376 falhas
+            # seguidas até a taxa cair abaixo de 70%.
+            motivo = f"{seguidas[inst]} falhas de rede seguidas"
+        if motivo:
+            interrompidas[inst] = motivo
+            log.warning("instituição %s interrompida pelo disjuntor: %s", inst, motivo)
+            rel.falha(inst, "instituicao_interrompida", motivo)
 
     # Uma fila por instituição, intercalando os estratos (faixas de ano), para
     # uma rodada parcial já cobrir o período todo.
@@ -428,7 +447,7 @@ def baixar_por_cota(cfg: Config, candidatos: list[dict], rel: Relatorio) -> list
                             placar["bytes"] += res.bytes
                         else:
                             rel.falha(did, res.motivo or "download_falhou", f"{estrato}|{ident}")
-                        _contar_na_instituicao(inst, res.ok)
+                        _contar_na_instituicao(inst, res.ok, res.motivo or "")
                         if placar["tentados"] % 200 == 0:
                             log.info("progresso: %d PDFs no disco (meta %s) | %d tentativas nesta execução, "
                                      "%s | %d instituição(ões) interrompida(s)",

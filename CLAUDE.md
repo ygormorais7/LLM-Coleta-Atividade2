@@ -258,6 +258,30 @@ exclusões de escopo em documentos sem resumo eram Saúde (sobrenome "Bezerra"
 casa com o termo "bezerra"; "recursos hídricos" em estudo de dengue). Relatório reescrito mais objetivo; PDF
 gerado por `docs/gerar_pdf_relatorio.py` (HTML → ODT → PDF, corpo justificado,
 linhas de tabela inteiras, conferência automática de texto cortado).
+**Coleta até 50 mil PDFs — AUTORIZADA pelo usuário em 2026-09-14 (~15h30).**
+Conta feita antes (local): 58.491 candidatos no CSV sem limite → 33.921 em
+domínio autorizado pelo robots.txt → 23.591 fora das suspensas → 11.993 ainda
+não baixados → ~10.900 PDFs esperados pela taxa real de cada instituição →
+**teto realista ~26 mil** dentro do protocolo (50 mil exigiria fontes novas).
+Config: `limite_por_instituicao: 0`, `meta_pdfs: 50000`. Tmux `coleta50k`:
+`logs/coleta50k_1_preparo.sh` (testes, robots.txt de domínios sem evidência,
+inventário, preflight) → revisar → `logs/coleta50k_2_download.sh`. Maior fila:
+UFRN (2.803, DSpace 7 via API, ~12 h). Backups do manifesto e do raw.json com
+sufixo `antes_coleta50k`. Preparo ok (15:33–15:43): 2 domínios voltaram
+(UNIFAL, +573 candidatos), 13.146 candidatos novos, fila real de 12.743;
+download lançado em seguida no tmux `coleta50k`.
+**Incidente Fiocruz (15:47–17:05):** arca.fiocruz.br parou de responder (aceita a
+conexão, tempo esgotado) — possível bloqueio; 376 falhas seguidas até o disjuntor
+cortar, porque a taxa acumulada com 842 PDFs de histórico reage devagar. Fiocruz
+suspensa; disjuntor ganhou `falhas_seguidas_max: 20` contando SÓ falhas de rede
+(`sem_resposta`, `bloqueado_ou_erro_rede`, 429, 5xx) — 404/401/PDF ausente não
+contam (UFSCar teve 62 ausentes seguidos e UFMA 25 links 404, as duas boas). O
+coletor agora devolve `sem_resposta` quando a página não respondeu. 160 testes.
+Download parado às 17:40 com 20.250 PDFs e relançado às 17:40
+(`logs/coleta50k_2_download_2026-09-14_1740.log`); **fila esgotada às 07:35 de 15/09:
+24.443 PDFs no disco** (64 instituições, 76 GB; 4.223 na 2ª execução; nenhum
+corte por falhas de rede). Meta de 50 mil não atingida, como a conta previa.
+Próximo passo só se o usuário pedir: tratar a coleta nova e atualizar o relatório.
 Backups do piloto 2: `data/reports/saude/raw_piloto2.json`,
 `data/raw/saude/{manifesto,inventario}.piloto2.jsonl`.
 

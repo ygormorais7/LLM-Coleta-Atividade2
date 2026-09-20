@@ -2,8 +2,8 @@
   "dominio": "http://www.bd.bibl.ita.br",
   "robots_txt": "http://www.bd.bibl.ita.br/robots.txt",
   "status_http": null,
-  "conteudo": "(inacessível: HTTPConnectionPool(host='www.bd.bibl.ita.br', port=80): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPConnection(host='www.bd.bibl.ita.br', port=80) at 0x7f8dc8af4af0>, 'Connection to www.bd.bibl.ita.br timed out. (connect timeout=30)')))",
-  "verificado_em": "2026-09-13T16:45:49.238264+00:00",
+  "conteudo": "(inacessível: HTTPConnectionPool(host='www.bd.bibl.ita.br', port=80): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPConnection(host='www.bd.bibl.ita.br', port=80) at 0x7f7fe82f58c0>, 'Connection to www.bd.bibl.ita.br timed out. (connect timeout=30)')))",
+  "verificado_em": "2026-09-14T18:39:46.299790+00:00",
   "veredito": {
     "permitido": false,
     "motivo": "inacessivel",

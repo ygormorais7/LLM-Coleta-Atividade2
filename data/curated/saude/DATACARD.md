@@ -1,49 +1,49 @@
 # DATACARD — Corpus BDTD: Saúde
 
-**Versão:** 2026-09-13
-**Fontes de onde os documentos vieram:** OAI-PMH repositorio.ufmg.br (2845); inventário BDTD → repositorio.ufrn.br (90); inventário BDTD → arca.fiocruz.br (90); inventário BDTD → repositorio.uepb.edu.br (39); inventário BDTD → repositorio.utfpr.edu.br (39); inventário BDTD → www.repositorio.ufal.br (39); inventário BDTD → repositorio.unesc.net (38); inventário BDTD → tede.unisantos.br (37); inventário BDTD → saberaberto.uneb.br (36); inventário BDTD → bdtd.famerp.br (36); inventário BDTD → tede2.unifenas.br:8080 (36); inventário BDTD → repositorio.bc.ufg.br (35); inventário BDTD → repositorio.uel.br (35); inventário BDTD → hdl.handle.net (35); inventário BDTD → repositorio.ufu.br (35); inventário BDTD → repositorio.upf.br (35); inventário BDTD → tede2.uefs.br:8080 (35); inventário BDTD → repositorio.unilab.edu.br (35); inventário BDTD → repositorio.ufes.br (34); inventário BDTD → ri.ufs.br (34); inventário BDTD → repositorio.ufscar.br (34); inventário BDTD → repositorio.uem.br:8080 (34); inventário BDTD → tede.unioeste.br (34); inventário BDTD → bdtd.unoeste.br:8080 (33); inventário BDTD → repositorio.ufgd.edu.br (30); inventário BDTD → repositorio.ucs.br (29); inventário BDTD → archivum.grupomarista.org.br (28); inventário BDTD → repositorio.uscs.edu.br (25); inventário BDTD → repositorio.ufms.br (24); inventário BDTD → repositorio.baraodemaua.br (24); inventário BDTD → locus.ufv.br (22); inventário BDTD → ri.emescam.br (20); inventário BDTD → tede2.unicap.br:8080 (20); inventário BDTD → tedebc.ufma.br (18); inventário BDTD → tedebc.ufma.br:8080 (17); inventário BDTD → repositorio.unipampa.edu.br (16); inventário BDTD → dspace.unipampa.edu.br (16); inventário BDTD → www.tede2.ufrpe.br:8080 (15); inventário BDTD → bibliotecatede.uninove.br (13); inventário BDTD → repositorio.udesc.br (12); inventário BDTD → ridi.ibict.br (10); inventário BDTD → dspace.unila.edu.br (9); inventário BDTD → dspace.est.edu.br:8080 (9); inventário BDTD → repositorio.uenp.edu.br (9); inventário BDTD → tede.fecap.br:8080 (8); inventário BDTD → bib.pucminas.br (8); inventário BDTD → repositorio.ufpa.br (7); inventário BDTD → repositorio.ifes.edu.br (7); inventário BDTD → accamargo.phlnet.com.br (7); inventário BDTD → dspace.mackenzie.br (6); inventário BDTD → repositorio.cefetmg.br (6); inventário BDTD → www.locus.ufv.br (5); inventário BDTD → repositorio.uema.br (5); inventário BDTD → www.alice.cnptia.embrapa.br (5); inventário BDTD → repositorio.ifpb.edu.br (3); inventário BDTD → repositorio.enap.gov.br (2); inventário BDTD → repositorio.ifal.edu.br (2); inventário BDTD → tede.fecap.br (2); inventário BDTD → repositorio.ital.sp.gov.br (1); inventário BDTD → rigeo.sgb.gov.br (1); inventário BDTD → repositorio.ifro.edu.br (1); inventário BDTD → dspace.ifrs.edu.br (1); inventário BDTD → repositorio.ifam.edu.br (1); inventário BDTD → petrus.cp2.g12.br (1); inventário BDTD → tede2.uepg.br (1)
+**Versão:** 2026-09-18
+**Fontes de onde os documentos vieram:** inventário BDTD → repositorio.ufrn.br (3024); OAI-PMH repositorio.ufmg.br (2845); inventário BDTD → repositorio.bc.ufg.br (1369); inventário BDTD → repositorio.ufscar.br (1351); inventário BDTD → repositorio.ufu.br (1150); inventário BDTD → hdl.handle.net (1129); inventário BDTD → repositorio.uem.br:8080 (998); inventário BDTD → ri.ufs.br (916); inventário BDTD → repositorio.ufes.br (884); inventário BDTD → riunbtainacan.unb.br (791); inventário BDTD → arca.fiocruz.br (777); inventário BDTD → repositorio.uel.br (753); inventário BDTD → tedebc.ufma.br (536); inventário BDTD → repositorio.uepb.edu.br (513); inventário BDTD → bdtd.famerp.br (513); inventário BDTD → repositorio.unifal-mg.edu.br (510); inventário BDTD → tede.unioeste.br (428); inventário BDTD → repositorio.upf.br (382); inventário BDTD → locus.ufv.br (351); inventário BDTD → tedebc.ufma.br:8080 (289); inventário BDTD → www.repositorio.ufal.br (249); inventário BDTD → tede.unisantos.br (239); inventário BDTD → tede2.uefs.br:8080 (195); inventário BDTD → repositorio.utfpr.edu.br (185); inventário BDTD → tede2.unifenas.br:8080 (143); inventário BDTD → www.locus.ufv.br (136); inventário BDTD → bdtd.unoeste.br:8080 (115); inventário BDTD → repositorio.ufgd.edu.br (114); inventário BDTD → repositorio.unesc.net (101); inventário BDTD → repositorio.unilab.edu.br (53); inventário BDTD → repositorio.ucs.br (52); inventário BDTD → saberaberto.uneb.br (45); inventário BDTD → dspace.unipampa.edu.br (34); inventário BDTD → repositorio.unipampa.edu.br (34); inventário BDTD → archivum.grupomarista.org.br (28); inventário BDTD → repositorio.uscs.edu.br (25); inventário BDTD → repositorio.ufms.br (24); inventário BDTD → repositorio.baraodemaua.br (24); inventário BDTD → ri.emescam.br (20); inventário BDTD → tede2.unicap.br:8080 (20); inventário BDTD → www.tede2.ufrpe.br:8080 (15); inventário BDTD → bibliotecatede.uninove.br (13); inventário BDTD → repositorio.udesc.br (12); inventário BDTD → ridi.ibict.br (11); inventário BDTD → dspace.unila.edu.br (9); inventário BDTD → dspace.est.edu.br:8080 (9); inventário BDTD → repositorio.uenp.edu.br (9); inventário BDTD → siduece.uece.br (8); inventário BDTD → tede.fecap.br:8080 (8); inventário BDTD → bib.pucminas.br (8); inventário BDTD → repositorio.ufpa.br (7); inventário BDTD → accamargo.phlnet.com.br (7); inventário BDTD → dspace.mackenzie.br (6); inventário BDTD → repositorio.cefetmg.br (6); inventário BDTD → repositorio.ifes.edu.br (6); inventário BDTD → repositorio.uema.br (5); inventário BDTD → www.alice.cnptia.embrapa.br (5); inventário BDTD → 191.252.194.60:8080 (5); inventário BDTD → dx.doi.org (4); inventário BDTD → repositorio.ifpb.edu.br (3); inventário BDTD → repositorio.enap.gov.br (2); inventário BDTD → repositorio.ifal.edu.br (2); inventário BDTD → tede.fecap.br (2); inventário BDTD → repositorio.ital.sp.gov.br (1); inventário BDTD → repositorio.fei.edu.br (1); inventário BDTD → rigeo.sgb.gov.br (1); inventário BDTD → repositorio.ifro.edu.br (1); inventário BDTD → dspace.ifrs.edu.br (1); inventário BDTD → repositorio.ifam.edu.br (1); inventário BDTD → petrus.cp2.g12.br (1); inventário BDTD → tede2.uepg.br (1)
 **Coletado por:** UFPI — contato: ygor.morais@ufpi.edu.br
 
 ## 1. Composição
 
 | Métrica | Valor |
 |---|---|
-| Documentos no corpus final | 4219 |
-| Palavras totais | 98,824,024 |
-| Palavras por documento (mediana) | 19376 |
-| Período coberto | 1993–2026 |
-| Instituições distintas | 62 |
+| Documentos no corpus final | 21515 |
+| Palavras totais | 461,933,050 |
+| Palavras por documento (mediana) | 17681 |
+| Período coberto | 1903–2026 |
+| Instituições distintas | 67 |
 | Idioma | português (filtro com limiar de confiança) |
 
 ### Divisão
 
 | Split | Documentos |
 |---|---|
-| treino | 3793 |
-| teste | 216 |
-| validacao | 210 |
+| treino | 19361 |
+| validacao | 1084 |
+| teste | 1070 |
 
 ### Principais instituições
 
 | Instituição | Documentos |
 |---|---|
+| UFRN | 3024 |
 | Universidade Federal de Minas Gerais | 2845 |
-| UFRN | 90 |
-| FIOCRUZ | 90 |
-| UEPB | 39 |
-| UTFPR | 39 |
-| UFAL | 39 |
-| UNESC | 38 |
-| UNISANTOS | 37 |
-| UFSCAR | 36 |
-| UNEB | 36 |
+| UFSCAR | 1462 |
+| UFG | 1369 |
+| UFU | 1150 |
+| UNESP | 1016 |
+| UEM | 998 |
+| UFS | 916 |
+| UFES | 884 |
+| UFMA | 825 |
 
 ### Direitos declarados na fonte
 
 | Direitos | Documentos |
 |---|---|
+| openAccess | 18670 |
 | Acesso Aberto | 2301 |
-| openAccess | 1374 |
 | Acesso Aberto; http://creativecommons.org/licenses/by-nc-nd/3.0/pt/ | 271 |
 | Acesso aberto | 89 |
 | Acesso Aberto; http://creativecommons.org/licenses/by-nd/3.0/pt/ | 61 |
@@ -55,10 +55,10 @@
 
 | Produto | Conteúdo |
 |---|---|
-| `pretreino/*.jsonl` | {'treino': 3793, 'validacao': 210, 'teste': 216} — documento inteiro, campo `text` |
-| `sft/*.jsonl` | {'treino': 1057, 'validacao': 58, 'teste': 50} — pares instrução/resposta no formato `messages` |
-| `rag/corpus_rag.parquet` | 213573 chunks de 500 palavras (sobreposição 50) |
-| `benchmark/` | {'recuperacao': 276, 'multipla_escolha': 300, 'perplexidade': 200} |
+| `pretreino/*.jsonl` | {'treino': 19361, 'validacao': 1084, 'teste': 1070} — documento inteiro, campo `text` |
+| `sft/*.jsonl` | {'treino': 3361, 'validacao': 192, 'teste': 136} — pares instrução/resposta no formato `messages` |
+| `rag/corpus_rag.parquet` | 1000330 chunks de 500 palavras (sobreposição 50) |
+| `benchmark/` | {'recuperacao': 275, 'multipla_escolha': 300, 'perplexidade': 200} |
 
 ## 3. Como foi construído
 

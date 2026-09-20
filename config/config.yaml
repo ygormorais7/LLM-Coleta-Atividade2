@@ -244,7 +244,10 @@ inventario:
       # Coleta até 20 mil: no máximo 800 candidatos sorteados por instituição
       # (36.485 no total), para a meta não sair concentrada nas maiores (UERJ
       # tem 3.853 candidatos, UFRN 3.500).
-      limite_por_instituicao: 800
+      # Coleta até 50 mil (autorizada em 2026-09-14): sem limite por
+      # instituição, para esgotar o inventário. Pela conta de 14/09, só ~26 mil
+      # cabem nas regras do protocolo (robots.txt, suspensões).
+      limite_por_instituicao: 0
       semente: 42
       # Radicais, porque "odontologia" não pega "odontológico". Testados contra o
       # corpus: "medic" sozinho casa com "medição" e "hospital" com
@@ -332,7 +335,9 @@ coleta:
   # Coleta autorizada até 20 mil PDFs (2026-09-13); meta reduzida para 15 mil
   # pelo prazo de entrega. A meta conta os PDFs já no disco; ao atingir, o
   # download para (0 = sem meta).
-  meta_pdfs: 15000
+  # 2026-09-14: meta de 50 mil autorizada; na prática a coleta termina quando
+  # os candidatos autorizados acabarem (~26 mil PDFs no disco, estimado).
+  meta_pdfs: 50000
   # Paralelismo POR INSTITUIÇÃO. Cada repositório continua recebendo no máximo
   # 1 requisição a cada 3 s (rps_repositorios); instituições diferentes andam
   # juntas. Não acelera nenhum domínio.
@@ -345,6 +350,11 @@ coleta:
   disjuntor:
     min_tentativas: 20
     taxa_minima: 0.70
+    # Também corta depois de N falhas DE REDE seguidas (sem resposta, bloqueio,
+    # HTTP 429/5xx): a taxa acumulada, com o histórico de PDFs já obtidos, demora
+    # demais quando um servidor para de responder — a Fiocruz levou 376 falhas
+    # seguidas (14/09/2026). 404, 401 e PDF ausente não contam na sequência.
+    falhas_seguidas_max: 20
   # Suspensas depois do diagnóstico das instituições cortadas pelo disjuntor
   # (13/09/2026; data/reports/saude/diagnostico_coleta20k_cortadas.json). Chave =
   # instituição como aparece no estrato. Não recebem nenhuma requisição.
@@ -354,7 +364,13 @@ coleta:
     ufrj: "pantheon.ufrj.br recusa conexão"
     uft: "servidor de handles da UFT fora do ar (HTTP 500 'Cannot Connect to Server')"
     unirio: "handles com prefixo inexistente ('Prefix [unirio] Not Found')"
-    unicamp: "robots.txt de repositorio.unicamp.br responde HTTP 503"
+    # 2026-09-16: robots.txt não bloqueia mais (HTTP 404, sem_robots), mas a
+    # página do item é a plataforma "Sophia Biblioteca Web" — desafio
+    # anti-robô por trás de um POST com AntiForgeryToken que só um navegador
+    # de verdade completa ("Aguarde, estamos validando sua requisição...").
+    # Mesmo critério de princípio da FGV/UNISINOS: não contornado. Detector
+    # de `pagina_de_desafio` (src/raw/robots.py) corrigido para reconhecer.
+    unicamp: "repositorio.unicamp.br (Sophia Biblioteca Web): desafio anti-robô via token JS"
     univates: "robots.txt de www.univates.br veta robôs de IA"
     fgv: "repositorio.fgv.br responde com página de desafio anti-robô"
     unisinos: "repositorio.jesuita.org.br responde com página de desafio anti-robô"
@@ -365,14 +381,29 @@ coleta:
     ufvjm: "links do inventário dão HTTP 404"
     uninove: "parte dos links do inventário dá HTTP 404 (15 de 24 obtidos, abaixo do protocolo)"
     ufpa: "servidor derruba a conexão ao abrir a página do item"
-    unb: "Tainacan (WordPress): o coletor não reconhece o link do PDF"
-    uece: "SidUece (JSF): o coletor não reconhece o link do PDF"
+    # unb reabilitada em 2026-09-16: bug do coletor corrigido (fulltext.py,
+    # salto pro DSpace antigo via metadado "uri-handle" do Tainacan); teste em
+    # lote pequeno deu 20/20.
+    # uece: bug do coletor corrigido no mesmo dia (<object type=
+    # "application/pdf">, achado real do SidUece), mas o teste em lote (20
+    # candidatos) deu só 8/20 — as 12 falhas são "conteudo_nao_e_pdf", não
+    # mais "pdf_nao_localizado": o link é achado certo, só que boa parte dos
+    # registros genuinamente não tem arquivo digital ("Esse Trabalho não
+    # possui arquivo digital", confirmado lendo a página à mão). Teto real da
+    # instituição, não bug — segue suspensa pelo próprio disjuntor (40% <
+    # 70%).
+    uece: "SidUece: proporção real de registros sem arquivo digital fica abaixo do mínimo do protocolo (8/20 no teste de 16/09)"
     kroton: "página do item sem link de PDF (22 candidatos; não investigado)"
     # Depois da 2ª execução (13/09/2026, 17:15): as correções não bastaram.
     iec: "DSpace 7 com API em outro endereço: mesmo lendo assets/config.json, 0 de 24 (não investigado a fundo)"
     ueg: "links do inventário dão HTTP 404 mesmo sem a barra dupla"
-    ufrrj: "robots.txt de rima.ufrrj.br responde HTTP 403 ao coletor"
+    # 2026-09-16: reverificação isolada pegou robots.txt em HTTP 200, mas o
+    # teste em lote pequeno (10 candidatos) bateu HTTP 403 de novo, ao vivo,
+    # em 4 de 10 tentativas — o bloqueio é intermitente, não resolvido.
+    ufrrj: "robots.txt de rima.ufrrj.br intermitente: HTTP 403 em parte das tentativas (4/10 no teste de 16/09)"
     m: "dspace.mackenzie.br: página do item sem PDF localizável (7 obtidos em ~50 tentativas)"
+    # Coleta até 50 mil (14/09/2026): possível bloqueio. Pausa até nova verificação.
+    fiocruz: "arca.fiocruz.br parou de responder (tempo esgotado) às 15:47 de 14/09, depois de 18 downloads; 376 falhas seguidas até o corte"
 
   # Educação do crawler (não mexa para cima sem pensar)
   http:
@@ -392,11 +423,13 @@ coleta:
 # CAMADA PROCESSED — extração e tratamento
 # --------------------------------------------------------------------------
 processed:
-  # Amostra tratada nesta entrega (decisão de 13/09/2026, pelo prazo): todos os
-  # textos já extraídos (3.582: UFMG e piloto) + até `max_novos_por_instituicao`
-  # PDFs novos sorteados por instituição (semente fixa). 0 = tratar tudo.
+  # Amostra tratada na entrega de 13/09/2026 (pelo prazo): todos os textos já
+  # extraídos + até `max_novos_por_instituicao` PDFs novos sorteados por
+  # instituição (semente fixa). 0 = tratar tudo -- ativado em 2026-09-17 para
+  # processar o restante dos ~25 mil PDFs já baixados (só ~5 mil passaram pela
+  # amostra até aqui).
   amostra:
-    max_novos_por_instituicao: 40
+    max_novos_por_instituicao: 0
     semente: 42
   extracao:
     # "pymupdf" (rápido) | "docling" (mais preciso, mais lento)

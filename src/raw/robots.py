@@ -34,6 +34,11 @@ _SINAIS_DESAFIO_NA_PAGINA = (
     "cf-chl", "/cdn-cgi/challenge-platform", "<title>just a moment", "checking your browser",
     "attention required! | cloudflare", "ddos-guard", "não é um bot", "nao e um bot",
     "you are not a robot", "are you a robot",
+    # Achado real: repositorio.unicamp.br (plataforma "Sophia Biblioteca Web")
+    # devolve essa mensagem e só libera o conteúdo depois de um POST com token
+    # (AntiForgeryToken) que só um navegador de verdade completa — sem isso o
+    # coletor via como "PDF não localizado" em vez de reconhecer o bloqueio.
+    "estamos validando sua requisição", "estamos validando sua requisicao",
 )
 
 

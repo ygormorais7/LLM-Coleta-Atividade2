@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import ipaddress
 import re
+import threading
 import urllib.parse
 import urllib.robotparser
 from dataclasses import dataclass
@@ -128,6 +129,7 @@ class ResolvedorTextoCompleto:
         self.vetados: dict[str, str] = {}  # netloc -> motivo (robots.classificar)
         self._apis_dspace7: dict[str, list[str]] = {}  # origem+prefixo -> bases da API
         self._pagina_do_arquivo: dict[str, str] = {}  # url do arquivo -> página do item
+        self._local = threading.local()  # houve erro de rede na tentativa atual (por thread)
         self.sessao = requests.Session()
         self.sessao.headers.update(
             {
@@ -210,6 +212,7 @@ class ResolvedorTextoCompleto:
                 resp = self.sessao.get(url, timeout=self.timeout, stream=stream, allow_redirects=False)
             except requests.RequestException as exc:
                 log.debug("falha ao acessar %s: %s", url, exc)
+                self._local.erro_rede = True
                 return None
             destino = resp.headers.get("Location") if resp.status_code in (301, 302, 303, 307, 308) else None
             if not destino:
@@ -262,18 +265,67 @@ class ResolvedorTextoCompleto:
         if candidatos:
             return candidatos[0]
 
-        # 5) DSpace 7 sem renderização no servidor: a página é só a "casca" do
+        # 5) visualizador embutido via <object>: o link não termina em .pdf (é
+        #    um servlet com query string), mas o type já declara o arquivo.
+        #    Achado real: siduece.uece.br (JSF/PrimeFaces) embute
+        #    <object type="application/pdf" data="/siduece/report?id=...&tipo=3">
+        #    em vez de um <a href> — nenhum dos passos 1-4 pega isso.
+        objeto = sopa.find("object", attrs={"type": "application/pdf", "data": True})
+        if objeto:
+            return self._lembrar_pagina(urllib.parse.urljoin(resp.url, objeto["data"]), resp.url)
+
+        # 6) Tainacan (plugin de acervo digital do WordPress): o item pode não
+        #    ter arquivo nenhum ali, só o metadado, com o PDF de verdade ainda
+        #    no repositório antigo. Achado real: riunbtainacan.unb.br não tem
+        #    link nenhum, mas a API do próprio Tainacan expõe um campo
+        #    "uri-handle" apontando pra repositorio.unb.br/handle/..., que
+        #    tem a metatag citation_pdf_url normal.
+        arquivo_tainacan, pagina_antiga = self._tainacan(resp)
+        if arquivo_tainacan:
+            return self._lembrar_pagina(arquivo_tainacan, resp.url)
+        if pagina_antiga:
+            resp2 = self._obter(_sem_barra_dupla(pagina_antiga))
+            if resp2 is not None and resp2.status_code < 400:
+                if "pdf" in (resp2.headers.get("Content-Type") or "").lower():
+                    return resp2.url
+                sopa2 = BeautifulSoup(resp2.text, "html.parser")
+                for nome, attrs in META_PDF:
+                    tag = sopa2.find(nome, attrs=attrs)
+                    if tag and tag.get("content"):
+                        return self._lembrar_pagina(
+                            _no_mesmo_site(urllib.parse.urljoin(resp2.url, tag["content"]), resp2.url), resp2.url)
+
+        # 7) DSpace 7 sem renderização no servidor: a página é só a "casca" do
         #    Angular (achado real: repositorio.ufrn.br, 1 KB, sem link nenhum).
         #    A API REST do próprio repositório lista os arquivos do item.
         url_pdf = self._descobrir_dspace7(resp.url)
         if url_pdf:
             return url_pdf
 
-        # 6) último recurso: navegador de verdade
+        # 8) último recurso: navegador de verdade
         if self.cfg.get_path("coleta.fallback_selenium", False):
             return self._descobrir_com_selenium(url_registro)
 
         return None
+
+    _ITEM_REST_WP = re.compile(r'wp-json/wp/v2/[\w-]*_item/(\d+)')
+
+    def _tainacan(self, resp: requests.Response) -> tuple[str | None, str | None]:
+        """(url_do_arquivo, url_da_pagina_antiga) — só um dos dois vem preenchido."""
+        m = self._ITEM_REST_WP.search(resp.text)
+        if not m:
+            return None, None
+        partes = urllib.parse.urlsplit(resp.url)
+        item = self._json(f"{partes.scheme}://{partes.netloc}/wp-json/tainacan/v2/items/{m.group(1)}")
+        if not item:
+            return None, None
+        if item.get("document_type") not in (None, "", "empty") and item.get("document"):
+            return item["document"], None
+        for campo in (item.get("metadata") or {}).values():
+            valor = campo.get("value") if isinstance(campo, dict) else None
+            if isinstance(valor, str) and valor.startswith("http") and "/handle/" in valor:
+                return None, valor
+        return None, None
 
     def _json(self, url: str) -> dict | None:
         resp = self._obter(url) if url else None
@@ -384,9 +436,11 @@ class ResolvedorTextoCompleto:
                 motivo="ja_existia",
             )
 
+        self._local.erro_rede = False
         resp = self._obter(url_pdf, stream=True)
         if resp is None:
-            return ResultadoDownload(False, motivo="bloqueado_ou_erro_rede")
+            motivo = "sem_resposta" if getattr(self._local, "erro_rede", False) else "bloqueado_ou_erro_rede"
+            return ResultadoDownload(False, motivo=motivo)
         if resp.status_code >= 400:
             return ResultadoDownload(False, motivo=f"http_{resp.status_code}")
 
@@ -438,9 +492,14 @@ class ResolvedorTextoCompleto:
             if not url:
                 continue
             url = _sem_barra_dupla(url)
+            self._local.erro_rede = False
             url_pdf = url if url.lower().split("?")[0].endswith(".pdf") else self.descobrir_url_pdf(url)
             if not url_pdf:
-                ultimo = ResultadoDownload(False, motivo="pdf_nao_localizado")
+                # Página que não respondeu não é "PDF não localizado": o disjuntor
+                # conta falhas de rede seguidas à parte (achado real: a Fiocruz parou
+                # de responder e as 376 falhas apareceram como pdf_nao_localizado).
+                motivo = "sem_resposta" if getattr(self._local, "erro_rede", False) else "pdf_nao_localizado"
+                ultimo = ResultadoDownload(False, motivo=motivo)
                 continue
             resultado = self.baixar(url_pdf, destino)
             if resultado.ok:

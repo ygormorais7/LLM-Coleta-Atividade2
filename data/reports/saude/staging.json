@@ -1,29 +1,29 @@
 {
   "camada": "staging",
   "area": "Saúde",
-  "inicio": "2026-09-13T21:53:42.464786+00:00",
-  "fim": "2026-09-13T21:55:08.172785+00:00",
-  "duracao_s": 85.71,
+  "inicio": "2026-09-17T21:55:25.030116+00:00",
+  "fim": "2026-09-17T21:58:26.361138+00:00",
+  "duracao_s": 181.33,
   "entradas": {
-    "registros_raw": 24988,
-    "itens_manifesto": 15403
+    "registros_raw": 38134,
+    "itens_manifesto": 25995
   },
   "saidas": {
     "documentos": {
       "arquivo": "/home/lmssa/.vcoleta/bdtd-corpus/data/staging/saude/documentos.parquet",
-      "linhas": 24988
+      "linhas": 38134
     },
     "autores": {
       "arquivo": "/home/lmssa/.vcoleta/bdtd-corpus/data/staging/saude/autores.parquet",
-      "linhas": 24987
+      "linhas": 38133
     },
     "assuntos": {
       "arquivo": "/home/lmssa/.vcoleta/bdtd-corpus/data/staging/saude/assuntos.parquet",
-      "linhas": 201276
+      "linhas": 307381
     },
     "arquivos": {
       "arquivo": "/home/lmssa/.vcoleta/bdtd-corpus/data/staging/saude/arquivos.parquet",
-      "linhas": 15098
+      "linhas": 25338
     }
   },
   "metricas": {
@@ -34,15 +34,15 @@
       "fk_quebrada_assuntos": 0,
       "tipo_divergente": 0,
       "sem_titulo": 0,
-      "titulos_repetidos": 4
+      "titulos_repetidos": 6
     },
-    "com_arquivo": 15084,
-    "sem_arquivo": 9904,
+    "com_arquivo": 25324,
+    "sem_arquivo": 12810,
     "anos": {
-      "min": 1965,
+      "min": 1903,
       "max": 2026
     },
-    "instituicoes_distintas": 93,
+    "instituicoes_distintas": 95,
     "falhas_por_tipo": {
       "arquivo_orfao": 14
     },
@@ -50,37 +50,7 @@
   },
   "falhas": [
     {
-      "id": "5c575b65fc0b390c",
-      "tipo": "arquivo_orfao",
-      "detalhe": "arquivo sem registro na tabela de documentos"
-    },
-    {
-      "id": "f722c23d38a81485",
-      "tipo": "arquivo_orfao",
-      "detalhe": "arquivo sem registro na tabela de documentos"
-    },
-    {
-      "id": "62d61eeebafb8b4b",
-      "tipo": "arquivo_orfao",
-      "detalhe": "arquivo sem registro na tabela de documentos"
-    },
-    {
-      "id": "91152ba2b73988f3",
-      "tipo": "arquivo_orfao",
-      "detalhe": "arquivo sem registro na tabela de documentos"
-    },
-    {
-      "id": "35e10066d4b3334c",
-      "tipo": "arquivo_orfao",
-      "detalhe": "arquivo sem registro na tabela de documentos"
-    },
-    {
-      "id": "89598dfff595053b",
-      "tipo": "arquivo_orfao",
-      "detalhe": "arquivo sem registro na tabela de documentos"
-    },
-    {
-      "id": "b3cd9edd7dab66e9",
+      "id": "70ce2e1e40455ac3",
       "tipo": "arquivo_orfao",
       "detalhe": "arquivo sem registro na tabela de documentos"
     },
@@ -90,12 +60,17 @@
       "detalhe": "arquivo sem registro na tabela de documentos"
     },
     {
-      "id": "1b7c22e04b992d5d",
+      "id": "f722c23d38a81485",
       "tipo": "arquivo_orfao",
       "detalhe": "arquivo sem registro na tabela de documentos"
     },
     {
-      "id": "6c871ed4c95ad4de",
+      "id": "91152ba2b73988f3",
+      "tipo": "arquivo_orfao",
+      "detalhe": "arquivo sem registro na tabela de documentos"
+    },
+    {
+      "id": "7e920880a723529e",
       "tipo": "arquivo_orfao",
       "detalhe": "arquivo sem registro na tabela de documentos"
     },
@@ -105,7 +80,22 @@
       "detalhe": "arquivo sem registro na tabela de documentos"
     },
     {
-      "id": "70ce2e1e40455ac3",
+      "id": "6c871ed4c95ad4de",
+      "tipo": "arquivo_orfao",
+      "detalhe": "arquivo sem registro na tabela de documentos"
+    },
+    {
+      "id": "62d61eeebafb8b4b",
+      "tipo": "arquivo_orfao",
+      "detalhe": "arquivo sem registro na tabela de documentos"
+    },
+    {
+      "id": "5c575b65fc0b390c",
+      "tipo": "arquivo_orfao",
+      "detalhe": "arquivo sem registro na tabela de documentos"
+    },
+    {
+      "id": "35e10066d4b3334c",
       "tipo": "arquivo_orfao",
       "detalhe": "arquivo sem registro na tabela de documentos"
     },
@@ -115,7 +105,17 @@
       "detalhe": "arquivo sem registro na tabela de documentos"
     },
     {
-      "id": "7e920880a723529e",
+      "id": "b3cd9edd7dab66e9",
+      "tipo": "arquivo_orfao",
+      "detalhe": "arquivo sem registro na tabela de documentos"
+    },
+    {
+      "id": "89598dfff595053b",
+      "tipo": "arquivo_orfao",
+      "detalhe": "arquivo sem registro na tabela de documentos"
+    },
+    {
+      "id": "1b7c22e04b992d5d",
       "tipo": "arquivo_orfao",
       "detalhe": "arquivo sem registro na tabela de documentos"
     }

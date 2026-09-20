@@ -100,6 +100,62 @@ def test_disjuntor_considera_o_historico_ao_retomar(cfg_tmp, monkeypatch):
     assert 13 <= _ResolvedorQueFalhaNaUfpr.chamadas["ufpr"] <= 13 + 8
 
 
+class _ResolvedorSemResposta(_ResolvedorFalso):
+    chamadas = 0
+
+    def obter(self, urls, destino):
+        with _ResolvedorFalso.trava:
+            _ResolvedorSemResposta.chamadas += 1
+        return ResultadoDownload(False, motivo="sem_resposta")
+
+
+def _com_historico(cfg_tmp, candidatos, n):
+    from src.common import escrever_jsonl
+
+    dir_raw = cfg_tmp.dir_camada("raw")
+    (dir_raw / "pdf").mkdir(parents=True, exist_ok=True)
+    feitos = []
+    for c in candidatos[:n]:
+        did = harvest.doc_id(c["chave_origem"])
+        arquivo = dir_raw / "pdf" / f"{did}.pdf"
+        arquivo.write_bytes(b"%PDF-1.4 falso")
+        feitos.append({"doc_id": did, "baixado": True, "arquivo": str(arquivo), "estrato": "ufpr"})
+    escrever_jsonl(dir_raw / "manifesto.jsonl", feitos)
+
+
+def test_sequencia_de_pdfs_ausentes_nao_corta_instituicao_boa(cfg_tmp, monkeypatch):
+    # Achados reais: 62 PDFs ausentes seguidos na UFSCar e 25 links 404 na UFMA,
+    # com as duas funcionando. Falha de conteúdo conta só na taxa acumulada.
+    monkeypatch.setattr(harvest, "ResolvedorTextoCompleto", _ResolvedorQueFalhaNaUfpr)
+    _ResolvedorQueFalhaNaUfpr.chamadas = {}
+    cfg_tmp["coleta"]["disjuntor"] = {"min_tentativas": 10, "taxa_minima": 0.70, "falhas_seguidas_max": 15}
+    candidatos = _candidatos(300, ["ufpr"])
+    _com_historico(cfg_tmp, candidatos, 200)
+    rel = Relatorio(camada="raw", area="teste")
+
+    harvest.baixar_por_cota(cfg_tmp, candidatos, rel)
+
+    motivo = rel.metricas["instituicoes_interrompidas"]["ufpr"]
+    assert "seguidas" not in motivo  # só a taxa acumulada cortou
+    assert _ResolvedorQueFalhaNaUfpr.chamadas["ufpr"] > 15 + 8
+
+
+def test_disjuntor_corta_servidor_que_para_de_responder_mesmo_com_historico_bom(cfg_tmp, monkeypatch):
+    # Achado real (14/09/2026): a Fiocruz tinha 842 PDFs, parou de responder e,
+    # pela taxa acumulada, só seria cortada depois de centenas de falhas seguidas.
+    monkeypatch.setattr(harvest, "ResolvedorTextoCompleto", _ResolvedorSemResposta)
+    _ResolvedorSemResposta.chamadas = 0
+    cfg_tmp["coleta"]["disjuntor"] = {"min_tentativas": 10, "taxa_minima": 0.70, "falhas_seguidas_max": 15}
+    candidatos = _candidatos(300, ["ufpr"])
+    _com_historico(cfg_tmp, candidatos, 200)
+    rel = Relatorio(camada="raw", area="teste")
+
+    harvest.baixar_por_cota(cfg_tmp, candidatos, rel)
+
+    assert "falhas de rede seguidas" in rel.metricas["instituicoes_interrompidas"]["ufpr"]
+    assert _ResolvedorSemResposta.chamadas <= 15 + 8  # não as ~86 da taxa acumulada
+
+
 def test_instituicao_suspensa_nao_recebe_nenhuma_requisicao(cfg_tmp, monkeypatch):
     monkeypatch.setattr(harvest, "ResolvedorTextoCompleto", _ResolvedorQueFalhaNaUfpr)
     _ResolvedorQueFalhaNaUfpr.chamadas = {}

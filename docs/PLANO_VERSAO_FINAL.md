@@ -364,6 +364,38 @@ Pré-requisito: Fases 1–6 concluídas.
   texto casa).
 - [ ] Verificação final passa → **commit**.
 
+**8.5 Coleta até 50 mil (rede, autorizada em 14/09/2026)**
+
+Conta local antes de coletar: 58.491 candidatos no CSV sem limite por
+instituição → 33.921 em domínio autorizado pelo robots.txt → 23.591 fora das 23
+instituições suspensas → 11.993 ainda não baixados → ~10.900 PDFs esperados pela
+taxa real de cada instituição → **~26 mil no disco**. Chegar a 50 mil exige
+fontes novas (OAI-PMH de outros repositórios, com evidência de robots.txt e
+piloto), não previstas nesta rodada.
+
+- [x] Config: `limite_por_instituicao: 0`, `meta_pdfs: 50000`.
+- [x] Preparo (15:33–15:43): 157 testes; nova tentativa de robots.txt em 23
+  domínios, 2 voltaram (191.252.194.60:8080 e repositorio.unifal-mg.edu.br, com
+  regras padrão do DSpace); inventário com 13.146 candidatos novos (34.498 em
+  domínio autorizado); preflight sem bloqueio. Fila real: 12.743 tentativas
+  (sem suspensas nem já baixados).
+- [x] Download (`logs/coleta50k_2_download.sh`), em tmux; maior fila é a UFRN
+  (2.803 candidatos, DSpace 7 via API, ~12 h). 1ª execução 15:44–17:40 (20.250
+  PDFs no disco); UDESC e UFMS cortadas pela taxa.
+  - [x] Incidente Fiocruz (15:47–17:05): servidor parou de responder, possível
+    bloqueio; 376 falhas seguidas antes do corte. Fiocruz suspensa.
+  - [x] Disjuntor por falhas de rede seguidas (`falhas_seguidas_max: 20`; 404,
+    401 e PDF ausente não contam), coletor com motivo `sem_resposta`; 160 testes.
+  - [x] 2ª execução 17:40 – 07:35 de 15/09 (log
+    `coleta50k_2_download_2026-09-14_1740.log`): 4.223 PDFs, fila esgotada.
+    Falhas: 280 PDF não localizado, 205 HTTP 404, 109 HTTP 401, 32 não é PDF,
+    21 sem resposta, 7 acima do tamanho máximo; nenhum corte por falhas de rede.
+  - **Resultado: 24.443 PDFs no disco, 64 instituições, 76 GB** (meta de 50 mil
+    não atingida, como a conta prévia indicava).
+- [x] Registro no protocolo.
+- [ ] Tratar a coleta nova (amostra ou total) e atualizar o relatório, se o
+  usuário pedir.
+
 ## Fase 9 — Documentação da entrega
 
 - [x] `docs/RELATORIO_ATIVIDADE_02.md` (3 membros do grupo): como o pipeline

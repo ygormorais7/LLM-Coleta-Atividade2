@@ -1,0 +1,49 @@
+{
+  "unicamp": {
+    "dominio": "https://repositorio.unicamp.br",
+    "status_http": 404,
+    "trecho": "<!DOCTYPE html>\r\n<html>\r\n    <head>\r\n        <title>Não é possível encontrar o recurso.</title>\r\n        <meta name=\"viewport\" content=\"width=device-width\" />\r\n        <style>\r\n         body {font-family:\"Verdana\";font-weight:normal;font-size: .7em;color:black;} \r\n         p {font-family:\"Verdana\";f"
+  },
+  "pucrio": {
+    "dominio": "https://maxwell.vrac.puc-rio.br",
+    "erro": "ConnectionError: HTTPSConnectionPool(host='maxwell.vrac.puc-rio.br', port=443): Max retries exceeded with url: /robots.txt (Caused by NameResolutionError(\"HTTPSConnection(host='maxwell.vrac.puc-rio.br', port=443): Failed to resolve 'maxwell.vrac.puc-rio.br' ([Errno -5] No address associated with hostname)\"))"
+  },
+  "ucpel": {
+    "dominio": "http://tede.ucpel.edu.br:8080",
+    "status_http": 404,
+    "trecho": ""
+  },
+  "ufpa": {
+    "dominio": "https://repositorio.ufpa.br",
+    "status_http": 200,
+    "trecho": "# The URL to the DSpace sitemaps\n# XML sitemap is listed first as it is preferred by most search engines\nSitemap: https://repositorio.ufpa.br/sitemap_index.xml\nSitemap: https://repositorio.ufpa.br/sitemap_index.html\n\n##########################\n# Default Access Group\n# (NOTE: blank lines are not allo"
+  },
+  "ufrrj": {
+    "dominio": "https://rima.ufrrj.br",
+    "status_http": 200,
+    "trecho": "# The FULL URL to the DSpace sitemaps\n# The http://rima110.im.ufrrj.br:8080/jspui will be auto-filled with the value in dspace.cfg\n# XML sitemap is listed first as it is preferred by most search engines\nSitemap: http://rima110.im.ufrrj.br:8080/jspui/sitemap\nSitemap: http://rima110.im.ufrrj.br:8080/j"
+  },
+  "fiocruz": {
+    "dominio": "https://arca.fiocruz.br",
+    "status_http": 200,
+    "trecho": "# The URL to the DSpace sitemaps\n# XML sitemap is listed first as it is preferred by most search engines\nSitemap: http://localhost:4000/sitemap_index.xml\nSitemap: http://localhost:4000/sitemap_index.html\n\n##########################\n# Default Access Group\n# (NOTE: blank lines are not allowable in a g"
+  },
+  "uft": {
+    "handle_testado": "http://hdl.handle.net/11612/6688",
+    "status_http": 500,
+    "destino_final": "http://hdl.handle.net/11612/6688",
+    "historico_redirecionamento": []
+  },
+  "unirio": {
+    "handle_testado": "http://hdl.handle.net/unirio/11441",
+    "status_http": 404,
+    "destino_final": "http://hdl.handle.net/unirio/11441",
+    "historico_redirecionamento": []
+  },
+  "ufrj": {
+    "handle_testado": "http://hdl.handle.net/11422/3150",
+    "status_http": 400,
+    "destino_final": "http://hdl.handle.net/11422/3150",
+    "historico_redirecionamento": []
+  }
+}

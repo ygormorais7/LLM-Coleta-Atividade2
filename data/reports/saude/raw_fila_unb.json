@@ -1,0 +1,539 @@
+{
+  "camada": "raw_fila_unb",
+  "area": "Saúde",
+  "inicio": "2026-09-16T20:47:40.569763+00:00",
+  "fim": "2026-09-16T23:39:06.841184+00:00",
+  "duracao_s": 10286.27,
+  "entradas": {},
+  "saidas": {
+    "manifesto": "/home/lmssa/.vcoleta/bdtd-corpus/data/raw/saude/manifesto.jsonl",
+    "pdfs_baixados": 25332
+  },
+  "metricas": {
+    "instituicoes_suspensas": {
+      "fgv": "repositorio.fgv.br responde com página de desafio anti-robô",
+      "fiocruz": "arca.fiocruz.br parou de responder (tempo esgotado) às 15:47 de 14/09, depois de 18 downloads; 376 falhas seguidas até o corte",
+      "furb": "robots.txt de bu.furb.br proíbe o caminho dos PDFs",
+      "iec": "DSpace 7 com API em outro endereço: mesmo lendo assets/config.json, 0 de 24 (não investigado a fundo)",
+      "kroton": "página do item sem link de PDF (22 candidatos; não investigado)",
+      "m": "dspace.mackenzie.br: página do item sem PDF localizável (7 obtidos em ~50 tentativas)",
+      "puccamp": "links do inventário dão HTTP 404",
+      "pucrio": "maxwell.vrac.puc-rio.br responde HTTP 403 (robots.txt e página)",
+      "ucpel": "tede.ucpel.edu.br responde HTTP 500 na página do item",
+      "uece": "SidUece: proporção real de registros sem arquivo digital fica abaixo do mínimo do protocolo (8/20 no teste de 16/09)",
+      "ueg": "links do inventário dão HTTP 404 mesmo sem a barra dupla",
+      "ufjf": "repositorio.ufjf.br com certificado TLS inválido",
+      "ufpa": "servidor derruba a conexão ao abrir a página do item",
+      "ufrgs": "lume.ufrgs.br com certificado TLS inválido (a verificação nunca é desligada)",
+      "ufrj": "pantheon.ufrj.br recusa conexão",
+      "ufrrj": "robots.txt de rima.ufrrj.br intermitente: HTTP 403 em parte das tentativas (4/10 no teste de 16/09)",
+      "uft": "servidor de handles da UFT fora do ar (HTTP 500 'Cannot Connect to Server')",
+      "ufvjm": "links do inventário dão HTTP 404",
+      "unicamp": "repositorio.unicamp.br (Sophia Biblioteca Web): desafio anti-robô via token JS",
+      "uninove": "parte dos links do inventário dá HTTP 404 (15 de 24 obtidos, abaixo do protocolo)",
+      "unirio": "handles com prefixo inexistente ('Prefix [unirio] Not Found')",
+      "unisinos": "repositorio.jesuita.org.br responde com página de desafio anti-robô",
+      "univates": "robots.txt de www.univates.br veta robôs de IA"
+    },
+    "por_instituicao": {
+      "accmrg": {
+        "tentados": 10,
+        "obtidos": 10,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "cbm": {
+        "tentados": 24,
+        "obtidos": 24,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "cefet": {
+        "tentados": 6,
+        "obtidos": 6,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "cp": {
+        "tentados": 1,
+        "obtidos": 1,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "cprm": {
+        "tentados": 1,
+        "obtidos": 1,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "embrapa": {
+        "tentados": 8,
+        "obtidos": 8,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "emescam": {
+        "tentados": 20,
+        "obtidos": 20,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "enap": {
+        "tentados": 2,
+        "obtidos": 2,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "est": {
+        "tentados": 9,
+        "obtidos": 9,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "famerp": {
+        "tentados": 613,
+        "obtidos": 613,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "fdv": {
+        "tentados": 5,
+        "obtidos": 5,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "fecap": {
+        "tentados": 10,
+        "obtidos": 10,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "fiocruz": {
+        "tentados": 860,
+        "obtidos": 860,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ibict": {
+        "tentados": 11,
+        "obtidos": 11,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ifal": {
+        "tentados": 3,
+        "obtidos": 3,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ifam": {
+        "tentados": 1,
+        "obtidos": 1,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ifes": {
+        "tentados": 7,
+        "obtidos": 7,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ifmg": {
+        "tentados": 2,
+        "obtidos": 2,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ifpb": {
+        "tentados": 3,
+        "obtidos": 3,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ifro": {
+        "tentados": 1,
+        "obtidos": 1,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ifrs": {
+        "tentados": 1,
+        "obtidos": 1,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ital": {
+        "tentados": 2,
+        "obtidos": 2,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "m": {
+        "tentados": 7,
+        "obtidos": 7,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "pucmins": {
+        "tentados": 8,
+        "obtidos": 8,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "pucpr": {
+        "tentados": 32,
+        "obtidos": 32,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "u": {
+        "tentados": 263,
+        "obtidos": 263,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ucs": {
+        "tentados": 77,
+        "obtidos": 77,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "udesc": {
+        "tentados": 15,
+        "obtidos": 15,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uece": {
+        "tentados": 8,
+        "obtidos": 8,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uefs": {
+        "tentados": 206,
+        "obtidos": 206,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uel": {
+        "tentados": 891,
+        "obtidos": 891,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uem": {
+        "tentados": 1274,
+        "obtidos": 1274,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uema": {
+        "tentados": 5,
+        "obtidos": 5,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uenp": {
+        "tentados": 9,
+        "obtidos": 9,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uepb": {
+        "tentados": 560,
+        "obtidos": 560,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uepg": {
+        "tentados": 2,
+        "obtidos": 2,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufal": {
+        "tentados": 272,
+        "obtidos": 272,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufes": {
+        "tentados": 1031,
+        "obtidos": 1031,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufg": {
+        "tentados": 1665,
+        "obtidos": 1665,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufgd": {
+        "tentados": 145,
+        "obtidos": 145,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufma": {
+        "tentados": 953,
+        "obtidos": 953,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufmg": {
+        "tentados": 3477,
+        "obtidos": 3477,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufms": {
+        "tentados": 25,
+        "obtidos": 25,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufpa": {
+        "tentados": 8,
+        "obtidos": 8,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufrn": {
+        "tentados": 3483,
+        "obtidos": 3483,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufrpe": {
+        "tentados": 19,
+        "obtidos": 19,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufs": {
+        "tentados": 1052,
+        "obtidos": 1052,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufscar": {
+        "tentados": 1598,
+        "obtidos": 1598,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufu": {
+        "tentados": 1461,
+        "obtidos": 1461,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "ufv": {
+        "tentados": 700,
+        "obtidos": 700,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unb": {
+        "tentados": 890,
+        "obtidos": 881,
+        "taxa": 0.9899,
+        "interrompida": false
+      },
+      "uneb": {
+        "tentados": 49,
+        "obtidos": 49,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unesc": {
+        "tentados": 107,
+        "obtidos": 107,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unesp": {
+        "tentados": 1242,
+        "obtidos": 1242,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unicap": {
+        "tentados": 21,
+        "obtidos": 21,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unifal": {
+        "tentados": 573,
+        "obtidos": 573,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unifenas": {
+        "tentados": 161,
+        "obtidos": 161,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unila": {
+        "tentados": 9,
+        "obtidos": 9,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unilab": {
+        "tentados": 60,
+        "obtidos": 60,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uninove": {
+        "tentados": 15,
+        "obtidos": 15,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unioeste": {
+        "tentados": 497,
+        "obtidos": 497,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unipampa": {
+        "tentados": 87,
+        "obtidos": 87,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "unoeste": {
+        "tentados": 136,
+        "obtidos": 136,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "upf": {
+        "tentados": 416,
+        "obtidos": 416,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "uscs": {
+        "tentados": 25,
+        "obtidos": 25,
+        "taxa": 1.0,
+        "interrompida": false
+      },
+      "utfpr": {
+        "tentados": 207,
+        "obtidos": 207,
+        "taxa": 1.0,
+        "interrompida": false
+      }
+    },
+    "instituicoes_interrompidas": {},
+    "dominios_vetados_robots": {},
+    "meta_pdfs": 50000,
+    "meta_atingida": false,
+    "bytes_baixados_humano": "2.6 GB",
+    "taxa_resolucao_global": 0.9996,
+    "estratos_com_cota_fechada": "0/5",
+    "resolucao_por_estrato": {
+      "unb|2020-2024": {
+        "cota": 190,
+        "obtidos": 179,
+        "tentados": 182,
+        "fila_disponivel": 182,
+        "taxa_resolucao": 0.9835,
+        "cota_fechada": false
+      },
+      "unb|2005-2009": {
+        "cota": 96,
+        "obtidos": 95,
+        "tentados": 95,
+        "fila_disponivel": 95,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": false
+      },
+      "unb|2015-2019": {
+        "cota": 228,
+        "obtidos": 218,
+        "tentados": 224,
+        "fila_disponivel": 224,
+        "taxa_resolucao": 0.9732,
+        "cota_fechada": false
+      },
+      "unb|2010-2014": {
+        "cota": 301,
+        "obtidos": 297,
+        "tentados": 297,
+        "fila_disponivel": 297,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": false
+      },
+      "unb|2025-2029": {
+        "cota": 75,
+        "obtidos": 72,
+        "tentados": 72,
+        "fila_disponivel": 72,
+        "taxa_resolucao": 1.0,
+        "cota_fechada": false
+      }
+    },
+    "falhas_por_tipo": {
+      "pdf_nao_localizado": 8,
+      "excede_tamanho_maximo": 1
+    },
+    "total_falhas": 9
+  },
+  "falhas": [
+    {
+      "id": "94c4c2c0994cce18",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unb|2015-2019|UNB-41_a2c3c326140192bd65be5fa4ceb3c259"
+    },
+    {
+      "id": "db8790203ca95716",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unb|2015-2019|UNB-41_a9202715c0d86ed1f3c9185094d578b3"
+    },
+    {
+      "id": "0106b663ce83b3d4",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unb|2020-2024|UNB-41_3f3140b1bf0e479cec24b6d6f6d3bbcf"
+    },
+    {
+      "id": "a2e01abb95dccb9b",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unb|2015-2019|UNB-41_7fceed019b295fd1acd24ef56592e5fb"
+    },
+    {
+      "id": "94303aa424f31639",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unb|2015-2019|UNB-41_1db239aac7f273147fb61945b863d527"
+    },
+    {
+      "id": "c31a72372a9d44fe",
+      "tipo": "excede_tamanho_maximo",
+      "detalhe": "unb|2015-2019|UNB-41_0a21ef909eb5c7d25b217a6820aa12ed"
+    },
+    {
+      "id": "3509c0c133a66208",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unb|2020-2024|UNB-41_bbea13d86215789ef9ce0f2d7a2ba108"
+    },
+    {
+      "id": "d3855dc4b626e26a",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unb|2020-2024|UNB-41_b25992b374aa1b0c35efd47ee33f45da"
+    },
+    {
+      "id": "6a0d3566fae892c1",
+      "tipo": "pdf_nao_localizado",
+      "detalhe": "unb|2015-2019|UNB-41_770191745701087fefc18e84243542d7"
+    }
+  ],
+  "parametros": {}
+}

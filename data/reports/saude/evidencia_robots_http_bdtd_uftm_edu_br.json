@@ -2,8 +2,8 @@
   "dominio": "http://bdtd.uftm.edu.br",
   "robots_txt": "http://bdtd.uftm.edu.br/robots.txt",
   "status_http": null,
-  "conteudo": "(inacessível: HTTPConnectionPool(host='bdtd.uftm.edu.br', port=80): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPConnection(host='bdtd.uftm.edu.br', port=80) at 0x7f8ddbbe95b0>, 'Connection to bdtd.uftm.edu.br timed out. (connect timeout=30)')))",
-  "verificado_em": "2026-09-13T16:42:17.251385+00:00",
+  "conteudo": "(inacessível: HTTPConnectionPool(host='bdtd.uftm.edu.br', port=80): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPConnection(host='bdtd.uftm.edu.br', port=80) at 0x7f7ff46a2330>, 'Connection to bdtd.uftm.edu.br timed out. (connect timeout=30)')))",
+  "verificado_em": "2026-09-14T18:36:13.666815+00:00",
   "veredito": {
     "permitido": false,
     "motivo": "inacessivel",

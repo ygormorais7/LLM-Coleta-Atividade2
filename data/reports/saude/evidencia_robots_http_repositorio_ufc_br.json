@@ -2,8 +2,8 @@
   "dominio": "http://repositorio.ufc.br",
   "robots_txt": "http://repositorio.ufc.br/robots.txt",
   "status_http": null,
-  "conteudo": "(inacessível: HTTPConnectionPool(host='repositorio.ufc.br', port=80): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPConnection(host='repositorio.ufc.br', port=80) at 0x7f8dc8af6ad0>, 'Connection to repositorio.ufc.br timed out. (connect timeout=30)')))",
-  "verificado_em": "2026-09-13T16:43:47.598018+00:00",
+  "conteudo": "(inacessível: HTTPConnectionPool(host='repositorio.ufc.br', port=80): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPConnection(host='repositorio.ufc.br', port=80) at 0x7f7fe82f6f10>, 'Connection to repositorio.ufc.br timed out. (connect timeout=30)')))",
+  "verificado_em": "2026-09-14T18:37:44.243352+00:00",
   "veredito": {
     "permitido": false,
     "motivo": "inacessivel",

@@ -132,6 +132,58 @@ def test_dspace7_sem_renderizacao_no_servidor_acha_o_pdf_pela_api():
     assert f"{api}/core/bundles/t/bitstreams" not in resolvedor.sessao.pedidos  # miniatura não interessa
 
 
+def test_object_pdf_embutido_e_reconhecido():
+    # Achado real: siduece.uece.br (JSF/PrimeFaces) embute o visualizador como
+    # <object>, não como <a href> — e a URL do arquivo é um servlet com query
+    # string (não termina em .pdf), então os passos 1-4 não pegam.
+    pagina = "https://repo.exemplo.br/siduece/trabalhoAcademicoPublico.jsf?id=1"
+    pdf = "https://repo.exemplo.br/siduece/report?id=1&tipo=3"
+    html = f'<html><body><object type="application/pdf" data="{pdf}"></object></body></html>'
+    resolvedor = _resolvedor({pagina: _Resposta(pagina, texto=html)}, ["User-agent: *"])
+    assert resolvedor.descobrir_url_pdf(pagina) == pdf
+
+
+def test_tainacan_sem_arquivo_busca_pagina_antiga_pelo_handle():
+    # Achado real: riunbtainacan.unb.br (Tainacan) não hospeda o arquivo
+    # (document_type "empty"); o PDF de verdade segue no DSpace antigo,
+    # referenciado num campo de metadado do próprio item ("uri-handle").
+    pagina = "https://repo.exemplo.br/teses-e-dissertacoes/exemplo/"
+    antiga = "https://repo.exemplo.br/handle/123/456"
+    html = ('<html><head>'
+            '<link rel="alternate" type="application/json" '
+            'href="https://repo.exemplo.br/wp-json/wp/v2/tnc_col_1_item/99" />'
+            '</head><body>nada aqui</body></html>')
+    item_api = "https://repo.exemplo.br/wp-json/tainacan/v2/items/99"
+    respostas = {
+        pagina: _Resposta(pagina, texto=html),
+        item_api: _RespostaJson(item_api, {
+            "document_type": "empty", "document": "",
+            "metadata": {"uri-handle-2": {"value": antiga}},
+        }),
+        antiga: _Resposta(antiga, texto='<meta name="citation_pdf_url" content="/bitstream/1/2/tese.pdf">'),
+    }
+    resolvedor = _resolvedor(respostas, ["User-agent: *"])
+    assert resolvedor.descobrir_url_pdf(pagina) == "https://repo.exemplo.br/bitstream/1/2/tese.pdf"
+
+
+def test_tainacan_com_arquivo_proprio_nao_precisa_do_handle():
+    # Item com documento hospedado no próprio Tainacan: usa direto, sem saltar
+    # pro repositório antigo.
+    pagina = "https://repo.exemplo.br/teses-e-dissertacoes/exemplo/"
+    pdf = "https://repo.exemplo.br/wp-content/uploads/tainacan-items/99/arquivo.pdf"
+    html = ('<html><head>'
+            '<link rel="alternate" type="application/json" '
+            'href="https://repo.exemplo.br/wp-json/wp/v2/tnc_col_1_item/99" />'
+            '</head><body>nada aqui</body></html>')
+    item_api = "https://repo.exemplo.br/wp-json/tainacan/v2/items/99"
+    respostas = {
+        pagina: _Resposta(pagina, texto=html),
+        item_api: _RespostaJson(item_api, {"document_type": "attachment", "document": pdf}),
+    }
+    resolvedor = _resolvedor(respostas, ["User-agent: *"])
+    assert resolvedor.descobrir_url_pdf(pagina) == pdf
+
+
 def test_pagina_sem_pdf_fora_do_dspace7_nao_consulta_api():
     pagina = "https://repo.exemplo.br/tede/detalhe.php?id=9"
     resolvedor = _resolvedor({pagina: _Resposta(pagina, texto="<html>nada</html>")}, ["User-agent: *"])
@@ -173,6 +225,20 @@ def test_pagina_de_desafio_anti_robo_tira_o_dominio_na_primeira_vez():
     assert resolvedor.vetados == {"repo.exemplo.br": "desafio_anti_robo"}
     assert resolvedor.descobrir_url_pdf("https://repo.exemplo.br/handle/1/2") is None
     assert resolvedor.sessao.pedidos == [pagina]  # o segundo item nem chega a ser pedido
+
+
+def test_pagina_sophia_biblioteca_web_e_desafio():
+    # Achado real (2026-09-16): repositorio.unicamp.br responde 200 com
+    # "Aguarde, estamos validando sua requisição...", liberando o conteúdo só
+    # depois de um POST com AntiForgeryToken que um navegador de verdade
+    # completa. Robots.txt não bloqueava (HTTP 404, sem_robots) e o teto em
+    # lote pequeno deu 10 "pdf_nao_localizado" antes deste sinal existir.
+    pagina = "https://repo.exemplo.br/Acervo/Detalhe/1"
+    html = '<html><body><div class="alert alert-info">Aguarde, estamos validando sua requisição...</div></body></html>'
+    resolvedor = _resolvedor({pagina: _Resposta(pagina, texto=html)}, ["User-agent: *"])
+
+    assert resolvedor.descobrir_url_pdf(pagina) is None
+    assert resolvedor.vetados == {"repo.exemplo.br": "desafio_anti_robo"}
 
 
 def test_recaptcha_de_formulario_nao_e_desafio():
@@ -274,6 +340,23 @@ def test_download_dspace7_usa_a_api_do_prefixo_da_pagina(tmp_path):
     res = resolvedor.baixar(resolvedor.descobrir_url_pdf(pagina), tmp_path / "tese.pdf")
 
     assert res.ok and res.url_pdf == conteudo
+
+
+class _SessaoQueNaoResponde(_SessaoFalsa):
+    def get(self, url, **kwargs):
+        import requests
+
+        self.pedidos.append(url)
+        raise requests.ConnectionError("Read timed out")
+
+
+def test_pagina_que_nao_responde_vira_sem_resposta_e_nao_pdf_nao_localizado(tmp_path):
+    # Achado real: a Fiocruz parou de responder e as falhas apareciam como
+    # pdf_nao_localizado, escondendo do disjuntor um servidor fora do ar.
+    resolvedor = _resolvedor({}, ["User-agent: *"])
+    resolvedor.sessao = _SessaoQueNaoResponde({})
+
+    assert resolvedor.obter([FINAL], tmp_path / "tese.pdf").motivo == "sem_resposta"
 
 
 def test_robots_do_dominio_final_bloqueia_mesmo_vindo_de_redirecionamento():

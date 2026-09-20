@@ -1,0 +1,12 @@
+{
+  "dominio": "http://152.92.4.120",
+  "robots_txt": "http://152.92.4.120/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPConnectionPool(host='152.92.4.120', port=80): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPConnection(host='152.92.4.120', port=80) at 0x7f7ffb37dfd0>, 'Connection to 152.92.4.120 timed out. (connect timeout=30)')))",
+  "verificado_em": "2026-09-14T18:34:42.967103+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

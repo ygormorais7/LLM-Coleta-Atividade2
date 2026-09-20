@@ -2,8 +2,8 @@
   "dominio": "http://200.129.209.58:8080",
   "robots_txt": "http://200.129.209.58:8080/robots.txt",
   "status_http": null,
-  "conteudo": "(inacessível: HTTPConnectionPool(host='200.129.209.58', port=8080): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPConnection(host='200.129.209.58', port=8080) at 0x7f8ddb5d1090>, 'Connection to 200.129.209.58 timed out. (connect timeout=30)')))",
-  "verificado_em": "2026-09-13T16:41:16.860753+00:00",
+  "conteudo": "(inacessível: HTTPConnectionPool(host='200.129.209.58', port=8080): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPConnection(host='200.129.209.58', port=8080) at 0x7f7ffade6710>, 'Connection to 200.129.209.58 timed out. (connect timeout=30)')))",
+  "verificado_em": "2026-09-14T18:35:13.170706+00:00",
   "veredito": {
     "permitido": false,
     "motivo": "inacessivel",

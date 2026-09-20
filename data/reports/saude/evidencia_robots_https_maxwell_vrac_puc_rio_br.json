@@ -1,0 +1,12 @@
+{
+  "dominio": "https://maxwell.vrac.puc-rio.br",
+  "robots_txt": "https://maxwell.vrac.puc-rio.br/robots.txt",
+  "status_http": null,
+  "conteudo": "(inacessível: HTTPSConnectionPool(host='maxwell.vrac.puc-rio.br', port=443): Max retries exceeded with url: /robots.txt (Caused by NameResolutionError(\"HTTPSConnection(host='maxwell.vrac.puc-rio.br', port=443): Failed to resolve 'maxwell.vrac.puc-rio.br' ([Errno -5] No address associated with hostname)\")))",
+  "verificado_em": "2026-09-16T20:10:06.375345+00:00",
+  "veredito": {
+    "permitido": false,
+    "motivo": "inacessivel",
+    "crawl_delay": null
+  }
+}

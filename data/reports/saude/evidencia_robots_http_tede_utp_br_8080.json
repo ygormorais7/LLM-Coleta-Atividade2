@@ -2,8 +2,8 @@
   "dominio": "http://tede.utp.br:8080",
   "robots_txt": "http://tede.utp.br:8080/robots.txt",
   "status_http": null,
-  "conteudo": "(inacessível: HTTPConnectionPool(host='tede.utp.br', port=8080): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPConnection(host='tede.utp.br', port=8080) at 0x7f8dc8af6140>, 'Connection to tede.utp.br timed out. (connect timeout=30)')))",
-  "verificado_em": "2026-09-13T16:44:17.665330+00:00",
+  "conteudo": "(inacessível: HTTPConnectionPool(host='tede.utp.br', port=8080): Max retries exceeded with url: /robots.txt (Caused by ConnectTimeoutError(<HTTPConnection(host='tede.utp.br', port=8080) at 0x7f7fe82f67a0>, 'Connection to tede.utp.br timed out. (connect timeout=30)')))",
+  "verificado_em": "2026-09-14T18:38:14.350345+00:00",
   "veredito": {
     "permitido": false,
     "motivo": "inacessivel",
