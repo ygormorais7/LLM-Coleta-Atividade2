@@ -1,315 +1,95 @@
-# bdtd-corpus
+# Atividade Prática 1 — Tokenizador BPE
 
-Pipeline em camadas que vai da coleta de teses e dissertações de **Saúde**
-(BDTD/IBICT e repositórios institucionais de origem) até datasets prontos para
-pré-treino continuado, fine-tuning, RAG e avaliação de modelos de linguagem em
-português.
+Implementação dos 5 itens da atividade "Tópicos em IA / PLN: Criação de LLMs
+do Zero", usando como corpus base a amostra de teses/dissertações de Saúde já
+gerada na camada Curated do projeto (`data/curated/saude/pretreino/`).
 
-**Grupo 7** — Eduardo Melo, Otávio França e Ygor Morais ·
-Tópicos em Inteligência Artificial (DC/CCN072) · UFPI · Prof. Raimundo Moura
+## O que o enunciado pede
 
-| Item do enunciado | Onde está |
-|---|---|
-| 1. Crawler da BDTD | `src/raw/fontes.py` e `src/raw/inventario.py` (inventário: OAI-PMH e inventário da BDTD), `src/raw/fulltext.py` (página do item → PDF), `src/raw/harvest.py` (download por cota) |
-| 2. Arquitetura Raw → Staging → Processed → Curated | `src/raw/`, `src/staging/`, `src/processed/`, `src/curated/`, orquestradas por `run_pipeline.py` |
-| 3. Tratamento na Processed | `src/processed/padroniza.py`, `clean.py` (normalização, anonimização, qualidade), `dedup.py`, `run.py` |
-| 4. Produtos na Curated | `src/curated/build.py` → `pretreino/`, `sft/`, `rag/`, `benchmark/`; `src/curated/verificar_pii.py` |
+1. Carregar amostra do dataset, mostrar estatísticas básicas (nº de
+   documentos, média de parágrafos e de palavras por documento) e gerar um
+   `.txt` único com todos os documentos, separados por delimitador.
+2. Tokenizador BPE do GPT-2 (`tiktoken`): confirmar vocabulário de 50.257
+   tokens, testar `encode`/`decode`.
+3. Pares input-target por janela deslizante, usando `Dataset` e `DataLoader`
+   do PyTorch.
+4. Camada de token embeddings (`torch.nn.Embedding`), `vocab_size=50257`,
+   `output_dim=256`.
+5. Embeddings posicionais absolutos, somados aos token embeddings para
+   formar os input embeddings.
 
-Protocolo de coleta: `docs/PROTOCOLO_DE_COLETA.md`. Relatório da atividade:
-`docs/RELATORIO_ATIVIDADE_02.md` (e `.pdf`).
+## Como está implementado (`tokenizador.py`)
 
----
-
-## Começando
-
-```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-
-# OCR (quase obrigatório para teses antigas)
-sudo dnf install tesseract tesseract-langpack-por   # ou: apt install tesseract-ocr tesseract-ocr-por
-pip install pytesseract Pillow
-
-python -m pytest          # 157 testes, todos em diretório temporário: nenhum toca em data/
-```
-
-> **Cuidado:** `tests/gerar_dados_sinteticos.py` **apaga as quatro camadas de
-> `data/`** para gerar uma camada Raw falsa. Só rode num clone sem dados reais.
-
-Tudo que é decisão de projeto está em `config/config.yaml`.
-
----
-
-## Como fazer uma coleta, na ordem
-
-```bash
-# 1. evidência do robots.txt de cada fonte (vai para data/reports/<area>/)
-python -m src.raw.inventario descobrir --base https://repositorio.exemplo.br   # fonte OAI
-python -m src.raw.inventario robots                                          # domínios do inventário BDTD
-
-# 2. verificação pré-voo: para se houver bloqueio
-python preflight.py
-
-# 3. inventário (escolha o que se aplica)
-python -m src.raw.inventario construir                     # colhe as fontes OAI e amostra
-python -m src.raw.inventario janela --de 2026-02-25 --ate 2026-06-25 [--prefixo oai_dc]
-python -m src.raw.inventario bdtd_csv                      # candidatos do inventário da BDTD
-
-# 4. download, dentro do tmux (sobrevive à queda da sessão)
-tmux new -s coleta
-python run_pipeline.py --camadas raw
-
-# 5. tratamento e produtos (local, sem rede)
-python run_pipeline.py --camadas staging processed curated
-```
-
-O passo 5 termina com a **verificação de dados pessoais no Curated**: se sobrar
-qualquer ocorrência, o `run_pipeline.py` sai com código 1. Rode também à mão:
-`python -m src.curated.verificar_pii`.
-
----
-
-## 1. De onde vem a lista (inventário)
-
-`coleta.fonte_inventario: "inventario"` usa as fontes de `inventario.fontes`. O
-resto do pipeline não muda quando a fonte muda.
-
-**OAI-PMH do repositório de origem** (fonte principal: UFMG, set `com_1843_6`).
-OAI-PMH é o protocolo feito para colheita por máquina. `metadata_prefix: dim`
-preserva o qualificador do campo programa, que `oai_dc` perde; `ore` entrega a
-URL do PDF e dispensa raspar a página do item.
-
-- **Paginação profunda:** o DSpace devolve HTTP 500 em `resumptionToken` profundo
-  (na UFMG, perto de 7.900 registros). `janela_dias` fatia a colheita por
-  datestamp.
-- **Janela que falha** é dividida ao meio até 1 dia. O que não se recupera é
-  **declarado** no relatório.
-- **Disjuntor:** 5 falhas seguidas sem registro novo interrompem a colheita.
-- `inventario janela` recolhe só um intervalo e junta ao inventário os candidatos
-  que faltavam, sem reamostrar.
-
-**Inventário da BDTD montado pelo grupo** (`inventario.fontes.bdtd_csv`).
-Inventário da área pela API da BDTD: 183.718 fichas com a URL do item no
-repositório de origem. `inventario bdtd_csv` aplica os filtros
-deste projeto:
-
-- **Direitos:** só acesso aberto com URL.
-- **Escopo:**
-  - inclusão por radical (`odontolog` pega "odontológico"); `medic` e `hospital`
-    não são usados, porque casam com "medição" e "hospitalidade";
-  - exclusão por **palavra inteira**.
-- **Instituições excluídas:**
-  - UFMG, que já vem pelo OAI;
-  - UNIFESP, suspensa;
-  - PUC-RS, cujo robots.txt veta robôs de IA;
-  - UFSC, que tem desafio anti-robô.
-- **Piloto:** lista de instituições e limite por instituição.
-
-O arquivo não tem resumo; o escopo é checado de novo na Processed com o começo
-do texto.
-
-**Amostragem com cota e fila de reserva por estrato** (`ies` + faixa de ano): o
-download consome a fila até fechar a cota daquele estrato, e a taxa de
-resolução por estrato entra no relatório. Sem isso, estratos com repositório
-fraco encolhem sozinhos e o viés fica invisível.
-
-## 2. O que saber sobre a BDTD
-
-**A BDTD tem metadado, não tem PDF.** O IBICT é agregador: o arquivo continua no
-repositório da instituição. Toda coleta de texto tem dois saltos — inventário,
-depois página do item no repositório de origem.
-
-**O salto para o repositório resolve por metatag.** DSpace e TEDE emitem
-`<meta name="citation_pdf_url">`. `fulltext.py` tenta essa metatag primeiro,
-depois âncoras `/bitstream/` e `.pdf`, e por último a **API REST do DSpace 7**
-(`/server/api`). O último passo existe porque há DSpace 7 que entrega só a
-"casca" da página, sem link nenhum (UFRN). Outra armadilha real: metatag com
-endereço interno do servidor (`http://localhost:4000/...`, na Fiocruz), que o
-coletor troca pelo domínio da página.
-
-**Armadilhas da API da BDTD:**
-- a paginação trava na página 10 (teto de 1.000 registros por consulta);
-- as facetas devolvem no máximo 30 valores;
-- booleano dentro de `filter[]` devolve 0 em silêncio.
-
-A saída é particionar a consulta por prefixo do identificador.
-
-**A busca da interface é proibida a robôs** (`Disallow: /vufind/Search/`).
-Este pipeline não usa a interface: usa OAI-PMH e o inventário pronto do grupo.
-
-### Sobre ser um crawler decente
-
-- **Ritmo por domínio:** 1 requisição a cada 2 s na fonte de metadados, 1 a cada
-  3 s em cada repositório. Domínios diferentes andam em paralelo; dentro de um
-  domínio o intervalo é sempre o do config.
-- **`robots.txt` em todos os caminhos de rede:** respeitado, com `Crawl-delay`,
-  na colheita OAI e no download, **a cada salto de redirecionamento**
-  (`hdl.handle.net` → repositório final).
-- **Letra e espírito:** quando divergem, vale o espírito. Repositório que veta
-  robôs de IA não entra.
-- **Proteção anti-robô:** página de desafio (Cloudflare etc.) é motivo de parar
-  a coleta naquele domínio, não de contornar.
-- **Identificação:** o User-Agent traz projeto, instituição e e-mail de contato.
-- **Retomada:** o download é idempotente; reexecutar não rebaixa o que já está
-  no disco.
-- **Verificação antes de coletar:** `preflight.py` exige evidência de robots.txt
-  para cada domínio e recusa ritmo acima do protocolo.
-
----
-
-## 3. As camadas
-
-```
-FONTE (OAI-PMH dos repositórios + inventário da BDTD do grupo)
-  │
-  ├─ RAW ......... preservação: metadado cru e PDF byte a byte.
-  │                Saída: inventario.jsonl, metadata/registros.jsonl, pdf/*.pdf, manifesto.jsonl
-  │
-  ├─ STAGING ..... organização: 4 tabelas Parquet, encoding acertado, tipo real
-  │                do arquivo por magic bytes, integridade validada.
-  │                Saída: documentos/autores/assuntos/arquivos.parquet
-  │
-  ├─ PROCESSED ... extração, padronização, normalização, anonimização,
-  │                qualidade, escopo e deduplicação. A camada mais cara.
-  │                Saída: texto/*.txt, documentos.parquet, metadados.parquet,
-  │                       pii_relatorio.parquet, extracao_stats.jsonl
-  │
-  └─ CURATED ..... quatro produtos para quatro consumidores + verificação de PII.
-                   Saída: pretreino/, sft/, rag/, benchmark/, DATACARD.md
-```
-
-Nenhuma camada modifica a anterior. Mudar um filtro exige só reprocessar a
-partir da camada afetada, sem recoletar. A Processed só trata o que está no
-Staging da rodada atual: texto de rodada anterior esquecido em disco é ignorado
-e contado no relatório.
-
-Cada camada escreve `data/reports/<area>/<camada>.json` com entradas, saídas,
-métricas e **falhas tipadas**.
-
----
-
-## 4. O pipeline de tratamento (Processed)
-
-```
-extração → normalização → anonimização → repetição interna → qualidade → escopo → deduplicação
-                                     (+ padronização e anonimização dos metadados)
-```
-
-**Extração (`extract.py`).** PyMuPDF página a página; página quase sem texto é
-tratada como imagem e, se a maioria for imagem, entra OCR (Tesseract, português,
-com teto de páginas). Páginas e páginas com OCR vão para `extracao_stats.jsonl`,
-reaproveitado quando a extração vem do cache.
-
-**Normalização (`clean.py`).**
-- **Texto e caracteres:** `ftfy` e NFC; ligaduras; caracteres de controle;
-  espaços Unicode.
-- **Ruído de layout:** cabeçalho e rodapé repetidos entre páginas; números de
-  página; hifenização de quebra de linha; pontos de preenchimento de sumário;
-  colapso de espaços.
-- **Cortes:** pré-textuais até o RESUMO, e o material depois das referências ou
-  anexos.
-
-**Padronização (`padroniza.py`).** Idioma (código ISO), tipo (`dissertação de
-mestrado` / `tese de doutorado`) e ano (1800 até o ano corrente) em vocabulário
-fechado, com o valor original ao lado (`*_bruto`).
-
-**Anonimização (`clean.py`).** Alvo: PII de terceiros no texto, no título e no
-resumo. Autor e orientador são dado bibliográfico público e não são
-anonimizados.
-
-- **Detectores:**
-  - e-mail e perfil de rede social;
-  - CPF, CNPJ, **título de eleitor, PIS/PASEP e cartão SUS só com dígito
-    verificador válido**;
-  - telefone com DDD válido;
-  - CEP;
-  - RG (7 a 10 dígitos).
-- **Links, DOI e ORCID ficam fora dos detectores numéricos:** seus dígitos
-  imitavam documento.
-- **Placa de veículo desligada:** colidia com nome de gene (`CYP2C19`) e sigla de
-  estudo (`OMS-2008`).
-- **Auditoria:** cada máscara vai para `pii_relatorio.parquet` com o trecho em
-  volta **já mascarado**, e a Curated é verificada no fim.
-
-**Qualidade.** Heurísticas no espírito Gopher/RefinedWeb calibradas para tese em
-português:
-- tamanho;
-- proporção de texto alfabético, símbolos e tamanho médio de palavra;
-- stopwords;
-- linhas duplicadas e tokens curtos (OCR de tabela);
-- idioma por votação em três janelas do miolo.
-
-O relatório guarda a métrica **e** o motivo de cada reprovação.
-
-**Escopo.** Exclusão de zootecnia/veterinária/agrárias por palavra inteira,
-sobre título, programa, assuntos e resumo (ou o começo do texto). Motivo gravado:
-`fora_de_escopo_zootecnia`.
-
-**Deduplicação (`dedup.py`).**
-- **Exata:** SHA-256 do texto normalizado.
-- **Aproximada:** MinHash + LSH, Jaccard ≥ 0,80.
-- **Interna:** parágrafo repetido no mesmo documento.
-
----
-
-## 5. Produtos da Curated
-
-| Produto | Formato | Para que serve |
+| Item | Função | O que faz |
 |---|---|---|
-| `pretreino/*.jsonl` | `{id, text, meta}` | pré-treino continuado |
-| `sft/*.jsonl` | `{id, messages, meta}` | fine-tuning supervisionado |
-| `rag/corpus_rag.parquet` | chunks de 500 palavras, sobreposição de 50, metadado embutido | busca semântica com citação da fonte |
-| `benchmark/` | recuperação, múltipla escolha, perplexidade + README de pontuação | avaliação |
-| `indice_corpus.parquet`, `DATACARD.md` | índice e ficha do corpus | documentação |
+| 1 | `carregar_amostra_dataset` | Lê os shards `<split>-*.jsonl` de `pretreino/` (campo `text`, ver `src/curated/build.py:gerar_pretreino` do projeto principal), com amostragem opcional. |
+| 1 | `estatisticas_basicas` / `gerar_arquivo_txt` | Calcula as métricas pedidas e escreve o `.txt` com `<|endoftext|>` como delimitador entre documentos (é o token especial nativo do GPT-2, id `50256` — assim o próprio tokenizador já reconhece o corte entre documentos). |
+| 2 | `testar_tokenizador_bpe` | `tiktoken.get_encoding("gpt2")`, valida vocabulário, testa "Raimundo Moura" + 3 textos livres. |
+| 3 | `DatasetJanelaDeslizante` / `criar_dataloader` | `Dataset` customizado: tokeniza o texto inteiro e desliza uma janela de `max_length` com passo `stride`; o alvo é a entrada deslocada em 1 token (previsão do próximo token). `criar_dataloader` embrulha isso num `DataLoader` (shuffle, batch, drop_last configuráveis). |
+| 4 | `criar_token_embeddings` | `nn.Embedding(50257, 256)` com seed fixa (reprodutível). |
+| 5 | `criar_positional_embeddings` | Gera a matriz `(max_length, output_dim)` com os valores sequenciais pedidos no enunciado (linha 0 = 1.1, 1.2, 1.3...; linha 1 = 2.1, 2.2...). Depois soma com os token embeddings do lote (broadcast) para formar os input embeddings finais. |
 
-- **Metadados:** título e resumo usados no SFT e no benchmark vêm da Processed,
-  anonimizados; o campo `fonte` diz de onde o documento veio de fato.
-- **SFT:** os pares vêm de campos verificáveis (resumo, título, palavras-chave),
-  não de um LLM. Resumo em inglês não entra nem na pergunta nem na resposta.
-- **Split por grupo:** a divisão é por autor + programa, e o treino é
-  **descontaminado** contra a avaliação por MinHash.
-- **O RAG é gravado em lotes:** montar os ~150 mil chunks na memória derrubava o
-  processo.
-- **O que os benchmarks medem:** recuperação e memória factual sobre o acervo,
-  **não** domínio do conteúdo. Benchmark de domínio exige perguntas escritas e
-  revisadas por humanos.
+`main()` roda os 5 itens em sequência e imprime os resultados no console.
 
----
+### Duas decisões de implementação que valem entender
 
-## 6. Explorando o resultado
+- **Fallback sintético**: se `CAMINHO_PRETREINO` não existir no disco, o
+  script gera um corpus sintético pequeno (avisando no console) em vez de
+  quebrar. Isso é só para não travar se o caminho estiver errado — os
+  resultados que valem pra entrega são os do corpus real.
+- **Esquema de embedding posicional**: o enunciado pede valores decimais
+  sequenciais (1.1, 1.2, ...) em vez do `nn.Embedding` aprendido que se
+  usaria na prática. Isso funciona bem como ilustração didática, mas o
+  esquema decimal "estoura" para `output_dim` acima de 9 (a dimensão 9 dá
+  `1.10`, que como número de ponto flutuante é igual a `1.1` da dimensão 0)
+  — o código tem um comentário sobre essa limitação, caso o professor
+  pergunte por que a abordagem "de verdade" seria diferente.
 
+## Como rodar
+
+**Importante:** o script usa um caminho relativo (`data/curated/saude/pretreino`),
+então ele precisa ser executado a partir da **raiz do projeto** (onde fica a
+pasta `data/`), não de dentro de `atividade1_tokenizador/`.
+
+1. Coloque a pasta `atividade1_tokenizador/` na raiz do seu projeto, ao lado
+   de `data/` (onde já está `data/curated/saude/pretreino/`).
+2. Abra um terminal **na raiz do projeto** (não dentro de
+   `atividade1_tokenizador/`).
+3. Instale as dependências:
+   ```
+   pip install -r atividade1_tokenizador/requirements.txt
+   ```
+4. Rode:
+   ```
+   python atividade1_tokenizador/tokenizador.py
+   ```
+
+Se preferir não depender de rodar do lugar certo, edite a constante
+`CAMINHO_PRETREINO` no topo de `tokenizador.py` para um caminho absoluto,
+por exemplo:
 ```python
-import pandas as pd
-d = pd.read_parquet('data/processed/saude/documentos.parquet')
-print(d.loc[~d.no_corpus, 'motivos_reprovacao'].value_counts().head(15))   # por que saiu
-
-pii = pd.read_parquet('data/processed/saude/pii_relatorio.parquet')
-print(pii.groupby('tipo').size())
-print(pii.sample(20)[['tipo', 'contexto']])                                # conferir falso positivo à mão
+CAMINHO_PRETREINO = Path(r"C:\caminho\completo\ate\data\curated\saude\pretreino")
 ```
 
----
+### Outros parâmetros ajustáveis (topo do arquivo)
 
-## 7. Problemas comuns
+- `SPLIT`: `"treino"`, `"validacao"` ou `"teste"`.
+- `N_AMOSTRA`: quantos documentos usar (`None` = todos do split).
+- `MAX_LENGTH`, `STRIDE`, `BATCH_SIZE`: parâmetros da janela deslizante — o
+  enunciado pede pra testar livremente esses valores.
 
-| Sintoma | Causa provável | O que fazer |
-|---|---|---|
-| `janela … falhou (500 Server Error)` na colheita OAI | defeito do servidor em registros daquele período | o pipeline divide a janela e declara a perda; teste `--prefixo oai_dc`; relate ao administrador |
-| `colheita interrompida` após 5 falhas | disjuntor | não force: registre o incidente no protocolo |
-| `robots.txt` que é página HTML de desafio | proteção anti-robô (Cloudflare) | exclua o domínio; não contorne |
-| Muitos `pdf_nao_localizado` | repositório monta o link via JavaScript ou exige login | se for DSpace 7, a API REST já é tentada; `fallback_selenium` só como último recurso |
-| `pdf_nao_localizado` em todo link `hdl.handle.net/<prefixo>/…` | servidor de handles da instituição fora do ar (HTTP 500, "Cannot Connect to Server") | retire a instituição; não insista |
-| `bloqueado_ou_erro_rede` com a página do item carregando | metatag com endereço interno (`localhost`) | já corrigido em `fulltext._no_mesmo_site`; se voltar, olhe o `citation_pdf_url` da página |
-| Verificação de PII falha só no RAG | texto do RAG diferente do pré-treino (linhas juntadas) | o RAG recorta o texto original; veja os `exemplos_mascarados` |
-| `conteudo_nao_e_pdf` | repositório devolveu página de erro com HTTP 200 | comportamento correto: o arquivo foi descartado |
-| `arquivos_brutos_orfaos_ignorados` no relatório | texto de rodada anterior que saiu da amostra | esperado; não entra no corpus |
-| Verificação de PII no Curated falha | máscara que não pegou algum campo | veja `verificacao_pii_curated.json`; corrija o detector e reprocesse |
-| Extração consumindo toda a RAM | `workers` alto demais | mantenha abaixo do número de núcleos |
+## O que vai aparecer no console
 
----
+A saída é dividida em 5 blocos (um por item do enunciado), cada um imprimindo
+os números pedidos: estatísticas do dataset, tokens gerados, shape dos lotes
+do `DataLoader`, shape dos embeddings, e os primeiros valores da matriz de
+embeddings posicionais.
 
-## Aviso
+## Nota sobre o enunciado
 
-Coleta para fins de pesquisa acadêmica. O direito sobre cada tese é da
-instituição de defesa e do autor. Este pipeline só baixa texto de registros
-marcados como acesso aberto e não redistribui PDF nem texto integral.
+O PDF diz que `"Raimundo Moura"` deveria gerar os tokens
+`[49, 1385, 41204, 49902, 403]`. Rodando de verdade com
+`tiktoken.get_encoding("gpt2")`, o último id sai `430`, não `403` — parece
+erro de digitação no enunciado (transposição de dígitos): `decode([403])`
+dá `"un"`, `decode([430])` dá `"ra"`, e "ra" é o final correto de "Moura". O
+script já imprime essa observação automaticamente ao rodar.

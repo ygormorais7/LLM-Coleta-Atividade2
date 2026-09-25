@@ -281,7 +281,29 @@ Download parado às 17:40 com 20.250 PDFs e relançado às 17:40
 (`logs/coleta50k_2_download_2026-09-14_1740.log`); **fila esgotada às 07:35 de 15/09:
 24.443 PDFs no disco** (64 instituições, 76 GB; 4.223 na 2ª execução; nenhum
 corte por falhas de rede). Meta de 50 mil não atingida, como a conta previa.
-Próximo passo só se o usuário pedir: tratar a coleta nova e atualizar o relatório.
+**Reverificação das suspensas (16/09/2026, autorizada):** UNB reabilitada (`fulltext.py`
+lê o `uri-handle` da API do Tainacan e segue para o DSpace antigo; 861 de 870 PDFs,
+881 no total). UECE: coletor corrigido (`<object type="application/pdf">`), mas só
+8 de 20 têm arquivo digital ("Esse Trabalho não possui arquivo digital") — abaixo de
+70%, segue suspensa. UNICAMP: plataforma Sophia Biblioteca Web, desafio anti-robô
+por token JS — não contornado; `robots.pagina_de_desafio` passou a reconhecer.
+UFRRJ: robots.txt com HTTP 403 intermitente, segue suspensa. UFT, UNIRIO, UCPEL,
+UFPA, UFRJ, PUCRIO: sem mudança. Oasisbr: robots.txt veta ClaudeBot/Claude-Web
+pelo nome → descartado (critério da letra e do espírito, como PUC_RS). Catálogo
+CAPES: só 2021–2024, sem link do PDF → sem uso. 23 instituições suspensas hoje. UDESC
+(60%) e UFMS (64%) foram cortadas pelo disjuntor no raw final, ainda fora da lista.
+**Pipeline completo sobre tudo o que há no disco (17–18/09, tmux `processamento`,
+7h46):** `processed.amostra.max_novos_por_instituicao: 0` (trata tudo). 25.338 PDFs
+coletados (67 instituições), 25.237 tratados; **21.515 documentos, 461,9 M de
+palavras** (mediana 17.681; UFMG 2.845, UFRN 3.024); 3.722 reprovados (2.258
+inglês, 960 linhas repetitivas, 360 escopo, 97 duplicatas; motivos se somam);
+PII mascarada 35.891, verificação no Curated **0 em 14 arquivos**. Curated:
+pré-treino 19.361/1.084/1.070; SFT 3.361/192/136; RAG 1.000.330 chunks; benchmark
+275/300/200. 164 testes, 24 defeitos corrigidos. Limite: as 360 exclusões de
+escopo não foram revisadas uma a uma (mesmo problema "Bezerra"). Relatório
+`docs/RELATORIO_ATIVIDADE_02.md` + `.pdf` atualizado em 25/09. Commit do usuário:
+`f7776c1`. Pendente: formalizar UDESC/UFMS em `instituicoes_suspensas` (só se o
+usuário pedir); pasta `logs/` está fora do git (copiar à mão se mudar de máquina).
 Backups do piloto 2: `data/reports/saude/raw_piloto2.json`,
 `data/raw/saude/{manifesto,inventario}.piloto2.jsonl`.
 
@@ -321,5 +343,5 @@ sem ler antes: ele APAGA as quatro camadas de `data/` para gerar dados falsos.
   "o colega fez X": escrever "o grupo", "montado pelo grupo". Nomes só na
   lista do grupo, em ordem alfabética e com primeiro e último nome:
   **Eduardo Melo, Otávio França e Ygor Morais**.
-- Relatório final (entrega de 2026-09-14): coleta de 15.098 PDFs; corpus e
-  produtos da amostra de 5.023 PDFs, declarada.
+- Relatório final (atualizado em 2026-09-25): coleta de 25.338 PDFs; corpus e
+  produtos de todos os PDFs tratados (21.515 documentos), sem amostra.
